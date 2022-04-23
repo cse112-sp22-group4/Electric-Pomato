@@ -2,8 +2,8 @@ name: ESLint CI
 
 on: 
   push:
-    tags:
-      - "*.js"
+    paths:
+      - '**.js'
     branches-ignore:
       - 'master'
 
