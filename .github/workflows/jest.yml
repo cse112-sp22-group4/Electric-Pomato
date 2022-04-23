@@ -2,6 +2,8 @@ name: Jest CI
 
 on: 
   push:
+    tags:
+      - "*.js"
     branches-ignore:
       - 'master'
 
