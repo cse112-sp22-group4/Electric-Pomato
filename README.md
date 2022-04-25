@@ -5,7 +5,7 @@
 Welcome! We are Team Pomato, a group of 9 students enrolled in Spring 2022's CSE 112. To learn more about us, go to our [group wiki page](https://github.com/DonaldWolfson/cse110-w21-group29/wiki/Group-Page). Below are some helpfull links that we believe help you navigate our repo and it's deployed project:
 
 - Our website can be found [here](https://cse112-sp22-group4.github.io/Electric-Pomato/)
-- JSDocs Documentation on our code can be found [here](https://cse-110-group-29.github.io/Electric-Pomato/docs/cse110-w21-group29/0.8.0/index.html)
+- JSDocs Documentation on our code can be found [here](https://github.com/cse112-sp22-group4/Electric-Pomato/tree/main/source/docs/cse112-sp22-group4/0.8.0/index.html)
 - For new devs, please read over our more in-depth onboarding to familiarize yourself with our repo's structure [here](https://github.com/DonaldWolfson/cse110-w21-group29/blob/main/specs/onboard.md)
 
 ## Getting Started
