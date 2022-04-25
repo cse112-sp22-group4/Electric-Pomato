@@ -1,4 +1,4 @@
-# Winter 2021, CSE 110 - Group 29
+# Spring 2022, CSE 112 - Group 4=
 
 ## Team Pomato!
 
@@ -48,13 +48,20 @@ To start contributing, first look over our [onboarding](https://github.com/Donal
 
 A list of our group:
 
+- @markbussard
+- @meshachadoe
+- @xingyuzzzhu
+- @46chris
+- @LJMNZS
+- @alanlwang1
+- @liamstone1814
+- @HarrisSteven
 - @AllenZou123
 - @amansourian
 - @anhatche
 - @ayoung19
 - @DonaldWolfson
 - @justlee0606
-- @liamstone1814
 - @PitEG
 - @truotere
 - @HarrisSteven
