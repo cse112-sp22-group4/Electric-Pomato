@@ -2,7 +2,7 @@
 
 ## Team Pomato!
 
-Welcome! We are Team Pomato, a group of 9 students enrolled in Winter 2021's CSE 110. To learn more about us, go to our [group wiki page](https://github.com/DonaldWolfson/cse110-w21-group29/wiki/Group-Page). Below are some helpfull links that we believe help you navigate our repo and it's deployed project:
+Welcome! We are Team Pomato, a group of 9 students enrolled in Spring 2022's CSE 112. To learn more about us, go to our [group wiki page](https://github.com/DonaldWolfson/cse110-w21-group29/wiki/Group-Page). Below are some helpfull links that we believe help you navigate our repo and it's deployed project:
 
 - Our website can be found [here](https://cse112-sp22-group4.github.io/Electric-Pomato/)
 - JSDocs Documentation on our code can be found [here](https://cse-110-group-29.github.io/Electric-Pomato/docs/cse110-w21-group29/0.8.0/index.html)
@@ -48,13 +48,19 @@ To start contributing, first look over our [onboarding](https://github.com/Donal
 
 A list of our group:
 
+- @HarrisSteven
+- @alanlwang1
+- @LJMNZS
+- @46chris
+- @xingyuzzzhu
+- @meshachadoe
+- @markbussard
+- @liamstone1814
 - @AllenZou123
 - @amansourian
 - @anhatche
 - @ayoung19
 - @DonaldWolfson
 - @justlee0606
-- @liamstone1814
 - @PitEG
 - @truotere
-- @HarrisSteven
