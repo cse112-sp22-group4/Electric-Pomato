@@ -23,7 +23,7 @@ class WelcomeMessage extends HTMLElement {
   }
 
   /**
-  * creates a button to allow user to edit their name
+  * creates a button to allow user to edit their task or name
   */
   createEditNameButton() {
     const editIcon = document.createElement('i');
