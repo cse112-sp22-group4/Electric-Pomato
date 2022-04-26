@@ -22,6 +22,9 @@ class WelcomeMessage extends HTMLElement {
     this.enterDefaultMode(username);
   }
 
+  /**
+  * creates a button to allow user to edit their name
+  */
   createEditNameButton() {
     const editIcon = document.createElement('i');
     editIcon.classList.add('fas', 'fa-pencil-alt', 'text-warning', 'edit-icon');
@@ -31,6 +34,9 @@ class WelcomeMessage extends HTMLElement {
     return editIcon;
   }
 
+  /**
+  * allow users to save their edits to the web page
+  */
   createFinishEditButton() {
     const saveBtn = document.createElement('button');
     saveBtn.classList.add('save-btn');
@@ -50,6 +56,10 @@ class WelcomeMessage extends HTMLElement {
     return saveBtn;
   }
 
+  /**
+  * allows users to cancel their edits and return to as 
+  * it was before their changes
+  */
   createCancelEditButton() {
     const cancelBtn = document.createElement('i');
     cancelBtn.classList.add('fas', 'fa-times', 'text-danger', 'cancel-icon');
