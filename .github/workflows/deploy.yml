@@ -65,13 +65,13 @@ jobs:
         run: git push origin `git subtree split --prefix source main`:production --force
 
       - name: Make temp directory for compiled CSS
-        run: mkdir -vp /tmp/cse110-w21-group29/source/css
+        run: mkdir -vp /tmp/cse112-sp22-group4/source/css
 
       - name: Compile CSS from SCSS files to temp directory
         uses: gha-utilities/sass-build@v0.3.6
         with:
           source: ./source/scss/main.scss
-          destination: /tmp/cse110-w21-group29/source/css/main.css
+          destination: /tmp/cse112-sp22-group4/source/css/main.css
 
       - name: Checkout production branch
         uses: actions/checkout@v2
@@ -79,7 +79,7 @@ jobs:
             ref: production
 
       - name: Move compiled CSS to production branch
-        run: sudo mv /tmp/cse110-w21-group29/source/css ./
+        run: sudo mv /tmp/cse112-sp22-group4/source/css ./
 
       - name: Remove private files on production branch
         run: |
