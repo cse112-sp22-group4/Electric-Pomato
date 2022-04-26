@@ -1,6 +1,6 @@
 import { beforeEach } from '@jest/globals';
-import ViewOnlyTaskList from '../js/ViewOnlyTaskList.js';
-import TaskList from '../js/TaskList.js';
+import ViewOnlyTaskList from '../js/components/ViewOnlyTaskList.js';
+import TaskList from '../js/classes/TaskList.js';
 
 beforeEach(() => {
   document.body.innerHTML = `

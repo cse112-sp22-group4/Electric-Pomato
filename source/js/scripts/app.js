@@ -9,12 +9,12 @@
  */
 
 /* ******************************** Imports ********************************* */
-import EditableTaskList from './EditableTaskList.js';
-import ViewOnlyTaskList from './ViewOnlyTaskList.js';
-import TimerUI from './TimerUI.js';
-import BreakPrompt from './BreakPrompt.js';
-import PopUp from './PopUp.js';
-import TaskList from './TaskList.js';
+import EditableTaskList from '../components/EditableTaskList.js';
+import ViewOnlyTaskList from '../components/ViewOnlyTaskList.js';
+import TimerUI from '../components/TimerUI.js';
+import BreakPrompt from '../components/BreakPrompt.js';
+import PopUp from '../classes/PopUp.js';
+import TaskList from '../classes/TaskList.js';
 
 /**
  * STATE:

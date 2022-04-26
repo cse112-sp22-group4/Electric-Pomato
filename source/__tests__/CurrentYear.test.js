@@ -1,4 +1,4 @@
-import CurrentYear from '../js/CurrentYear.js';
+import CurrentYear from '../js/components/CurrentYear.js';
 
 // Initialize the DOM with a TimerUI element.
 beforeEach(() => {

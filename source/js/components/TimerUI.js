@@ -9,7 +9,7 @@
  * @author Arman Mansourian
  */
 
-import Timer from './Timer.js';
+import Timer from '../classes/Timer.js';
 
 /**
  * Creates the Custom HTMLElement for the Timer class.

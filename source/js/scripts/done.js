@@ -4,9 +4,9 @@
  * @author Andy Young
  */
 
-import zingchart from '../dependencies/zingchart-es6.min.js';
-import lineConfig from './lineConfig.js';
-import { hex } from './lineColors.js';
+import zingchart from '../../dependencies/zingchart-es6.min.js';
+import lineConfig from '../constants/lineConfig.js';
+import { hex } from '../constants/lineColors.js';
 
 function line(name, data, color) {
   return {

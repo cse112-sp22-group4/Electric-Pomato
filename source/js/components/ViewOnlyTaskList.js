@@ -6,7 +6,7 @@
  * Date: 03/04/2021
  */
 
-import TaskList from './TaskList.js';
+import TaskList from '../classes/TaskList.js';
 import ViewOnlyTaskListSection from './ViewOnlyTaskListSection.js';
 
 /**
