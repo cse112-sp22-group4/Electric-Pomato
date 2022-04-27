@@ -54,6 +54,9 @@ class ViewOnlyTaskList extends HTMLElement {
     this.position();
   }
 
+  /**
+   * Render the tasks as 'Completed' or 'To Do'.
+   */
   render() {
     while (this.taskListContainer.firstChild) {
       this.taskListContainer.removeChild(this.taskListContainer.firstChild);
@@ -78,11 +81,17 @@ class ViewOnlyTaskList extends HTMLElement {
     }
   }
 
+  /**
+   * Increase the actual number of pomos for the current task.
+   */
   addPomo() {
     this.data.addPomo();
     this.render();
   }
 
+  /**
+   * Move the current task into completed.
+   */
   finishTask() {
     this.data.finishTask();
     this.render();
