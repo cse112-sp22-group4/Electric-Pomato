@@ -57,7 +57,7 @@ class WelcomeMessage extends HTMLElement {
   }
 
   /**
-  * allows users to cancel their edits and return to as 
+  * allows users to cancel their edits and return to as
   * it was before their changes
   */
   createCancelEditButton() {
@@ -72,7 +72,7 @@ class WelcomeMessage extends HTMLElement {
   }
 
   /**
-   * Show the text input for user to change their name.
+   * Show the text input for user to change their name
    */
   enterEditMode() {
     const input = document.createElement('input');
@@ -107,7 +107,7 @@ class WelcomeMessage extends HTMLElement {
   }
 
   /**
-   * Show the welcome message and user's saved username.
+   * Show the welcome message and user's saved username
    */
   enterDefaultMode(username) {
     const message = document.createElement('h2');
