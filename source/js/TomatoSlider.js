@@ -1,11 +1,11 @@
 /**
- * @file Creates a custom element to display the current year used for dynamic copyright years.
+ * @file Creates a custom element for the tomato slider to estimate the number of pomodoros.
  * @author Andy Young
  * @author Arman Mansourian
  */
 
 /**
- * Appends a text element containing the current year from a Date() object.
+ * Constructs the HTML for the slider.
  * @extends HTMLElement
  */
 class TomatoSlider extends HTMLElement {
@@ -40,10 +40,16 @@ class TomatoSlider extends HTMLElement {
     });
   }
 
+  /**
+   * Callback to update state of slider.
+   */
   connectedCallback() {
     this.updateState();
   }
 
+  /**
+   * Updates event listeners depending on if the task has been entered.
+   */
   updateState() {
     if (this.input.disabled) {
       this.defaultMode();
@@ -52,6 +58,11 @@ class TomatoSlider extends HTMLElement {
     }
   }
 
+  /**
+   * 
+   * @param {number} n - the number of tomatoes (pomodoro sessions) selected.
+   * @param {string} color - string for the color to fill the number of selected tomatoes.
+   */
   colorTomatos(n, color) {
     this.tomatos.forEach((tomato, i) => {
       if (i < n) {
@@ -62,6 +73,9 @@ class TomatoSlider extends HTMLElement {
     });
   }
 
+  /**
+   * Fill the slider with the tomatoes selected.
+   */
   render() {
     if (this.input.disabled) {
       this.colorTomatos(Number(this.input.value), 'green');
@@ -70,21 +84,35 @@ class TomatoSlider extends HTMLElement {
     }
   }
 
+  /**
+   * Sets the value for the number of tomatoes selected when the slider is clicked.
+   * @param {MouseEvent} e
+   */
   handleClick(e) {
     const { left, right } = this.querySelector('.slider-tomato-container').getBoundingClientRect();
     this.input.value = Math.min(Math.ceil((e.clientX - left + 1) / ((right - left) / 5)), 5);
   }
 
+  /**
+   * Color the slider with the value set when the mouse leaves.
+   */
   handleMouseLeave() {
     this.colorTomatos(Number(this.input.value), 'red');
   }
 
+  /**
+   * Fill in the tomatoes in the slider as the mouse hovers over them.
+   * @param {MouseEvent} e 
+   */
   handleMouseMove(e) {
     const { left, right } = this.querySelector('.slider-tomato-container').getBoundingClientRect();
     const n = Math.min(Math.max(Math.ceil((e.clientX - left) / ((right - left) / 5)), 1), 5);
     this.colorTomatos(n, 'red');
   }
 
+  /**
+   * Add event listeners when currently editing a task.
+   */
   editMode() {
     this.render();
 
@@ -95,6 +123,9 @@ class TomatoSlider extends HTMLElement {
     this.container.addEventListener('mousemove', this.handleMouseMove);
   }
 
+  /**
+   * Remove event listeners once the task is entered.
+   */
   defaultMode() {
     this.render();
 
