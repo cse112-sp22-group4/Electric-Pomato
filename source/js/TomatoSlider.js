@@ -59,7 +59,7 @@ class TomatoSlider extends HTMLElement {
   }
 
   /**
-   * 
+   *
    * @param {number} n - the number of tomatoes (pomodoro sessions) selected.
    * @param {string} color - string for the color to fill the number of selected tomatoes.
    */
@@ -102,7 +102,7 @@ class TomatoSlider extends HTMLElement {
 
   /**
    * Fill in the tomatoes in the slider as the mouse hovers over them.
-   * @param {MouseEvent} e 
+   * @param {MouseEvent} e
    */
   handleMouseMove(e) {
     const { left, right } = this.querySelector('.slider-tomato-container').getBoundingClientRect();
