@@ -1,11 +1,11 @@
-# Winter 2021, CSE 110 - Group 29
+# Spring 2022, CSE 112 - Group 4
 
-## Team Pomato!
+## The TBDs!
 
-Welcome! We are Team Pomato, a group of 9 students enrolled in Winter 2021's CSE 110. To learn more about us, go to our [group wiki page](https://github.com/DonaldWolfson/cse110-w21-group29/wiki/Group-Page). Below are some helpfull links that we believe help you navigate our repo and it's deployed project:
+Welcome! We are The TBDs, a group of 8 students enrolled in Spring 2022's CSE 112. To learn more about us, go to our [group wiki page](https://github.com/cse112-sp22-group4/Electric-Pomato/wiki). Below are some helpfull links that we believe help you navigate our repo and it's deployed project:
 
-- Our website can be found [here](https://cse-110-group-29.github.io/Electric-Pomato/)
-- JSDocs Documentation on our code can be found [here](https://cse-110-group-29.github.io/Electric-Pomato/docs/cse110-w21-group29/0.8.0/index.html)
+- Our website can be found [here](https://cse112-sp22-group4.github.io/Electric-Pomato/)
+- JSDocs Documentation on our code can be found [here](https://cse-110-group-29.github.io/Electric-Pomato/docs/cse110-w21-group29/0.8.0/index.html) TODO
 - For new devs, please read over our more in-depth onboarding to familiarize yourself with our repo's structure [here](https://github.com/DonaldWolfson/cse110-w21-group29/blob/main/specs/onboard.md)
 
 ## Getting Started
@@ -13,7 +13,7 @@ Welcome! We are Team Pomato, a group of 9 students enrolled in Winter 2021's CSE
 ### Airbnb Linter Setup Instructions (VS Code)
 
 - Make sure `node` is installed
-- `cd` to root directory of local repository `cse110-w21-group29/`
+- `cd` to root directory of local repository `cse112-w22-group4/`
 - From console run `npm install` to install dependencies locally, also try `npm ci` if necessary.
 - Download [ESLint VSCode](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) extension.
 - Run the linter locally, `npm run lint`.
