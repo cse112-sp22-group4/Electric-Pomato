@@ -4,11 +4,13 @@
  * @author Andy Young
  * @author Justin Lee
  * @author Liam Stone
+ * @author Chris Yoon
  */
 
 import StartButtons from './StartButtons.js';
 import UsernameInput from './UsernameInput.js';
 import WelcomeMessage from './WelcomeMessage.js';
+import { get } from './backend.js';
 
 /**
  *Appends the start container that will contain all user-interactable elements
@@ -19,7 +21,7 @@ class StartContainer extends HTMLElement {
   constructor() {
     super();
 
-    const username = localStorage.getItem('Username');
+    const username = get('Username');
 
     if (username) { // Returning User
       this.appendChild(new WelcomeMessage(username));
