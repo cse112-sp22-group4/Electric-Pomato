@@ -6,6 +6,8 @@
  * Date: 03/07/2021
  */
 
+import * as backend from './backend.js';
+
 /**
  * Creates the TaskList class and define its helper functions.
  */
@@ -15,7 +17,7 @@ class TaskList {
    */
   constructor() {
     // Checks localStorage for TaskList item.
-    const stored = JSON.parse(localStorage.getItem('TaskList'));
+    const stored = JSON.parse(backend.get('TaskList'));
 
     if (stored == null) {
       // If null, initialize variables to default value and save to localStorage.
@@ -41,7 +43,7 @@ class TaskList {
    */
   save() {
     // Writes a stringified object with instance variables of TaskList to localStorage.
-    localStorage.setItem('TaskList', JSON.stringify({ todo: this.todo, completed: this.completed }));
+    backend.set('TaskList', JSON.stringify({ todo: this.todo, completed: this.completed }));
   }
 
   /**
