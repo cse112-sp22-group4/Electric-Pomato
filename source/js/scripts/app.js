@@ -208,7 +208,7 @@ function handleClick(timer, taskList) {
       active = true;
       timer.startTimer().then(() => {
         if (!finished) {
-          const timerState = backend.getItem('Timer');
+          const timerState = backend.get('Timer');
 
           if (timerState === 'true') {
             backend.set('TotalPomos', Number(backend.get('TotalPomos')) + 1);
