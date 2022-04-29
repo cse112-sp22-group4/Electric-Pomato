@@ -1,4 +1,3 @@
-import { expect } from '@jest/globals';
 import UsernameInput from '../js/UsernameInput.js';
 
 // Initialize the DOM with a UsernameInput element.

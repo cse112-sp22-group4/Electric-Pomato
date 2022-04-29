@@ -1,4 +1,3 @@
-import { beforeEach, jest, test } from '@jest/globals';
 import WelcomeMessage from '../js/WelcomeMessage.js';
 
 beforeEach(() => {
