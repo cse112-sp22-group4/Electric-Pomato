@@ -2,10 +2,13 @@
  * @file TODO
  * @author Andy Young
  * @author Justin Lee
+ * @author Xingyu Zhu
  */
+
 
 import TaskList from './TaskList.js';
 import PopUp from './PopUp.js';
+import * as backend from './backend.js';
 /**
  * TODO
  * @extends HTMLElement
@@ -61,10 +64,10 @@ class StartButtons extends HTMLElement {
 
         PopUp.prompt(warning, true).then((result) => {
           if (result === 'left') {
-            localStorage.removeItem('TaskList');
-            localStorage.removeItem('Started');
-            localStorage.removeItem('TotalPomos');
-            localStorage.removeItem('Timer');
+            backend.remove('TaskList');
+            backend.remove('Started');
+            backend.remove('TotalPomos');
+            backend.remove('Timer');
             window.location.href = './app.html';
           } else if (result === 'right') {
             PopUp.hide();

@@ -1,8 +1,10 @@
 /**
  * @file Displays the button to redirect to logs page when there are items in History.
  * @author Andy Young
+ * @author Xingyu Zhu
  */
 
+import * as backend from './backend.js';
 /**
  * TODO
  * @extends HTMLElement
@@ -14,7 +16,7 @@ class LogsButton extends HTMLElement {
   constructor() {
     super();
 
-    const history = JSON.parse(localStorage.getItem('History'));
+    const history = JSON.parse(backend.get('History'));
 
     if (history && history.tasklists.length > 0) {
       const a = document.createElement('a');

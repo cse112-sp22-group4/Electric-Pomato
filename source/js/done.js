@@ -2,11 +2,13 @@
  * @file The main controller of the HTML of the last page.
  * @author Annika Hatcher
  * @author Andy Young
+ * @author Xingyu Zhu
  */
 
 import zingchart from '../dependencies/zingchart-es6.min.js';
 import lineConfig from './lineConfig.js';
 import { hex } from './lineColors.js';
+import * as backend from './backend.js';
 
 function line(name, data, color) {
   return {
@@ -33,7 +35,7 @@ function line(name, data, color) {
 }
 
 function handleOnLoad() {
-  const { tasklists } = JSON.parse(localStorage.getItem('History'));
+  const { tasklists } = JSON.parse(backend.get('History'));
 
   const lines = ['expected', 'actual'];
 
