@@ -1,4 +1,4 @@
-import UsernameInput from '../js/UsernameInput.js';
+import UsernameInput from '../js/components/UsernameInput.js';
 
 // Initialize the DOM with a UsernameInput element.
 beforeEach(() => {

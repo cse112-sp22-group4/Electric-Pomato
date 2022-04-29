@@ -6,7 +6,7 @@
  * Date: 03/07/2021
  */
 
-import TaskList from './TaskList.js';
+import TaskList from '../classes/TaskList.js';
 
 /**
  * Creates a customer HTMLElement for editing the TaskList.

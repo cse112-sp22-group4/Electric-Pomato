@@ -1,4 +1,4 @@
-import WelcomeMessage from '../js/WelcomeMessage.js';
+import WelcomeMessage from '../js/components/WelcomeMessage.js';
 
 beforeEach(() => {
   document.body.innerHTML = '<h1> Something </h1>';

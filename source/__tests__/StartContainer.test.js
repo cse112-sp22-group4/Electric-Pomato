@@ -1,4 +1,4 @@
-import StartContainer from '../js/StartContainer.js';
+import StartContainer from '../js/components/StartContainer.js';
 
 describe('StartContainer tests', () => {
   beforeEach(() => {

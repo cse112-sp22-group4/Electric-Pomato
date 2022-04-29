@@ -1,7 +1,7 @@
-import EditableTaskList from '../js/EditableTaskList.js';
-import EditableTaskListInput from '../js/EditableTaskListInput.js';
-import EditableTaskListBody from '../js/EditableTaskListBody.js';
-import TaskList from '../js/TaskList.js';
+import EditableTaskList from '../js/components/EditableTaskList.js';
+import EditableTaskListInput from '../js/components/EditableTaskListInput.js';
+import EditableTaskListBody from '../js/components/EditableTaskListBody.js';
+import TaskList from '../js/classes/TaskList.js';
 
 // Initialize the DOM with a EditableTaskList element.
 beforeEach(() => {

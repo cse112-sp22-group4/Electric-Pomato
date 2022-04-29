@@ -5,7 +5,7 @@
  * @author Luke Menezes
  */
 
-import * as backend from './backend.js';
+import * as backend from '../backend.js';
 
 /**
  * Prompt HTML element to be displayed on break timer.
