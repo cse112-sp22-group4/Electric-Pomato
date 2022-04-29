@@ -4,7 +4,7 @@
  */
 
 /**
- * TODO
+ * Constructs the HTML for the "View Logs" button
  * @extends HTMLElement
  */
 class LogsButton extends HTMLElement {

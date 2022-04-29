@@ -1,15 +1,17 @@
 /**
- * @file TODO
+ * @file Creates a custom element for the tomato slider to estimate the number of pomodoros.
  * @author Andy Young
  */
 
 /**
- * TODO
+ * Constructs the HTML for the view only task list section.
  * @extends HTMLElement
  */
 class ViewOnlyTaskListSection extends HTMLElement {
   /**
-   * TODO
+   * Constructor for ViewOnlyTaskListSection
+   * @param {string} title - title of the task list.
+   * @param {Array.<Object>} data - describes each task's name, expected and actual pomos.
    */
   constructor(title, data) {
     super();
@@ -26,7 +28,7 @@ class ViewOnlyTaskListSection extends HTMLElement {
 
   /**
    * Insert a title.
-   * @param {*} title - title The title.
+   * @param {string} title - "Completed" or "To Do".
    */
   insertTitle(title) {
     const h3 = document.createElement('h3');
@@ -35,6 +37,9 @@ class ViewOnlyTaskListSection extends HTMLElement {
     this.appendChild(h3);
   }
 
+  /**
+   * Insert header row.
+   */
   insertHeaderRow() {
     this.appendChild(this.headerRowTemplate.cloneNode(true));
   }
