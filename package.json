@@ -4,10 +4,10 @@
   "description": "Electric Pomato!",
   "main": "index.js",
   "scripts": {
-    "lint": "NODE_OPTIONS=--experimental-vm-modules npx eslint ./source/js --ext .js",
-    "test": "NODE_OPTIONS=--experimental-vm-modules jest ./source/__tests__",
+    "lint": "npx eslint ./source/js --ext .js",
+    "test": "jest ./source/__tests__",
     "generate-docs": "node_modules/.bin/jsdoc --configure .jsdoc.json --verbose",
-    "coverage": "NODE_OPTIONS=--experimental-vm-modules jest --coverage",
+    "coverage": "jest --coverage",
     "sass-compile": "sass ./source/scss/main.scss ./source/css/main.css",
     "sass-watch": "sass ./source/scss/main.scss ./source/css/main.css -w"
   },
@@ -16,6 +16,9 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@babel/core": "^7.17.9",
+    "@babel/preset-env": "^7.16.11",
+    "babel-jest": "^28.0.2",
     "eslint": "^7.19.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.22.1",
@@ -33,7 +36,6 @@
   },
   "homepage": "https://github.com/cse112-sp22-group4/Electric-Pomato#readme",
   "dependencies": {
-    "@jest/globals": "^26.6.2",
     "bootstrap": "^5.0.0-beta2",
     "sass": "^1.32.11"
   }
