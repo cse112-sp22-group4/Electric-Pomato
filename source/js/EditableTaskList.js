@@ -32,10 +32,17 @@ class EditableTaskList extends HTMLElement {
     taskListContainer.appendChild(new EditableTaskListInput());
   }
 
+  /**
+   * Callback function to update the button's state
+   */
   connectedCallback() {
     this.updateButtonState();
   }
 
+  /**
+   * Sets the "Start My Day" button to enabled when there is at least one task entered
+   * and sets it to disabled otherwise.
+   */
   updateButtonState() {
     this.querySelectorAll('.start-day-button').forEach((button) => {
       button.disabled = !(this.body.data.todo.length > 0);

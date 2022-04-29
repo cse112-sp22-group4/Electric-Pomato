@@ -1,5 +1,5 @@
 /**
- * @file TODO
+ * @file Creates a custom element for the buttons to start the timer session.
  * @author Andy Young
  * @author Justin Lee
  */
@@ -7,7 +7,7 @@
 import TaskList from './TaskList.js';
 import PopUp from './PopUp.js';
 /**
- * TODO
+ * Constructs the HTML for the start buttons
  * @extends HTMLElement
  */
 class StartButtons extends HTMLElement {
@@ -33,6 +33,10 @@ class StartButtons extends HTMLElement {
   }
 
   /* <div class="col-12 col-lg-6"></div> */
+  /**
+   * Creates and returns a styled button container
+   * @returns a button container
+   */
   static createButtonContainer() {
     const div = document.createElement('div');
     div.classList.add('col-12', 'col-xxl-6');
@@ -40,9 +44,10 @@ class StartButtons extends HTMLElement {
   }
 
   /**
-     * Create a HTML object for the 'Create Session' button.
-     * <button type="button" class="btn btn-secondary btn-lg">Create New Session</button>
-     */
+   * Create a HTML object for the 'Create Session' button.
+   * <button type="button" class="btn btn-secondary btn-lg">Create New Session</button>
+   * @returns a styled button element that conditionally shows a popup
+   */
   static createButton() {
     const button = document.createElement('button');
     const text = document.createTextNode('Create New Session');
@@ -79,8 +84,8 @@ class StartButtons extends HTMLElement {
   }
 
   /**
-   * Create a HTML object for the 'Returning User' button.
    * <button type="button" class="btn btn-secondary btn-lg">Returning User</button>
+   * @returns an HTML object for the 'Returning User' button.
    */
   static createAnchor() {
     const a = document.createElement('a');
