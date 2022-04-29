@@ -2,7 +2,10 @@
  * @file Creates custom HTML element for a break timer prompt.
  * @author Andy Young
  * @author Arman Mansourian
+ * @author Luke Menezes
  */
+
+import * as backend from '../backend.js';
 
 /**
  * Prompt HTML element to be displayed on break timer.
@@ -18,7 +21,7 @@ class BreakPrompt extends HTMLElement {
 
     this.checked = false;
 
-    const taskList = JSON.parse(localStorage.getItem('TaskList'));
+    const taskList = JSON.parse(backend.get('TaskList'));
 
     const button = document.createElement('button');
     button.classList.add('btn', 'btn-success', 'btn-lg');

@@ -1,4 +1,3 @@
-import { describe, expect, test } from '@jest/globals';
 import StartButtons from '../js/components/StartButtons.js';
 import TaskList from '../js/classes/TaskList.js';
 

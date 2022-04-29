@@ -8,6 +8,13 @@ import zingchart from '../../dependencies/zingchart-es6.min.js';
 import lineConfig from '../constants/lineConfig.js';
 import { hex } from '../constants/lineColors.js';
 
+/**
+ * Formats the data into an object that describes one line in the graph.
+ * @param {string} name - Name of the line
+ * @param {Array.<number>} data - Contains number of sessions (y-coordinate)
+ * @param {string} color - Hexadecimal string of the line color
+ * @returns {Object} Formatted line data
+ */
 function line(name, data, color) {
   return {
     text: name.charAt(0).toUpperCase() + name.slice(1),
@@ -32,6 +39,9 @@ function line(name, data, color) {
   };
 }
 
+/**
+ * Assembles the data from the history of sessions and renders the line graph.
+ */
 function handleOnLoad() {
   const { tasklists } = JSON.parse(localStorage.getItem('History'));
 

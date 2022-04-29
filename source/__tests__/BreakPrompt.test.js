@@ -1,4 +1,3 @@
-import { jest, test } from '@jest/globals';
 import BreakPrompt from '../js/components/BreakPrompt.js';
 
 describe('BreakPrompt testing', () => {

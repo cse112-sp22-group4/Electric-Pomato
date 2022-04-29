@@ -1,4 +1,3 @@
-import { describe, expect } from '@jest/globals';
 import StartContainer from '../js/components/StartContainer.js';
 
 describe('StartContainer tests', () => {

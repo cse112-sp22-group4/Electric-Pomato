@@ -1,4 +1,3 @@
-import { expect, jest, test } from '@jest/globals';
 import TimerUI from '../js/components/TimerUI.js';
 
 // Initialize the DOM with a TimerUI element.

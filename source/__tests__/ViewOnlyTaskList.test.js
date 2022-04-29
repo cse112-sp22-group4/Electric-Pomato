@@ -1,4 +1,3 @@
-import { beforeEach } from '@jest/globals';
 import ViewOnlyTaskList from '../js/components/ViewOnlyTaskList.js';
 import TaskList from '../js/classes/TaskList.js';
 

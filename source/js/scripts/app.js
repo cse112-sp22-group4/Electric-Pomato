@@ -6,6 +6,7 @@
  * @author Enrique Gan
  * @author Teresa Truong
  * @author Annika Hatcher
+ * @author Luke Menezes
  */
 
 /* ******************************** Imports ********************************* */
@@ -15,6 +16,7 @@ import TimerUI from '../components/TimerUI.js';
 import BreakPrompt from '../components/BreakPrompt.js';
 import PopUp from '../classes/PopUp.js';
 import TaskList from '../classes/TaskList.js';
+import * as backend from '../backend.js';
 
 /**
  * STATE:
@@ -50,20 +52,17 @@ let finished = false;
  */
 function handleEndOfSession() {
   // Move completed task list to history
-  let history = JSON.parse(localStorage.getItem('History'));
-  const { completed } = JSON.parse(localStorage.getItem('TaskList'));
+  let history = JSON.parse(backend.get('History'));
+  const { completed } = JSON.parse(backend.get('TaskList'));
   if (history) {
     history.tasklists.push(completed);
   } else {
     history = { tasklists: [completed] };
   }
-  localStorage.setItem('History', JSON.stringify(history));
+  backend.set('History', JSON.stringify(history));
 
   // Wipe data from previous task list
-  localStorage.removeItem('TaskList');
-  localStorage.removeItem('Started');
-  localStorage.removeItem('TotalPomos');
-  localStorage.removeItem('Timer');
+  backend.removeAll();
 
   // Pop up prompt
   const endMessage = {
@@ -88,7 +87,7 @@ function handleEndOfSession() {
  * @ignore
  */
 function updateAppTitle(nextTask) {
-  const taskList = JSON.parse(localStorage.getItem('TaskList'));
+  const taskList = JSON.parse(backend.get('TaskList'));
   const { length } = taskList.todo;
   let title = '';
 
@@ -135,10 +134,10 @@ function changeTitle(object) {
  */
 function initTimer(timer) {
   // Change to done page if no more tasks in todo.
-  if (JSON.parse(localStorage.getItem('TaskList')).todo.length === 0) {
+  if (JSON.parse(backend.get('TaskList')).todo.length === 0) {
     handleEndOfSession();
   } else {
-    const timerState = localStorage.getItem('Timer');
+    const timerState = backend.get('Timer');
     timer.reset();
 
     // If timer is true set pomo, otherwise it is a break
@@ -148,7 +147,7 @@ function initTimer(timer) {
       timer.setColorGreen();
       timer.createTimer(25, 0);
     } else {
-      const totalPomos = Number(localStorage.getItem('TotalPomos'));
+      const totalPomos = Number(backend.get('TotalPomos'));
       const breakPrompt = new BreakPrompt(changeTitle);
 
       // Update the HTML
@@ -173,7 +172,7 @@ function initTimer(timer) {
  * @ignore
  */
 function showTimerNotification() {
-  const timerState = localStorage.getItem('Timer');
+  const timerState = backend.get('Timer');
   if (timerState === 'true') {
     const pomoAlert = new Notification('Electric Pomato', {
       icon: 'img/green-tomato.ico',
@@ -209,10 +208,10 @@ function handleClick(timer, taskList) {
       active = true;
       timer.startTimer().then(() => {
         if (!finished) {
-          const timerState = localStorage.getItem('Timer');
+          const timerState = backend.getItem('Timer');
 
           if (timerState === 'true') {
-            localStorage.setItem('TotalPomos', Number(localStorage.getItem('TotalPomos')) + 1);
+            backend.set('TotalPomos', Number(backend.get('TotalPomos')) + 1);
             taskList.addPomo();
           }
 
@@ -229,7 +228,7 @@ function handleClick(timer, taskList) {
             showTimerNotification();
           }
 
-          localStorage.setItem('Timer', timerState === 'false');
+          backend.set('Timer', timerState === 'false');
           initTimer(timer);
           active = false;
         }
@@ -263,18 +262,18 @@ function showTimer() {
  */
 function handleOnLoad() {
   // Redirect to index.html if no name is in localStorage.
-  if (!localStorage.getItem('Username')) {
+  if (!backend.get('Username')) {
     window.location.href = 'index.html';
-  } else if (localStorage.getItem('Started')) {
+  } else if (backend.get('Started')) {
     showTimer();
   } else {
     appContainer.appendChild(new EditableTaskList());
-    document.querySelector('.app-title').textContent = `${localStorage.getItem('Username')}'s Day`;
+    document.querySelector('.app-title').textContent = `${backend.get('Username')}'s Day`;
     appContainer.querySelectorAll('.start-day-button').forEach((button) => {
       button.addEventListener('click', () => {
-        localStorage.setItem('Started', true);
-        localStorage.setItem('Timer', true);
-        localStorage.setItem('TotalPomos', 0);
+        backend.set('Started', true);
+        backend.set('Timer', true);
+        backend.set('TotalPomos', 0);
         appContainer.lastElementChild.remove();
         showTimer();
       });
