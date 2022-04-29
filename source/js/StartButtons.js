@@ -5,7 +5,6 @@
  * @author Xingyu Zhu
  */
 
-
 import TaskList from './TaskList.js';
 import PopUp from './PopUp.js';
 import * as backend from './backend.js';
