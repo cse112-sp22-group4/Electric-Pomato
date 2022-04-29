@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>TimerUI.js - Documentation</title>
+    <title>components/ViewOnlyTaskList.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,7 +29,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">TimerUI.js</h1>
+    <h1 class="page-title">components/ViewOnlyTaskList.js</h1>
     
 
     
@@ -40,120 +40,107 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @file TimerUI acts as the middle man between javascript and the html.
- * It creates a pomo timer that will update the html elements.
- * @author Justin Lee
- * @author Enrique Gan
- * @author Donald Wolfson
+ * @file Creates and defines the ViewOnlyTaskList custom HTLMElement.
  * @author Andy Young
+ * @author Annika Hatcher
  * @author Liam Stone
- * @author Arman Mansourian
+ * Date: 03/04/2021
  */
 
-import Timer from './Timer.js';
+import TaskList from '../classes/TaskList.js';
+import ViewOnlyTaskListSection from './ViewOnlyTaskListSection.js';
 
 /**
- * Creates the Custom HTMLElement for the Timer class.
- * @extends HTMLElement
+ * Defines the ViewOnlyTaskList and its helper functions.
+ * @extends HTMLElements
  */
-class TimerUI extends HTMLElement {
+class ViewOnlyTaskList extends HTMLElement {
   /**
-   * constructor for the UI in the Timer Object.
-   */
+  * constructor for ViewOnlyTaskList
+  */
   constructor() {
     super();
 
-    this.classList.add('w-100', 'h-100', 'd-flex', 'flex-column', 'justify-content-center', 'align-items-center');
-    this.appendChild(document.querySelector('#timer-template').content.cloneNode(true));
+    this.data = new TaskList();
 
-    this.text = this.querySelector('.timer-text');
-  }
+    this.appContainer = document.querySelector('.app-container');
+    this.appHeader = document.querySelector('.app-header');
+    this.visible = false;
 
-  reset() {
-    this.text.textContent = 'START';
-    this.classList.remove('timer-active');
-  }
+    this.taskListTitle = document.createElement('h2');
+    this.taskListTitle.classList.add('subtitle', 'text-center', 'mt-2', 'mb-2');
 
-  clear() {
-    this.text.textContent = 'All Done!';
-  }
+    this.taskListContainer = document.createElement('div');
+    this.taskListContainer.classList.add('task-list-container');
 
-  /**
-   * Create an internal `Timer` object that sets its `callbackEverySecond`
-   * callback function to a function that changes the timer html elements'
-   * minute and second values for every second that it ticks down.
-   * @param {number} minutes - minutes that will be stored in object.
-   * @param {number} seconds - seconds that will be stored in object.
-   */
-  createTimer(minutes, seconds) {
-    this.timer = new Timer(minutes, seconds, (newMinute, newSecond) => {
-      // update html
-      this.text.textContent = `${TimerUI.parseMinutes(newMinute)} : ${TimerUI.parseSeconds(newSecond)}`;
+    this.appendChild(this.taskListTitle);
+    this.appendChild(this.taskListContainer);
+
+    this.taskListTitle.addEventListener('click', () => {
+      this.visible = !this.visible;
+      this.position();
     });
+
+    window.addEventListener('resize', () => {
+      this.position();
+    });
+
+    this.render();
   }
 
   /**
-   * Start the internal `Timer` object by returning the Promise from startTimer()
-   * in the Timer class. Call this function by using await, the caller will be
-   * blocked until the timer is done counting down.
-   * @returns {Promise} Countdown of timer
+   * Callback function.
    */
-  startTimer() {
-    // immediately update html
-    this.text.textContent = `${TimerUI.parseMinutes(this.timer.minutes)} : ${TimerUI.parseSeconds(this.timer.seconds)}`;
-    this.classList.add('timer-active');
-    return this.timer.startTimer();
+  connectedCallback() {
+    this.position();
   }
 
   /**
-   * Returns a string representing the minutes left with the format "MM".
-   * ie: If 25 minuts are left, "25". If 9 minutes are left "09"
-   * @param {number} minute - Number of minutes that will be formatted.
-   * @returns {string} Minutes Left
+   * Render the tasks as 'Completed' or 'To Do'.
    */
-  static parseMinutes(minute) {
-    if (minute &lt; 10) { return `0${String(minute)}`; }
-    return String(minute);
+  render() {
+    while (this.taskListContainer.firstChild) {
+      this.taskListContainer.removeChild(this.taskListContainer.firstChild);
+    }
+
+    this.taskListContainer.appendChild(new ViewOnlyTaskListSection('To Do', this.data.todo));
+    if (this.data.completed.length > 0) {
+      this.taskListContainer.appendChild(new ViewOnlyTaskListSection('Completed', this.data.completed));
+    }
   }
 
   /**
-   * Returns a string representing the seconds left with the format "SS".
-   * ie: If 25 seconds are left, "25". If 9 seconds are left "09".
-   * @param {number} second - Number of seconds that will be formatted.
-   * @returns {string} Seconds Left
+   * Update the position.
    */
-  static parseSeconds(second) {
-    if (second === 60 || second >= 60) return '00';
-    if (second &lt; 10) return `0${String(second)}`;
-    return String(second);
+  position() {
+    if (this.visible) {
+      this.taskListTitle.innerHTML = '&lt;i class="fas fa-chevron-down">&lt;/i>';
+      this.style.top = `${this.appHeader.offsetHeight}px`;
+    } else {
+      this.taskListTitle.innerHTML = '&lt;i class="fas fa-chevron-up">&lt;/i>';
+      this.style.top = `${this.appContainer.offsetHeight - (this.querySelector('.task-list-container').getBoundingClientRect().top - this.getBoundingClientRect().top)}px`;
+    }
   }
 
   /**
-   * Sets the Tomato image to a Green Tomato.
+   * Increase the actual number of pomos for the current task.
    */
-  setColorGreen() {
-    this.querySelector('.timer-image').classList.remove('red-tomato');
-    this.querySelector('.timer-image').classList.add('green-tomato');
+  addPomo() {
+    this.data.addPomo();
+    this.render();
   }
 
   /**
-   * Sets the Tomato image to a Red Tomato.
+   * Move the current task into completed.
    */
-  setColorRed() {
-    this.querySelector('.timer-image').classList.remove('green-tomato');
-    this.querySelector('.timer-image').classList.add('red-tomato');
-  }
-
-  /**
-   * Sets the Tomato image to a Gold Tomato.
-   */
-  setColorGold() {
-    this.querySelector('.timer-image').classList.add('gold-tomato');
+  finishTask() {
+    this.data.finishTask();
+    this.render();
   }
 }
 
-customElements.define('pomo-timer', TimerUI);
-export default TimerUI;
+customElements.define('view-only-task-list', ViewOnlyTaskList);
+export default ViewOnlyTaskList;
 </code></pre>
         </article>
     </section>
@@ -166,7 +153,7 @@ export default TimerUI;
 <br class="clear">
 
 <footer>
-    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a> on Fri Apr 29 2022 19:27:59 GMT+0000 (Coordinated Universal Time) using the Minami theme.
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a> on Fri Apr 29 2022 21:59:31 GMT+0000 (Coordinated Universal Time) using the Minami theme.
 </footer>
 
 <script>prettyPrint();</script>

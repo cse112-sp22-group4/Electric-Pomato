@@ -6,7 +6,7 @@
  * Date: 03/07/2021
  */
 
-import * as backend from './backend.js';
+import * as backend from '../backend.js';
 
 /**
  * Creates the TaskList class and define its helper functions.

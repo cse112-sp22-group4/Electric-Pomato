@@ -1,4 +1,4 @@
-import TimerUI from '../js/TimerUI.js';
+import TimerUI from '../js/components/TimerUI.js';
 
 // Initialize the DOM with a TimerUI element.
 beforeEach(() => {

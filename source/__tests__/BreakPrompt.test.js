@@ -1,4 +1,4 @@
-import BreakPrompt from '../js/BreakPrompt.js';
+import BreakPrompt from '../js/components/BreakPrompt.js';
 
 describe('BreakPrompt testing', () => {
   let jestFunc; // jest mock function

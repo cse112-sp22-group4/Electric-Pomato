@@ -4,8 +4,8 @@
  * @author Justin Lee
  */
 
-import TaskList from './TaskList.js';
-import PopUp from './PopUp.js';
+import TaskList from '../classes/TaskList.js';
+import PopUp from '../classes/PopUp.js';
 /**
  * Constructs the HTML for the start buttons
  * @extends HTMLElement

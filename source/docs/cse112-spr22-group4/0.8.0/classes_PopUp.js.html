@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>ViewOnlyTaskList.js - Documentation</title>
+    <title>classes/PopUp.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,7 +29,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">ViewOnlyTaskList.js</h1>
+    <h1 class="page-title">classes/PopUp.js</h1>
     
 
     
@@ -40,107 +40,69 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @file Creates and defines the ViewOnlyTaskList custom HTLMElement.
+ * @file Creates a notification controller that displays notifications and
+ * runs callbacks.
  * @author Andy Young
- * @author Annika Hatcher
- * @author Liam Stone
- * Date: 03/04/2021
+ * @author Justin Lee
  */
-
-import TaskList from './TaskList.js';
-import ViewOnlyTaskListSection from './ViewOnlyTaskListSection.js';
 
 /**
- * Defines the ViewOnlyTaskList and its helper functions.
- * @extends HTMLElements
+ * Finds the notification element on the page and handles the display/hide of
+ * notifications.
  */
-class ViewOnlyTaskList extends HTMLElement {
+class PopUp {
   /**
-  * constructor for ViewOnlyTaskList
+  * Prompt a notification with the given title + subtitle, and then run
+  * the callback on a successful button press.
+  * @param {Object} message - The message object.
+  * @param {string} message.title - The title of the message.
+  * @param {string} message.subtitle - The subtitle of the message.
+  * @param {Boolean} fastClose - Whether this notification allows for the user to close it by
+  *                               clicking outside the box
+  * @returns {Promise} Promise object represents the left or right button click.
   */
-  constructor() {
-    super();
 
-    this.data = new TaskList();
+  static show() {
+    document.querySelector('#notification').style.display = 'flex';
+  }
 
-    this.appContainer = document.querySelector('.app-container');
-    this.appHeader = document.querySelector('.app-header');
-    this.visible = false;
+  static hide() {
+    document.querySelector('#notification').style.display = 'none';
+  }
 
-    this.taskListTitle = document.createElement('h2');
-    this.taskListTitle.classList.add('subtitle', 'text-center', 'mt-2', 'mb-2');
+  static prompt({
+    title, subtitle, leftButton, rightButton,
+  }, fastClose) {
+    document.querySelector('#notification-title').textContent = title || '';
+    document.querySelector('#notification-subtitle').textContent = subtitle || '';
+    document.querySelector('#notif-left').textContent = leftButton || '';
+    document.querySelector('#notif-right').textContent = rightButton || '';
 
-    this.taskListContainer = document.createElement('div');
-    this.taskListContainer.classList.add('task-list-container');
+    PopUp.show();
 
-    this.appendChild(this.taskListTitle);
-    this.appendChild(this.taskListContainer);
+    return new Promise((resolve) => {
+      document.querySelector('#notification').onclick = (e) => {
+        // If outside of #notif-content and fastClose is on, then close
+        if (e.target.querySelector('#notif-content') &amp;&amp; fastClose) {
+          PopUp.hide();
+          resolve('neither');
+        }
+      };
 
-    this.taskListTitle.addEventListener('click', () => {
-      this.visible = !this.visible;
-      this.position();
+      // Action for pressing left
+      document.querySelector('#notif-left').onclick = () => {
+        resolve('left');
+      };
+
+      // Action for pressing right
+      document.querySelector('#notif-right').onclick = () => {
+        resolve('right');
+      };
     });
-
-    window.addEventListener('resize', () => {
-      this.position();
-    });
-
-    this.render();
-  }
-
-  /**
-   * Callback function.
-   */
-  connectedCallback() {
-    this.position();
-  }
-
-  /**
-   * Render the tasks as 'Completed' or 'To Do'.
-   */
-  render() {
-    while (this.taskListContainer.firstChild) {
-      this.taskListContainer.removeChild(this.taskListContainer.firstChild);
-    }
-
-    this.taskListContainer.appendChild(new ViewOnlyTaskListSection('To Do', this.data.todo));
-    if (this.data.completed.length > 0) {
-      this.taskListContainer.appendChild(new ViewOnlyTaskListSection('Completed', this.data.completed));
-    }
-  }
-
-  /**
-   * Update the position.
-   */
-  position() {
-    if (this.visible) {
-      this.taskListTitle.innerHTML = '&lt;i class="fas fa-chevron-down">&lt;/i>';
-      this.style.top = `${this.appHeader.offsetHeight}px`;
-    } else {
-      this.taskListTitle.innerHTML = '&lt;i class="fas fa-chevron-up">&lt;/i>';
-      this.style.top = `${this.appContainer.offsetHeight - (this.querySelector('.task-list-container').getBoundingClientRect().top - this.getBoundingClientRect().top)}px`;
-    }
-  }
-
-  /**
-   * Increase the actual number of pomos for the current task.
-   */
-  addPomo() {
-    this.data.addPomo();
-    this.render();
-  }
-
-  /**
-   * Move the current task into completed.
-   */
-  finishTask() {
-    this.data.finishTask();
-    this.render();
   }
 }
 
-customElements.define('view-only-task-list', ViewOnlyTaskList);
-export default ViewOnlyTaskList;
+export default PopUp;
 </code></pre>
         </article>
     </section>
@@ -153,7 +115,7 @@ export default ViewOnlyTaskList;
 <br class="clear">
 
 <footer>
-    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a> on Fri Apr 29 2022 19:27:59 GMT+0000 (Coordinated Universal Time) using the Minami theme.
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a> on Fri Apr 29 2022 21:59:31 GMT+0000 (Coordinated Universal Time) using the Minami theme.
 </footer>
 
 <script>prettyPrint();</script>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>EditableTaskListInput.js - Documentation</title>
+    <title>classes/TaskList.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,7 +29,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">EditableTaskListInput.js</h1>
+    <h1 class="page-title">classes/TaskList.js</h1>
     
 
     
@@ -40,101 +40,116 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @file Define the and construct an editable TaskList, and handle the inputs.
+ * @file Holds the code the general functionality of the TaskList.
  * @author Andy Young
- * @author Teresa Truong
  * @author Annika Hatcher
- * @author Liam Stone
- * Date: 03/04/2021
+ * @author Arman Mansourian
+ * Date: 03/07/2021
  */
+
+import * as backend from '../backend.js';
 
 /**
- * Define the tasks and construct an editable TaskList, and handle the inputs from the user.
- * @extends HTMLElement
+ * Creates the TaskList class and define its helper functions.
  */
-class EditableTaskListInput extends HTMLElement {
+class TaskList {
   /**
-  * constructor for EditableTaskListInput
-  */
+   * Constructor for the TaskList object.
+   */
   constructor() {
-    super();
+    // Checks localStorage for TaskList item.
+    const stored = JSON.parse(backend.get('TaskList'));
 
-    // Clone the template.
-    const clone = document.querySelector('#add-row-template').content.cloneNode(true);
-    this.appendChild(clone);
-
-    // Store references to inputs/button to instance variable.
-    [this.nameInput, this.expectedInput] = this.querySelectorAll('input');
-    this.button = this.querySelector('button');
-
-    // Add event listener to both inputs to update button state.
-    [this.nameInput, this.expectedInput].forEach((input) => {
-      input.addEventListener('input', () => {
-        this.updateButtonState();
-      });
-    });
-
-    // Add event listener to both inputs to add row on enter if inputs are valid.
-    [this.nameInput, this.expectedInput].forEach((input) => {
-      input.addEventListener('keyup', (e) => {
-        if (e.code === 'Enter' &amp;&amp; !this.button.disabled) {
-          this.addRow();
-        }
-      });
-    });
-
-    // Add event listener to button to add row on click.
-    this.button.addEventListener('click', () => {
-      this.addRow();
-    });
-
-    this.resetCount = 0;
-  }
-
-  /**
-   * Initialize row to default UI state.
-   */
-  connectedCallback() {
-    this.reset();
-  }
-
-  /**
-   * Disable/Enable add task button based on validity of inputs.
-   */
-  updateButtonState() {
-    if (this.nameInput.value.length === 0) {
-      this.button.disabled = true;
+    if (stored == null) {
+      // If null, initialize variables to default value and save to localStorage.
+      this.reset();
     } else {
-      this.button.disabled = false;
+      // Otherwise, initialize variables to stored data.
+      this.todo = stored.todo;
+      this.completed = stored.completed;
     }
   }
 
   /**
-   * Add row to TaskList assuming it is the previous sibling.
-   */
-  addRow() {
-    this.previousElementSibling.addRow(this.nameInput.value, this.expectedInput.value);
-    this.reset();
-  }
-
-  /**
-   * Initializes the UI of the row to its initial state.
+   * Reset instance variables to default empty value and save to localStorage.
    */
   reset() {
-    this.nameInput.value = '';
-    this.expectedInput.value = '1';
-    this.nameInput.focus();
-    this.updateButtonState();
-    if (this.resetCount > 0) {
-      this.querySelector('tomato-slider').render();
+    this.todo = [];
+    this.completed = [];
+    this.save();
+  }
+
+  /**
+   * Save the instance variables to localStorage.
+   */
+  save() {
+    // Writes a stringified object with instance variables of TaskList to localStorage.
+    backend.set('TaskList', JSON.stringify({ todo: this.todo, completed: this.completed }));
+  }
+
+  /**
+   * Add new task to todo with given name and expected pomodoros.
+   * @param {string} name - Name of task.
+   * @param {number} expected - Expected number of pomodoros.
+   */
+  createTask(name, expected) {
+    // Put inputs into a task object with initial actual value of 0.
+    const task = {
+      name,
+      expected,
+      actual: 0,
+    };
+
+    // Push task into todo list.
+    this.todo.push(task);
+    this.save();
+  }
+
+  /**
+   * Remove task from todo at given index.
+   * @param {number} index - Index of task to remove.
+   */
+  deleteTask(index) {
+    this.todo.splice(index, 1);
+    this.save();
+  }
+
+  /**
+   * Update the task at the given index with the given name and expected pomodoros.
+   * @param {number} index - Index of task to update.
+   * @param {string} name - Updated name of task.
+   * @param {number} expected - Updated expected number of pomodoros.
+   */
+  updateTask(index, name, expected) {
+    const todoListSize = Object.keys(this.todo).length;
+    if (index >= todoListSize) {
+      return;
     }
-    this.resetCount += 1;
+    this.todo[index].name = name;
+    this.todo[index].expected = expected;
+    this.save();
+  }
+
+  /**
+   * Add a pomodoro to the current task.
+   */
+  addPomo() {
+    this.todo[0].actual += 1;
+    this.save();
+  }
+
+  /**
+   * Update todo/completed after finishing a task.
+   */
+  finishTask() {
+    const current = this.todo[0];
+
+    this.completed.push(current);
+    this.deleteTask(0);
   }
 }
 
-customElements.define('editable-task-list-input', EditableTaskListInput);
-
-export default EditableTaskListInput;
+export default TaskList;
 </code></pre>
         </article>
     </section>
@@ -147,7 +162,7 @@ export default EditableTaskListInput;
 <br class="clear">
 
 <footer>
-    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a> on Fri Apr 29 2022 19:27:59 GMT+0000 (Coordinated Universal Time) using the Minami theme.
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a> on Fri Apr 29 2022 21:59:31 GMT+0000 (Coordinated Universal Time) using the Minami theme.
 </footer>
 
 <script>prettyPrint();</script>
