@@ -63,10 +63,7 @@ class StartButtons extends HTMLElement {
 
         PopUp.prompt(warning, true).then((result) => {
           if (result === 'left') {
-            backend.remove('TaskList');
-            backend.remove('Started');
-            backend.remove('TotalPomos');
-            backend.remove('Timer');
+            backend.removeAll();
             window.location.href = './app.html';
           } else if (result === 'right') {
             PopUp.hide();
