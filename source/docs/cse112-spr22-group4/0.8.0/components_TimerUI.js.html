@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>app.js - Documentation</title>
+    <title>components/TimerUI.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,7 +29,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">app.js</h1>
+    <h1 class="page-title">components/TimerUI.js</h1>
     
 
     
@@ -40,300 +40,120 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @file The main controller of the HTML and interaction between Front-End and Back-End.
- * @author Andy Young
- * @author Donald Wolfson
+ * @file TimerUI acts as the middle man between javascript and the html.
+ * It creates a pomo timer that will update the html elements.
  * @author Justin Lee
  * @author Enrique Gan
- * @author Teresa Truong
- * @author Annika Hatcher
- * @author Luke Menezes
+ * @author Donald Wolfson
+ * @author Andy Young
+ * @author Liam Stone
+ * @author Arman Mansourian
  */
 
-/* ******************************** Imports ********************************* */
-import EditableTaskList from './EditableTaskList.js';
-import ViewOnlyTaskList from './ViewOnlyTaskList.js';
-import TimerUI from './TimerUI.js';
-import BreakPrompt from './BreakPrompt.js';
-import PopUp from './PopUp.js';
-import TaskList from './TaskList.js';
-import * as backend from './backend.js';
+import Timer from '../classes/Timer.js';
 
 /**
- * STATE:
- * {
- *  Username: {String}
- *    null: redirect to index.html
- *  Started: {Boolean}
- *    true: display TimerUI &amp; ViewOnlyTaskList,
- *    false: go to Editable Task List display.
- *  TotalPomos: {Number}
- *    Elapsed pomos.
- *  Timer: {Boolean}
- *    true: pomodoro
- *    false: break
- *      TotalPomos % 4 == 0: long break
- *      else: short break
- * }
+ * Creates the Custom HTMLElement for the Timer class.
+ * @extends HTMLElement
  */
+class TimerUI extends HTMLElement {
+  /**
+   * constructor for the UI in the Timer Object.
+   */
+  constructor() {
+    super();
 
-/* ******************************* DOM Values ******************************* */
+    this.classList.add('w-100', 'h-100', 'd-flex', 'flex-column', 'justify-content-center', 'align-items-center');
+    this.appendChild(document.querySelector('#timer-template').content.cloneNode(true));
 
-const appContainer = document.querySelector('.app-container');
-
-/* ***************************** Finished State ***************************** */
-
-let finished = false;
-
-/* **************************** Helper Functions **************************** */
-
-/**
- * Handles all things that need to be done at the end of the session, called by initTimer
- * @ignore
- */
-function handleEndOfSession() {
-  // Move completed task list to history
-  let history = JSON.parse(backend.get('History'));
-  const { completed } = JSON.parse(backend.get('TaskList'));
-  if (history) {
-    history.tasklists.push(completed);
-  } else {
-    history = { tasklists: [completed] };
+    this.text = this.querySelector('.timer-text');
   }
-  backend.set('History', JSON.stringify(history));
 
-  // Wipe data from previous task list
-  backend.removeAll();
-
-  // Pop up prompt
-  const endMessage = {
-    title: 'Congratulations, you have finished this session!',
-    subtitle: 'What would you like to do next?',
-    leftButton: 'Start New Session',
-    rightButton: 'View Logs',
-  };
-
-  PopUp.prompt(endMessage, false).then((result) => {
-    if (result === 'left') {
-      window.location.href = './index.html';
-    } else if (result === 'right') {
-      window.location.href = './done.html';
-    }
-  });
-}
-
-/**
- * Update the .app-title based on the break's checkbox.
- * @param {boolean} nextTask - Next task in list.
- * @ignore
- */
-function updateAppTitle(nextTask) {
-  const taskList = JSON.parse(backend.get('TaskList'));
-  const { length } = taskList.todo;
-  let title = '';
-
-  // Determine the header based on the length of the TODO list.
-  if (length === 0) {
-    title = 'End of Session';
-    finished = true;
-    const t = new TaskList();
-    t.finishTask();
-    handleEndOfSession();
-  } else if (nextTask &amp;&amp; length === 1) {
-    title = 'End of Session';
-    finished = true;
-    const t = new TaskList();
-    t.finishTask();
-    handleEndOfSession();
-  } else if (nextTask &amp;&amp; length - 1 === 1) {
-    title = `Final Task: ${taskList.todo[1].name}`;
-  } else if (nextTask &amp;&amp; length - 1 > 1) {
-    title = `Next Task: ${taskList.todo[1].name}`;
-  } else if (length === 1) {
-    title = `Final Task: ${taskList.todo[0].name}`;
-  } else {
-    title = `Current Task: ${taskList.todo[0].name}`;
+  reset() {
+    this.text.textContent = 'START';
+    this.classList.remove('timer-active');
   }
-  document.querySelector('.app-title').textContent = title;
-}
 
-/**
- * A callback function used in the BreakPrompt on changing of the checkbox.
- * @param {Object} object - A BreakPrompt object.
- * @ignore
- */
-function changeTitle(object) {
-  updateAppTitle(object.getChecked());
-}
-
-/**
- * @ignore
- * Initialize the timer based on current STATE.
- * @ignore
- * @param {Object} timer - The Timer object.
- * @ignore
- */
-function initTimer(timer) {
-  // Change to done page if no more tasks in todo.
-  if (JSON.parse(backend.get('TaskList')).todo.length === 0) {
-    handleEndOfSession();
-  } else {
-    const timerState = backend.get('Timer');
-    timer.reset();
-
-    // If timer is true set pomo, otherwise it is a break
-    if (timerState === 'true') {
-      // Update the HTML
-      updateAppTitle(false);
-      timer.setColorGreen();
-      timer.createTimer(25, 0);
-    } else {
-      const totalPomos = Number(backend.get('TotalPomos'));
-      const breakPrompt = new BreakPrompt(changeTitle);
-
-      // Update the HTML
-      updateAppTitle(false);
-      timer.setColorRed();
-      timer.appendChild(breakPrompt);
-
-      // If there has been 4 pomos then it is a long break
-      if (totalPomos > 0 &amp;&amp; totalPomos % 4 === 0) {
-        // Long break
-        timer.createTimer(25, 0);
-      } else {
-        // Short break
-        timer.createTimer(5, 0);
-      }
-    }
+  clear() {
+    this.text.textContent = 'All Done!';
   }
-}
 
-/**
- * Displays notification and plays sound when timer ends
- * @ignore
- */
-function showTimerNotification() {
-  const timerState = backend.get('Timer');
-  if (timerState === 'true') {
-    const pomoAlert = new Notification('Electric Pomato', {
-      icon: 'img/green-tomato.ico',
-      body: 'Good Work! Time to recharge.',
-    });
-    setTimeout(pomoAlert.close.bind(pomoAlert), 5000);
-    pomoAlert.addEventListener('click', () => {
-      window.focus();
-    });
-  } else {
-    const breakAlert = new Notification('Electric Pomato', {
-      icon: 'img/red-tomato.ico',
-      body: "Break time is over. It's time to plug in!",
-    });
-    setTimeout(breakAlert.close.bind(breakAlert), 5000);
-    breakAlert.addEventListener('click', () => {
-      window.focus();
-    });
-  }
-}
-
-/**
- * Handle starting the timer and updating the Pomos.
- * @param {Object} timer - The Timer object.
- * @param {Object} taskList - The TaskList object.
- * @ignore
- */
-function handleClick(timer, taskList) {
-  let active = false;
-
-  timer.firstElementChild.addEventListener('click', () => {
-    if (!active) {
-      active = true;
-      timer.startTimer().then(() => {
-        if (!finished) {
-          const timerState = backend.getItem('Timer');
-
-          if (timerState === 'true') {
-            backend.set('TotalPomos', Number(backend.get('TotalPomos')) + 1);
-            taskList.addPomo();
-          }
-
-          if (timerState === 'false') {
-            if (timer.lastElementChild.getChecked()) {
-              taskList.finishTask();
-              taskList.render();
-            }
-
-            timer.lastElementChild.remove();
-          }
-
-          if (('Notification' in window) &amp;&amp; Notification.permission === 'granted') {
-            showTimerNotification();
-          }
-
-          backend.set('Timer', timerState === 'false');
-          initTimer(timer);
-          active = false;
-        }
-      });
-    }
-  });
-}
-
-/**
- * Displays the Timer and begins to handle the events of interaction.
- * @ignore
- */
-function showTimer() {
-  const timerUI = new TimerUI();
-  const votl = new ViewOnlyTaskList();
-
-  // Call any helper functions to handle user events.
-  updateAppTitle(false);
-  handleClick(timerUI, votl);
-  initTimer(timerUI);
-
-  appContainer.appendChild(timerUI);
-  appContainer.appendChild(votl);
-}
-
-/* ***************************** Event Handling ***************************** */
-
-/**
- * Will hold all Edge Cases that should be check when a page is loaded.
- * @ignore
- */
-function handleOnLoad() {
-  // Redirect to index.html if no name is in localStorage.
-  if (!backend.get('Username')) {
-    window.location.href = 'index.html';
-  } else if (backend.get('Started')) {
-    showTimer();
-  } else {
-    appContainer.appendChild(new EditableTaskList());
-    document.querySelector('.app-title').textContent = `${backend.get('Username')}'s Day`;
-    appContainer.querySelectorAll('.start-day-button').forEach((button) => {
-      button.addEventListener('click', () => {
-        backend.set('Started', true);
-        backend.set('Timer', true);
-        backend.set('TotalPomos', 0);
-        appContainer.lastElementChild.remove();
-        showTimer();
-      });
+  /**
+   * Create an internal `Timer` object that sets its `callbackEverySecond`
+   * callback function to a function that changes the timer html elements'
+   * minute and second values for every second that it ticks down.
+   * @param {number} minutes - minutes that will be stored in object.
+   * @param {number} seconds - seconds that will be stored in object.
+   */
+  createTimer(minutes, seconds) {
+    this.timer = new Timer(minutes, seconds, (newMinute, newSecond) => {
+      // update html
+      this.text.textContent = `${TimerUI.parseMinutes(newMinute)} : ${TimerUI.parseSeconds(newSecond)}`;
     });
   }
 
-  // Request notification permission on page load
-  if (!('Notification' in window)) {
-    console.log('This browser does not support notifications.');
-  } else {
-    console.log(Notification.permission);
-    if (Notification.permission !== 'denied') {
-      Notification.requestPermission();
-    }
+  /**
+   * Start the internal `Timer` object by returning the Promise from startTimer()
+   * in the Timer class. Call this function by using await, the caller will be
+   * blocked until the timer is done counting down.
+   * @returns {Promise} Countdown of timer
+   */
+  startTimer() {
+    // immediately update html
+    this.text.textContent = `${TimerUI.parseMinutes(this.timer.minutes)} : ${TimerUI.parseSeconds(this.timer.seconds)}`;
+    this.classList.add('timer-active');
+    return this.timer.startTimer();
+  }
+
+  /**
+   * Returns a string representing the minutes left with the format "MM".
+   * ie: If 25 minuts are left, "25". If 9 minutes are left "09"
+   * @param {number} minute - Number of minutes that will be formatted.
+   * @returns {string} Minutes Left
+   */
+  static parseMinutes(minute) {
+    if (minute &lt; 10) { return `0${String(minute)}`; }
+    return String(minute);
+  }
+
+  /**
+   * Returns a string representing the seconds left with the format "SS".
+   * ie: If 25 seconds are left, "25". If 9 seconds are left "09".
+   * @param {number} second - Number of seconds that will be formatted.
+   * @returns {string} Seconds Left
+   */
+  static parseSeconds(second) {
+    if (second === 60 || second >= 60) return '00';
+    if (second &lt; 10) return `0${String(second)}`;
+    return String(second);
+  }
+
+  /**
+   * Sets the Tomato image to a Green Tomato.
+   */
+  setColorGreen() {
+    this.querySelector('.timer-image').classList.remove('red-tomato');
+    this.querySelector('.timer-image').classList.add('green-tomato');
+  }
+
+  /**
+   * Sets the Tomato image to a Red Tomato.
+   */
+  setColorRed() {
+    this.querySelector('.timer-image').classList.remove('green-tomato');
+    this.querySelector('.timer-image').classList.add('red-tomato');
+  }
+
+  /**
+   * Sets the Tomato image to a Gold Tomato.
+   */
+  setColorGold() {
+    this.querySelector('.timer-image').classList.add('gold-tomato');
   }
 }
 
-// Handle any edge cases on loading into the page.
-window.addEventListener('load', handleOnLoad);
+customElements.define('pomo-timer', TimerUI);
+export default TimerUI;
 </code></pre>
         </article>
     </section>
@@ -346,7 +166,7 @@ window.addEventListener('load', handleOnLoad);
 <br class="clear">
 
 <footer>
-    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a> on Fri Apr 29 2022 19:27:59 GMT+0000 (Coordinated Universal Time) using the Minami theme.
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a> on Fri Apr 29 2022 21:59:31 GMT+0000 (Coordinated Universal Time) using the Minami theme.
 </footer>
 
 <script>prettyPrint();</script>

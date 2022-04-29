@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>WelcomeMessage.js - Documentation</title>
+    <title>components/EditableTaskListInput.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,7 +29,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">WelcomeMessage.js</h1>
+    <h1 class="page-title">components/EditableTaskListInput.js</h1>
     
 
     
@@ -40,133 +40,101 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @file Creates a custom element to display a welcome back message to the user
+ * @file Define the and construct an editable TaskList, and handle the inputs.
  * @author Andy Young
- * @author Justin Lee
- * @author Liam Stone
+ * @author Teresa Truong
  * @author Annika Hatcher
+ * @author Liam Stone
+ * Date: 03/04/2021
  */
 
 /**
- * Custom welcome back message shown to return user.
+ * Define the tasks and construct an editable TaskList, and handle the inputs from the user.
  * @extends HTMLElement
  */
-class WelcomeMessage extends HTMLElement {
+class EditableTaskListInput extends HTMLElement {
   /**
-  * Constructor for WelcomeMessage
+  * constructor for EditableTaskListInput
   */
-  constructor(username) {
+  constructor() {
     super();
-    this.container = document.createElement('div');
-    this.container.classList.add('d-flex', 'align-items-center', 'justify-content-between', 'mb-3', 'flex-wrap');
-    this.appendChild(this.container);
-    this.enterDefaultMode(username);
-  }
 
-  /**
-  * creates a button to allow user to edit their task or name
-  */
-  createEditNameButton() {
-    const editIcon = document.createElement('i');
-    editIcon.classList.add('fas', 'fa-pencil-alt', 'text-warning', 'edit-icon');
-    editIcon.addEventListener('click', () => {
-      this.enterEditMode();
+    // Clone the template.
+    const clone = document.querySelector('#add-row-template').content.cloneNode(true);
+    this.appendChild(clone);
+
+    // Store references to inputs/button to instance variable.
+    [this.nameInput, this.expectedInput] = this.querySelectorAll('input');
+    this.button = this.querySelector('button');
+
+    // Add event listener to both inputs to update button state.
+    [this.nameInput, this.expectedInput].forEach((input) => {
+      input.addEventListener('input', () => {
+        this.updateButtonState();
+      });
     });
-    return editIcon;
-  }
 
-  /**
-  * allow users to save their edits to the web page
-  */
-  createFinishEditButton() {
-    const saveBtn = document.createElement('button');
-    saveBtn.classList.add('save-btn');
-    const icon = document.createElement('i');
-    icon.classList.add('fas', 'fa-check', 'text-success', 'save-icon');
-    saveBtn.appendChild(icon);
-
-    saveBtn.addEventListener('click', () => {
-      let newName = this.container.firstChild.value;
-      if (newName.length > 0) {
-        localStorage.setItem('Username', newName);
-      } else {
-        newName = localStorage.getItem('Username');
-      }
-      this.enterDefaultMode(newName);
+    // Add event listener to both inputs to add row on enter if inputs are valid.
+    [this.nameInput, this.expectedInput].forEach((input) => {
+      input.addEventListener('keyup', (e) => {
+        if (e.code === 'Enter' &amp;&amp; !this.button.disabled) {
+          this.addRow();
+        }
+      });
     });
-    return saveBtn;
-  }
 
-  /**
-  * allows users to cancel their edits and return to as
-  * it was before their changes
-  */
-  createCancelEditButton() {
-    const cancelBtn = document.createElement('i');
-    cancelBtn.classList.add('fas', 'fa-times', 'text-danger', 'cancel-icon');
-
-    cancelBtn.addEventListener('click', () => {
-      const name = localStorage.getItem('Username');
-      this.enterDefaultMode(name);
+    // Add event listener to button to add row on click.
+    this.button.addEventListener('click', () => {
+      this.addRow();
     });
-    return cancelBtn;
+
+    this.resetCount = 0;
   }
 
   /**
-   * Show the text input for user to change their name
+   * Initialize row to default UI state.
    */
-  enterEditMode() {
-    const input = document.createElement('input');
-    input.value = localStorage.getItem('Username');
-    input.classList.add('edit-name');
-
-    // Clear old container
-    while (this.container.lastElementChild) {
-      this.container.removeChild(this.container.lastElementChild);
-    }
-
-    // Overwrite with text input and finish button
-    this.container.appendChild(input);
-    this.container.appendChild(this.createFinishEditButton());
-    this.container.appendChild(this.createCancelEditButton());
-
-    input.addEventListener('keyup', (e) => {
-      if (e.code === 'Enter') {
-        this.querySelector('.save-btn').click();
-      }
-    });
-
-    input.addEventListener('input', () => {
-      if (input.value.length > 0) {
-        this.querySelector('.save-btn').disabled = false;
-      } else {
-        this.querySelector('.save-btn').disabled = true;
-      }
-    });
-
-    input.focus();
+  connectedCallback() {
+    this.reset();
   }
 
   /**
-   * Show the welcome message and user's saved username
+   * Disable/Enable add task button based on validity of inputs.
    */
-  enterDefaultMode(username) {
-    const message = document.createElement('h2');
-    const text = document.createTextNode(`Welcome Back, ${username}!`);
-    message.appendChild(text);
-    message.classList.add('subtitle', 'mb-0');
-
-    // Clear old container
-    while (this.container.lastElementChild) {
-      this.container.removeChild(this.container.lastElementChild);
+  updateButtonState() {
+    if (this.nameInput.value.length === 0) {
+      this.button.disabled = true;
+    } else {
+      this.button.disabled = false;
     }
-    this.container.appendChild(message);
-    this.container.appendChild(this.createEditNameButton());
+  }
+
+  /**
+   * Add row to TaskList assuming it is the previous sibling.
+   */
+  addRow() {
+    this.previousElementSibling.addRow(this.nameInput.value, this.expectedInput.value);
+    this.reset();
+  }
+
+  /**
+   * Initializes the UI of the row to its initial state.
+   */
+  reset() {
+    this.nameInput.value = '';
+    this.expectedInput.value = '1';
+    this.nameInput.focus();
+    this.updateButtonState();
+    if (this.resetCount > 0) {
+      this.querySelector('tomato-slider').render();
+    }
+    this.resetCount += 1;
   }
 }
 
-customElements.define('welcome-message', WelcomeMessage);
-export default WelcomeMessage;
+customElements.define('editable-task-list-input', EditableTaskListInput);
+
+export default EditableTaskListInput;
 </code></pre>
         </article>
     </section>
@@ -179,7 +147,7 @@ export default WelcomeMessage;
 <br class="clear">
 
 <footer>
-    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a> on Fri Apr 29 2022 19:27:59 GMT+0000 (Coordinated Universal Time) using the Minami theme.
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a> on Fri Apr 29 2022 21:59:31 GMT+0000 (Coordinated Universal Time) using the Minami theme.
 </footer>
 
 <script>prettyPrint();</script>

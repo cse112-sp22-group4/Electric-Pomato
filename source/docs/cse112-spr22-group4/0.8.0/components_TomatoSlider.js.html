@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>done.js - Documentation</title>
+    <title>components/TomatoSlider.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,7 +29,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">done.js</h1>
+    <h1 class="page-title">components/TomatoSlider.js</h1>
     
 
     
@@ -40,83 +40,145 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @file The main controller of the HTML of the last page.
- * @author Annika Hatcher
+ * @file Creates a custom element for the tomato slider to estimate the number of pomodoros.
  * @author Andy Young
+ * @author Arman Mansourian
  */
-
-import zingchart from '../dependencies/zingchart-es6.min.js';
-import lineConfig from './lineConfig.js';
-import { hex } from './lineColors.js';
 
 /**
- * Formats the data into an object that describes one line in the graph.
- * @param {string} name - Name of the line
- * @param {Array.&lt;number>} data - Contains number of sessions (y-coordinate)
- * @param {string} color - Hexadecimal string of the line color
- * @returns {Object} Formatted line data
+ * Constructs the HTML for the slider.
+ * @extends HTMLElement
  */
-function line(name, data, color) {
-  return {
-    text: name.charAt(0).toUpperCase() + name.slice(1),
-    values: data,
-    lineColor: color,
-    lineWidth: '2px',
-    marker: {
-      type: 'square',
-      backgroundColor: color,
-      borderColor: color,
-      shadow: false,
-      size: 3,
-    },
-    highlightMarker: {
-      backgroundColor: color,
-      borderColor: color,
-      size: 5,
-    },
-    palette: 0,
-    shadow: false,
-    visible: true,
-  };
-}
+class TomatoSlider extends HTMLElement {
+  /**
+   * Create the HTML text element and append.
+   */
+  constructor() {
+    super();
+    this.appendChild(document.querySelector('#tomato-slider-template').content.cloneNode(true));
 
-/**
- * Assembles the data from the history of sessions and renders the line graph.
- */
-function handleOnLoad() {
-  const { tasklists } = JSON.parse(localStorage.getItem('History'));
+    this.input = this.firstElementChild;
+    this.container = this.lastElementChild;
+    this.tomatos = this.querySelectorAll('.slider-tomato > g');
 
-  const lines = ['expected', 'actual'];
+    this.input.style.display = 'none';
 
-  lines.forEach((name) => {
-    const data = [];
-    tasklists.forEach((session) => {
-      let total = 0;
-      session.forEach((task) => {
-        total += task[name];
+    this.handleClick = this.handleClick.bind(this);
+    this.handleMouseMove = this.handleMouseMove.bind(this);
+    this.handleMouseLeave = this.handleMouseLeave.bind(this);
+
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.attributeName === 'disabled') {
+          console.log('disabled mutation');
+          this.updateState();
+        }
       });
-      data.push(total);
     });
-    lineConfig.series.push(line(name, data, hex.pop()));
-  });
 
-  /* functional version
-  lineConfig.series = lines.map((name) =>
-    line(name, tasklists.map((tasklist) =>
-      tasklist.reduce((total, task) => total + task[name], 0)
-    ), rgba.pop())
-  );
-  */
-  zingchart.render({
-    id: 'lineChart',
-    data: lineConfig,
-    height: 500,
-    width: '100%',
-  });
+    observer.observe(this.input, {
+      attributes: true,
+    });
+  }
+
+  /**
+   * Callback to update state of slider.
+   */
+  connectedCallback() {
+    this.updateState();
+  }
+
+  /**
+   * Updates event listeners depending on if the task has been entered.
+   */
+  updateState() {
+    if (this.input.disabled) {
+      this.defaultMode();
+    } else {
+      this.editMode();
+    }
+  }
+
+  /**
+   *
+   * @param {number} n - the number of tomatoes (pomodoro sessions) selected.
+   * @param {string} color - string for the color to fill the number of selected tomatoes.
+   */
+  colorTomatos(n, color) {
+    this.tomatos.forEach((tomato, i) => {
+      if (i &lt; n) {
+        tomato.classList.value = `${color}-tomato`;
+      } else {
+        tomato.classList.value = 'white-tomato';
+      }
+    });
+  }
+
+  /**
+   * Fill the slider with the tomatoes selected.
+   */
+  render() {
+    if (this.input.disabled) {
+      this.colorTomatos(Number(this.input.value), 'green');
+    } else {
+      this.colorTomatos(Number(this.input.value), 'red');
+    }
+  }
+
+  /**
+   * Sets the value for the number of tomatoes selected when the slider is clicked.
+   * @param {MouseEvent} e
+   */
+  handleClick(e) {
+    const { left, right } = this.querySelector('.slider-tomato-container').getBoundingClientRect();
+    this.input.value = Math.min(Math.ceil((e.clientX - left + 1) / ((right - left) / 5)), 5);
+  }
+
+  /**
+   * Color the slider with the value set when the mouse leaves.
+   */
+  handleMouseLeave() {
+    this.colorTomatos(Number(this.input.value), 'red');
+  }
+
+  /**
+   * Fill in the tomatoes in the slider as the mouse hovers over them.
+   * @param {MouseEvent} e
+   */
+  handleMouseMove(e) {
+    const { left, right } = this.querySelector('.slider-tomato-container').getBoundingClientRect();
+    const n = Math.min(Math.max(Math.ceil((e.clientX - left) / ((right - left) / 5)), 1), 5);
+    this.colorTomatos(n, 'red');
+  }
+
+  /**
+   * Add event listeners when currently editing a task.
+   */
+  editMode() {
+    this.render();
+
+    this.container.style.cursor = 'pointer';
+
+    this.container.addEventListener('click', this.handleClick);
+    this.container.addEventListener('mouseleave', this.handleMouseLeave);
+    this.container.addEventListener('mousemove', this.handleMouseMove);
+  }
+
+  /**
+   * Remove event listeners once the task is entered.
+   */
+  defaultMode() {
+    this.render();
+
+    this.container.style.cursor = 'default';
+
+    this.container.removeEventListener('click', this.handleClick);
+    this.container.removeEventListener('mouseleave', this.handleMouseLeave);
+    this.container.removeEventListener('mousemove', this.handleMouseMove);
+  }
 }
 
-// Handle any edge cases on loading into the page.
-window.addEventListener('load', handleOnLoad);
+customElements.define('tomato-slider', TomatoSlider);
 </code></pre>
         </article>
     </section>
@@ -129,7 +191,7 @@ window.addEventListener('load', handleOnLoad);
 <br class="clear">
 
 <footer>
-    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a> on Fri Apr 29 2022 19:27:59 GMT+0000 (Coordinated Universal Time) using the Minami theme.
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a> on Fri Apr 29 2022 21:59:31 GMT+0000 (Coordinated Universal Time) using the Minami theme.
 </footer>
 
 <script>prettyPrint();</script>

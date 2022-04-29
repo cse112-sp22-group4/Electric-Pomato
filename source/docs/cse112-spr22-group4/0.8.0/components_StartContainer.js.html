@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>TomatoSlider.js - Documentation</title>
+    <title>components/StartContainer.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,7 +29,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">TomatoSlider.js</h1>
+    <h1 class="page-title">components/StartContainer.js</h1>
     
 
     
@@ -40,145 +40,39 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @file Creates a custom element for the tomato slider to estimate the number of pomodoros.
+ * @file Creates the start container that will create all buttons and inputs depending
+ *       on state of localStorage
  * @author Andy Young
- * @author Arman Mansourian
+ * @author Justin Lee
+ * @author Liam Stone
  */
+
+import StartButtons from './StartButtons.js';
+import UsernameInput from './UsernameInput.js';
+import WelcomeMessage from './WelcomeMessage.js';
 
 /**
- * Constructs the HTML for the slider.
+ *Appends the start container that will contain all user-interactable elements
+ *            in the landing page
  * @extends HTMLElement
  */
-class TomatoSlider extends HTMLElement {
-  /**
-   * Create the HTML text element and append.
-   */
+class StartContainer extends HTMLElement {
   constructor() {
     super();
-    this.appendChild(document.querySelector('#tomato-slider-template').content.cloneNode(true));
 
-    this.input = this.firstElementChild;
-    this.container = this.lastElementChild;
-    this.tomatos = this.querySelectorAll('.slider-tomato > g');
+    const username = localStorage.getItem('Username');
 
-    this.input.style.display = 'none';
-
-    this.handleClick = this.handleClick.bind(this);
-    this.handleMouseMove = this.handleMouseMove.bind(this);
-    this.handleMouseLeave = this.handleMouseLeave.bind(this);
-
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (mutation.attributeName === 'disabled') {
-          console.log('disabled mutation');
-          this.updateState();
-        }
-      });
-    });
-
-    observer.observe(this.input, {
-      attributes: true,
-    });
-  }
-
-  /**
-   * Callback to update state of slider.
-   */
-  connectedCallback() {
-    this.updateState();
-  }
-
-  /**
-   * Updates event listeners depending on if the task has been entered.
-   */
-  updateState() {
-    if (this.input.disabled) {
-      this.defaultMode();
-    } else {
-      this.editMode();
+    if (username) { // Returning User
+      this.appendChild(new WelcomeMessage(username));
+      this.appendChild(new StartButtons());
+    } else { // First time User
+      this.appendChild(new UsernameInput());
     }
-  }
-
-  /**
-   *
-   * @param {number} n - the number of tomatoes (pomodoro sessions) selected.
-   * @param {string} color - string for the color to fill the number of selected tomatoes.
-   */
-  colorTomatos(n, color) {
-    this.tomatos.forEach((tomato, i) => {
-      if (i &lt; n) {
-        tomato.classList.value = `${color}-tomato`;
-      } else {
-        tomato.classList.value = 'white-tomato';
-      }
-    });
-  }
-
-  /**
-   * Fill the slider with the tomatoes selected.
-   */
-  render() {
-    if (this.input.disabled) {
-      this.colorTomatos(Number(this.input.value), 'green');
-    } else {
-      this.colorTomatos(Number(this.input.value), 'red');
-    }
-  }
-
-  /**
-   * Sets the value for the number of tomatoes selected when the slider is clicked.
-   * @param {MouseEvent} e
-   */
-  handleClick(e) {
-    const { left, right } = this.querySelector('.slider-tomato-container').getBoundingClientRect();
-    this.input.value = Math.min(Math.ceil((e.clientX - left + 1) / ((right - left) / 5)), 5);
-  }
-
-  /**
-   * Color the slider with the value set when the mouse leaves.
-   */
-  handleMouseLeave() {
-    this.colorTomatos(Number(this.input.value), 'red');
-  }
-
-  /**
-   * Fill in the tomatoes in the slider as the mouse hovers over them.
-   * @param {MouseEvent} e
-   */
-  handleMouseMove(e) {
-    const { left, right } = this.querySelector('.slider-tomato-container').getBoundingClientRect();
-    const n = Math.min(Math.max(Math.ceil((e.clientX - left) / ((right - left) / 5)), 1), 5);
-    this.colorTomatos(n, 'red');
-  }
-
-  /**
-   * Add event listeners when currently editing a task.
-   */
-  editMode() {
-    this.render();
-
-    this.container.style.cursor = 'pointer';
-
-    this.container.addEventListener('click', this.handleClick);
-    this.container.addEventListener('mouseleave', this.handleMouseLeave);
-    this.container.addEventListener('mousemove', this.handleMouseMove);
-  }
-
-  /**
-   * Remove event listeners once the task is entered.
-   */
-  defaultMode() {
-    this.render();
-
-    this.container.style.cursor = 'default';
-
-    this.container.removeEventListener('click', this.handleClick);
-    this.container.removeEventListener('mouseleave', this.handleMouseLeave);
-    this.container.removeEventListener('mousemove', this.handleMouseMove);
   }
 }
 
-customElements.define('tomato-slider', TomatoSlider);
+export default StartContainer;
+customElements.define('start-container', StartContainer);
 </code></pre>
         </article>
     </section>
@@ -191,7 +85,7 @@ customElements.define('tomato-slider', TomatoSlider);
 <br class="clear">
 
 <footer>
-    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a> on Fri Apr 29 2022 19:27:59 GMT+0000 (Coordinated Universal Time) using the Minami theme.
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a> on Fri Apr 29 2022 21:59:31 GMT+0000 (Coordinated Universal Time) using the Minami theme.
 </footer>
 
 <script>prettyPrint();</script>
