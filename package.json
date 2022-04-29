@@ -8,8 +8,8 @@
     "test": "jest ./source/__tests__",
     "generate-docs": "node_modules/.bin/jsdoc --configure .jsdoc.json --verbose",
     "coverage": "jest --coverage",
-    "sass-compile": "node-sass ./source/scss/main.scss ./source/css/main.css",
-    "sass-watch": "node-sass ./source/scss/main.scss ./source/css/main.css -w"
+    "sass-compile": "sass ./source/scss/main.scss ./source/css/main.css",
+    "sass-watch": "sass ./source/scss/main.scss ./source/css/main.css -w"
   },
   "type": "module",
   "keywords": [],
