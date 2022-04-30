@@ -10,7 +10,7 @@
 import StartButtons from './StartButtons.js';
 import UsernameInput from './UsernameInput.js';
 import WelcomeMessage from './WelcomeMessage.js';
-import { get } from './backend.js';
+import * as backend from './backend.js';
 
 /**
  *Appends the start container that will contain all user-interactable elements
@@ -21,7 +21,7 @@ class StartContainer extends HTMLElement {
   constructor() {
     super();
 
-    const username = get('Username');
+    const username = backend.get('Username');
 
     if (username) { // Returning User
       this.appendChild(new WelcomeMessage(username));

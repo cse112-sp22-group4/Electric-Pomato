@@ -8,7 +8,7 @@
  * @author Chris Yoon
  */
 
-import { set } from './backend.js';
+import * as backend from './backend.js';
 
 /**
  * Appends a custom text input element for users to put their name
@@ -35,7 +35,7 @@ class UsernameInput extends HTMLElement {
       if (input.value.length < 1) return;
 
       // Save name to localStorage
-      set('Username', input.value);
+      backend.set('Username', input.value);
 
       // Redirect to app.html
       window.location.href = './app.html';

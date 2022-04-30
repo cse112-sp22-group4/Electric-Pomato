@@ -7,7 +7,7 @@
  * @author Chris Yoon
  */
 
-import { get, set } from './backend.js';
+import * as backend from './backend.js';
 
 /**
  * Custom welcome back message shown to return user.
@@ -50,9 +50,9 @@ class WelcomeMessage extends HTMLElement {
     saveBtn.addEventListener('click', () => {
       let newName = this.container.firstChild.value;
       if (newName.length > 0) {
-        set('Username', newName);
+        backend.set('Username', newName);
       } else {
-        newName = get('Username');
+        newName = backend.get('Username');
       }
       this.enterDefaultMode(newName);
     });
@@ -68,7 +68,7 @@ class WelcomeMessage extends HTMLElement {
     cancelBtn.classList.add('fas', 'fa-times', 'text-danger', 'cancel-icon');
 
     cancelBtn.addEventListener('click', () => {
-      const name = get('Username');
+      const name = backend.get('Username');
       this.enterDefaultMode(name);
     });
     return cancelBtn;
@@ -79,7 +79,7 @@ class WelcomeMessage extends HTMLElement {
    */
   enterEditMode() {
     const input = document.createElement('input');
-    input.value = get('Username');
+    input.value = backend.get('Username');
     input.classList.add('edit-name');
 
     // Clear old container
