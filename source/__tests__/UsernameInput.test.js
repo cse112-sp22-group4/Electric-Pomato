@@ -54,7 +54,7 @@ test('keyup Event Listener', () => {
   // write username
   usernameInput.querySelector('.start-input').value = username;
   usernameInput.querySelector('.start-input').dispatchEvent(keyboardEvent);
-  const localStorageUser = backend.getget('Username');
+  const localStorageUser = backend.get('Username');
 
   expect(localStorageUser).toBe(username);
   expect(true).toBe(true);
