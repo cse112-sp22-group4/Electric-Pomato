@@ -21,14 +21,14 @@
     "url": "https://github.com/cse112-sp22-group4/Electric-Pomato/issues"
   },
   "scripts": {
-    "lint": "npx eslint ./source/js --ext .js",
-    "test": "jest ./source/__tests__",
+    "lint": "npx eslint source/js --ext .js",
+    "test": "jest source/__tests__",
     "generate-docs": "node_modules/.bin/jsdoc --configure .jsdoc.json --verbose",
     "coverage": "jest --coverage",
-    "dev": "npm run clean && parcel --log-level info",
-    "deploy": "npm run build && gh-pages -d ./dist",
-    "build": "npm run clean && parcel build --no-source-maps --public-url ./ --log-level info",
-    "clean": "rm -rf ./dist && rm -rf ./.parcel-cache"
+    "dev": "npm run clean && parcel",
+    "deploy": "npm run build && gh-pages -d dist -b production",
+    "build": "npm run clean && parcel build --no-source-maps --public-url ./",
+    "clean": "rm -rf dist && rm -rf .parcel-cache"
   },
   "devDependencies": {
     "@parcel/babel-plugin-transform-runtime": "^2.5.0",
