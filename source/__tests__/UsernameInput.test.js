@@ -1,6 +1,5 @@
-import { expect, jest } from '@jest/globals';
-import { get } from '../js/backend.js';
-import UsernameInput from '../js/UsernameInput.js';
+import UsernameInput from '../js/components/UsernameInput.js';
+import * as backend from '../js/backend.js';
 
 // Initialize the DOM with a UsernameInput element.
 beforeEach(() => {
@@ -55,7 +54,7 @@ test('keyup Event Listener', () => {
   // write username
   usernameInput.querySelector('.start-input').value = username;
   usernameInput.querySelector('.start-input').dispatchEvent(keyboardEvent);
-  const localStorageUser = get('Username');
+  const localStorageUser = backend.getget('Username');
 
   expect(localStorageUser).toBe(username);
   expect(true).toBe(true);
