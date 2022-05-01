@@ -4,7 +4,10 @@
  * @author Justin Lee
  * @author Liam Stone
  * @author Annika Hatcher
+ * @author Chris Yoon
  */
+
+import * as backend from '../backend.js';
 
 /**
  * Custom welcome back message shown to return user.
@@ -47,9 +50,9 @@ class WelcomeMessage extends HTMLElement {
     saveBtn.addEventListener('click', () => {
       let newName = this.container.firstChild.value;
       if (newName.length > 0) {
-        localStorage.setItem('Username', newName);
+        backend.set('Username', newName);
       } else {
-        newName = localStorage.getItem('Username');
+        newName = backend.get('Username');
       }
       this.enterDefaultMode(newName);
     });
@@ -65,7 +68,7 @@ class WelcomeMessage extends HTMLElement {
     cancelBtn.classList.add('fas', 'fa-times', 'text-danger', 'cancel-icon');
 
     cancelBtn.addEventListener('click', () => {
-      const name = localStorage.getItem('Username');
+      const name = backend.get('Username');
       this.enterDefaultMode(name);
     });
     return cancelBtn;
@@ -76,7 +79,7 @@ class WelcomeMessage extends HTMLElement {
    */
   enterEditMode() {
     const input = document.createElement('input');
-    input.value = localStorage.getItem('Username');
+    input.value = backend.get('Username');
     input.classList.add('edit-name');
 
     // Clear old container

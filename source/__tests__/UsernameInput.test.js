@@ -1,7 +1,18 @@
 import UsernameInput from '../js/components/UsernameInput.js';
+import * as backend from '../js/backend.js';
 
 // Initialize the DOM with a UsernameInput element.
 beforeEach(() => {
+  // This mocks the setter method of window location so the href change in
+  // UsernameInput doesn't throw an error
+  const winLocation = window.location;
+  delete window.location;
+  window.location = {};
+  Object.defineProperty(window.location, 'href', {
+    get: jest.fn(() => winLocation),
+    set: jest.fn((href) => href),
+  });
+
   document.body.innerHTML = `
   <div class="col-12 col-lg-6">
     <start-container></start-container>
@@ -29,30 +40,22 @@ test('Blank Test', () => {
 });
 
 test('keyup Event Listener', () => {
-  // document.body.innerHTML.find('start-input-button').simulate.click();
-  const keyboardEvent = document.createEvent('KeyboardEvent');
-  const initMethod = typeof keyboardEvent.initKeyboardEvent !== 'undefined' ? 'initKeyboardEvent' : 'initKeyEvent';
-  keyboardEvent[initMethod](
-    'keyup', // event type: keydown, keyup, keypress
-    true, // bubbles
-    true, // cancelable
-    window, // view: should be window
-    false, // ctrlKey
-    false, // altKey
-    false, // shiftKey
-    false, // metaKey
-    40, // keyCode: unsigned long - the virtual key code, else 0
-    0, // charCode: unsigned long - the Unicode character associated with the depressed key, else 0
-  );
-  // username
+  // Mimic the enter key press
+  const keyboardEvent = new KeyboardEvent('keyup', {
+    key: 'Enter',
+    bubbles: true,
+    cancelable: true,
+    code: 'Enter',
+    view: window,
+  });
   const username = 'Jest';
   const usernameInput = new UsernameInput();
 
   // write username
   usernameInput.querySelector('.start-input').value = username;
-  usernameInput.querySelector('.start-input-button').dispatchEvent(keyboardEvent);
-  // const localStorageUsername = localStorage.getItem('Username');
+  usernameInput.querySelector('.start-input').dispatchEvent(keyboardEvent);
+  const localStorageUser = backend.get('Username');
 
-  // expect(localStorageUsername).toBe(username);
+  expect(localStorageUser).toBe(username);
   expect(true).toBe(true);
 });
