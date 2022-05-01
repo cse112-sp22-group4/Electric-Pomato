@@ -62,4 +62,7 @@ jobs:
         run: npm ci
 
       - name: Build and deploy to production
-        run: npm run deploy
+        run: |
+          git config --local user.email 'action@github.com'
+          git config --local user.name 'GitHub Action'
+          npm run deploy
