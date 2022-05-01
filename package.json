@@ -2,31 +2,17 @@
   "name": "cse112-spr22-group4",
   "version": "0.8.0",
   "description": "Electric Pomato!",
-  "main": "index.js",
-  "scripts": {
-    "lint": "npx eslint ./source/js --ext .js",
-    "test": "jest ./source/__tests__",
-    "generate-docs": "node_modules/.bin/jsdoc --configure .jsdoc.json --verbose",
-    "coverage": "jest --coverage",
-    "sass-compile": "sass ./source/scss/main.scss ./source/css/main.css",
-    "sass-watch": "sass ./source/scss/main.scss ./source/css/main.css -w"
-  },
   "type": "module",
-  "keywords": [],
-  "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "@babel/core": "^7.17.9",
-    "@babel/preset-env": "^7.16.11",
-    "babel-jest": "^28.0.2",
-    "eslint": "^7.19.0",
-    "eslint-config-airbnb-base": "^14.2.1",
-    "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-jest": "^24.1.3",
-    "jest": "^26.6.3",
-    "jsdoc": "^3.6.6",
-    "minami": "^1.2.3"
-  },
+  "author": "",
+  "keywords": [],
+  "browserslist": "> 0.5%, last 2 versions, not dead",
+  "source": [
+    "source/app.html",
+    "source/done.html",
+    "source/index.html"
+  ],
+  "homepage": "https://github.com/cse112-sp22-group4/Electric-Pomato#readme",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/cse112-sp22-group4/Electric-Pomato.git"
@@ -34,7 +20,31 @@
   "bugs": {
     "url": "https://github.com/cse112-sp22-group4/Electric-Pomato/issues"
   },
-  "homepage": "https://github.com/cse112-sp22-group4/Electric-Pomato#readme",
+  "scripts": {
+    "lint": "npx eslint source/js --ext .js",
+    "test": "jest source/__tests__",
+    "generate-docs": "node_modules/.bin/jsdoc --configure .jsdoc.json --verbose",
+    "coverage": "jest --coverage",
+    "dev": "npm run clean && parcel",
+    "deploy": "npm run build && gh-pages -d dist -b production",
+    "build": "npm run clean && parcel build --no-source-maps --public-url ./",
+    "clean": "rm -rf dist && rm -rf .parcel-cache"
+  },
+  "devDependencies": {
+    "@parcel/babel-plugin-transform-runtime": "^2.5.0",
+    "@parcel/babel-preset-env": "^2.5.0",
+    "@parcel/compressor-gzip": "^2.5.0",
+    "@parcel/transformer-sass": "^2.5.0",
+    "eslint": "^7.19.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jest": "^24.1.3",
+    "gh-pages": "^3.2.3",
+    "jest": "^26.6.3",
+    "jsdoc": "^3.6.6",
+    "minami": "^1.2.3",
+    "parcel": "^2.5.0"
+  },
   "dependencies": {
     "bootstrap": "^5.0.0-beta2",
     "sass": "^1.32.11"
