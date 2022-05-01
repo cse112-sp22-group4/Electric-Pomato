@@ -58,11 +58,14 @@ jobs:
         with:
           node-version: 12
 
-      - name: Install modules
-        run: npm ci
-
-      - name: Build and deploy to production
+      - name: Install and Build
         run: |
-          git config --local user.email 'action@github.com'
-          git config --local user.name 'GitHub Action'
-          npm run deploy
+          npm ci
+          npm run build
+
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4.3.3
+        run: |
+          branch: production
+          folder: dist
+         
