@@ -19,22 +19,25 @@ This step is implemented using Github Actions and is defined in the workflow at 
 ### 4. Pull Request to main
 Once the feature is ready and has passed through the linter and Jest unit tests, the developer can then make a new pull request to the `main` branch.
 
-### 5. Compile SCSS and deploy test website
+### 5. Compile SCSS/Deploy test website
 After the pull request is made, the next step is to deploy a preliminary version of the website with the new feature for end-to-end/manual testing. 
-Idea: Use Firebase hosting Github action to deploy a preview webpage for every PR?
-If manual testing not required, could also just compile SCSS on cypress docker and then run end to end tests locally on that docker  
+To do this, we need to first compile the SCSS to CSS using the sass package. 
+We are currently planning to use Firebase's preview channels to deploy a test website for each pull request. 
 
 ### 6. End-to-end tests  
 Once the test website is deployed, the next step is to run our automated end-to-end tests on the website using Cypress. 
 
 ### 7. Manual testing/review 
-After the code passes end-to-end tests, the pull request is reviewed and the new feature can be manually tested on the test website. 
+After the code passes end-to-end tests, the pull request is reviewed and the new feature can be manually tested by developers. 
 
 ### 8. Merge pull request to main  
 After the new feature code passes both the end-to-end and manual tests, the pull request can be merged to the `main` branch. 
 
 ### 9. Generate JSDocs 
 Once the code is successfully merged, the next step in our pipeline involves automatically generating documentation from the code. 
+
+### 10. Minification
+After JSDocs are generated, the next step in our pipeline is to bundle and minify the source code for deployment. 
 
 ### 10. Deployment
 The final step in our pipeline is deployment, which occurs when the code has arrived on the main branch and JSDocs are generated.  
