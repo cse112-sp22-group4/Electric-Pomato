@@ -4,7 +4,7 @@
  * @author Andy Young
  * @author Justin Lee
  */
-
+// test
 /**
  * Finds the notification element on the page and handles the display/hide of
  * notifications.
