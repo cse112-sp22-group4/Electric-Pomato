@@ -1,0 +1,1 @@
+class e extends HTMLElement{constructor(){super(),this.appendChild(document.createTextNode((new Date).getFullYear()))}}customElements.define("current-year",e);
