@@ -65,7 +65,7 @@ jobs:
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4.3.3
-        run: |
+        with:
           branch: production
           folder: dist
          
