@@ -61,38 +61,5 @@ jobs:
       - name: Install modules
         run: npm ci
 
-      - name: Push source subdirectory to production branch
-        run: git push origin `git subtree split --prefix source main`:production --force
-
-      - name: Make temp directory for compiled CSS
-        run: mkdir -vp /tmp/cse112-sp22-group4/source/css
-
-      - name: Compile CSS from SCSS files to temp directory
-        uses: gha-utilities/sass-build@v0.3.6
-        with:
-          source: ./source/scss/main.scss
-          destination: /tmp/cse112-sp22-group4/source/css/main.css
-
-      - name: Checkout production branch
-        uses: actions/checkout@v2
-        with:
-            ref: production
-
-      - name: Move compiled CSS to production branch
-        run: sudo mv /tmp/cse112-sp22-group4/source/css ./
-
-      - name: Remove private files on production branch
-        run: |
-          sudo rm -r ./scss
-          sudo rm -r ./__tests__
-      - name: Add and Commit changes to production branch
-        run: |
-          git config --local user.email 'action@github.com'
-          git config --local user.name 'GitHub Action'
-          git add .
-          git commit -m 'Updates compiled CSS files'
-      - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: production
+      - name: Build and deploy to production
+        run: npm run deploy
