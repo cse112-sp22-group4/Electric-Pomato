@@ -14,7 +14,7 @@ jobs:
     if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
     runs-on: ubuntu-latest
     outputs:
-      preview-url: ${{ steps.step3.outputs.details_url }}
+      preview_url: ${{ steps.step3.outputs.details_url }}
     steps:
       - id: step1
         uses: actions/checkout@v2
@@ -38,5 +38,5 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v2
         with:
-          config: baseUrl=${{ needs.build-and-preview.outputs.preview-url }}
+          config: baseUrl=${{ needs.build-and-preview.outputs.preview_url }}
   
