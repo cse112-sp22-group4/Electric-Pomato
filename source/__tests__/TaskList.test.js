@@ -1,4 +1,4 @@
-import TaskList from '../js/TaskList.js';
+import TaskList from '../js/classes/TaskList.js';
 
 test('TaskList Constructor', () => {
   // create new tasklist
