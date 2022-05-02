@@ -1,5 +1,5 @@
 describe('Sample Cypress test', () => {
-    it('finds the content "type"', () => {
+    it('Check for website title"', () => {
       cy.visit('/')
   
       cy.contains('Electric Pomato')
