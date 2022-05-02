@@ -52,9 +52,9 @@ Once the code is successfully merged, the next step in our pipeline involves aut
 This step is implemented using Github Actions and is the first job defined in the workflow at `.github/workflows/deploy.yml`. This job first runs the command `npm run generate-docs` to generate JSDocs for the source code. The job then pushes the generated JSDocs to the `main` branch. This step in our pipeline is currently functional and will continue to work as we add more source code/JSDocs.
 
 ### 11. Deployment
-The final step in our pipeline is deployment, which occurs when the code has arrived on the main branch and JSDocs are generated.  
+The final step in our pipeline is deployment, which occurs when the code has arrived on the `main` branch and JSDocs are generated.  
 
-This step is implemented using Github Actions and is the second job defined in the workflow at `.github/workflows/deploy.yml`. After running the build script on the source code, the job deploys the code in the `dist/` folder to Github Pages. This step in our pipeline is currently functional and will continue to work as we add new features to the web app. 
+This step is implemented using Github Actions and is the second job defined in the workflow at `.github/workflows/deploy.yml`. After running the build script on the source code, the job pushes the code in the `dist/` folder to the `production` branch and deploys the branch to Github Pages. This step in our pipeline is currently functional and will continue to work as we add new features to the web app. 
 
 ## Demo video
 A video demo of our phase 1 pipeline can be found [here]() (add video later)
