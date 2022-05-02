@@ -2,6 +2,8 @@ name: JSDoc and Deploy
 
 on:
   pull_request:
+    paths: 
+      - 'source/**'
     branches:
       - main
     types: [closed]
