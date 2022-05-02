@@ -38,5 +38,5 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v2
         with:
-          config: baseUrl=${{ needs.build-and-preview.outputs.preview_url }}
+          config: baseUrl=${{ needs.build-and-preview.outputs.preview-url }}
   
