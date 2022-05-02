@@ -34,19 +34,26 @@ Welcome! We are The TBDs, a group of 8 students enrolled in Spring 2022's CSE 11
 
 ## Contributing
 
-To start contributing, first look over our [onboarding](https://github.com/DonaldWolfson/cse110-w21-group29/blob/main/specs/onboard.md) doc to familiarize yourself with our repo. Then make sure to check our wikis on [creating issues](https://github.com/DonaldWolfson/cse110-w21-group29/wiki/How-to-Post-an-Issue), and [working on issues](https://github.com/DonaldWolfson/cse110-w21-group29/wiki/How-to-Work-on-an-Issue).
+To start contributing, first look over our [onboarding](https://github.com/cse112-sp22-group4/Electric-Pomato/blob/main/specs/onboard.md) doc to familiarize yourself with our repo. Then make sure to check our wikis on [creating issues](https://github.com/cse112-sp22-group4/Electric-Pomato/wiki/How-to-Post-an-Issue-on-Github), and [working on issues](https://github.com/cse112-sp22-group4/Electric-Pomato/wiki/How-to-Work-on-an-Issue).
 
 ## Contributors
 
 A list of our group:
 
+- @liamstone1814
+- @markbussard
+- @HarrisSteven
+- @alanlwang1
+- @LJMNZS
+- @46chris
+- @xingyuzzzhu
+- @meshachadoe
 - @AllenZou123
 - @amansourian
 - @anhatche
 - @ayoung19
 - @DonaldWolfson
 - @justlee0606
-- @liamstone1814
 - @PitEG
 - @truotere
 - @HarrisSteven
