@@ -5,10 +5,10 @@
  * @author Xingyu Zhu
  */
 
-import zingchart from '../dependencies/zingchart-es6.min.js';
-import lineConfig from './lineConfig.js';
-import { hex } from './lineColors.js';
-import * as backend from './backend.js';
+import zingchart from '../../dependencies/zingchart-es6.min.js';
+import lineConfig from '../constants/lineConfig.js';
+import { hex } from '../constants/lineColors.js';
+import * as backend from '../backend.js';
 
 /**
  * Formats the data into an object that describes one line in the graph.

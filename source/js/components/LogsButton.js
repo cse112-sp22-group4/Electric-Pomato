@@ -4,7 +4,7 @@
  * @author Xingyu Zhu
  */
 
-import * as backend from './backend.js';
+import * as backend from '../backend.js';
 /**
  * Constructs the HTML for the "View Logs" button
  * @extends HTMLElement
