@@ -2,10 +2,12 @@
  * @file Creates a custom element for the buttons to start the timer session.
  * @author Andy Young
  * @author Justin Lee
+ * @author Xingyu Zhu
  */
 
 import TaskList from '../classes/TaskList.js';
 import PopUp from '../classes/PopUp.js';
+import * as backend from '../backend.js';
 /**
  * Constructs the HTML for the start buttons
  * @extends HTMLElement
@@ -66,10 +68,7 @@ class StartButtons extends HTMLElement {
 
         PopUp.prompt(warning, true).then((result) => {
           if (result === 'left') {
-            localStorage.removeItem('TaskList');
-            localStorage.removeItem('Started');
-            localStorage.removeItem('TotalPomos');
-            localStorage.removeItem('Timer');
+            backend.removeAll();
             window.location.href = './app.html';
           } else if (result === 'right') {
             PopUp.hide();
