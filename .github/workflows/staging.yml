@@ -1,0 +1,42 @@
+name: Firebase Preview Deploy and E2E tests 
+
+'on': 
+  pull_request:
+    paths: 
+      - 'source/**'
+    branches:
+      - main
+    types: [opened]
+
+jobs:
+  # Build website and deploy to staging area (firebase preview channel)
+  build-and-preview:
+    if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
+    runs-on: ubuntu-latest
+    outputs:
+      preview_url: ${{ steps.step3.outputs.details_url }}
+    steps:
+      - id: step1
+        uses: actions/checkout@v2
+      - id: step2
+        run: npm ci && npm run build
+      - id: step3
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_ELECTRIC_POMATO }}'
+          projectId: electric-pomato
+  # Run Cypress end to end tests on preview channel
+  cypress-run:
+    needs: build-and-preview
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      # Install NPM dependencies, cache them correctly
+      # and run all Cypress tests
+      - name: Cypress run
+        uses: cypress-io/github-action@v2
+        with:
+          config: baseUrl=${{ needs.build-and-preview.outputs.preview_url }}
+  
