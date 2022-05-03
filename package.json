@@ -23,11 +23,12 @@
   "scripts": {
     "lint": "npx eslint source/js --ext .js",
     "test": "jest source/__tests__",
-    "generate-docs": "node_modules/.bin/jsdoc --configure .jsdoc.json --verbose",
     "coverage": "jest --coverage",
-    "dev": "npm run clean && parcel",
-    "deploy": "npm run build && gh-pages -d dist -b production",
-    "build": "npm run clean && parcel build --no-source-maps --public-url ./",
+    "generate-docs": "node_modules/.bin/jsdoc --configure .jsdoc.json --verbose",
+    "copy-docs": "mkdir dist && mkdir dist/docs/ && cp -r source/docs/* dist/docs",
+    "dev": "npm run clean && npm run copy-docs && parcel",
+    "deploy": "npm run clean && npm run copy-docs && npm run build && gh-pages -d dist -b production",
+    "build": "parcel build --no-source-maps --public-url ./",
     "clean": "rimraf -rf dist && rimraf -rf .parcel-cache"
   },
   "devDependencies": {
@@ -35,6 +36,7 @@
     "@parcel/babel-preset-env": "^2.5.0",
     "@parcel/compressor-gzip": "^2.5.0",
     "@parcel/transformer-sass": "^2.5.0",
+    "cypress": "^9.6.0",
     "eslint": "^7.19.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.22.1",
@@ -47,8 +49,6 @@
     "rimraf": "^3.0.2"
   },
   "dependencies": {
-    "bootstrap": "^5.0.0-beta2",
-    "cypress": "^9.6.0",
-    "sass": "^1.32.11"
+    "bootstrap": "^5.0.0-beta2"
   }
 }
