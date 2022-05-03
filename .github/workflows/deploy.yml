@@ -1,4 +1,4 @@
-name: JSDoc and Deploy
+name: Update JSDocs and Deploy
 
 on:
   pull_request:
@@ -9,7 +9,7 @@ on:
     types: [closed]
 
 jobs:
-  jsdoc:
+  jsdoc-and-deploy:
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
 
@@ -27,10 +27,11 @@ jobs:
       - name: Install modules
         run: npm ci
 
-      - name: Run JSDoc
+      - name: Generate JSDoc files and copy to dist
         run: |
           rm -rf ./source/docs
           npm run generate-docs
+          npm run copy-docs
 
       - name: Add and commit doc changes to main
         run: |
@@ -46,28 +47,12 @@ jobs:
           force: true
           branch: main
 
-  compile:
-    if: github.event.pull_request.merged == true
-    needs: jsdoc
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v2
-
-      - name: Set up node
-        uses: actions/setup-node@v2
-        with:
-          node-version: 12
-
-      - name: Install and Build
-        run: |
-          npm ci
-          npm run build
+      - name: Build
+        run: npm run build
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4.3.3
         with:
           branch: production
           folder: dist
-         
+          clean: true
