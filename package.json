@@ -24,6 +24,7 @@
     "lint": "npx eslint source/js --ext .js",
     "test": "jest source/__tests__",
     "coverage": "jest --coverage",
+    "generate-docs": "node_modules/.bin/jsdoc --configure .jsdoc.json --verbose",
     "dev": "npm run clean && parcel",
     "build": "npm run clean && parcel build --no-source-maps --public-url ./",
     "clean": "rimraf -rf dist && rimraf -rf .parcel-cache"

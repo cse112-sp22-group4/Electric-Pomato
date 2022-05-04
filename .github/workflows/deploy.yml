@@ -30,7 +30,7 @@ jobs:
       - name: Generate JSDoc files
         run: |
           rm -rf ./source/docs
-          node_modules/.bin/jsdoc --configure .jsdoc.json --verbose
+          npm run generate-docs
 
       - name: Add and commit doc changes to main
         run: |
