@@ -26,8 +26,7 @@
     "coverage": "jest --coverage",
     "generate-docs": "node_modules/.bin/jsdoc --configure .jsdoc.json --verbose",
     "copy-docs": "mkdir dist && mkdir dist/docs/ && cp -r source/docs/* dist/docs",
-    "dev": "npm run clean && npm run copy-docs && parcel",
-    "deploy": "npm run clean && npm run copy-docs && npm run build && gh-pages -d dist -b production",
+    "dev": "npm run clean && parcel",
     "build": "parcel build --no-source-maps --public-url ./",
     "clean": "rimraf -rf dist && rimraf -rf .parcel-cache"
   },
