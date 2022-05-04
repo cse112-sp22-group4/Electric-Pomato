@@ -1,12 +1,12 @@
-# Feb. 1st 2021, High Fidelity Design for FrontEnd ADR
-> (Last Modified: 3 April 2022, by Liam Stone)
+# May 4th 2022, High Fidelity Design for FrontEnd ADR
+> (Last Modified: 4 May 2022, by Liam Stone)
 
 Resources to get started:
 
 - [Presentation]()Not available yet 
-- [Figma](https://www.figma.com/file/0xkjAbdUK1WsQjAqwKRYTc/Electric-Pomato-Prototype?node-id=0%3A1)
-- [Brainstormed Ideas](https://github.com/DonaldWolfson/cse110-w21-group29/tree/main/specs/brainstorm)
-- [Design Team Meeting](TODO)
+- [Current Design Idea](https://www.figma.com/file/0xkjAbdUK1WsQjAqwKRYTc/Electric-Pomato-Prototype?node-id=0%3A1)
+- [Previous Brainstormed Ideas](https://github.com/cse112-sp22-group4/Electric-Pomato/blob/liamstone1814-patch-1/specs/brainstorm/Brainstorm_%20Design_Ideas.pdf)
+- [Design Team Meeting](TODO) TODO
 - Ask anyone from design team about this.
 
 ## Status: accepted
