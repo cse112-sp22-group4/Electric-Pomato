@@ -27,11 +27,10 @@ jobs:
       - name: Install modules
         run: npm ci
 
-      - name: Generate JSDoc files and copy to dist
+      - name: Generate JSDoc files
         run: |
           rm -rf ./source/docs
-          npm run generate-docs
-          npm run copy-docs
+          node_modules/.bin/jsdoc --configure .jsdoc.json --verbose
 
       - name: Add and commit doc changes to main
         run: |
@@ -49,6 +48,11 @@ jobs:
 
       - name: Build
         run: npm run build
+
+      - name: Copy JSDocs to dist
+        run: |
+          mkdir dist/docs/
+          cp -r source/docs/* dist/docs
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4.3.3
