@@ -1,4 +1,4 @@
-name: ESLint CI
+name: ESLint CI and Codacy code quality check 
 
 on: 
   push:
@@ -26,4 +26,17 @@ jobs:
         
       - name: Run linter
         run: npm run lint
+  
+  codacy-analysis-cli:
+
+    needs: lint
+    name: Codacy Analysis CLI
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@main
+
+      - name: Run Codacy Analysis CLI
+        uses: codacy/codacy-analysis-cli-action@master
 
