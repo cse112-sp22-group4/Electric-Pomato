@@ -9,7 +9,7 @@
  * @author Luke Menezes
  */
 
-/* ******************************** Imports ********************************* */
+import MenuIcons from '../components/MenuIcons.js';
 import EditableTaskList from '../components/EditableTaskList.js';
 import ViewOnlyTaskList from '../components/ViewOnlyTaskList.js';
 import TimerUI from '../components/TimerUI.js';
@@ -36,13 +36,16 @@ import * as backend from '../backend.js';
  * }
  */
 
-/* ******************************* DOM Values ******************************* */
-
+// DOM elements
 const appContainer = document.querySelector('.app-container');
+const appHeader = document.querySelector('.app-header');
 
-/* ***************************** Finished State ***************************** */
-
+// Finished state
 let finished = false;
+
+// Menu icons
+const menuIcons = new MenuIcons();
+appHeader.appendChild(menuIcons);
 
 /* **************************** Helper Functions **************************** */
 
@@ -151,6 +154,7 @@ function initTimer(timer) {
       const breakPrompt = new BreakPrompt(changeTitle);
 
       // Update the HTML
+      menuIcons.defaultMode();
       updateAppTitle(false);
       timer.setColorRed();
       timer.appendChild(breakPrompt);
@@ -205,6 +209,10 @@ function handleClick(timer, taskList) {
 
   timer.firstElementChild.addEventListener('click', () => {
     if (!active) {
+      // Hide all icons except home when a work session starts.
+      if (backend.get('Timer') === 'true') {
+        menuIcons.focusMode();
+      }
       active = true;
       timer.startTimer().then(() => {
         if (!finished) {
