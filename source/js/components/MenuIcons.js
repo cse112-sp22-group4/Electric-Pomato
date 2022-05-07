@@ -4,6 +4,7 @@
  */
 
 import PopUp from '../classes/PopUp.js';
+import * as backend from '../backend.js';
 
 /**
 * Creates the HTML for the menu icons
@@ -28,7 +29,11 @@ class MenuIcons extends HTMLElement {
       this.closeInfo();
     });
 
-    this.createIcons();
+    const username = backend.get('Username');
+    // Only add the icons if the user has signed in
+    if (username) {
+      this.createIcons();
+    }
   }
 
   /**
