@@ -3,6 +3,7 @@ $secondary: #BEC8ED;
 $success: #7dc37d;
 $danger: #DB6666;
 $info: #B2E3FF;
+$modal: #66a5d0;
 
 @import "../../node_modules/bootstrap/scss/functions";
 @import "../../node_modules/bootstrap/scss/variables";
@@ -49,6 +50,69 @@ menu-icons {
     a:hover {
         opacity: 0.5;
     }
+}
+
+#settings-modal {
+    display: none;
+    position: fixed;
+    margin: auto;
+    z-index: 2;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; 
+    background-color: rgba(0,0,0,0.4);
+}
+
+#settings-box {
+    margin: 100px auto;
+    padding: 50px;
+    background-color: $modal;
+    width: 40%;
+    border-radius: 40px;
+    text-align: center;
+    z-index: 0;
+}
+
+#settings-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    text-align: left;
+}
+
+#settings-container select {
+    float: right;
+}
+
+#settings-buttons {
+    margin-top: 30px;
+}
+
+#settings-close {
+    background-color: #e65656ef;
+}
+
+.settings-row {
+    flex: 50%;
+    margin-bottom: 50px;
+    width: 80%;
+    padding-left: 20px;
+    @include font-size($h3-font-size);
+    word-wrap: break-word;
+}
+
+.settings-select {
+    flex: 50%;
+    padding: 5px;
+    width: 100px;
+    @include font-size($h4-font-size);
+}
+
+#settings-text {
+    padding-bottom: 50px;
+    @include font-size($h1-font-size);
 }
 
 #info-close {
