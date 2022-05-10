@@ -26,13 +26,37 @@ How can we enhance the features and mechanics already in place and add in new fe
 
 ## Decision Outcome (bolded options indicate the features we decided to implement)
 
-1. Theme.
-    - Use CSS themes, specifically the paper CSS theme: see the bolded reason below.
-    - __For the most part we decided to use our own drawings. The previuos group members pictures look great, and a new member has drawn some icons, but we wanted a wider variety of options so we did use some online drawings__
-   TODO - Design only using a simplistic layout and a minimum amount of art: most of the members felt that having a miniscule amount of art was a bit too bland for our application.
+1. User interface planned changes.
+    - __Redesign homepage to remove instructions/better make use of space Add menu bar with icons for instructions, settings, stats/report, and home
+Settings button - opens settings pop-up modal with options for:__
+        - Pomo Timer duration
+        - Short Break duration
+        - Long Break duration
+        - Settings button will recommend default length for pomo sessions and short/long breaks to stay truthful to the Pomodoro technique (25 min session, 5 min short break, 15 min long break) 
+    - Instructions button - opens instructions pop-up modal with previous 3 cards
+    - Arrange cards vertically to maintain the same appearance on different sized viewports
+    - Automatically pop-up modal when user enters name for the first time
+Stats button - opens stats report modal with chart from done.html
+    - Automatically pop-up modal when user ends a session
+    - Home button - go to homepage
+    - Prompt user if user clicks on home button in the middle of a session
+    - Menu bar will be hidden when a user visits the webpage for the first time to reduce clutter 
+    - __Title changes__
+        - Move title to center of webpage to make room for menu bar, allow user to more easily focus on current task
+        - Change title to display whether a user is on a short or long break
+        - When a user starts the break timer, title will display “Short/Long Break” and the current/next task title 
+        - If the user is currently waiting for/on a task, task title will be “Current Task:”
+        - If the user is about to move on to the next task, task title will be “Next Task:”
+        - If the user is currently waiting for/on the final task, task title will be “Final Task:”
+    - Add finish task button to task page 
+        -The Finish task button will prompt the user to confirm if they want to move on
+    -Finish task button will change to end session button if user is on final task 
+    -Change prompt at end of session to only allow user to go back to homepage
+    -Remove done.html (functionality moved to stats modal)
+
 2. Features pertaining to Francesco's Pomodoro Technique.
     - __25-30 minute break timer after 4 Pomodoros: this is part of the core functionality of the timer, so we need to include it.__
-    - __To-do today/Task list sheet: only having a timer as our project would seem insipid and prosaic. Adding a task list seems reasonable and achievable by the end of the quarter. Furthermore, it will help the user manage their tasks for the day.__
+    - __To-do today/Task list sheet: We want to organize the info section and add a settings bar to the top of our website. We also want to allow users to see their data while they are working on the project. We also want to add more accessibility features (ex: text to speech for blind people) and allow the website to be used while offline. For other features view our design meeting notes [here](TODO)TODO__
     - Activity Inventory sheet: while this is part of the Pomodoro Technique that Francesco delineated, we felt that this may inundate the development team with too many things to implement. It also adds a layer of complexity that goes against the idea of simplicity and intuitiveness that we want for the user.
     - Unplanned and urgent list: same reason as above, especially because this is one of the most convoluted parts of the Pomodoro Technique.
         - ~~Urgent task slot: IGNORE.~~
