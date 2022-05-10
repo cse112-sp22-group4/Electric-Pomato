@@ -1,15 +1,15 @@
 /**
- * @file Holds the Info class and defines its functionality.
+ * @file Defines the functionality for the info modal.
  * @author Steven Harris
  * Date: 05/07/2022
  */
 
 /**
- * Defines the Info class which controls opening and closing the info modal.
+ * Defines the InfoController class which controls opening and closing the info modal.
  */
-class Info {
+class InfoController {
   /**
-   * Constructs the info object
+   * Constructs the InfoController object
    */
   constructor() {
     this.DOM_ELEMENTS = {
@@ -39,4 +39,4 @@ class Info {
   }
 }
 
-export default Info;
+export default InfoController;

@@ -1,5 +1,5 @@
 /**
- * @file Holds the Settings class and defines its functionality.
+ * @file Defines the functionality of the settings modal.
  * @author Steven Harris
  * Date: 05/07/2022
  */
@@ -7,11 +7,11 @@
 import * as backend from '../backend.js';
 
 /**
- * Defines the Settings class which saves user preferences in local storage
+ * Defines the SettingsController class which saves user preferences in local storage.
  */
-class Settings {
+class SettingsController {
   /**
-   * Constructs the settings object.
+   * Constructs the SettingsController object.
    */
   constructor() {
     this.DOM_ELEMENTS = {
@@ -98,4 +98,4 @@ class Settings {
   }
 }
 
-export default Settings;
+export default SettingsController;
