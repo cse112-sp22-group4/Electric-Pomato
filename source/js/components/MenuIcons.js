@@ -3,10 +3,12 @@
  * @author Steven Harris
  */
 
-import PopUp from '../classes/PopUp.js';
 import * as backend from '../backend.js';
-import Info from '../classes/Info.js';
-import Settings from '../classes/Settings.js';
+import PopUp from '../classes/PopUp.js';
+import InfoModal from '../components/InfoModal.js';
+import InfoController from '../classes/InfoController.js';
+import SettingsModal from '../components/SettingsModal.js';
+import SettingsController from '../classes/SettingsController.js';
 
 /**
 * Creates the HTML for the menu icons
@@ -20,14 +22,20 @@ class MenuIcons extends HTMLElement {
     super();
 
     // Define the DOM elements that control the modals
-    this.DOM_ELEMENTS = {};
+    this.DOM_ELEMENTS = {
+      menuContainer: document.getElementById('menu-container'),
+    };
+
+    // Create the html for each icon
+    this.DOM_ELEMENTS.menuContainer.appendChild(new SettingsModal());
+    this.DOM_ELEMENTS.menuContainer.appendChild(new InfoModal());
 
     // Bring in the functionality for each icon
-    this.info = new Info();
-    this.settings = new Settings();
+    this.infoController = new InfoController();
+    this.settingsController = new SettingsController();
 
-    const username = backend.get('Username');
     // Only add the icons if the user has signed in
+    const username = backend.get('Username');
     if (username) {
       this.createIcons();
     }
@@ -68,7 +76,7 @@ class MenuIcons extends HTMLElement {
     const infoButton = document.createElement('i');
     infoButton.classList.add('fas', 'fa-info-circle', 'text-white', 'm-4');
     infoButton.addEventListener('click', () => {
-      this.info.openInfo();
+      this.infoController.openInfo();
     });
     this.DOM_ELEMENTS['info-button'] = infoButton;
     this.appendChild(infoButton);
@@ -81,7 +89,7 @@ class MenuIcons extends HTMLElement {
     const settingsButton = document.createElement('i');
     settingsButton.classList.add('fas', 'fa-wrench', 'text-white', 'm-4');
     settingsButton.addEventListener('click', () => {
-      this.settings.openSettings();
+      this.settingsController.openSettings();
     });
     this.DOM_ELEMENTS['settings-button'] = settingsButton;
     this.appendChild(settingsButton);
