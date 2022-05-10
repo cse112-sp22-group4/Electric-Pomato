@@ -22,7 +22,8 @@ How can we enhance the features and mechanics already in place and add in new fe
 - Simplicity and intuitiveness.
 - Francesco Chirillo's Pomodoro Technique philosophy.
 - Task and time management.
-- Easier to use for the User
+- Easier to use for the User.
+- Stay true to previous implementation
 
 ## Decision Outcome (bolded options indicate the features we decided to implement)
 
@@ -48,28 +49,34 @@ Stats button - opens stats report modal with chart from done.html
         - If the user is currently waiting for/on a task, task title will be “Current Task:”
         - If the user is about to move on to the next task, task title will be “Next Task:”
         - If the user is currently waiting for/on the final task, task title will be “Final Task:”
-    - Add finish task button to task page 
+    - __Add finish task button to task page__
         -The Finish task button will prompt the user to confirm if they want to move on
-    -Finish task button will change to end session button if user is on final task 
-    -Change prompt at end of session to only allow user to go back to homepage
-    -Remove done.html (functionality moved to stats modal)
+    - __Finish task button will change to end session button if user is on final task__
+    - __Change prompt at end of session to only allow user to go back to homepage__
 
-2. Features pertaining to Francesco's Pomodoro Technique.
-    - __25-30 minute break timer after 4 Pomodoros: this is part of the core functionality of the timer, so we need to include it.__
-    - __To-do today/Task list sheet: We want to organize the info section and add a settings bar to the top of our website. We also want to allow users to see their data while they are working on the project. We also want to add more accessibility features (ex: text to speech for blind people) and allow the website to be used while offline. For other features view our design meeting notes [here](TODO)TODO__
-    - Activity Inventory sheet: while this is part of the Pomodoro Technique that Francesco delineated, we felt that this may inundate the development team with too many things to implement. It also adds a layer of complexity that goes against the idea of simplicity and intuitiveness that we want for the user.
-    - Unplanned and urgent list: same reason as above, especially because this is one of the most convoluted parts of the Pomodoro Technique.
-        - ~~Urgent task slot: IGNORE.~~
-    - __Records sheet: our team decided to incorporate this page because it goes along with the task list and would help the user summarize his or her performance; however, we don't want this to be too sophisticated for the sake of giving the developers enough time to work on this project.__
-    - __Estimated number of Pomodoros: this is a relatively straightforward thing to implement. It's also a mechanic that Francesco limns in his book.__
-        - Allow and track multiple estimations for a single task: this can engender a number of issues for the development team, and it may make parts of the page look cluttered. The biggest issue with this feature is that it aggrandizes the number of variables to keep track of and may drastically alter the way the Records Sheet must be displayed.
-        - Evince estimated and real number of Pomodoros below timer: this simply contributes to clutter on the page and isn't necessary to implement.
+2. Enhancements to previous project and bug fixes.
+    - __Landing page instructions were not rendering properly on different sized viewports__
+        - Solution: Remove instructions from the landing page
+        - Add an instructions pop-up modal that users can access by clicking on a menu icon. Have the modal automatically pop-up once the user enters their name and enters the task list view.
+    - __Current web page doesn’t work if the internet disconnects while using the website__
+        - Solution: Make the webpage PWA compatible so timer will still run even if disconnected from the internet
+    - __Notifications only worked if you were on the web page or you were on a Mac__
+        - Improve background notifications so that if a user is off the webpage (for instance during a break) the timer will alert them when finished.
+    - __Users can’t move on to the next task if they finished a task in the middle of a session__
+        - Solution: Add a “finish task” button that allows users to finish the current task in the middle of a Pomo session
+    - __The current webpage does not work with keyboard controls__
+        - Solution: Add keyboard controls so users can operate the website using only a keyboard 
+    - __The Electric Pomato logo lead back to the homepage which was not clear to users__
+        - Solution: Remove the functionality from the logo
+        - Add a dedicated homepage button that prompts the user if they’re in the middle of a session	
+    - __Certain disabilities have no access to our webpage (EX: blind people)__
+        - Solution Make webpage 100% HTML valid to be compatible with screen readers 
+    - __Bug: New task list item content is reset after editing a new task item__
+
 3. Miscellaneous features.
-    - Plots and visuals: this can introduce impediments because of how much planning may be invovled for implementing these features, so we thought it's best to exlude them from this project.
-    - Display task remaining and completed count: Same reason as "evince estimated and real number of Pomodoros below timer."
-    - __Documentation on application itself: after a bit of thinking, we feel that our documentation would only take up a modicum of space on a Wiki page, so we advocated for writing documentation on the application itself, specifically on the landing page.__
-        - __Landing page: we decided to incorporate a landing page to help introduce the user to the application since the Pomodoro Technique is a rather obscure self-improvement technique.__
-    - Docmentation on separate wiki page: see "documentation on application itself" above.
+    - __Update the website title with the current timer value if the timer is running__
+    - __Add audio notifications for timer that can be controlled from settings__
+
 4. Functionality.
     - __Begin button for the timer: to clarify, we were debating on whether the timer should start immediately after adding completing the task list at the beginning of the day or prompt the user to start when they're ready. We decided to do the latter. That is, to add a button prompting the user so the application doesn't start untowardly.__
     - Exit application button during the break timer: the user can just close the application any time. Additionally, it just adds more clutter.
@@ -81,10 +88,6 @@ Stats button - opens stats report modal with chart from done.html
         - ~~Update: after getting feedback from the development team, they think that implementing this is wishful thinking.~~
         - Update 2: we changed our minds again. The application should show the prompt after the user completes the last task. The timer will still count down while the prompt is shown on the screen; however, if the timer fully elapses, then it should automatically take the user to the Records Sheet screen.
 5. User information storage.
-    - Store user accounts: implementing this would most likely require a server/backend component of this project, which is an unconscionable expectation for the developers.
-    - __Only keep track of a single user: this application is most likely going to be used for personal reasons, so we decided to only keep track of a single user's information.__
-6. Page layout.
-    - __Single page for timer: as our project was still in an amorphous state, this is something we needed to ask the developers about since it shapes the code layout of our project. They ultimately decided to go for a single page application (timer page only) because it's a lot easier to keep track of things and minimizes the number of times the program must interact with local storage.__
-    - Multiple pages for timer: see "single page for timer" above.
-7. Task list appearance.
-    - __Pop-up task list__: The task list is tucked away at the bottom of the timer page. Our task list acts like a dropdown menu when the user clicks on the bar. The option of keeping the entire task list on the same screen as the timer was discarded because it would be too distracting and add clutter to the screen.
+    - __Users might want to view their progress during a break. The report page also is clunky/has some browser navigation bugs__
+        - Solution: Remove the report page
+        - Add a report pop-up modal that users can access by clicking on a menu icon. Have the modal automatically pop-up once the user finishes their session and returns to the homepage
