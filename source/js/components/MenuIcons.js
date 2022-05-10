@@ -5,9 +5,9 @@
 
 import * as backend from '../backend.js';
 import PopUp from '../classes/PopUp.js';
-import InfoModal from '../components/InfoModal.js';
+import InfoModal from './InfoModal.js';
 import InfoController from '../classes/InfoController.js';
-import SettingsModal from '../components/SettingsModal.js';
+import SettingsModal from './SettingsModal.js';
 import SettingsController from '../classes/SettingsController.js';
 
 /**

@@ -29,7 +29,7 @@ class SettingsController {
 
     // If local storage is not yet populated, set the default values
     if (!backend.get('workSessionDuration')) {
-      Settings.setDefaultValuesInStorage();
+      SettingsController.setDefaultValuesInStorage();
     }
 
     this.DOM_ELEMENTS.settingsCloseButton.addEventListener('click', () => {

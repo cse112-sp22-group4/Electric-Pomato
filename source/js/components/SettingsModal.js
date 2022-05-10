@@ -29,7 +29,7 @@ class SettingsModal extends HTMLElement {
               <option value="45">45 min</option>
             </select>
           </label>
-          <label class="settings-row" for="short-duration-select" style="word-wrap:break-word">	
+          <label class="settings-row" for="short-duration-select" style="word-wrap:break-word">
               Short Break Duration
               <select class="settings-select" name="short-duration-select" id="short-duration-select">
                 <option value="3">3 min</option>
