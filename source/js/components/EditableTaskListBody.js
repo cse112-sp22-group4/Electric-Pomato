@@ -102,8 +102,6 @@ class EditableTaskListBody extends HTMLElement {
     });
 
     this.editableTaskList.updateButtonState();
-
-    this.nextElementSibling.reset();
   }
 
   /**
