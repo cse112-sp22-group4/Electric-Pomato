@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>TimerUI - Documentation</title>
+    <title>components/SettingsModal.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,996 +29,172 @@
 
 <div id="main">
     
-    <h1 class="page-title">TimerUI</h1>
-    
-
-    
-
-
-
-
-<section>
-
-<header>
-    
-        <h2>
-        TimerUI
-        </h2>
-        
-            <div class="class-description"><p>Creates the Custom HTMLElement for the Timer class.</p></div>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-<div class="section-method">
-
-    
-    <h2>Constructor</h2>
-    
-
-    <h4 class="name" id="TimerUI"><span class="type-signature"></span>new TimerUI<span class="signature">()</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>constructor for the UI in the Timer Object.</p>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_TimerUI.js.html">components/TimerUI.js</a>, <a href="components_TimerUI.js.html#line18">line 18</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
-    
-    </div>
-
-    
-        <h3 class="subsection-title">Extends</h3>
-
-        
-
-
-    <ul>
-        <li>HTMLElement</li>
-    </ul>
-
-
-    
-
-    
-
-    
-
-     
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id=".parseMinutes"><span class="type-signature">(static) </span>parseMinutes<span class="signature">(minute)</span><span class="type-signature"> &rarr; {string}</span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>Returns a string representing the minutes left with the format &quot;MM&quot;.
-ie: If 25 minuts are left, &quot;25&quot;. If 9 minutes are left &quot;09&quot;</p>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_TimerUI.js.html">components/TimerUI.js</a>, <a href="components_TimerUI.js.html#line73">line 73</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>minute</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>number</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                <p>Number of minutes that will be formatted.</p>
-                
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="section-returns">
-<h5>Returns:</h5>
-
-        
-
-<dl class="param-type">
-    <dt>
-        Type:
-    </dt>
-    <dd>
-        
-<span class="param-type"><code>string</code></span>
-
-
-    </dd>
-</dl>
-
-
-<div class="param-desc">
-    <p>Minutes Left</p>
-</div>
-
-    
-</div>
-
-
-
-</div>
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id=".parseSeconds"><span class="type-signature">(static) </span>parseSeconds<span class="signature">(second)</span><span class="type-signature"> &rarr; {string}</span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>Returns a string representing the seconds left with the format &quot;SS&quot;.
-ie: If 25 seconds are left, &quot;25&quot;. If 9 seconds are left &quot;09&quot;.</p>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_TimerUI.js.html">components/TimerUI.js</a>, <a href="components_TimerUI.js.html#line84">line 84</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>second</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>number</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                <p>Number of seconds that will be formatted.</p>
-                
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="section-returns">
-<h5>Returns:</h5>
-
-        
-
-<dl class="param-type">
-    <dt>
-        Type:
-    </dt>
-    <dd>
-        
-<span class="param-type"><code>string</code></span>
-
-
-    </dd>
-</dl>
-
-
-<div class="param-desc">
-    <p>Seconds Left</p>
-</div>
-
-    
-</div>
-
-
-
-</div>
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="createTimer"><span class="type-signature"></span>createTimer<span class="signature">(minutes, seconds)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>Create an internal <code>Timer</code> object that sets its <code>callbackEverySecond</code>
-callback function to a function that changes the timer html elements'
-minute and second values for every second that it ticks down.</p>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_TimerUI.js.html">components/TimerUI.js</a>, <a href="components_TimerUI.js.html#line47">line 47</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>minutes</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>number</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                <p>minutes that will be stored in object.</p>
-                
-            </td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>seconds</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>number</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                <p>seconds that will be stored in object.</p>
-                
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="setColorGold"><span class="type-signature"></span>setColorGold<span class="signature">()</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>Sets the Tomato image to a Gold Tomato.</p>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_TimerUI.js.html">components/TimerUI.js</a>, <a href="components_TimerUI.js.html#line109">line 109</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="setColorGreen"><span class="type-signature"></span>setColorGreen<span class="signature">()</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>Sets the Tomato image to a Green Tomato.</p>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_TimerUI.js.html">components/TimerUI.js</a>, <a href="components_TimerUI.js.html#line93">line 93</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="setColorRed"><span class="type-signature"></span>setColorRed<span class="signature">()</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>Sets the Tomato image to a Red Tomato.</p>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_TimerUI.js.html">components/TimerUI.js</a>, <a href="components_TimerUI.js.html#line101">line 101</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="startTimer"><span class="type-signature"></span>startTimer<span class="signature">()</span><span class="type-signature"> &rarr; {Promise}</span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>Start the internal <code>Timer</code> object by returning the Promise from startTimer()
-in the Timer class. Call this function by using await, the caller will be
-blocked until the timer is done counting down.</p>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_TimerUI.js.html">components/TimerUI.js</a>, <a href="components_TimerUI.js.html#line60">line 60</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="section-returns">
-<h5>Returns:</h5>
-
-        
-
-<dl class="param-type">
-    <dt>
-        Type:
-    </dt>
-    <dd>
-        
-<span class="param-type"><code>Promise</code></span>
-
-
-    </dd>
-</dl>
-
-
-<div class="param-desc">
-    <p>Countdown of timer</p>
-</div>
-
-    
-</div>
-
-
-
-</div>
-        
-    
-
-    
-
-    
-</article>
-
-</section>
+    <h1 class="page-title">components/SettingsModal.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @file Creates and defines the functionality of the settings modal.
+ * @author Steven Harris
+ * Date: 05/07/2022
+ */
+
+import * as backend from '../backend.js';
+
+/**
+ * Defines the Settings class which saves user preferences in local storage.
+ */
+class SettingsModal extends HTMLElement {
+  /**
+   * Updates the HTML and adds event listeners
+   */
+  constructor() {
+    super();
+    this.innerHTML = `
+    &lt;div id="settings-modal">
+      &lt;div id="settings-box">
+        &lt;h2 id="settings-text">Settings&lt;/h2>
+        &lt;form id="settings-container">
+          &lt;label class="settings-row" for="pomo-duration-select" style="word-wrap:break-word">
+            Pomodoro Duration
+            &lt;select class="settings-select" name="pomo-duration-select" id="pomo-duration-select">
+              &lt;option value="20">20 min&lt;/option>
+              &lt;option value="25">25 min&lt;/option>
+              &lt;option value="30">30 min&lt;/option>
+              &lt;option value="35">35 min&lt;/option>
+              &lt;option value="40">40 min&lt;/option>
+              &lt;option value="45">45 min&lt;/option>
+            &lt;/select>
+          &lt;/label>
+          &lt;label class="settings-row" for="short-duration-select" style="word-wrap:break-word">
+              Short Break Duration
+              &lt;select class="settings-select" name="short-duration-select" id="short-duration-select">
+                &lt;option value="3">3 min&lt;/option>
+                &lt;option value="5">5 min&lt;/option>
+                &lt;option value="7">7 min&lt;/option>
+                &lt;option value="10">10 min&lt;/option>
+              &lt;/select>
+          &lt;/label>
+          &lt;label class="settings-row" for="long-duration-select" style="word-wrap:break-word">
+            Long Break Duration
+            &lt;select class="settings-select" name="long-duration-select" id="long-duration-select">
+              &lt;option value="15">15 min&lt;/option>
+              &lt;option value="20">20 min&lt;/option>
+              &lt;option value="25">25 min&lt;/option>
+              &lt;option value="30">30 min&lt;/option>
+              &lt;option value="35">35 min&lt;/option>
+              &lt;option value="40">40 min&lt;/option>
+              &lt;option value="45">45 min&lt;/option>
+            &lt;/select>
+          &lt;/label>
+        &lt;/form>
+        &lt;button id="settings-default" type="button" class="btn btn-primary btn-block">Revert to recommended settings&lt;/button>
+        &lt;div id="settings-buttons">
+          &lt;div class="row">
+            &lt;div class="col">
+              &lt;button id="settings-close" type="button" class="btn btn-block">Cancel&lt;/button>
+            &lt;/div>
+            &lt;div class="col">
+              &lt;button id="settings-save" type="button" class="btn btn-success btn-block">Save&lt;/button>
+            &lt;/div>
+          &lt;/div>
+        &lt;/div>
+      &lt;/div>
+    &lt;/div>`;
+
+    this.DOM_ELEMENTS = {
+      settingsModal: document.getElementById('settings-modal'),
+      pomDurationDrop: document.getElementById('pomo-duration-select'),
+      shortBreakDrop: document.getElementById('short-duration-select'),
+      longBreakDrop: document.getElementById('long-duration-select'),
+      settingsCloseButton: document.getElementById('settings-close'),
+      settingsSaveButton: document.getElementById('settings-save'),
+      settingsDefaultButton: document.getElementById('settings-default'),
+    };
+
+    // By default the settings modal is not displayed
+    this.DOM_ELEMENTS.settingsModal.style.display = 'none';
+
+    // If local storage is not yet populated, set the default values
+    if (!backend.get('workSessionDuration')) {
+      SettingsModal.setDefaultValuesInStorage();
+    }
+
+    this.DOM_ELEMENTS.settingsCloseButton.addEventListener('click', () => {
+      this.close();
+    });
+    this.DOM_ELEMENTS.settingsSaveButton.addEventListener('click', () => {
+      this.saveSettings();
+    });
+    this.DOM_ELEMENTS.settingsDefaultButton.addEventListener('click', () => {
+      this.revertToDefault();
+    });
+  }
+
+  /**
+   * Revert the settings back to their default values
+   */
+  revertToDefault() {
+    this.DOM_ELEMENTS.pomDurationDrop.value = 25;
+    this.DOM_ELEMENTS.shortBreakDrop.value = 5;
+    this.DOM_ELEMENTS.longBreakDrop.value = 25;
+  }
+
+  /**
+   * Sets default values to local storage variables
+   */
+  static setDefaultValuesInStorage() {
+    backend.set('workSessionDuration', 25);
+    backend.set('shortBreakDuration', 5);
+    backend.set('longBreakDuration', 25);
+  }
+
+  /**
+   * Populate the settings values with the stored preferences
+   */
+  loadStoredInputValues() {
+    this.DOM_ELEMENTS.pomDurationDrop.value = backend.get('workSessionDuration');
+    this.DOM_ELEMENTS.shortBreakDrop.value = backend.get('shortBreakDuration');
+    this.DOM_ELEMENTS.longBreakDrop.value = backend.get('longBreakDuration');
+  }
+
+  /**
+   * Save the preferences in local storage
+   */
+  saveSettings() {
+    backend.set('workSessionDuration', this.DOM_ELEMENTS.pomDurationDrop.value);
+    backend.set('shortBreakDuration', this.DOM_ELEMENTS.shortBreakDrop.value);
+    backend.set('longBreakDuration', this.DOM_ELEMENTS.longBreakDrop.value);
+    this.close();
+  }
+
+  /**
+   * Opens the settings modal
+   */
+  open() {
+    this.loadStoredInputValues();
+    this.DOM_ELEMENTS.settingsModal.style.display = 'block';
+  }
+
+  /**
+   * Closes the settings modal
+   */
+  close() {
+    this.DOM_ELEMENTS.settingsModal.style.display = 'none';
+  }
+}
+
+customElements.define('settings-modal', SettingsModal);
+export default SettingsModal;
+</code></pre>
+        </article>
+    </section>
 
 
 
