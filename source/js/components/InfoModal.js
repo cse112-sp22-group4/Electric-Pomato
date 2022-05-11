@@ -1,15 +1,15 @@
 /**
- * @file Creates a custom element for the content of the info modal.
+ * @file Creates and defines the functionality for the info modal.
  * @author Steven Harris
+ * Date: 05/07/2022
  */
 
 /**
-* Defines the HTML for the info modal
-* @extends HTMLElement
-*/
+ * Defines the Info class which controls opening and closing the info modal.
+ */
 class InfoModal extends HTMLElement {
   /**
-  * Sets the HTML
+  * Updates the HTML and adds event listeners
   */
   constructor() {
     super();
@@ -88,6 +88,31 @@ class InfoModal extends HTMLElement {
         </div>
       </div>
     </div>`;
+
+    this.DOM_ELEMENTS = {
+      infoModal: document.getElementById('info-modal'),
+      infoCloseButton: document.getElementById('info-close'),
+    };
+
+    // By default the info modal is not displayed
+    this.DOM_ELEMENTS.infoModal.style.display = 'none';
+    this.DOM_ELEMENTS.infoCloseButton.addEventListener('click', () => {
+      this.close();
+    });
+  }
+
+  /*
+  * Opens the info modal
+  */
+  open() {
+    this.DOM_ELEMENTS.infoModal.style.display = 'block';
+  }
+
+  /**
+  * Closes the info modal
+  */
+  close() {
+    this.DOM_ELEMENTS.infoModal.style.display = 'none';
   }
 }
 

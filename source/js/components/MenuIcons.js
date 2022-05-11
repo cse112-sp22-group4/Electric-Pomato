@@ -6,9 +6,7 @@
 import * as backend from '../backend.js';
 import PopUp from '../classes/PopUp.js';
 import InfoModal from './InfoModal.js';
-import InfoController from '../classes/InfoController.js';
 import SettingsModal from './SettingsModal.js';
-import SettingsController from '../classes/SettingsController.js';
 
 /**
 * Creates the HTML for the menu icons
@@ -26,13 +24,9 @@ class MenuIcons extends HTMLElement {
       menuContainer: document.getElementById('menu-container'),
     };
 
-    // Create the html for each icon
-    this.DOM_ELEMENTS.menuContainer.appendChild(new SettingsModal());
-    this.DOM_ELEMENTS.menuContainer.appendChild(new InfoModal());
-
     // Bring in the functionality for each icon
-    this.infoController = new InfoController();
-    this.settingsController = new SettingsController();
+    this.infoModal = new InfoModal();
+    this.settingsModal = new SettingsModal();
 
     // Only add the icons if the user has signed in
     const username = backend.get('Username');
@@ -76,7 +70,7 @@ class MenuIcons extends HTMLElement {
     const infoButton = document.createElement('i');
     infoButton.classList.add('fas', 'fa-info-circle', 'text-white', 'm-4');
     infoButton.addEventListener('click', () => {
-      this.infoController.openInfo();
+      this.infoModal.open();
     });
     this.DOM_ELEMENTS['info-button'] = infoButton;
     this.appendChild(infoButton);
@@ -89,7 +83,7 @@ class MenuIcons extends HTMLElement {
     const settingsButton = document.createElement('i');
     settingsButton.classList.add('fas', 'fa-wrench', 'text-white', 'm-4');
     settingsButton.addEventListener('click', () => {
-      this.settingsController.openSettings();
+      this.settingsModal.open();
     });
     this.DOM_ELEMENTS['settings-button'] = settingsButton;
     this.appendChild(settingsButton);
