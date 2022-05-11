@@ -40,6 +40,8 @@ test('Open with non-empty task history', () => {
   // open stats modal 
   statsModal.open(); 
 
+  // Stats graph doesn't populate on JSDOM
+  // Need end-to-end testing to fully check graph contents
   expect(wrapper.style.display).toBe('flex'); 
   expect(lineChartAlt.style.display).toBe('none'); 
   expect(lineChart.children.length).toBe(2);
