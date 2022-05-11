@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>TimerUI - Documentation</title>
+    <title>SettingsModal - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,7 +29,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">TimerUI</h1>
+    <h1 class="page-title">SettingsModal</h1>
     
 
     
@@ -42,10 +42,10 @@
 <header>
     
         <h2>
-        TimerUI
+        SettingsModal
         </h2>
         
-            <div class="class-description"><p>Creates the Custom HTMLElement for the Timer class.</p></div>
+            <div class="class-description"><p>Defines the Settings class which saves user preferences in local storage.</p></div>
         
     
 </header>
@@ -60,14 +60,14 @@
     <h2>Constructor</h2>
     
 
-    <h4 class="name" id="TimerUI"><span class="type-signature"></span>new TimerUI<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="SettingsModal"><span class="type-signature"></span>new SettingsModal<span class="signature">()</span><span class="type-signature"></span></h4>
 
     
 
 
 
 <div class="description">
-    <p>constructor for the UI in the Timer Object.</p>
+    <p>Updates the HTML and adds event listeners</p>
 </div>
 
 
@@ -103,7 +103,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_TimerUI.js.html">components/TimerUI.js</a>, <a href="components_TimerUI.js.html#line18">line 18</a>
+        <a href="components_SettingsModal.js.html">components/SettingsModal.js</a>, <a href="components_SettingsModal.js.html#line12">line 12</a>
     </li></ul></dd>
     
 
@@ -141,17 +141,6 @@
     </div>
 
     
-        <h3 class="subsection-title">Extends</h3>
-
-        
-
-
-    <ul>
-        <li>HTMLElement</li>
-    </ul>
-
-
-    
 
     
 
@@ -172,15 +161,14 @@
 
     
 
-    <h4 class="name" id=".parseMinutes"><span class="type-signature">(static) </span>parseMinutes<span class="signature">(minute)</span><span class="type-signature"> &rarr; {string}</span></h4>
+    <h4 class="name" id=".setDefaultValuesInStorage"><span class="type-signature">(static) </span>setDefaultValuesInStorage<span class="signature">()</span><span class="type-signature"></span></h4>
 
     
 
 
 
 <div class="description">
-    <p>Returns a string representing the minutes left with the format &quot;MM&quot;.
-ie: If 25 minuts are left, &quot;25&quot;. If 9 minutes are left &quot;09&quot;</p>
+    <p>Sets default values to local storage variables</p>
 </div>
 
 
@@ -216,491 +204,7 @@ ie: If 25 minuts are left, &quot;25&quot;. If 9 minutes are left &quot;09&quot;<
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_TimerUI.js.html">components/TimerUI.js</a>, <a href="components_TimerUI.js.html#line73">line 73</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>minute</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>number</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                <p>Number of minutes that will be formatted.</p>
-                
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="section-returns">
-<h5>Returns:</h5>
-
-        
-
-<dl class="param-type">
-    <dt>
-        Type:
-    </dt>
-    <dd>
-        
-<span class="param-type"><code>string</code></span>
-
-
-    </dd>
-</dl>
-
-
-<div class="param-desc">
-    <p>Minutes Left</p>
-</div>
-
-    
-</div>
-
-
-
-</div>
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id=".parseSeconds"><span class="type-signature">(static) </span>parseSeconds<span class="signature">(second)</span><span class="type-signature"> &rarr; {string}</span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>Returns a string representing the seconds left with the format &quot;SS&quot;.
-ie: If 25 seconds are left, &quot;25&quot;. If 9 seconds are left &quot;09&quot;.</p>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_TimerUI.js.html">components/TimerUI.js</a>, <a href="components_TimerUI.js.html#line84">line 84</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>second</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>number</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                <p>Number of seconds that will be formatted.</p>
-                
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="section-returns">
-<h5>Returns:</h5>
-
-        
-
-<dl class="param-type">
-    <dt>
-        Type:
-    </dt>
-    <dd>
-        
-<span class="param-type"><code>string</code></span>
-
-
-    </dd>
-</dl>
-
-
-<div class="param-desc">
-    <p>Seconds Left</p>
-</div>
-
-    
-</div>
-
-
-
-</div>
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="createTimer"><span class="type-signature"></span>createTimer<span class="signature">(minutes, seconds)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>Create an internal <code>Timer</code> object that sets its <code>callbackEverySecond</code>
-callback function to a function that changes the timer html elements'
-minute and second values for every second that it ticks down.</p>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_TimerUI.js.html">components/TimerUI.js</a>, <a href="components_TimerUI.js.html#line47">line 47</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>minutes</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>number</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                <p>minutes that will be stored in object.</p>
-                
-            </td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>seconds</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>number</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                <p>seconds that will be stored in object.</p>
-                
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="setColorGold"><span class="type-signature"></span>setColorGold<span class="signature">()</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>Sets the Tomato image to a Gold Tomato.</p>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_TimerUI.js.html">components/TimerUI.js</a>, <a href="components_TimerUI.js.html#line109">line 109</a>
+        <a href="components_SettingsModal.js.html">components/SettingsModal.js</a>, <a href="components_SettingsModal.js.html#line111">line 111</a>
     </li></ul></dd>
     
 
@@ -740,14 +244,14 @@ minute and second values for every second that it ticks down.</p>
 
     
 
-    <h4 class="name" id="setColorGreen"><span class="type-signature"></span>setColorGreen<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="close"><span class="type-signature"></span>close<span class="signature">()</span><span class="type-signature"></span></h4>
 
     
 
 
 
 <div class="description">
-    <p>Sets the Tomato image to a Green Tomato.</p>
+    <p>Closes the settings modal</p>
 </div>
 
 
@@ -783,7 +287,7 @@ minute and second values for every second that it ticks down.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_TimerUI.js.html">components/TimerUI.js</a>, <a href="components_TimerUI.js.html#line93">line 93</a>
+        <a href="components_SettingsModal.js.html">components/SettingsModal.js</a>, <a href="components_SettingsModal.js.html#line147">line 147</a>
     </li></ul></dd>
     
 
@@ -823,14 +327,14 @@ minute and second values for every second that it ticks down.</p>
 
     
 
-    <h4 class="name" id="setColorRed"><span class="type-signature"></span>setColorRed<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="loadStoredInputValues"><span class="type-signature"></span>loadStoredInputValues<span class="signature">()</span><span class="type-signature"></span></h4>
 
     
 
 
 
 <div class="description">
-    <p>Sets the Tomato image to a Red Tomato.</p>
+    <p>Populate the settings values with the stored preferences</p>
 </div>
 
 
@@ -866,7 +370,7 @@ minute and second values for every second that it ticks down.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_TimerUI.js.html">components/TimerUI.js</a>, <a href="components_TimerUI.js.html#line101">line 101</a>
+        <a href="components_SettingsModal.js.html">components/SettingsModal.js</a>, <a href="components_SettingsModal.js.html#line120">line 120</a>
     </li></ul></dd>
     
 
@@ -906,16 +410,14 @@ minute and second values for every second that it ticks down.</p>
 
     
 
-    <h4 class="name" id="startTimer"><span class="type-signature"></span>startTimer<span class="signature">()</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    <h4 class="name" id="open"><span class="type-signature"></span>open<span class="signature">()</span><span class="type-signature"></span></h4>
 
     
 
 
 
 <div class="description">
-    <p>Start the internal <code>Timer</code> object by returning the Promise from startTimer()
-in the Timer class. Call this function by using await, the caller will be
-blocked until the timer is done counting down.</p>
+    <p>Opens the settings modal</p>
 </div>
 
 
@@ -951,7 +453,7 @@ blocked until the timer is done counting down.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_TimerUI.js.html">components/TimerUI.js</a>, <a href="components_TimerUI.js.html#line60">line 60</a>
+        <a href="components_SettingsModal.js.html">components/SettingsModal.js</a>, <a href="components_SettingsModal.js.html#line139">line 139</a>
     </li></ul></dd>
     
 
@@ -982,30 +484,171 @@ blocked until the timer is done counting down.</p>
 
 
 
-<div class="section-returns">
-<h5>Returns:</h5>
 
+
+</div>
         
+            
+<div class="section-method">
 
-<dl class="param-type">
-    <dt>
-        Type:
-    </dt>
-    <dd>
-        
-<span class="param-type"><code>Promise</code></span>
+    
+
+    <h4 class="name" id="revertToDefault"><span class="type-signature"></span>revertToDefault<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
 
 
-    </dd>
+
+<div class="description">
+    <p>Revert the settings back to their default values</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="components_SettingsModal.js.html">components/SettingsModal.js</a>, <a href="components_SettingsModal.js.html#line102">line 102</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
 </dl>
 
 
-<div class="param-desc">
-    <p>Countdown of timer</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </div>
+        
+            
+<div class="section-method">
 
     
+
+    <h4 class="name" id="saveSettings"><span class="type-signature"></span>saveSettings<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Save the preferences in local storage</p>
 </div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="components_SettingsModal.js.html">components/SettingsModal.js</a>, <a href="components_SettingsModal.js.html#line129">line 129</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
