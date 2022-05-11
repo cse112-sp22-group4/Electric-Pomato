@@ -38,6 +38,52 @@ $spacers: (
 
 // Custom CSS
 
+menu-icons {
+    i, a {
+        cursor: pointer;
+        @include font-size($h2-font-size);
+    }
+    i:hover {
+        opacity: 0.5;
+    }
+    a:hover {
+        opacity: 0.5;
+    }
+}
+
+#info-close {
+    cursor: pointer;
+    @include font-size($h3-font-size);
+}
+
+#info-modal {
+    display: none;
+    position: fixed;
+    margin: auto;
+    overflow: auto;
+    z-index: 2;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);
+}
+
+#info-box {
+    margin: 100px auto;
+    background: #a6afb5;
+    width: 70%;
+    border-radius: 40px;
+    z-index: 0;
+    padding: 20px 50px;
+    @include font-size($h5-font-size);
+}
+
+#info-box h2 {
+    text-decoration: underline;
+    text-align: center;
+}
+
 body {
     min-height: 100vh;
     position: relative;
