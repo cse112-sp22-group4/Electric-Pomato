@@ -25,13 +25,13 @@ How should we conduct end-to-end testing?
 
 ## Decision Outcome
 
-1. We will use Firebase's preview channels to deploy staged versions of the code
+1. We will use Firebase's preview channels to deploy staged versions of the code.
    - Instead of a singular staging branch, preview channels host a separate deployment for each pull request.
    - Preview channels allow for multiple features to be deployed and tested at once.
    - Preview channels allow for easy viewing by developers for manual testing.
    - Preview channel setup is minimal, we only need to setup a Firebase project for our code and add the Firebase Deploy Github action to our pipeline.
 2. End-to-end/manual tests will be ran on the preview channel on every new pull request to main that involves the source code.
-3. We will use Cypress for end-to-end testing 
+3. We will use Cypress for end-to-end testing.
    - Steven has some experience with Cypress and mentioned that he had a good experience with it.
    - Cypress is more suited for end-to-end tests than Puppeteer.
    - Documentation for Cypress is more complete, making it easier to learn.

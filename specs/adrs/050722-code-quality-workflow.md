@@ -21,8 +21,8 @@ How should we conduct code quality checking in our pipeline?
 
 ## Decision Outcome
 
-1. We will use Codacy for code quality checking
-   - Codacy seems to be a popular code quality framework, was suggested by our TA
-   - Alan has some experience with Codacy
+1. We will use Codacy for code quality checking.
+   - Codacy seems to be a popular code quality framework, was suggested by our TA.
+   - Alan has some experience with Codacy.
    - Codacy setup is minimal, we only need to add the Codacy Analysis CLI Github action to our pipeline.
 2. Code quality checks will be conducted when a developer makes a new push to a feature branch, after linting.  
