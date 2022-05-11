@@ -128,8 +128,6 @@ class EditableTaskListBody extends HTMLElement {
     });
 
     this.resetEditingState();
-
-    this.nextElementSibling.reset();
   }
 
   /**
