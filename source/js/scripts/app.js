@@ -9,7 +9,7 @@
  * @author Luke Menezes
  */
 
-import MenuIcons from '../components/MenuIcons.js';
+//import MenuIcons from '../components/MenuIcons.js';
 import EditableTaskList from '../components/EditableTaskList.js';
 import ViewOnlyTaskList from '../components/ViewOnlyTaskList.js';
 import TimerUI from '../components/TimerUI.js';
@@ -44,8 +44,8 @@ const appHeader = document.querySelector('.app-header');
 let finished = false;
 
 // Menu icons
-const menuIcons = new MenuIcons();
-appHeader.appendChild(menuIcons);
+const menuIcons = document.querySelector('menu-icons');
+//appHeader.appendChild(menuIcons);
 
 /* **************************** Helper Functions **************************** */
 

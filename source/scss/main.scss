@@ -51,6 +51,27 @@ menu-icons {
     }
 }
 
+stats-modal {
+
+    #line-chart {
+        display: flex;
+        align-items: center;
+        background-color: $secondary;
+        border-radius: 2.5rem;
+        min-height: 50vh;
+        flex-grow: 1;
+    }
+
+    #line-chart-alt {
+        margin: auto;
+    }
+
+    #stats-close {
+        margin-left: 10vw;
+        margin-right: 10vw;
+    }
+}
+
 #info-close {
     cursor: pointer;
     @include font-size($h3-font-size);
@@ -514,7 +535,7 @@ pomo-timer {
     @include font-size($h1-font-size * 3);
 }
 
-.notification {
+.notification, .modal-wrapper {
     display: none; /* Hidden by default */
     align-items: center;
     position: fixed; /* Stay in place */
@@ -528,8 +549,7 @@ pomo-timer {
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 
-#notif-content {
-    background-color: #fefefe;
+#notif-content, .modal-content {
     padding: map-get($spacers, 4);
     background-color: $info;
     border-radius: 2.5rem;
@@ -537,9 +557,10 @@ pomo-timer {
     animation-name: animatetop;
     animation-duration: 0.5s;
     text-align: center;
+    position: relative;
 }
 
-#notif-content > *:not(:last-child) {
+#notif-content, .modal-content > *:not(:last-child) {
     margin-bottom: map-get($spacers, 4);
 }
 

@@ -21,6 +21,7 @@ class MenuIcons extends HTMLElement {
     this.DOM_ELEMENTS = {
       infoModal: document.getElementById('info-modal'),
       infoCloseButton: document.getElementById('info-close'),
+      statsModal: document.querySelector('stats-modal')
     };
     // By default the info popup is not displayed
     this.DOM_ELEMENTS.infoModal.style.display = 'none';
@@ -94,9 +95,11 @@ class MenuIcons extends HTMLElement {
   * Creates the stats button to display the user's pomodoro statistics
   */
   createStatsButton() {
-    const statsButton = document.createElement('a');
+    const statsButton = document.createElement('i');
     statsButton.classList.add('fas', 'fa-chart-bar', 'text-white', 'm-4');
-    statsButton.href = './done.html';
+    statsButton.addEventListener('click', () => {
+      this.DOM_ELEMENTS.statsModal.open();
+    });
     this.DOM_ELEMENTS['stats-button'] = statsButton;
     this.appendChild(statsButton);
   }
