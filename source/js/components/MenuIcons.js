@@ -3,8 +3,10 @@
  * @author Steven Harris
  */
 
-import PopUp from '../classes/PopUp.js';
 import * as backend from '../backend.js';
+import PopUp from '../classes/PopUp.js';
+import InfoModal from './InfoModal.js';
+import SettingsModal from './SettingsModal.js';
 
 /**
 * Creates the HTML for the menu icons
@@ -19,19 +21,15 @@ class MenuIcons extends HTMLElement {
 
     // Define the DOM elements that control the modals
     this.DOM_ELEMENTS = {
-      infoModal: document.getElementById('info-modal'),
-      infoCloseButton: document.getElementById('info-close'),
-      statsModal: document.querySelector('stats-modal')
+      menuContainer: document.getElementById('menu-container'),
     };
-    // By default the info popup is not displayed
-    this.DOM_ELEMENTS.infoModal.style.display = 'none';
 
-    this.DOM_ELEMENTS.infoCloseButton.addEventListener('click', () => {
-      this.closeInfo();
-    });
+    // Bring in the functionality for each icon
+    this.infoModal = new InfoModal();
+    this.settingsModal = new SettingsModal();
 
-    const username = backend.get('Username');
     // Only add the icons if the user has signed in
+    const username = backend.get('Username');
     if (username) {
       this.createIcons();
     }
@@ -72,7 +70,7 @@ class MenuIcons extends HTMLElement {
     const infoButton = document.createElement('i');
     infoButton.classList.add('fas', 'fa-info-circle', 'text-white', 'm-4');
     infoButton.addEventListener('click', () => {
-      this.openInfo();
+      this.infoModal.open();
     });
     this.DOM_ELEMENTS['info-button'] = infoButton;
     this.appendChild(infoButton);
@@ -85,7 +83,7 @@ class MenuIcons extends HTMLElement {
     const settingsButton = document.createElement('i');
     settingsButton.classList.add('fas', 'fa-wrench', 'text-white', 'm-4');
     settingsButton.addEventListener('click', () => {
-      // TODO
+      this.settingsModal.open();
     });
     this.DOM_ELEMENTS['settings-button'] = settingsButton;
     this.appendChild(settingsButton);
@@ -131,20 +129,6 @@ class MenuIcons extends HTMLElement {
     });
     this.DOM_ELEMENTS['home-button'] = homeButton;
     this.appendChild(homeButton);
-  }
-
-  /*
-  * Opens the info popup
-  */
-  openInfo() {
-    this.DOM_ELEMENTS.infoModal.style.display = 'block';
-  }
-
-  /**
-  * Closes the info popup
-  */
-  closeInfo() {
-    this.DOM_ELEMENTS.infoModal.style.display = 'none';
   }
 }
 

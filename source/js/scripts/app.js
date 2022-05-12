@@ -9,7 +9,6 @@
  * @author Luke Menezes
  */
 
-//import MenuIcons from '../components/MenuIcons.js';
 import EditableTaskList from '../components/EditableTaskList.js';
 import ViewOnlyTaskList from '../components/ViewOnlyTaskList.js';
 import TimerUI from '../components/TimerUI.js';
@@ -45,7 +44,11 @@ let finished = false;
 
 // Menu icons
 const menuIcons = document.querySelector('menu-icons');
+<<<<<<< HEAD
 //appHeader.appendChild(menuIcons);
+=======
+appHeader.appendChild(menuIcons);
+>>>>>>> eb9ae542c2a07d34256a19efe7897b95c1bb1a2a
 
 /* **************************** Helper Functions **************************** */
 
@@ -148,9 +151,7 @@ function initTimer(timer) {
       // Update the HTML
       updateAppTitle(false);
       timer.setColorGreen();
-      timer.createTimer(25, 0);
     } else {
-      const totalPomos = Number(backend.get('TotalPomos'));
       const breakPrompt = new BreakPrompt(changeTitle);
 
       // Update the HTML
@@ -158,15 +159,6 @@ function initTimer(timer) {
       updateAppTitle(false);
       timer.setColorRed();
       timer.appendChild(breakPrompt);
-
-      // If there has been 4 pomos then it is a long break
-      if (totalPomos > 0 && totalPomos % 4 === 0) {
-        // Long break
-        timer.createTimer(25, 0);
-      } else {
-        // Short break
-        timer.createTimer(5, 0);
-      }
     }
   }
 }
@@ -209,10 +201,23 @@ function handleClick(timer, taskList) {
 
   timer.firstElementChild.addEventListener('click', () => {
     if (!active) {
-      // Hide all icons except home when a work session starts.
       if (backend.get('Timer') === 'true') {
+        // Hide all icons except home when a work session starts.
         menuIcons.focusMode();
+        const workSessionDuration = backend.get('workSessionDuration');
+        timer.createTimer(workSessionDuration, 0);
+      } else {
+        const totalPomos = Number(backend.get('TotalPomos'));
+        // If there has been 4 pomos then it is a long break
+        if (totalPomos > 0 && totalPomos % 4 === 0) {
+          const longBreakDuration = backend.get('longBreakDuration');
+          timer.createTimer(longBreakDuration, 0);
+        } else {
+          const shortBreakDuration = backend.get('shortBreakDuration');
+          timer.createTimer(shortBreakDuration, 0);
+        }
       }
+
       active = true;
       timer.startTimer().then(() => {
         if (!finished) {

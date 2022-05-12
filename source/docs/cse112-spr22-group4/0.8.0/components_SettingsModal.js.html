@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>EditableTaskList - Documentation</title>
+    <title>components/SettingsModal.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,319 +29,172 @@
 
 <div id="main">
     
-    <h1 class="page-title">EditableTaskList</h1>
-    
-
-    
-
-
-
-
-<section>
-
-<header>
-    
-        <h2>
-        EditableTaskList
-        </h2>
-        
-            <div class="class-description"><p>Constructs the HTML of the EditableTaskListBody and EditableTaskListInput.</p></div>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-<div class="section-method">
-
-    
-    <h2>Constructor</h2>
-    
-
-    <h4 class="name" id="EditableTaskList"><span class="type-signature"></span>new EditableTaskList<span class="signature">()</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>Create and append custom elements.</p>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_EditableTaskList.js.html">components/EditableTaskList.js</a>, <a href="components_EditableTaskList.js.html#line15">line 15</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
-    
-    </div>
-
-    
-        <h3 class="subsection-title">Extends</h3>
-
-        
-
-
-    <ul>
-        <li>HTMLElement</li>
-    </ul>
-
-
-    
-
-    
-
-    
-
-     
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="connectedCallback"><span class="type-signature"></span>connectedCallback<span class="signature">()</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>Callback function to update the button's state</p>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_EditableTaskList.js.html">components/EditableTaskList.js</a>, <a href="components_EditableTaskList.js.html#line38">line 38</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="updateButtonState"><span class="type-signature"></span>updateButtonState<span class="signature">()</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>Sets the &quot;Start My Day&quot; button to enabled when there is at least one task entered
-and sets it to disabled otherwise.</p>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_EditableTaskList.js.html">components/EditableTaskList.js</a>, <a href="components_EditableTaskList.js.html#line46">line 46</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
-        
-    
-
-    
-
-    
-</article>
-
-</section>
+    <h1 class="page-title">components/SettingsModal.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @file Creates and defines the functionality of the settings modal.
+ * @author Steven Harris
+ * Date: 05/07/2022
+ */
+
+import * as backend from '../backend.js';
+
+/**
+ * Defines the Settings class which saves user preferences in local storage.
+ */
+class SettingsModal extends HTMLElement {
+  /**
+   * Updates the HTML and adds event listeners
+   */
+  constructor() {
+    super();
+    this.innerHTML = `
+    &lt;div id="settings-modal">
+      &lt;div id="settings-box">
+        &lt;h2 id="settings-text">Settings&lt;/h2>
+        &lt;form id="settings-container">
+          &lt;label class="settings-row" for="pomo-duration-select" style="word-wrap:break-word">
+            Pomodoro Duration
+            &lt;select class="settings-select" name="pomo-duration-select" id="pomo-duration-select">
+              &lt;option value="20">20 min&lt;/option>
+              &lt;option value="25">25 min&lt;/option>
+              &lt;option value="30">30 min&lt;/option>
+              &lt;option value="35">35 min&lt;/option>
+              &lt;option value="40">40 min&lt;/option>
+              &lt;option value="45">45 min&lt;/option>
+            &lt;/select>
+          &lt;/label>
+          &lt;label class="settings-row" for="short-duration-select" style="word-wrap:break-word">
+              Short Break Duration
+              &lt;select class="settings-select" name="short-duration-select" id="short-duration-select">
+                &lt;option value="3">3 min&lt;/option>
+                &lt;option value="5">5 min&lt;/option>
+                &lt;option value="7">7 min&lt;/option>
+                &lt;option value="10">10 min&lt;/option>
+              &lt;/select>
+          &lt;/label>
+          &lt;label class="settings-row" for="long-duration-select" style="word-wrap:break-word">
+            Long Break Duration
+            &lt;select class="settings-select" name="long-duration-select" id="long-duration-select">
+              &lt;option value="15">15 min&lt;/option>
+              &lt;option value="20">20 min&lt;/option>
+              &lt;option value="25">25 min&lt;/option>
+              &lt;option value="30">30 min&lt;/option>
+              &lt;option value="35">35 min&lt;/option>
+              &lt;option value="40">40 min&lt;/option>
+              &lt;option value="45">45 min&lt;/option>
+            &lt;/select>
+          &lt;/label>
+        &lt;/form>
+        &lt;button id="settings-default" type="button" class="btn btn-primary btn-block">Revert to recommended settings&lt;/button>
+        &lt;div id="settings-buttons">
+          &lt;div class="row">
+            &lt;div class="col">
+              &lt;button id="settings-close" type="button" class="btn btn-block">Cancel&lt;/button>
+            &lt;/div>
+            &lt;div class="col">
+              &lt;button id="settings-save" type="button" class="btn btn-success btn-block">Save&lt;/button>
+            &lt;/div>
+          &lt;/div>
+        &lt;/div>
+      &lt;/div>
+    &lt;/div>`;
+
+    this.DOM_ELEMENTS = {
+      settingsModal: document.getElementById('settings-modal'),
+      pomDurationDrop: document.getElementById('pomo-duration-select'),
+      shortBreakDrop: document.getElementById('short-duration-select'),
+      longBreakDrop: document.getElementById('long-duration-select'),
+      settingsCloseButton: document.getElementById('settings-close'),
+      settingsSaveButton: document.getElementById('settings-save'),
+      settingsDefaultButton: document.getElementById('settings-default'),
+    };
+
+    // By default the settings modal is not displayed
+    this.DOM_ELEMENTS.settingsModal.style.display = 'none';
+
+    // If local storage is not yet populated, set the default values
+    if (!backend.get('workSessionDuration')) {
+      SettingsModal.setDefaultValuesInStorage();
+    }
+
+    this.DOM_ELEMENTS.settingsCloseButton.addEventListener('click', () => {
+      this.close();
+    });
+    this.DOM_ELEMENTS.settingsSaveButton.addEventListener('click', () => {
+      this.saveSettings();
+    });
+    this.DOM_ELEMENTS.settingsDefaultButton.addEventListener('click', () => {
+      this.revertToDefault();
+    });
+  }
+
+  /**
+   * Revert the settings back to their default values
+   */
+  revertToDefault() {
+    this.DOM_ELEMENTS.pomDurationDrop.value = 25;
+    this.DOM_ELEMENTS.shortBreakDrop.value = 5;
+    this.DOM_ELEMENTS.longBreakDrop.value = 25;
+  }
+
+  /**
+   * Sets default values to local storage variables
+   */
+  static setDefaultValuesInStorage() {
+    backend.set('workSessionDuration', 25);
+    backend.set('shortBreakDuration', 5);
+    backend.set('longBreakDuration', 25);
+  }
+
+  /**
+   * Populate the settings values with the stored preferences
+   */
+  loadStoredInputValues() {
+    this.DOM_ELEMENTS.pomDurationDrop.value = backend.get('workSessionDuration');
+    this.DOM_ELEMENTS.shortBreakDrop.value = backend.get('shortBreakDuration');
+    this.DOM_ELEMENTS.longBreakDrop.value = backend.get('longBreakDuration');
+  }
+
+  /**
+   * Save the preferences in local storage
+   */
+  saveSettings() {
+    backend.set('workSessionDuration', this.DOM_ELEMENTS.pomDurationDrop.value);
+    backend.set('shortBreakDuration', this.DOM_ELEMENTS.shortBreakDrop.value);
+    backend.set('longBreakDuration', this.DOM_ELEMENTS.longBreakDrop.value);
+    this.close();
+  }
+
+  /**
+   * Opens the settings modal
+   */
+  open() {
+    this.loadStoredInputValues();
+    this.DOM_ELEMENTS.settingsModal.style.display = 'block';
+  }
+
+  /**
+   * Closes the settings modal
+   */
+  close() {
+    this.DOM_ELEMENTS.settingsModal.style.display = 'none';
+  }
+}
+
+customElements.define('settings-modal', SettingsModal);
+export default SettingsModal;
+</code></pre>
+        </article>
+    </section>
 
 
 
