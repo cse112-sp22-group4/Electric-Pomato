@@ -37,14 +37,12 @@ import * as backend from '../backend.js';
 
 // DOM elements
 const appContainer = document.querySelector('.app-container');
-const appHeader = document.querySelector('.app-header');
 
 // Finished state
 let finished = false;
 
 // Menu icons
 const menuIcons = document.querySelector('menu-icons');
-appHeader.appendChild(menuIcons);
 
 /* **************************** Helper Functions **************************** */
 

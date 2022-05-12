@@ -40,112 +40,101 @@ $spacers: (
 // Custom CSS
 
 menu-icons {
-    i, a {
+    i {
         cursor: pointer;
         @include font-size($h2-font-size);
     }
     i:hover {
         opacity: 0.5;
     }
-    a:hover {
-        opacity: 0.5;
+}
+
+info-modal {
+    .container {
+        width: 600px;
+    }
+    
+    h2 {
+        text-decoration: underline;
+        text-align: center;
+    }
+
+    #info-cards {
+        overflow: auto;
+        height: 70vh;
+    }
+
+    #info-close {
+        margin-left: 10vw;
+        margin-right: 10vw;
     }
 }
+settings-modal {
+    .container {
+        width: 600px;
+    }
 
-#settings-modal {
-    display: none;
-    position: fixed;
-    margin: auto;
-    z-index: 2;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto; 
-    background-color: rgba(0,0,0,0.4);
+    #settings-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        text-align: left;
+    }
+    
+    #settings-container select {
+        float: right;
+    }
+    
+    #settings-buttons {
+        margin-top: 30px;
+    }
+    
+    #settings-close {
+        background-color: #e65656ef;
+    }
+    
+    .settings-row {
+        flex: 50%;
+        margin-bottom: 50px;
+        width: 80%;
+        padding-left: 20px;
+        @include font-size($h3-font-size);
+        word-wrap: break-word;
+    }
+    
+    .settings-select {
+        flex: 50%;
+        padding: 5px;
+        width: 100px;
+        @include font-size($h4-font-size);
+    }
+
+/*
+    #settings-text {
+        padding-bottom: 50px;
+        @include font-size($h1-font-size);
+    }
+*/
 }
 
-#settings-box {
-    margin: 100px auto;
-    padding: 50px;
-    background-color: $modal;
-    width: 40%;
-    border-radius: 40px;
-    text-align: center;
-    z-index: 0;
-}
+stats-modal {
+    #line-chart {
+        display: flex;
+        align-items: center;
+        background-color: $secondary;
+        border-radius: 2.5rem;
+        min-height: 50vh;
+        flex-grow: 1;
+    }
 
-#settings-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    text-align: left;
-}
+    #line-chart-alt {
+        margin: auto;
+    }
 
-#settings-container select {
-    float: right;
-}
-
-#settings-buttons {
-    margin-top: 30px;
-}
-
-#settings-close {
-    background-color: #e65656ef;
-}
-
-.settings-row {
-    flex: 50%;
-    margin-bottom: 50px;
-    width: 80%;
-    padding-left: 20px;
-    @include font-size($h3-font-size);
-    word-wrap: break-word;
-}
-
-.settings-select {
-    flex: 50%;
-    padding: 5px;
-    width: 100px;
-    @include font-size($h4-font-size);
-}
-
-#settings-text {
-    padding-bottom: 50px;
-    @include font-size($h1-font-size);
-}
-
-#info-close {
-    cursor: pointer;
-    @include font-size($h3-font-size);
-}
-
-#info-modal {
-    display: none;
-    position: fixed;
-    margin: auto;
-    overflow: auto;
-    z-index: 2;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.4);
-}
-
-#info-box {
-    margin: 100px auto;
-    background: #a6afb5;
-    width: 70%;
-    border-radius: 40px;
-    z-index: 0;
-    padding: 20px 50px;
-    @include font-size($h5-font-size);
-}
-
-#info-box h2 {
-    text-decoration: underline;
-    text-align: center;
+    #stats-close {
+        margin-left: 10vw;
+        margin-right: 10vw;
+    }
 }
 
 body {
@@ -578,7 +567,7 @@ pomo-timer {
     @include font-size($h1-font-size * 3);
 }
 
-.notification {
+.notification, .modal-wrapper {
     display: none; /* Hidden by default */
     align-items: center;
     position: fixed; /* Stay in place */
@@ -592,8 +581,7 @@ pomo-timer {
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 
-#notif-content {
-    background-color: #fefefe;
+#notif-content, .modal-content {
     padding: map-get($spacers, 4);
     background-color: $info;
     border-radius: 2.5rem;
@@ -601,9 +589,10 @@ pomo-timer {
     animation-name: animatetop;
     animation-duration: 0.5s;
     text-align: center;
+    position: relative;
 }
 
-#notif-content > *:not(:last-child) {
+#notif-content > *:not(:last-child), .modal-content > *:not(:last-child), #info-cards > *:not(:last-child)  {
     margin-bottom: map-get($spacers, 4);
 }
 
