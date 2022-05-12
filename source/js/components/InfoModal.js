@@ -90,7 +90,7 @@ class InfoModal extends HTMLElement {
     this.wrapper = document.getElementById('info-wrapper');
     this.closeButton = document.getElementById('info-close');
 
-   // Set up close button
+    // Set up close button
     this.closeButton.addEventListener('click', () => {
       this.close();
     });

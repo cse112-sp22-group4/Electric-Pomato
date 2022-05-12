@@ -22,7 +22,7 @@ class MenuIcons extends HTMLElement {
     // Assign references to the modals
     this.infoModal = document.querySelector('info-modal');
     this.settingsModal = document.querySelector('settings-modal');
-    this.statsModal = document.querySelector('stats-modal'); 
+    this.statsModal = document.querySelector('stats-modal');
 
     // Only add the icons if the user has signed in
     const username = backend.get('Username');
@@ -91,7 +91,7 @@ class MenuIcons extends HTMLElement {
   * Creates the stats button to display the user's pomodoro statistics
   */
   createStatsButton() {
-     // Set up button
+    // Set up button
     const statsButton = document.createElement('i');
     statsButton.classList.add('fas', 'fa-chart-bar', 'text-white', 'm-4');
     statsButton.addEventListener('click', () => {

@@ -3,10 +3,10 @@
  * @author Alan Wang
  * Date: 05/11/2022
  */
- import zingchart from '../../dependencies/zingchart-es6.min.js';
- import lineConfig from '../constants/lineConfig.js';
- import { hex } from '../constants/lineColors.js';
- import * as backend from '../backend.js';
+import zingchart from '../../dependencies/zingchart-es6.min.js';
+import lineConfig from '../constants/lineConfig.js';
+import { hex } from '../constants/lineColors.js';
+import * as backend from '../backend.js';
 
 /**
  * Constructs the HTML for the StatsModal
@@ -18,7 +18,7 @@ class StatsModal extends HTMLElement {
    */
   constructor() {
     super();
-    
+
     this.innerHTML = `
     <div id="stats-wrapper" class="modal-wrapper">
       <div class="container">
@@ -33,15 +33,34 @@ class StatsModal extends HTMLElement {
     </div>`;
 
     // Get references to elements of modal
-    this.wrapper = document.getElementById("stats-wrapper");
-    this.closeButton = document.getElementById("stats-close");
-    this.lineChartAlt = document.getElementById("line-chart-alt");
+    this.wrapper = document.getElementById('stats-wrapper');
+    this.closeButton = document.getElementById('stats-close');
+    this.lineChartAlt = document.getElementById('line-chart-alt');
 
     // Set up close button
     this.closeButton.addEventListener('click', () => {
       this.close();
     });
+  }
 
+  /*
+   * Opens the stats modal
+   */
+  open() {
+    this.wrapper.style.display = 'flex';
+    if (backend.get('History') == null) {
+      this.lineChartAlt.style.display = 'flex';
+    } else {
+      this.lineChartAlt.style.display = 'none';
+      StatsModal.loadLineChart();
+    }
+  }
+
+  /*
+   * Closes the stats modal
+   */
+  close() {
+    this.wrapper.style.display = 'none';
   }
 
   /**
@@ -51,7 +70,7 @@ class StatsModal extends HTMLElement {
    * @param {string} color - Hexadecimal string of the line color
    * @returns {Object} Formatted line data
    */
-  line(name, data, color) {
+  static line(name, data, color) {
     return {
       text: name.charAt(0).toUpperCase() + name.slice(1),
       values: data,
@@ -78,15 +97,15 @@ class StatsModal extends HTMLElement {
   /**
    * Assembles the data from the history of sessions and renders the line graph.
    */
-  loadLineChart() {
+  static loadLineChart() {
     // Remove old chart
-    lineConfig.series = []; 
+    lineConfig.series = [];
 
     // Generate new chart
     const { tasklists } = JSON.parse(backend.get('History'));
 
     const lines = ['expected', 'actual'];
-    
+
     // Create line data for plotting expected and actual Pomos per session
     let count = 0;
     lines.forEach((name) => {
@@ -99,7 +118,7 @@ class StatsModal extends HTMLElement {
         data.push(total);
       });
       lineConfig.series.push(this.line(name, data, hex[count]));
-      count++;
+      count += 1;
     });
 
     /* functional version
@@ -109,7 +128,7 @@ class StatsModal extends HTMLElement {
       ), rgba.pop())
     );
     */
-   
+
     // Generate chart using line data
     zingchart.render({
       id: 'line-chart',
@@ -117,26 +136,6 @@ class StatsModal extends HTMLElement {
       height: 500,
       width: '100%',
     });
-  }
-
- /*
-  * Opens the stats modal
-  */
-  open() {
-    this.wrapper.style.display = "flex";
-    if (backend.get('History') == null) {
-      this.lineChartAlt.style.display = 'flex';
-    } else {
-      this.lineChartAlt.style.display = 'none';
-      this.loadLineChart();
-    }
-  }
-
- /*
-  * Closes the stats modal
-  */
-  close() {
-    this.wrapper.style.display = "none";
   }
 }
 
