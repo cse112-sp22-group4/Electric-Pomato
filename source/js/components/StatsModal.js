@@ -25,7 +25,7 @@ class StatsModal extends HTMLElement {
             <div class="modal-content">
               <h2 class="modal-title">Expected vs. Actual Pomos Per Session</h2>
               <div id="line-chart">
-                <h3 id="line-chart-alt">You don't have any sessions recorded.<br>Click "Create Session" to create a new session!</h3>
+                <h3 id="line-chart-alt">You haven't completed any sessions yet. <br> Finish a session to start tracking your stats!</h3>
               </div>
               <button id="stats-close" class="btn btn-primary">Close</button>
         </div>
