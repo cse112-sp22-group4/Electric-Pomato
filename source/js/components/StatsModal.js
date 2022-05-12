@@ -1,8 +1,8 @@
 /**
- * @file Creates custom HTML element for a Pomo stats modal.
+ * @file Creates and defines the functionality for the Pomo stats modal.
  * @author Alan Wang
+ * Date: 05/11/2022
  */
-
  import zingchart from '../../dependencies/zingchart-es6.min.js';
  import lineConfig from '../constants/lineConfig.js';
  import { hex } from '../constants/lineColors.js';
@@ -14,7 +14,7 @@
  */
 class StatsModal extends HTMLElement {
   /**
-   * Create and append custom elements.
+   * Updates the HTML and adds event listeners
    */
   constructor() {
     super();
@@ -32,15 +32,18 @@ class StatsModal extends HTMLElement {
       </div>
     </div>`;
 
+    // Get references to elements of modal
     this.wrapper = document.getElementById("stats-wrapper");
     this.closeButton = document.getElementById("stats-close");
     this.lineChartAlt = document.getElementById("line-chart-alt");
 
+    // Set up close button
     this.closeButton.addEventListener('click', () => {
       this.close();
     });
 
   }
+
   /**
    * Formats the data into an object that describes one line in the graph.
    * @param {string} name - Name of the line
@@ -71,6 +74,7 @@ class StatsModal extends HTMLElement {
       visible: true,
     };
   }
+
   /**
    * Assembles the data from the history of sessions and renders the line graph.
    */
@@ -82,7 +86,8 @@ class StatsModal extends HTMLElement {
     const { tasklists } = JSON.parse(backend.get('History'));
 
     const lines = ['expected', 'actual'];
-
+    
+    // Create line data for plotting expected and actual Pomos per session
     let count = 0;
     lines.forEach((name) => {
       const data = [];
@@ -104,6 +109,8 @@ class StatsModal extends HTMLElement {
       ), rgba.pop())
     );
     */
+   
+    // Generate chart using line data
     zingchart.render({
       id: 'line-chart',
       data: lineConfig,
@@ -112,6 +119,9 @@ class StatsModal extends HTMLElement {
     });
   }
 
+ /*
+  * Opens the stats modal
+  */
   open() {
     this.wrapper.style.display = "flex";
     if (backend.get('History') == null) {
@@ -122,6 +132,9 @@ class StatsModal extends HTMLElement {
     }
   }
 
+ /*
+  * Closes the stats modal
+  */
   close() {
     this.wrapper.style.display = "none";
   }

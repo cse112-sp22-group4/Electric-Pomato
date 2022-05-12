@@ -1,7 +1,8 @@
 /**
  * @file Creates and defines the functionality for the info modal.
  * @author Steven Harris
- * Date: 05/07/2022
+ * @author Alan Wang
+ * Date: 05/11/2022
  */
 
 /**
@@ -14,11 +15,10 @@ class InfoModal extends HTMLElement {
   constructor() {
     super();
     this.innerHTML = `
-    <div id="info-modal">
-      <div id="info-box">
-        <i id="info-close" class="float-end fas fa-times text-danger"></i>
-        <div class="col m-4">
-          <div class="mb-4">
+    <div id="info-wrapper" class="modal-wrapper">
+      <div class="container">
+        <div id="info-content" class="modal-content">
+          <div id="info-cards">
             <div class="card">
               <div class="card-body">
                 <h2 class="card-title">Plan</h2>
@@ -39,8 +39,6 @@ class InfoModal extends HTMLElement {
                 </p>
               </div>
             </div>
-          </div>
-          <div class="mb-4">
             <div class="card">
               <div class="card-body">
                 <h2 class="card-title">Track</h2>
@@ -61,8 +59,6 @@ class InfoModal extends HTMLElement {
                 </p>
               </div>
             </div>
-          </div>
-          <div class="mb-4">
             <div class="card">
               <div class="card-body">
                 <h2 class="card-title">Record</h2>
@@ -85,18 +81,17 @@ class InfoModal extends HTMLElement {
               </div>
             </div>
           </div>
+          <button id="info-close" class="btn btn-primary">Close</button>
         </div>
       </div>
     </div>`;
 
-    this.DOM_ELEMENTS = {
-      infoModal: document.getElementById('info-modal'),
-      infoCloseButton: document.getElementById('info-close'),
-    };
+    // Set references to elements of modal
+    this.wrapper = document.getElementById('info-wrapper');
+    this.closeButton = document.getElementById('info-close');
 
-    // By default the info modal is not displayed
-    this.DOM_ELEMENTS.infoModal.style.display = 'none';
-    this.DOM_ELEMENTS.infoCloseButton.addEventListener('click', () => {
+   // Set up close button
+    this.closeButton.addEventListener('click', () => {
       this.close();
     });
   }
@@ -105,14 +100,14 @@ class InfoModal extends HTMLElement {
   * Opens the info modal
   */
   open() {
-    this.DOM_ELEMENTS.infoModal.style.display = 'block';
+    this.wrapper.style.display = 'flex';
   }
 
   /**
   * Closes the info modal
   */
   close() {
-    this.DOM_ELEMENTS.infoModal.style.display = 'none';
+    this.wrapper.style.display = 'none';
   }
 }
 

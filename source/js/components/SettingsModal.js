@@ -1,7 +1,8 @@
 /**
  * @file Creates and defines the functionality of the settings modal.
  * @author Steven Harris
- * Date: 05/07/2022
+ * @author Alan Wang
+ * Date: 05/11/2022
  */
 
 import * as backend from '../backend.js';
@@ -16,82 +17,81 @@ class SettingsModal extends HTMLElement {
   constructor() {
     super();
     this.innerHTML = `
-    <div id="settings-modal">
-      <div id="settings-box">
-        <h2 id="settings-text">Settings</h2>
-        <form id="settings-container">
-          <label class="settings-row" for="pomo-duration-select" style="word-wrap:break-word">
-            Pomodoro Duration
-            <select class="settings-select" name="pomo-duration-select" id="pomo-duration-select">
-              <option value="20">20 min</option>
-              <option value="25">25 min</option>
-              <option value="30">30 min</option>
-              <option value="35">35 min</option>
-              <option value="40">40 min</option>
-              <option value="45">45 min</option>
-            </select>
-          </label>
-          <label class="settings-row" for="short-duration-select" style="word-wrap:break-word">
-              Short Break Duration
-              <select class="settings-select" name="short-duration-select" id="short-duration-select">
-                <option value="3">3 min</option>
-                <option value="5">5 min</option>
-                <option value="7">7 min</option>
-                <option value="10">10 min</option>
+    <div id="settings-wrapper" class="modal-wrapper">
+      <div class="container">
+        <div id="settings-content" class="modal-content">
+          <h2 id="settings-text" class="modal-title">Settings</h2>
+          <form id="settings-container">
+            <label class="settings-row" for="pomo-duration-select" style="word-wrap:break-word">
+              Pomodoro Duration
+              <select class="settings-select" name="pomo-duration-select" id="pomo-duration-select">
+                <option value="20">20 min</option>
+                <option value="25">25 min</option>
+                <option value="30">30 min</option>
+                <option value="35">35 min</option>
+                <option value="40">40 min</option>
+                <option value="45">45 min</option>
               </select>
-          </label>
-          <label class="settings-row" for="long-duration-select" style="word-wrap:break-word">
-            Long Break Duration
-            <select class="settings-select" name="long-duration-select" id="long-duration-select">
-              <option value="15">15 min</option>
-              <option value="20">20 min</option>
-              <option value="25">25 min</option>
-              <option value="30">30 min</option>
-              <option value="35">35 min</option>
-              <option value="40">40 min</option>
-              <option value="45">45 min</option>
-            </select>
-          </label>
-        </form>
-        <button id="settings-default" type="button" class="btn btn-primary btn-block">Revert to recommended settings</button>
-        <div id="settings-buttons">
-          <div class="row">
-            <div class="col">
-              <button id="settings-close" type="button" class="btn btn-block">Cancel</button>
-            </div>
-            <div class="col">
-              <button id="settings-save" type="button" class="btn btn-success btn-block">Save</button>
+            </label>
+            <label class="settings-row" for="short-duration-select" style="word-wrap:break-word">
+                Short Break Duration
+                <select class="settings-select" name="short-duration-select" id="short-duration-select">
+                  <option value="3">3 min</option>
+                  <option value="5">5 min</option>
+                  <option value="7">7 min</option>
+                  <option value="10">10 min</option>
+                </select>
+            </label>
+            <label class="settings-row" for="long-duration-select" style="word-wrap:break-word">
+              Long Break Duration
+              <select class="settings-select" name="long-duration-select" id="long-duration-select">
+                <option value="15">15 min</option>
+                <option value="20">20 min</option>
+                <option value="25">25 min</option>
+                <option value="30">30 min</option>
+                <option value="35">35 min</option>
+                <option value="40">40 min</option>
+                <option value="45">45 min</option>
+              </select>
+            </label>
+          </form>
+          <button id="settings-default" type="button" class="btn btn-primary btn-block">Revert to recommended settings</button>
+          <div id="settings-buttons">
+            <div class="row">
+              <div class="col">
+                <button id="settings-close" type="button" class="btn btn-block">Cancel</button>
+              </div>
+              <div class="col">
+                <button id="settings-save" type="button" class="btn btn-success btn-block">Save</button>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>`;
 
-    this.DOM_ELEMENTS = {
-      settingsModal: document.getElementById('settings-modal'),
-      pomDurationDrop: document.getElementById('pomo-duration-select'),
-      shortBreakDrop: document.getElementById('short-duration-select'),
-      longBreakDrop: document.getElementById('long-duration-select'),
-      settingsCloseButton: document.getElementById('settings-close'),
-      settingsSaveButton: document.getElementById('settings-save'),
-      settingsDefaultButton: document.getElementById('settings-default'),
-    };
-
-    // By default the settings modal is not displayed
-    this.DOM_ELEMENTS.settingsModal.style.display = 'none';
+    // Set references to elements of modal
+    this.wrapper = document.getElementById('settings-wrapper');
+    this.pomDurationDrop = document.getElementById('pomo-duration-select');
+    this.shortBreakDrop = document.getElementById('short-duration-select');
+    this.longBreakDrop = document.getElementById('long-duration-select');
+    this.closeButton = document.getElementById('settings-close');
+    this.saveButton = document.getElementById('settings-save');
+    this.defaultButton = document.getElementById('settings-default');
 
     // If local storage is not yet populated, set the default values
     if (!backend.get('workSessionDuration')) {
       SettingsModal.setDefaultValuesInStorage();
     }
 
-    this.DOM_ELEMENTS.settingsCloseButton.addEventListener('click', () => {
+    // Set up buttons
+    this.closeButton.addEventListener('click', () => {
       this.close();
     });
-    this.DOM_ELEMENTS.settingsSaveButton.addEventListener('click', () => {
+    this.saveButton.addEventListener('click', () => {
       this.saveSettings();
     });
-    this.DOM_ELEMENTS.settingsDefaultButton.addEventListener('click', () => {
+    this.defaultButton.addEventListener('click', () => {
       this.revertToDefault();
     });
   }
@@ -100,9 +100,9 @@ class SettingsModal extends HTMLElement {
    * Revert the settings back to their default values
    */
   revertToDefault() {
-    this.DOM_ELEMENTS.pomDurationDrop.value = 25;
-    this.DOM_ELEMENTS.shortBreakDrop.value = 5;
-    this.DOM_ELEMENTS.longBreakDrop.value = 25;
+    this.pomDurationDrop.value = 25;
+    this.shortBreakDrop.value = 5;
+    this.longBreakDrop.value = 25;
   }
 
   /**
@@ -118,18 +118,18 @@ class SettingsModal extends HTMLElement {
    * Populate the settings values with the stored preferences
    */
   loadStoredInputValues() {
-    this.DOM_ELEMENTS.pomDurationDrop.value = backend.get('workSessionDuration');
-    this.DOM_ELEMENTS.shortBreakDrop.value = backend.get('shortBreakDuration');
-    this.DOM_ELEMENTS.longBreakDrop.value = backend.get('longBreakDuration');
+    this.pomDurationDrop.value = backend.get('workSessionDuration');
+    this.shortBreakDrop.value = backend.get('shortBreakDuration');
+    this.longBreakDrop.value = backend.get('longBreakDuration');
   }
 
   /**
    * Save the preferences in local storage
    */
   saveSettings() {
-    backend.set('workSessionDuration', this.DOM_ELEMENTS.pomDurationDrop.value);
-    backend.set('shortBreakDuration', this.DOM_ELEMENTS.shortBreakDrop.value);
-    backend.set('longBreakDuration', this.DOM_ELEMENTS.longBreakDrop.value);
+    backend.set('workSessionDuration', this.pomDurationDrop.value);
+    backend.set('shortBreakDuration', this.shortBreakDrop.value);
+    backend.set('longBreakDuration', this.longBreakDrop.value);
     this.close();
   }
 
@@ -138,14 +138,14 @@ class SettingsModal extends HTMLElement {
    */
   open() {
     this.loadStoredInputValues();
-    this.DOM_ELEMENTS.settingsModal.style.display = 'block';
+    this.wrapper.style.display = 'flex';
   }
 
   /**
    * Closes the settings modal
    */
   close() {
-    this.DOM_ELEMENTS.settingsModal.style.display = 'none';
+    this.wrapper.style.display = 'none';
   }
 }
 
