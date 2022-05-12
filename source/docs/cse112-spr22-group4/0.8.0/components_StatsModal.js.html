@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>components/WelcomeMessage.js - Documentation</title>
+    <title>components/StatsModal.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,7 +29,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">components/WelcomeMessage.js</h1>
+    <h1 class="page-title">components/StatsModal.js</h1>
     
 
     
@@ -40,136 +40,148 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @file Creates a custom element to display a welcome back message to the user
- * @author Andy Young
- * @author Justin Lee
- * @author Liam Stone
- * @author Annika Hatcher
- * @author Chris Yoon
+ * @file Creates and defines the functionality for the Pomo stats modal.
+ * @author Alan Wang
+ * Date: 05/11/2022
  */
-
+import zingchart from '../../dependencies/zingchart-es6.min.js';
+import lineConfig from '../constants/lineConfig.js';
+import { hex } from '../constants/lineColors.js';
 import * as backend from '../backend.js';
 
 /**
- * Custom welcome back message shown to return user.
+ * Constructs the HTML for the StatsModal
  * @extends HTMLElement
  */
-class WelcomeMessage extends HTMLElement {
+class StatsModal extends HTMLElement {
   /**
-  * Constructor for WelcomeMessage
-  */
-  constructor(username) {
+   * Updates the HTML and adds event listeners
+   */
+  constructor() {
     super();
-    this.container = document.createElement('div');
-    this.container.classList.add('d-flex', 'align-items-center', 'justify-content-between', 'mb-3', 'flex-wrap');
-    this.appendChild(this.container);
-    this.enterDefaultMode(username);
-  }
 
-  /**
-  * creates a button to allow user to edit their task or name
-  */
-  createEditNameButton() {
-    const editIcon = document.createElement('i');
-    editIcon.classList.add('fas', 'fa-pencil-alt', 'text-warning', 'edit-icon');
-    editIcon.addEventListener('click', () => {
-      this.enterEditMode();
+    this.innerHTML = `
+    &lt;div id="stats-wrapper" class="modal-wrapper">
+      &lt;div class="container">
+            &lt;div class="modal-content">
+              &lt;h2 class="modal-title">Expected vs. Actual Pomos Per Session&lt;/h2>
+              &lt;div id="line-chart">
+                &lt;h3 id="line-chart-alt">You haven't completed any sessions yet. &lt;br> Finish a session to start tracking your stats!&lt;/h3>
+              &lt;/div>
+              &lt;button id="stats-close" class="btn btn-primary">Close&lt;/button>
+        &lt;/div>
+      &lt;/div>
+    &lt;/div>`;
+
+    // Get references to elements of modal
+    this.wrapper = document.getElementById('stats-wrapper');
+    this.closeButton = document.getElementById('stats-close');
+    this.lineChartAlt = document.getElementById('line-chart-alt');
+
+    // Set up close button
+    this.closeButton.addEventListener('click', () => {
+      this.close();
     });
-    return editIcon;
   }
 
-  /**
-  * allow users to save their edits to the web page
-  */
-  createFinishEditButton() {
-    const saveBtn = document.createElement('button');
-    saveBtn.classList.add('save-btn');
-    const icon = document.createElement('i');
-    icon.classList.add('fas', 'fa-check', 'text-success', 'save-icon');
-    saveBtn.appendChild(icon);
-
-    saveBtn.addEventListener('click', () => {
-      let newName = this.container.firstChild.value;
-      if (newName.length > 0) {
-        backend.set('Username', newName);
-      } else {
-        newName = backend.get('Username');
-      }
-      this.enterDefaultMode(newName);
-    });
-    return saveBtn;
-  }
-
-  /**
-  * allows users to cancel their edits and return to as
-  * it was before their changes
-  */
-  createCancelEditButton() {
-    const cancelBtn = document.createElement('i');
-    cancelBtn.classList.add('fas', 'fa-times', 'text-danger', 'cancel-icon');
-
-    cancelBtn.addEventListener('click', () => {
-      const name = backend.get('Username');
-      this.enterDefaultMode(name);
-    });
-    return cancelBtn;
-  }
-
-  /**
-   * Show the text input for user to change their name
+  /*
+   * Opens the stats modal
    */
-  enterEditMode() {
-    const input = document.createElement('input');
-    input.value = backend.get('Username');
-    input.classList.add('edit-name');
-
-    // Clear old container
-    while (this.container.lastElementChild) {
-      this.container.removeChild(this.container.lastElementChild);
+  open() {
+    this.wrapper.style.display = 'flex';
+    if (backend.get('History') == null) {
+      this.lineChartAlt.style.display = 'flex';
+    } else {
+      this.lineChartAlt.style.display = 'none';
+      StatsModal.loadLineChart();
     }
+  }
 
-    // Overwrite with text input and finish button
-    this.container.appendChild(input);
-    this.container.appendChild(this.createFinishEditButton());
-    this.container.appendChild(this.createCancelEditButton());
-
-    input.addEventListener('keyup', (e) => {
-      if (e.code === 'Enter') {
-        this.querySelector('.save-btn').click();
-      }
-    });
-
-    input.addEventListener('input', () => {
-      if (input.value.length > 0) {
-        this.querySelector('.save-btn').disabled = false;
-      } else {
-        this.querySelector('.save-btn').disabled = true;
-      }
-    });
-
-    input.focus();
+  /*
+   * Closes the stats modal
+   */
+  close() {
+    this.wrapper.style.display = 'none';
   }
 
   /**
-   * Show the welcome message and user's saved username
+   * Formats the data into an object that describes one line in the graph.
+   * @param {string} name - Name of the line
+   * @param {Array.&lt;number>} data - Contains number of sessions (y-coordinate)
+   * @param {string} color - Hexadecimal string of the line color
+   * @returns {Object} Formatted line data
    */
-  enterDefaultMode(username) {
-    const message = document.createElement('h2');
-    const text = document.createTextNode(`Welcome Back, ${username}!`);
-    message.appendChild(text);
-    message.classList.add('subtitle', 'mb-0');
+  static line(name, data, color) {
+    return {
+      text: name.charAt(0).toUpperCase() + name.slice(1),
+      values: data,
+      lineColor: color,
+      lineWidth: '2px',
+      marker: {
+        type: 'square',
+        backgroundColor: color,
+        borderColor: color,
+        shadow: false,
+        size: 3,
+      },
+      highlightMarker: {
+        backgroundColor: color,
+        borderColor: color,
+        size: 5,
+      },
+      palette: 0,
+      shadow: false,
+      visible: true,
+    };
+  }
 
-    // Clear old container
-    while (this.container.lastElementChild) {
-      this.container.removeChild(this.container.lastElementChild);
-    }
-    this.container.appendChild(message);
-    this.container.appendChild(this.createEditNameButton());
+  /**
+   * Assembles the data from the history of sessions and renders the line graph.
+   */
+  static loadLineChart() {
+    // Remove old chart
+    lineConfig.series = [];
+
+    // Generate new chart
+    const { tasklists } = JSON.parse(backend.get('History'));
+
+    const lines = ['expected', 'actual'];
+
+    // Create line data for plotting expected and actual Pomos per session
+    let count = 0;
+    lines.forEach((name) => {
+      const data = [];
+      tasklists.forEach((session) => {
+        let total = 0;
+        session.forEach((task) => {
+          total += task[name];
+        });
+        data.push(total);
+      });
+      lineConfig.series.push(this.line(name, data, hex[count]));
+      count += 1;
+    });
+
+    /* functional version
+    lineConfig.series = lines.map((name) =>
+      line(name, tasklists.map((tasklist) =>
+        tasklist.reduce((total, task) => total + task[name], 0)
+      ), rgba.pop())
+    );
+    */
+
+    // Generate chart using line data
+    zingchart.render({
+      id: 'line-chart',
+      data: lineConfig,
+      height: 500,
+      width: '100%',
+    });
   }
 }
 
-customElements.define('welcome-message', WelcomeMessage);
-export default WelcomeMessage;
+customElements.define('stats-modal', StatsModal);
+export default StatsModal;
 </code></pre>
         </article>
     </section>
