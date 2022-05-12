@@ -44,11 +44,6 @@ let finished = false;
 
 // Menu icons
 const menuIcons = document.querySelector('menu-icons');
-<<<<<<< HEAD
-//appHeader.appendChild(menuIcons);
-=======
-appHeader.appendChild(menuIcons);
->>>>>>> eb9ae542c2a07d34256a19efe7897b95c1bb1a2a
 
 /* **************************** Helper Functions **************************** */
 
