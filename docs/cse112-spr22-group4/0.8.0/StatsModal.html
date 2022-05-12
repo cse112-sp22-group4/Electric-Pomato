@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>components/WelcomeMessage.js - Documentation</title>
+    <title>StatsModal - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,150 +29,447 @@
 
 <div id="main">
     
-    <h1 class="page-title">components/WelcomeMessage.js</h1>
+    <h1 class="page-title">StatsModal</h1>
     
 
     
 
 
 
+
+<section>
+
+<header>
     
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/**
- * @file Creates a custom element to display a welcome back message to the user
- * @author Andy Young
- * @author Justin Lee
- * @author Liam Stone
- * @author Annika Hatcher
- * @author Chris Yoon
- */
+        <h2>
+        StatsModal
+        </h2>
+        
+            <div class="class-description"><p>Constructs the HTML for the StatsModal</p></div>
+        
+    
+</header>
 
-import * as backend from '../backend.js';
+<article>
+    <div class="container-overview">
+    
+        
+<div class="section-method">
 
-/**
- * Custom welcome back message shown to return user.
- * @extends HTMLElement
- */
-class WelcomeMessage extends HTMLElement {
-  /**
-  * Constructor for WelcomeMessage
-  */
-  constructor(username) {
-    super();
-    this.container = document.createElement('div');
-    this.container.classList.add('d-flex', 'align-items-center', 'justify-content-between', 'mb-3', 'flex-wrap');
-    this.appendChild(this.container);
-    this.enterDefaultMode(username);
-  }
+    
+    <h2>Constructor</h2>
+    
 
-  /**
-  * creates a button to allow user to edit their task or name
-  */
-  createEditNameButton() {
-    const editIcon = document.createElement('i');
-    editIcon.classList.add('fas', 'fa-pencil-alt', 'text-warning', 'edit-icon');
-    editIcon.addEventListener('click', () => {
-      this.enterEditMode();
-    });
-    return editIcon;
-  }
+    <h4 class="name" id="StatsModal"><span class="type-signature"></span>new StatsModal<span class="signature">()</span><span class="type-signature"></span></h4>
 
-  /**
-  * allow users to save their edits to the web page
-  */
-  createFinishEditButton() {
-    const saveBtn = document.createElement('button');
-    saveBtn.classList.add('save-btn');
-    const icon = document.createElement('i');
-    icon.classList.add('fas', 'fa-check', 'text-success', 'save-icon');
-    saveBtn.appendChild(icon);
+    
 
-    saveBtn.addEventListener('click', () => {
-      let newName = this.container.firstChild.value;
-      if (newName.length > 0) {
-        backend.set('Username', newName);
-      } else {
-        newName = backend.get('Username');
-      }
-      this.enterDefaultMode(newName);
-    });
-    return saveBtn;
-  }
 
-  /**
-  * allows users to cancel their edits and return to as
-  * it was before their changes
-  */
-  createCancelEditButton() {
-    const cancelBtn = document.createElement('i');
-    cancelBtn.classList.add('fas', 'fa-times', 'text-danger', 'cancel-icon');
 
-    cancelBtn.addEventListener('click', () => {
-      const name = backend.get('Username');
-      this.enterDefaultMode(name);
-    });
-    return cancelBtn;
-  }
+<div class="description">
+    <p>Updates the HTML and adds event listeners</p>
+</div>
 
-  /**
-   * Show the text input for user to change their name
-   */
-  enterEditMode() {
-    const input = document.createElement('input');
-    input.value = backend.get('Username');
-    input.classList.add('edit-name');
 
-    // Clear old container
-    while (this.container.lastElementChild) {
-      this.container.removeChild(this.container.lastElementChild);
-    }
 
-    // Overwrite with text input and finish button
-    this.container.appendChild(input);
-    this.container.appendChild(this.createFinishEditButton());
-    this.container.appendChild(this.createCancelEditButton());
 
-    input.addEventListener('keyup', (e) => {
-      if (e.code === 'Enter') {
-        this.querySelector('.save-btn').click();
-      }
-    });
 
-    input.addEventListener('input', () => {
-      if (input.value.length > 0) {
-        this.querySelector('.save-btn').disabled = false;
-      } else {
-        this.querySelector('.save-btn').disabled = true;
-      }
-    });
+<dl class="details">
 
-    input.focus();
-  }
+    
 
-  /**
-   * Show the welcome message and user's saved username
-   */
-  enterDefaultMode(username) {
-    const message = document.createElement('h2');
-    const text = document.createTextNode(`Welcome Back, ${username}!`);
-    message.appendChild(text);
-    message.classList.add('subtitle', 'mb-0');
+    
 
-    // Clear old container
-    while (this.container.lastElementChild) {
-      this.container.removeChild(this.container.lastElementChild);
-    }
-    this.container.appendChild(message);
-    this.container.appendChild(this.createEditNameButton());
-  }
-}
+    
 
-customElements.define('welcome-message', WelcomeMessage);
-export default WelcomeMessage;
-</code></pre>
-        </article>
-    </section>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="components_StatsModal.js.html">components/StatsModal.js</a>, <a href="components_StatsModal.js.html#line15">line 15</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+    
+    </div>
+
+    
+        <h3 class="subsection-title">Extends</h3>
+
+        
+
+
+    <ul>
+        <li>HTMLElement</li>
+    </ul>
+
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id=".line"><span class="type-signature">(static) </span>line<span class="signature">(name, data, color)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Formats the data into an object that describes one line in the graph.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="components_StatsModal.js.html">components/StatsModal.js</a>, <a href="components_StatsModal.js.html#line73">line 73</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>Name of the line</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>data</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Array.&lt;number></code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>Contains number of sessions (y-coordinate)</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>color</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>Hexadecimal string of the line color</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Object</code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>Formatted line data</p>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id=".loadLineChart"><span class="type-signature">(static) </span>loadLineChart<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Assembles the data from the history of sessions and renders the line graph.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="components_StatsModal.js.html">components/StatsModal.js</a>, <a href="components_StatsModal.js.html#line100">line 100</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+        
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 
