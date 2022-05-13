@@ -1,6 +1,7 @@
 /**
  * @file Creates and defines the functionality for the Pomo stats modal.
  * @author Alan Wang
+ * @author Meshach Adoe
  * Date: 05/11/2022
  */
 import zingchart from '../../dependencies/zingchart-es6.min.js';

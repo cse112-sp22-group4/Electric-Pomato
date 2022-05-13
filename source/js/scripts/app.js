@@ -7,13 +7,13 @@
  * @author Teresa Truong
  * @author Annika Hatcher
  * @author Luke Menezes
+ * @author Meshach Adoe
  */
 
 import EditableTaskList from '../components/EditableTaskList.js';
 import ViewOnlyTaskList from '../components/ViewOnlyTaskList.js';
 import TimerUI from '../components/TimerUI.js';
 import BreakPrompt from '../components/BreakPrompt.js';
-import PopUp from '../classes/PopUp.js';
 import TaskList from '../classes/TaskList.js';
 import * as backend from '../backend.js';
 
