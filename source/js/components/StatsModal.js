@@ -51,6 +51,9 @@ class StatsModal extends HTMLElement {
   open(redirectURL = null) {
     this.wrapper.style.display = 'flex';
     if (redirectURL) {
+      if (redirectURL === './index.html') {
+        this.closeButton.textContent = 'Return to Homepage';
+      }
       this.redirectToOnClose = redirectURL;
     }
     if (backend.get('History') == null) {
