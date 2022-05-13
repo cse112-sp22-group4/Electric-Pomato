@@ -36,6 +36,7 @@ class StatsModal extends HTMLElement {
     this.wrapper = document.getElementById('stats-wrapper');
     this.closeButton = document.getElementById('stats-close');
     this.lineChartAlt = document.getElementById('line-chart-alt');
+    this.redirectToOnClose = null;
 
     // Set up close button
     this.closeButton.addEventListener('click', () => {
@@ -46,8 +47,11 @@ class StatsModal extends HTMLElement {
   /*
    * Opens the stats modal
    */
-  open() {
+  open(redirectURL = null) {
     this.wrapper.style.display = 'flex';
+    if (redirectURL) {
+      this.redirectToOnClose = redirectURL;
+    }
     if (backend.get('History') == null) {
       this.lineChartAlt.style.display = 'flex';
     } else {
@@ -61,6 +65,9 @@ class StatsModal extends HTMLElement {
    */
   close() {
     this.wrapper.style.display = 'none';
+    if (this.redirectToOnClose) {
+      window.location.href = this.redirectToOnClose;
+    }
   }
 
   /**

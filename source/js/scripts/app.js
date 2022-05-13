@@ -64,21 +64,7 @@ function handleEndOfSession() {
   // Wipe data from previous task list
   backend.removeAll();
 
-  // Pop up prompt
-  const endMessage = {
-    title: 'Congratulations, you have finished this session!',
-    subtitle: 'What would you like to do next?',
-    leftButton: 'Start New Session',
-    rightButton: 'View Logs',
-  };
-
-  PopUp.prompt(endMessage, false).then((result) => {
-    if (result === 'left') {
-      window.location.href = './index.html';
-    } else if (result === 'right') {
-      window.location.href = './done.html';
-    }
-  });
+  document.querySelector('stats-modal').open('./index.html');
 }
 
 /**
