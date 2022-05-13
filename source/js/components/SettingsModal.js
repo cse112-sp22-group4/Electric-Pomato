@@ -6,6 +6,7 @@
  */
 
 import * as backend from '../backend.js';
+import timerConstants from '../constants/timerConstants.js';
 
 /**
  * Defines the Settings class which saves user preferences in local storage.
@@ -80,7 +81,7 @@ class SettingsModal extends HTMLElement {
     this.defaultButton = document.getElementById('settings-default');
 
     // If local storage is not yet populated, set the default values
-    if (!backend.get('workSessionDuration')) {
+    if (!backend.get('WorkSessionDuration')) {
       SettingsModal.setDefaultValuesInStorage();
     }
 
@@ -100,36 +101,36 @@ class SettingsModal extends HTMLElement {
    * Revert the settings back to their default values
    */
   revertToDefault() {
-    this.pomDurationDrop.value = 25;
-    this.shortBreakDrop.value = 5;
-    this.longBreakDrop.value = 25;
+    this.pomDurationDrop.value = timerConstants.DEFAULT_WORK_SESSION_DURATION;
+    this.shortBreakDrop.value = timerConstants.DEFAULT_SHORT_BREAK_DURATION;
+    this.longBreakDrop.value = timerConstants.DEFAULT_LONG_BREAK_DURATION;
   }
 
   /**
    * Sets default values to local storage variables
    */
   static setDefaultValuesInStorage() {
-    backend.set('workSessionDuration', 25);
-    backend.set('shortBreakDuration', 5);
-    backend.set('longBreakDuration', 25);
+    backend.set('WorkSessionDuration', timerConstants.DEFAULT_WORK_SESSION_DURATION);
+    backend.set('ShortBreakDuration', timerConstants.DEFAULT_SHORT_BREAK_DURATION);
+    backend.set('LongBreakDuration', timerConstants.DEFAULT_LONG_BREAK_DURATION);
   }
 
   /**
    * Populate the settings values with the stored preferences
    */
   loadStoredInputValues() {
-    this.pomDurationDrop.value = backend.get('workSessionDuration');
-    this.shortBreakDrop.value = backend.get('shortBreakDuration');
-    this.longBreakDrop.value = backend.get('longBreakDuration');
+    this.pomDurationDrop.value = backend.get('WorkSessionDuration');
+    this.shortBreakDrop.value = backend.get('ShortBreakDuration');
+    this.longBreakDrop.value = backend.get('LongBreakDuration');
   }
 
   /**
    * Save the preferences in local storage
    */
   saveSettings() {
-    backend.set('workSessionDuration', this.pomDurationDrop.value);
-    backend.set('shortBreakDuration', this.shortBreakDrop.value);
-    backend.set('longBreakDuration', this.longBreakDrop.value);
+    backend.set('WorkSessionDuration', this.pomDurationDrop.value);
+    backend.set('ShortBreakDuration', this.shortBreakDrop.value);
+    backend.set('LongBreakDuration', this.longBreakDrop.value);
     this.close();
   }
 
