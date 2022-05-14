@@ -282,10 +282,10 @@ footer > .container {
     align-items: center;
     flex-wrap: wrap;
     z-index: 2;
-    padding: map-get($spacers, 5) 0;
+    padding: map-get($spacers, 5) 0 0 0;
 }
 
-.app-title {
+.app-title, .app-subtitle {
     color: white;
     text-align: center;
     margin-bottom: 0;
@@ -428,8 +428,8 @@ pomo-timer {
 .timer-container {
     // width: 400px;
     // height: 400px;
-    width: 75%;
-    height: 75%;
+    width: 85%;
+    height: 85%;
     display: inline-block;
 }
 

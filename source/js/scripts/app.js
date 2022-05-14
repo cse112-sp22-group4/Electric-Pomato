@@ -38,13 +38,23 @@ import * as backend from '../backend.js';
 // DOM elements
 const appContainer = document.querySelector('.app-container');
 
-// Finished state
-let finished = false;
-
 // Menu icons
 const menuIcons = document.querySelector('menu-icons');
 
+// Finished state
+let finished = false;
+
 /* **************************** Helper Functions **************************** */
+
+/**
+ * Returns whether or not the next break is a short or long break
+ * @return {boolean} true if next break is a long break, false otherwise
+ */
+function isLongBreak() {
+  const totalPomos = Number(backend.get('TotalPomos'));
+  // If there has been 4 pomos then it is a long break
+  return totalPomos > 0 && totalPomos % 4 === 0;
+}
 
 /**
  * Handles all things that need to be done at the end of the session, called by initTimer
@@ -89,31 +99,43 @@ function handleEndOfSession() {
 function updateAppTitle(nextTask) {
   const taskList = JSON.parse(backend.get('TaskList'));
   const { length } = taskList.todo;
-  let title = '';
+  const appTitle = document.querySelector('.app-title');
+  const appSubtitle = document.querySelector('.app-subtitle');
 
-  // Determine the header based on the length of the TODO list.
+  let subtitle = '';
+
+  // Set title based on timer state
+  if (backend.get('Timer') === 'true') {
+    appTitle.textContent = 'Pomodoro';
+  } else if (isLongBreak()) {
+    appTitle.textContent = 'Long Break';
+  } else {
+    appTitle.textContent = 'Short Break';
+  }
+
+  // Determine the subtitle based on the length of the TODO list.
   if (length === 0) {
-    title = 'End of Session';
+    subtitle = 'End of Session';
     finished = true;
     const t = new TaskList();
     t.finishTask();
     handleEndOfSession();
   } else if (nextTask && length === 1) {
-    title = 'End of Session';
+    subtitle = 'End of Session';
     finished = true;
     const t = new TaskList();
     t.finishTask();
     handleEndOfSession();
   } else if (nextTask && length - 1 === 1) {
-    title = `Final Task: ${taskList.todo[1].name}`;
+    subtitle = `Final Task: ${taskList.todo[1].name}`;
   } else if (nextTask && length - 1 > 1) {
-    title = `Next Task: ${taskList.todo[1].name}`;
+    subtitle = `Next Task: ${taskList.todo[1].name}`;
   } else if (length === 1) {
-    title = `Final Task: ${taskList.todo[0].name}`;
+    subtitle = `Final Task: ${taskList.todo[0].name}`;
   } else {
-    title = `Current Task: ${taskList.todo[0].name}`;
+    subtitle = `Current Task: ${taskList.todo[0].name}`;
   }
-  document.querySelector('.app-title').textContent = title;
+  appSubtitle.textContent = subtitle;
 }
 
 /**
@@ -200,16 +222,12 @@ function handleClick(timer, taskList) {
         menuIcons.focusMode();
         const workSessionDuration = backend.get('workSessionDuration');
         timer.createTimer(workSessionDuration, 0);
+      } else if (isLongBreak()) {
+        const longBreakDuration = backend.get('longBreakDuration');
+        timer.createTimer(longBreakDuration, 0);
       } else {
-        const totalPomos = Number(backend.get('TotalPomos'));
-        // If there has been 4 pomos then it is a long break
-        if (totalPomos > 0 && totalPomos % 4 === 0) {
-          const longBreakDuration = backend.get('longBreakDuration');
-          timer.createTimer(longBreakDuration, 0);
-        } else {
-          const shortBreakDuration = backend.get('shortBreakDuration');
-          timer.createTimer(shortBreakDuration, 0);
-        }
+        const shortBreakDuration = backend.get('shortBreakDuration');
+        timer.createTimer(shortBreakDuration, 0);
       }
 
       active = true;
