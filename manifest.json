@@ -1,0 +1,21 @@
+{
+    "name": "Electric Pomato", 
+    "icons": [
+        {
+            "src":"/source/img/greenTomato.png",
+            "sizes":"144x144",
+            "type":"image/png"
+        },
+        {
+            "src": "/source/img/green.svg", 
+            "type": "image/svg",
+            "sizes":"48x48 72x72 96x96 128x128 150x150 256x256 512x512 1024x1024"
+        }
+    ], 
+    "theme_color":"#203647",
+    "display":"minimal-ui",
+    "start_url": "/source/index.html", 
+    "background_color": "#203647",
+    "scope":"/source",
+    "description": "Tomato-themed pomadoro timer"
+}
