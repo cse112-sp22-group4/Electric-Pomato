@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>EditableTaskListInput - Documentation</title>
+    <title>StatsModal - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,7 +29,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">EditableTaskListInput</h1>
+    <h1 class="page-title">StatsModal</h1>
     
 
     
@@ -42,10 +42,10 @@
 <header>
     
         <h2>
-        EditableTaskListInput
+        StatsModal
         </h2>
         
-            <div class="class-description"><p>Define the tasks and construct an editable TaskList, and handle the inputs from the user.</p></div>
+            <div class="class-description"><p>Constructs the HTML for the StatsModal</p></div>
         
     
 </header>
@@ -60,14 +60,14 @@
     <h2>Constructor</h2>
     
 
-    <h4 class="name" id="EditableTaskListInput"><span class="type-signature"></span>new EditableTaskListInput<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="StatsModal"><span class="type-signature"></span>new StatsModal<span class="signature">()</span><span class="type-signature"></span></h4>
 
     
 
 
 
 <div class="description">
-    <p>constructor for EditableTaskListInput</p>
+    <p>Updates the HTML and adds event listeners</p>
 </div>
 
 
@@ -103,7 +103,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_EditableTaskListInput.js.html">components/EditableTaskListInput.js</a>, <a href="components_EditableTaskListInput.js.html#line14">line 14</a>
+        <a href="components_StatsModal.js.html">components/StatsModal.js</a>, <a href="components_StatsModal.js.html#line15">line 15</a>
     </li></ul></dd>
     
 
@@ -172,14 +172,14 @@
 
     
 
-    <h4 class="name" id="addRow"><span class="type-signature"></span>addRow<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".line"><span class="type-signature">(static) </span>line<span class="signature">(name, data, color)</span><span class="type-signature"> &rarr; {Object}</span></h4>
 
     
 
 
 
 <div class="description">
-    <p>Add row to TaskList assuming it is the previous sibling.</p>
+    <p>Formats the data into an object that describes one line in the graph.</p>
 </div>
 
 
@@ -215,7 +215,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_EditableTaskListInput.js.html">components/EditableTaskListInput.js</a>, <a href="components_EditableTaskListInput.js.html#line74">line 74</a>
+        <a href="components_StatsModal.js.html">components/StatsModal.js</a>, <a href="components_StatsModal.js.html#line73">line 73</a>
     </li></ul></dd>
     
 
@@ -234,100 +234,146 @@
 
 
 
+    <h5>Parameters:</h5>
+    
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
+<table class="params">
+    <thead>
+    <tr>
         
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
             
-<div class="section-method">
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>Name of the line</p>
+                
+            </td>
+        </tr>
 
     
 
-    <h4 class="name" id="connectedCallback"><span class="type-signature"></span>connectedCallback<span class="signature">()</span><span class="type-signature"></span></h4>
+        <tr>
+            
+                <td class="name"><code>data</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Array.&lt;number></code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>Contains number of sessions (y-coordinate)</p>
+                
+            </td>
+        </tr>
 
     
 
+        <tr>
+            
+                <td class="name"><code>color</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
 
 
-<div class="description">
-    <p>Initialize row to default UI state.</p>
-</div>
+            
+            </td>
 
+            
 
+            
 
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
+            <td class="description last">
+                <p>Hexadecimal string of the line color</p>
+                
+            </td>
+        </tr>
 
     
+    </tbody>
+</table>
 
-    
 
-    
 
-    
 
-    
 
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_EditableTaskListInput.js.html">components/EditableTaskListInput.js</a>, <a href="components_EditableTaskListInput.js.html#line56">line 56</a>
-    </li></ul></dd>
-    
 
-    
 
-    
 
-    
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Object</code></span>
+
+
+    </dd>
 </dl>
 
 
+<div class="param-desc">
+    <p>Formatted line data</p>
+</div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    
+</div>
 
 
 
@@ -338,14 +384,14 @@
 
     
 
-    <h4 class="name" id="reset"><span class="type-signature"></span>reset<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".loadLineChart"><span class="type-signature">(static) </span>loadLineChart<span class="signature">()</span><span class="type-signature"></span></h4>
 
     
 
 
 
 <div class="description">
-    <p>Initializes the UI of the row to its initial state.</p>
+    <p>Assembles the data from the history of sessions and renders the line graph.</p>
 </div>
 
 
@@ -381,90 +427,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_EditableTaskListInput.js.html">components/EditableTaskListInput.js</a>, <a href="components_EditableTaskListInput.js.html#line82">line 82</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="updateButtonState"><span class="type-signature"></span>updateButtonState<span class="signature">()</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>Disable/Enable add task button based on validity of inputs.</p>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_EditableTaskListInput.js.html">components/EditableTaskListInput.js</a>, <a href="components_EditableTaskListInput.js.html#line63">line 63</a>
+        <a href="components_StatsModal.js.html">components/StatsModal.js</a>, <a href="components_StatsModal.js.html#line100">line 100</a>
     </li></ul></dd>
     
 

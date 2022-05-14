@@ -1,10 +1,12 @@
 /**
  * @file Creates a custom element to display the menu icons (info, setting, stats, and home)
  * @author Steven Harris
+ * @author Alan Wang
+ * Date: 05/11/2022
  */
 
-import PopUp from '../classes/PopUp.js';
 import * as backend from '../backend.js';
+import PopUp from '../classes/PopUp.js';
 
 /**
 * Creates the HTML for the menu icons
@@ -17,20 +19,13 @@ class MenuIcons extends HTMLElement {
   constructor() {
     super();
 
-    // Define the DOM elements that control the modals
-    this.DOM_ELEMENTS = {
-      infoModal: document.getElementById('info-modal'),
-      infoCloseButton: document.getElementById('info-close'),
-    };
-    // By default the info popup is not displayed
-    this.DOM_ELEMENTS.infoModal.style.display = 'none';
+    // Assign references to the modals
+    this.infoModal = document.querySelector('info-modal');
+    this.settingsModal = document.querySelector('settings-modal');
+    this.statsModal = document.querySelector('stats-modal');
 
-    this.DOM_ELEMENTS.infoCloseButton.addEventListener('click', () => {
-      this.closeInfo();
-    });
-
-    const username = backend.get('Username');
     // Only add the icons if the user has signed in
+    const username = backend.get('Username');
     if (username) {
       this.createIcons();
     }
@@ -50,30 +45,31 @@ class MenuIcons extends HTMLElement {
   * Shows all icons
   */
   defaultMode() {
-    this.DOM_ELEMENTS['info-button'].classList.remove('invisible');
-    this.DOM_ELEMENTS['settings-button'].classList.remove('invisible');
-    this.DOM_ELEMENTS['stats-button'].classList.remove('invisible');
+    this.infoButton.classList.remove('invisible');
+    this.settingsButton.classList.remove('invisible');
+    this.statsButton.classList.remove('invisible');
   }
 
   /**
   * Hides everything except the home icon
   */
   focusMode() {
-    this.DOM_ELEMENTS['info-button'].classList.add('invisible');
-    this.DOM_ELEMENTS['settings-button'].classList.add('invisible');
-    this.DOM_ELEMENTS['stats-button'].classList.add('invisible');
+    this.infoButton.classList.add('invisible');
+    this.settingsButton.classList.add('invisible');
+    this.statsButton.classList.add('invisible');
   }
 
   /**
   * Creates the info button to display the info popup
   */
   createInfoButton() {
+    // Set up button
     const infoButton = document.createElement('i');
     infoButton.classList.add('fas', 'fa-info-circle', 'text-white', 'm-4');
     infoButton.addEventListener('click', () => {
-      this.openInfo();
+      this.infoModal.open();
     });
-    this.DOM_ELEMENTS['info-button'] = infoButton;
+    this.infoButton = infoButton;
     this.appendChild(infoButton);
   }
 
@@ -81,12 +77,13 @@ class MenuIcons extends HTMLElement {
   * Creates the settings button to display the settings popup
   */
   createSettingsButton() {
+    // Set up button
     const settingsButton = document.createElement('i');
     settingsButton.classList.add('fas', 'fa-wrench', 'text-white', 'm-4');
     settingsButton.addEventListener('click', () => {
-      // TODO
+      this.settingsModal.open();
     });
-    this.DOM_ELEMENTS['settings-button'] = settingsButton;
+    this.settingsButton = settingsButton;
     this.appendChild(settingsButton);
   }
 
@@ -94,10 +91,13 @@ class MenuIcons extends HTMLElement {
   * Creates the stats button to display the user's pomodoro statistics
   */
   createStatsButton() {
-    const statsButton = document.createElement('a');
+    // Set up button
+    const statsButton = document.createElement('i');
     statsButton.classList.add('fas', 'fa-chart-bar', 'text-white', 'm-4');
-    statsButton.href = './done.html';
-    this.DOM_ELEMENTS['stats-button'] = statsButton;
+    statsButton.addEventListener('click', () => {
+      this.statsModal.open();
+    });
+    this.statsButton = statsButton;
     this.appendChild(statsButton);
   }
 
@@ -106,6 +106,7 @@ class MenuIcons extends HTMLElement {
   */
   createHomeButton() {
     const homeButton = document.createElement('i');
+
     // Pop up prompt
     const endMessage = {
       title: 'Leave this session and return to home page?',
@@ -113,6 +114,7 @@ class MenuIcons extends HTMLElement {
       rightButton: 'No',
     };
 
+    // Set up button
     homeButton.classList.add('fas', 'fa-home', 'text-white', 'm-4');
     homeButton.addEventListener('click', () => {
       // Only display the popup on the app page
@@ -126,22 +128,8 @@ class MenuIcons extends HTMLElement {
         });
       }
     });
-    this.DOM_ELEMENTS['home-button'] = homeButton;
+    this.homeButton = homeButton;
     this.appendChild(homeButton);
-  }
-
-  /*
-  * Opens the info popup
-  */
-  openInfo() {
-    this.DOM_ELEMENTS.infoModal.style.display = 'block';
-  }
-
-  /**
-  * Closes the info popup
-  */
-  closeInfo() {
-    this.DOM_ELEMENTS.infoModal.style.display = 'none';
   }
 }
 

@@ -102,8 +102,6 @@ class EditableTaskListBody extends HTMLElement {
     });
 
     this.editableTaskList.updateButtonState();
-
-    this.nextElementSibling.reset();
   }
 
   /**
@@ -128,8 +126,6 @@ class EditableTaskListBody extends HTMLElement {
     });
 
     this.resetEditingState();
-
-    this.nextElementSibling.reset();
   }
 
   /**
