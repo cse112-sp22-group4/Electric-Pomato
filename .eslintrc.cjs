@@ -20,4 +20,7 @@ module.exports = {
     // To allow modification of DOM objects
     'no-param-reassign': 0,
   },
+  parserOptions: {
+    ecmaVersion: 2020,
+  }
 };
