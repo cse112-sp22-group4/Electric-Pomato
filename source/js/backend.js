@@ -37,4 +37,7 @@ export function removeAll() {
   localStorage.removeItem('Started');
   localStorage.removeItem('TotalPomos');
   localStorage.removeItem('Timer');
+  localStorage.removeItem('WorkSessionDuration');
+  localStorage.removeItem('ShortBreakDuration');
+  localStorage.removeItem('LongBreakDuration');
 }
