@@ -2,7 +2,7 @@ import SettingsModal from '../js/components/SettingsModal.js';
 import timerConstants from '../js/constants/timerConstants.js';
 import * as backend from '../js/backend.js';
 
-// Initialize the DOM with a StatsModal element
+// Initialize the DOM with a SettingsModal element
 beforeEach(() => {
   backend.removeAll();
   document.body.innerHTML = `<settings-modal></settings-modal>`;
