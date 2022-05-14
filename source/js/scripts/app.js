@@ -220,13 +220,13 @@ function handleClick(timer, taskList) {
       if (backend.get('Timer') === 'true') {
         // Hide all icons except home when a work session starts.
         menuIcons.focusMode();
-        const workSessionDuration = backend.get('workSessionDuration');
+        const workSessionDuration = backend.get('WorkSessionDuration');
         timer.createTimer(workSessionDuration, 0);
       } else if (isLongBreak()) {
-        const longBreakDuration = backend.get('longBreakDuration');
+        const longBreakDuration = backend.get('LongBreakDuration');
         timer.createTimer(longBreakDuration, 0);
       } else {
-        const shortBreakDuration = backend.get('shortBreakDuration');
+        const shortBreakDuration = backend.get('ShortBreakDuration');
         timer.createTimer(shortBreakDuration, 0);
       }
 
