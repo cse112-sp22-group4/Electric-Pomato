@@ -37,12 +37,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@main
 
-      - name: Run Codacy Analysis CLI (JS)
+      - name: Run Codacy Analysis CLI
         uses: codacy/codacy-analysis-cli-action@master
-        with:
-          directory: $GITHUB_WORKSPACE/source/js
-      
-      - name: Run Codacy Analysis CLI (SCSS)
-        uses: codacy/codacy-analysis-cli-action@master
-        with:
-          directory: $GITHUB_WORKSPACE/source/scss
+
