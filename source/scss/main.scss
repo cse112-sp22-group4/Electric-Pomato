@@ -376,6 +376,7 @@ editable-task-list, view-only-task-list {
 editable-task-list {
     padding: map-get($spacers, 5);
     height: 100%;
+    margin-top: 2%;
 }
 
 view-only-task-list {
