@@ -6,7 +6,6 @@ name: Firebase Preview Deploy and E2E tests
       - 'source/**'
     branches:
       - main
-    types: [opened]
 
 jobs:
   # Build website and deploy to staging area (firebase preview channel)
