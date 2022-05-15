@@ -282,10 +282,10 @@ footer > .container {
     align-items: center;
     flex-wrap: wrap;
     z-index: 2;
-    padding: map-get($spacers, 5) 0;
+    padding: map-get($spacers, 5) 0 0 0;
 }
 
-.app-title {
+.app-title, .app-subtitle {
     color: white;
     text-align: center;
     margin-bottom: 0;
@@ -376,6 +376,7 @@ editable-task-list, view-only-task-list {
 editable-task-list {
     padding: map-get($spacers, 5);
     height: 100%;
+    margin-top: 2%;
 }
 
 view-only-task-list {
@@ -428,8 +429,8 @@ pomo-timer {
 .timer-container {
     // width: 400px;
     // height: 400px;
-    width: 75%;
-    height: 75%;
+    width: 85%;
+    height: 85%;
     display: inline-block;
 }
 
