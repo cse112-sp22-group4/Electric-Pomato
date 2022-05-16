@@ -2,14 +2,29 @@
     "name": "Electric Pomato", 
     "icons": [
         {
-            "src":"./img/pomatoPNG.png",
+            "src":"img/icons/icon144.png",
             "sizes":"144x144",
             "type":"image/png"
         },
         {
-            "src": "./img/green.svg", 
-            "type": "image/svg",
-            "sizes":"48x48 72x72 96x96 128x128 150x150 256x256 512x512 1024x1024"
+            "src": "img/icons/icon180.png", 
+            "sizes":"180x180",
+            "type":"image/png"
+        },
+        {
+            "src": "img/icons/icon196.png", 
+            "sizes":"196x196",
+            "type":"image/png"
+        },
+        {
+            "src": "img/icons/icon270.png", 
+            "sizes":"270x270",
+            "type":"image/png"
+        },
+        {
+            "src": "img/icons/icon512.png", 
+            "sizes":"512x512",
+            "type":"image/png"
         }
     ], 
     "theme_color":"#203647",
