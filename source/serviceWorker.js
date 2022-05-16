@@ -1,28 +1,21 @@
 /* eslint-disable no-restricted-globals */
+import { manifest, version } from '@parcel/service-worker';
 
 // Cache necessary files when service worker is installed
 self.addEventListener('install', (e) => {
   self.skipWaiting();
-  e.waitUntil(caches.open('ePomato').then((cache) => cache.addAll([
-    '/',
-    '/source/app.html',
-    '/source/done.html',
-    '/source/scss/main.scss',
-    '/source/js/scripts/registerSw.js',
-    '/source/js/scripts/backend.js',
-    '/source/js/scripts/app.js',
-    '/source/js/scripts/done.js',
-    '/source/js/components/StartContainer.js',
-    '/source/js/components/CurrentYear.js',
-    '/source/js/components/LogsButton.js',
-    '/source/js/components/StartButton.js',
-    '/source/js/components/UsernameInput.js',
-    '/source/js/components/WelcomeMessage.js',
-    '/source/js/classes/TaskList.js',
-    '/source/js/classes/PopUp.js',
-    '/source/img/green-tomato.ico',
-  ])));
+  e.waitUntil(caches.open(version).then((cache) => cache.addAll(manifest)));
 });
+
+// Clean up old service workers when activated
+async function activate() {
+  const keys = await caches.keys();
+  await Promise.all(
+    keys.map((key) => key !== version && caches.delete(key)),
+  );
+}
+
+self.addEventListener('activate', (e) => e.waitUntil(activate()));
 
 // Intercept web page requests
 self.addEventListener('fetch', (event) => {
