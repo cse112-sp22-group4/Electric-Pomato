@@ -1,6 +1,7 @@
 /**
  * @file Creates and defines the functionality for the Pomo stats modal.
  * @author Alan Wang
+ * @author Meshach Adoe
  * Date: 05/11/2022
  */
 import zingchart from '../../dependencies/zingchart-es6.min.js';
@@ -36,6 +37,7 @@ class StatsModal extends HTMLElement {
     this.wrapper = document.getElementById('stats-wrapper');
     this.closeButton = document.getElementById('stats-close');
     this.lineChartAlt = document.getElementById('line-chart-alt');
+    this.redirectToOnClose = null;
 
     // Set up close button
     this.closeButton.addEventListener('click', () => {
@@ -43,11 +45,18 @@ class StatsModal extends HTMLElement {
     });
   }
 
-  /*
-   * Opens the stats modal
+  /**
+   * Opens the stats modal, and sets the redirectURL variable if provided
+   * @param {string} redirectURL - URL to redirect to when modal is closed
    */
-  open() {
+  open(redirectURL = null) {
     this.wrapper.style.display = 'flex';
+    if (redirectURL) {
+      if (redirectURL === './index.html') {
+        this.closeButton.textContent = 'Return to Homepage';
+      }
+      this.redirectToOnClose = redirectURL;
+    }
     if (backend.get('History') == null) {
       this.lineChartAlt.style.display = 'flex';
     } else {
@@ -61,6 +70,9 @@ class StatsModal extends HTMLElement {
    */
   close() {
     this.wrapper.style.display = 'none';
+    if (this.redirectToOnClose) {
+      window.location.href = this.redirectToOnClose;
+    }
   }
 
   /**

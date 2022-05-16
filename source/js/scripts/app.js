@@ -7,13 +7,13 @@
  * @author Teresa Truong
  * @author Annika Hatcher
  * @author Luke Menezes
+ * @author Meshach Adoe
  */
 
 import EditableTaskList from '../components/EditableTaskList.js';
 import ViewOnlyTaskList from '../components/ViewOnlyTaskList.js';
 import TimerUI from '../components/TimerUI.js';
 import BreakPrompt from '../components/BreakPrompt.js';
-import PopUp from '../classes/PopUp.js';
 import TaskList from '../classes/TaskList.js';
 import * as backend from '../backend.js';
 
@@ -74,21 +74,7 @@ function handleEndOfSession() {
   // Wipe data from previous task list
   backend.clearSessionData();
 
-  // Pop up prompt
-  const endMessage = {
-    title: 'Congratulations, you have finished this session!',
-    subtitle: 'What would you like to do next?',
-    leftButton: 'Start New Session',
-    rightButton: 'View Logs',
-  };
-
-  PopUp.prompt(endMessage, false).then((result) => {
-    if (result === 'left') {
-      window.location.href = './index.html';
-    } else if (result === 'right') {
-      window.location.href = './done.html';
-    }
-  });
+  document.querySelector('stats-modal').open('./index.html');
 }
 
 /**
