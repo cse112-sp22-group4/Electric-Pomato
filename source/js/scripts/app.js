@@ -72,7 +72,7 @@ function handleEndOfSession() {
   backend.set('History', JSON.stringify(history));
 
   // Wipe data from previous task list
-  backend.removeAll();
+  backend.clearSessionData();
 
   // Pop up prompt
   const endMessage = {
