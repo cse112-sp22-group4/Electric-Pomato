@@ -45,8 +45,9 @@ class StatsModal extends HTMLElement {
     });
   }
 
-  /*
-   * Opens the stats modal
+  /**
+   * Opens the stats modal, and sets the redirectURL variable if provided
+   * @param {string} redirectURL - URL to redirect to when modal is closed
    */
   open(redirectURL = null) {
     this.wrapper.style.display = 'flex';
