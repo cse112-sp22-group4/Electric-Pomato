@@ -211,14 +211,14 @@ function handleClick(timer, taskList) {
       if (backend.get('Timer') === 'true') {
         // Hide all icons except home when a work session starts.
         menuIcons.focusMode();
-        const workSessionDuration = backend.get('WorkSessionDuration');
-        timer.createTimer(workSessionDuration, 0);
+        // const workSessionDuration = backend.get('WorkSessionDuration');
+        timer.createTimer(0, 5);
       } else if (isLongBreak()) {
-        const longBreakDuration = backend.get('LongBreakDuration');
-        timer.createTimer(longBreakDuration, 0);
+        // const longBreakDuration = backend.get('LongBreakDuration');
+        timer.createTimer(0, 5);
       } else {
-        const shortBreakDuration = backend.get('ShortBreakDuration');
-        timer.createTimer(shortBreakDuration, 0);
+        // const shortBreakDuration = backend.get('ShortBreakDuration');
+        timer.createTimer(0, 5);
       }
 
       // Create finish task button for this sessio
@@ -297,12 +297,20 @@ function handleOnLoad() {
 
   // Request notification permission on page load
   if (!('Notification' in window)) {
-    console.log('This browser does not support notifications.');
-  } else {
+    console.log('Browser does not support notifications');
+  } else if (Notification.permission === 'granted') {
     console.log(Notification.permission);
-    if (Notification.permission !== 'denied') {
-      Notification.requestPermission();
-    }
+  } else if (Notification.permission !== 'denied') {
+    Notification.requestPermission((permission) => {
+      if (!('permission' in Notification)) {
+        Notification.permission = permission;
+      }
+      if (permission === 'granted') {
+        console.log('permission granted');
+      }
+    });
+  } else {
+    console.log(`Permission is ${Notification.permission}`);
   }
 }
 
