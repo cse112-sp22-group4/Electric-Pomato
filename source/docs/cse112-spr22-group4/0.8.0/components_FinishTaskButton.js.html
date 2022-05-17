@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>EditableTaskList - Documentation</title>
+    <title>components/FinishTaskButton.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,319 +29,95 @@
 
 <div id="main">
     
-    <h1 class="page-title">EditableTaskList</h1>
-    
-
-    
-
-
-
-
-<section>
-
-<header>
-    
-        <h2>
-        EditableTaskList
-        </h2>
-        
-            <div class="class-description"><p>Constructs the HTML of the EditableTaskListBody and EditableTaskListInput.</p></div>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-<div class="section-method">
-
-    
-    <h2>Constructor</h2>
-    
-
-    <h4 class="name" id="EditableTaskList"><span class="type-signature"></span>new EditableTaskList<span class="signature">()</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>Create and append custom elements.</p>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_EditableTaskList.js.html">components/EditableTaskList.js</a>, <a href="components_EditableTaskList.js.html#line15">line 15</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
-    
-    </div>
-
-    
-        <h3 class="subsection-title">Extends</h3>
-
-        
-
-
-    <ul>
-        <li>HTMLElement</li>
-    </ul>
-
-
-    
-
-    
-
-    
-
-     
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="connectedCallback"><span class="type-signature"></span>connectedCallback<span class="signature">()</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>Callback function to update the button's state</p>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_EditableTaskList.js.html">components/EditableTaskList.js</a>, <a href="components_EditableTaskList.js.html#line38">line 38</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="updateButtonState"><span class="type-signature"></span>updateButtonState<span class="signature">()</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>Sets the &quot;Start My Day&quot; button to enabled when there is at least one task entered
-and sets it to disabled otherwise.</p>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_EditableTaskList.js.html">components/EditableTaskList.js</a>, <a href="components_EditableTaskList.js.html#line46">line 46</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
-        
-    
-
-    
-
-    
-</article>
-
-</section>
+    <h1 class="page-title">components/FinishTaskButton.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @file Creates a custom element for the button to start the timer session.
+ * @author Alan Wang
+ * @author Xingyu Zhu
+ */
+
+import PopUp from '../classes/PopUp.js';
+import * as backend from '../backend.js';
+/**
+  * Constructs the HTML for the finish task buttons
+  * @extends HTMLElement
+  */
+class FinishTaskButton extends HTMLElement {
+  /**
+   * constructor for FinishTaskButtons
+  */
+  constructor(callback) {
+    super();
+    // Create the button element
+    this.button = document.createElement('button');
+    this.button.classList.add('btn', 'btn-success', 'btn-lg');
+    this.updateButton();
+    this.button.addEventListener('click', () => {
+      let warning = {};
+      // Display end session instead of finish task warning if only 1 task left
+      if (this.length > 1) {
+        warning = {
+          title: 'Are you sure you want to finish this task early?',
+          subtitle: ' ',
+          leftButton: 'Yes',
+          rightButton: 'No',
+        };
+      } else {
+        warning = {
+          title: 'End session?',
+          subtitle: ' ',
+          leftButton: 'Yes',
+          rightButton: 'No',
+        };
+      }
+      PopUp.prompt(warning, true).then((result) => {
+        if (result === 'left') {
+          this.checked = true;
+          callback.bind(this, this)();
+          PopUp.hide();
+        } else if (result === 'right') {
+          PopUp.hide();
+        }
+      });
+    });
+    this.appendChild(this.button);
+  }
+
+  /**
+  * Get whether checkbox is checked.
+  * @return {boolean} Checked property
+  */
+  getChecked() {
+    return this.checked;
+  }
+
+  /**
+   * Updates button text according to backend
+   */
+  updateButton() {
+    this.checked = false;
+    this.taskList = JSON.parse(backend.get('TaskList'));
+    if (this.taskList != null) {
+      this.length = this.taskList.todo.length;
+      this.button.textContent = this.taskList &amp;&amp; this.length > 1 ? 'Finish Task' : 'Finish Final Task';
+    }
+  }
+}
+
+customElements.define('finish-task-button', FinishTaskButton);
+export default FinishTaskButton;
+</code></pre>
+        </article>
+    </section>
 
 
 
