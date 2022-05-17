@@ -8,13 +8,14 @@
  * @author Annika Hatcher
  * @author Luke Menezes
  * @author Meshach Adoe
+ * @author Xingyu Zhu
+ * @author Alan Wang
  */
 
 import EditableTaskList from '../components/EditableTaskList.js';
 import ViewOnlyTaskList from '../components/ViewOnlyTaskList.js';
 import TimerUI from '../components/TimerUI.js';
-import BreakPrompt from '../components/BreakPrompt.js';
-import TaskList from '../classes/TaskList.js';
+import FinishTaskButton from '../components/FinishTaskButton.js';
 import * as backend from '../backend.js';
 
 /**
@@ -43,6 +44,9 @@ const menuIcons = document.querySelector('menu-icons');
 
 // Finished state
 let finished = false;
+
+// View only task list
+let votl = null;
 
 /* **************************** Helper Functions **************************** */
 
@@ -74,15 +78,16 @@ function handleEndOfSession() {
   // Wipe data from previous task list
   backend.clearSessionData();
 
+  // Open modified stats modal
   document.querySelector('stats-modal').open('./index.html');
 }
 
 /**
  * Update the .app-title based on the break's checkbox.
- * @param {boolean} nextTask - Next task in list.
+ * @param {boolean} taskFinished - true if moving on to next task in list, false otherwise.
  * @ignore
  */
-function updateAppTitle(nextTask) {
+function updateAppTitle(taskFinished) {
   const taskList = JSON.parse(backend.get('TaskList'));
   const { length } = taskList.todo;
   const appTitle = document.querySelector('.app-title');
@@ -103,19 +108,13 @@ function updateAppTitle(nextTask) {
   if (length === 0) {
     subtitle = 'End of Session';
     finished = true;
-    const t = new TaskList();
-    t.finishTask();
     handleEndOfSession();
-  } else if (nextTask && length === 1) {
-    subtitle = 'End of Session';
-    finished = true;
-    const t = new TaskList();
-    t.finishTask();
-    handleEndOfSession();
-  } else if (nextTask && length - 1 === 1) {
-    subtitle = `Final Task: ${taskList.todo[1].name}`;
-  } else if (nextTask && length - 1 > 1) {
-    subtitle = `Next Task: ${taskList.todo[1].name}`;
+  } else if (taskFinished && length > 1) {
+    if (backend.get('Timer') === 'true') {
+      subtitle = `Current Task: ${taskList.todo[0].name}`;
+    } else {
+      subtitle = `Next Task: ${taskList.todo[0].name}`;
+    }
   } else if (length === 1) {
     subtitle = `Final Task: ${taskList.todo[0].name}`;
   } else {
@@ -125,12 +124,21 @@ function updateAppTitle(nextTask) {
 }
 
 /**
- * A callback function used in the BreakPrompt on changing of the checkbox.
- * @param {Object} object - A BreakPrompt object.
+ * A callback function used in the FinishTaskButton on
+ * changing of the timer and the text on thebutton.
+ * @param {Object} object - A FinishTaskButton object.
  * @ignore
  */
-function changeTitle(object) {
+function nextTask(object) {
+  // Finish task in task list
+  votl.finishTask();
+  votl.render();
+
+  // Update app title
   updateAppTitle(object.getChecked());
+
+  // Update Finish task button according to task list
+  object.updateButton();
 }
 
 /**
@@ -154,13 +162,10 @@ function initTimer(timer) {
       updateAppTitle(false);
       timer.setColorGreen();
     } else {
-      const breakPrompt = new BreakPrompt(changeTitle);
-
       // Update the HTML
       menuIcons.defaultMode();
       updateAppTitle(false);
       timer.setColorRed();
-      timer.appendChild(breakPrompt);
     }
   }
 }
@@ -216,24 +221,23 @@ function handleClick(timer, taskList) {
         timer.createTimer(shortBreakDuration, 0);
       }
 
+      // Create finish task button for this sessio
+      const finishTaskButton = new FinishTaskButton(nextTask);
+      timer.appendChild(finishTaskButton);
+
       active = true;
       timer.startTimer().then(() => {
         if (!finished) {
           const timerState = backend.get('Timer');
 
+          // Increment pomos if we were in a Pomo session
           if (timerState === 'true') {
             backend.set('TotalPomos', Number(backend.get('TotalPomos')) + 1);
             taskList.addPomo();
           }
 
-          if (timerState === 'false') {
-            if (timer.lastElementChild.getChecked()) {
-              taskList.finishTask();
-              taskList.render();
-            }
-
-            timer.lastElementChild.remove();
-          }
+          // Remove the finish task button
+          timer.lastElementChild.remove();
 
           if (('Notification' in window) && Notification.permission === 'granted') {
             showTimerNotification();
@@ -254,7 +258,7 @@ function handleClick(timer, taskList) {
  */
 function showTimer() {
   const timerUI = new TimerUI();
-  const votl = new ViewOnlyTaskList();
+  votl = new ViewOnlyTaskList();
 
   // Call any helper functions to handle user events.
   updateAppTitle(false);
