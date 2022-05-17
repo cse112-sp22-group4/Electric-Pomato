@@ -1,5 +1,6 @@
 /**
  * @file Creates a custom element for the button to start the timer session.
+ * @author Alan Wang
  * @author Xingyu Zhu
  */
 

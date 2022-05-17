@@ -8,6 +8,8 @@
  * @author Annika Hatcher
  * @author Luke Menezes
  * @author Meshach Adoe
+ * @author Xingyu Zhu
+ * @author Alan Wang
  */
 
 import EditableTaskList from '../components/EditableTaskList.js';
