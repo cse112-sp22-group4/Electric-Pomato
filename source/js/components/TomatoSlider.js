@@ -35,6 +35,36 @@ class TomatoSlider extends HTMLElement {
       });
     });
 
+    const keysPressed = {};
+
+    window.addEventListener('keydown', (e) => {
+      keysPressed[e.key] = true;
+      if (keysPressed.Shift && e.key === '!') {
+        this.input.value = 1;
+        this.colorTomatos(1, 'red');
+      }
+      if (keysPressed.Shift && e.key === '@') {
+        this.input.value = 2;
+        this.colorTomatos(2, 'red');
+      }
+      if (keysPressed.Shift && e.key === '#') {
+        this.input.value = 3;
+        this.colorTomatos(3, 'red');
+      }
+      if (keysPressed.Shift && e.key === '$') {
+        this.input.value = 4;
+        this.colorTomatos(4, 'red');
+      }
+      if (keysPressed.Shift && e.key === '%') {
+        this.input.value = 5;
+        this.colorTomatos(5, 'red');
+      }
+    });
+
+    document.addEventListener('keyup', (e) => {
+      delete keysPressed[e.key];
+    });
+
     observer.observe(this.input, {
       attributes: true,
     });
