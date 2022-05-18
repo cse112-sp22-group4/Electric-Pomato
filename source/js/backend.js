@@ -30,6 +30,16 @@ export function remove(key) {
 }
 
 /**
+ * Remove all session-related values in localStorage
+ */
+export function clearSessionData() {
+  localStorage.removeItem('TaskList');
+  localStorage.removeItem('Started');
+  localStorage.removeItem('TotalPomos');
+  localStorage.removeItem('Timer');
+}
+
+/**
  * Remove all values in localStorage
  */
 export function removeAll() {

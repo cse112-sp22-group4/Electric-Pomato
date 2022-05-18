@@ -68,7 +68,7 @@ class StartButtons extends HTMLElement {
 
         PopUp.prompt(warning, true).then((result) => {
           if (result === 'left') {
-            backend.removeAll();
+            backend.clearSessionData();
             window.location.href = './app.html';
           } else if (result === 'right') {
             PopUp.hide();
