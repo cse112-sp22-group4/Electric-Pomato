@@ -177,22 +177,22 @@ function initTimer(timer) {
 function showTimerNotification() {
   const timerState = backend.get('Timer');
   if (timerState === 'true') {
-    const pomoAlert = new Notification('Electric Pomato', {
-      icon: 'img/green-tomato.ico',
-      body: 'Good Work! Time to recharge.',
-    });
-    setTimeout(pomoAlert.close.bind(pomoAlert), 5000);
-    pomoAlert.addEventListener('click', () => {
-      window.focus();
+    console.log('Show green notification');
+    navigator.serviceWorker.getRegistration().then((reg) => {
+      const pomoAlert = {
+        icon: 'img/green-tomato.ico',
+        body: 'Good Work! Time to recharge.',
+      };
+      reg.showNotification('Electric Pomato', pomoAlert);
     });
   } else {
-    const breakAlert = new Notification('Electric Pomato', {
-      icon: 'img/red-tomato.ico',
-      body: "Break time is over. It's time to plug in!",
-    });
-    setTimeout(breakAlert.close.bind(breakAlert), 5000);
-    breakAlert.addEventListener('click', () => {
-      window.focus();
+    console.log('Show notification 2');
+    navigator.serviceWorker.getRegistration().then((reg) => {
+      const breakAlert = {
+        icon: 'img/red-tomato.ico',
+        body: "Break time is over. It's time to plug in!",
+      };
+      reg.showNotification('Electric Pomato', breakAlert);
     });
   }
 }
@@ -239,7 +239,7 @@ function handleClick(timer, taskList) {
           // Remove the finish task button
           timer.lastElementChild.remove();
 
-          if (('Notification' in window) && Notification.permission === 'granted') {
+          if (('Notification' in window) && navigator.serviceWorker) {
             showTimerNotification();
           }
 
