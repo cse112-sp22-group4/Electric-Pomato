@@ -56,16 +56,18 @@ class Timer {
     });
   }
 
+  /**
+   * Calculates the minutes and seconds between the moment the function is called
+   * to the end parameter that is passed in.
+   * @param {number} end The number of seconds since Jan 1 1970 00:00:00 UTC (Date.now()) plus
+   * how long the Timer object should run for (this.minutes + this.seconds)
+   */
   timer(end) {
     // Get start and end time in seconds
     const now = Math.floor(Date.now() / 1000);
 
     // Difference in seconds
     const diff = end - now;
-
-    // if (diff <= 0) {
-    //   diff = 0;
-    // }
 
     this.minutes = Math.floor(diff / 60);
     this.seconds = diff % 60;
