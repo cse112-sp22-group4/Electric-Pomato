@@ -331,7 +331,7 @@ editable-task-list, view-only-task-list {
             background-color: white;
         }
 
-        .header input {
+        .header input, .header span {
             font-weight: 600;
         }
 
@@ -402,8 +402,17 @@ view-only-task-list {
     bottom: 0;
     width: 100%;
 
+    @media screen and (max-width: 500px) {
+        padding: map-get($spacers, 0) map-get($spacers, 3) map-get($spacers, 5) map-get($spacers, 3);
+    }
+
     .task-list-container {
         overflow-y: scroll;
+
+        span {
+            width: 100%;
+            padding: map-get($spacers, 2) map-get($spacers, 0);
+        }
 
         &::-webkit-scrollbar-track {
             border-radius: 10px;
