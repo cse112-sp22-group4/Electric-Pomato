@@ -36,6 +36,10 @@ import * as backend from '../backend.js';
  * }
  */
 
+// Icon assets
+const pomoIcon = require('url:../../img/green-tomato.png');
+const breakIcon = require('url:../../img/red-tomato.png');
+
 // DOM elements
 const appContainer = document.querySelector('.app-container');
 
@@ -176,8 +180,6 @@ function initTimer(timer) {
  */
 function showTimerNotification() {
   const timerState = backend.get('Timer');
-  const pomoIcon = require('url:../../img/green-tomato.ico');
-  const breakIcon = require('url:../../img/red-tomato.ico');
 
   if (timerState === 'true') {
     console.log('Show green notification');
