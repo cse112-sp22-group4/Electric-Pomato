@@ -176,11 +176,14 @@ function initTimer(timer) {
  */
 function showTimerNotification() {
   const timerState = backend.get('Timer');
+  const pomoIcon = require('url:../../img/green-tomato.ico');
+  const breakIcon = require('url:../../img/red-tomato.ico');
+
   if (timerState === 'true') {
     console.log('Show green notification');
     navigator.serviceWorker.getRegistration().then((reg) => {
       const pomoAlert = {
-        icon: 'img/green-tomato.ico',
+        icon: pomoIcon,
         body: 'Good Work! Time to recharge.',
       };
       reg.showNotification('Electric Pomato', pomoAlert);
@@ -189,7 +192,7 @@ function showTimerNotification() {
     console.log('Show notification 2');
     navigator.serviceWorker.getRegistration().then((reg) => {
       const breakAlert = {
-        icon: 'img/red-tomato.ico',
+        icon: breakIcon,
         body: "Break time is over. It's time to plug in!",
       };
       reg.showNotification('Electric Pomato', breakAlert);
