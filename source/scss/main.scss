@@ -41,11 +41,19 @@ $spacers: (
 
 menu-icons {
     i {
-        cursor: pointer;
-        @include font-size($h2-font-size);
+        background-color: #3b586c;
+        @include font-size($h5-font-size);
     }
-    i:hover {
+    button {
+        cursor: pointer;
+        background-color: #3b586c;
+        border: none;
+    }
+    button:hover {
         opacity: 0.5;
+    }
+    div {
+        @include font-size($h5-font-size);
     }
 }
 
@@ -283,6 +291,14 @@ footer > .container {
     flex-wrap: wrap;
     z-index: 2;
     padding: map-get($spacers, 5) 0 0 0;
+    @media screen and (max-width: 1000px) {
+        h1 {
+            @include font-size($h3-font-size);
+        }
+        h4 {
+            @include font-size($h6-font-size);
+        }
+    }
 }
 
 .app-title, .app-subtitle {
