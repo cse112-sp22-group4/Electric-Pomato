@@ -34,41 +34,44 @@ class Timer {
    */
   startTimer() {
     return new Promise((resolve) => {
-      // Count down immediately and call the callback (callback is mostly used to set the text)
       const resolveMessage = 'Timer Finished';
-      if (this.callbackEverySecond !== null) {
-        this.callbackEverySecond(this.minutes, this.seconds);
-      }
-      if (this.seconds === 0 && this.minutes !== 0) {
-        this.minutes -= 1;
-        this.seconds = 60;
-      } else if (this.seconds === 0 && this.minutes === 0) {
+      if (this.seconds === 0 && this.minutes === 0) {
         resolve(resolveMessage);
       }
-      console.log(Date.now());
-      this.seconds -= 1;
 
       // Keep counting down until it reaches 0 mins 0 seconds (inclusive)
-      const end = Math.floor(Date.now() / 1000) + (this.minutes * 60) + (this.seconds);
+      // Start at this.seconds - 1 to start counting down right away
+      const end = Math.floor(Date.now() / 1000) + (this.minutes * 60) + (this.seconds - 1);
+
+      // Start counter once because setInterval runs code only after timeout
+      this.timer(end);
       const countdown = setInterval(() => {
-        // This is where the timer callbacks a function every second
-        if (this.callbackEverySecond !== null) {
-          this.callbackEverySecond(this.minutes, this.seconds);
-        }
+        // End timer
         if (this.seconds === 0 && this.minutes === 0) {
           resolve(resolveMessage);
           clearInterval(countdown);
         }
-        // Get start and end time in seconds
-        const now = Math.floor(Date.now() / 1000);
-
-        // Difference in seconds
-        const diff = end - now;
-
-        this.minutes = Math.floor(diff / 60);
-        this.seconds = diff % 60;
+        this.timer(end);
       }, 1000);
     });
+  }
+
+  timer(end) {
+    // Get start and end time in seconds
+    const now = Math.floor(Date.now() / 1000);
+
+    // Difference in seconds
+    const diff = end - now;
+
+    // if (diff <= 0) {
+    //   diff = 0;
+    // }
+
+    this.minutes = Math.floor(diff / 60);
+    this.seconds = diff % 60;
+    if (this.callbackEverySecond !== null) {
+      this.callbackEverySecond(this.minutes, this.seconds);
+    }
   }
 }
 
