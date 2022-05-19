@@ -52,7 +52,7 @@ menu-icons {
     button:hover {
         opacity: 0.5;
     }
-    div {
+    span {
         @include font-size($h5-font-size);
     }
 }
