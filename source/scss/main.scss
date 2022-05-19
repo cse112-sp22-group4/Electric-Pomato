@@ -290,7 +290,7 @@ footer > .container {
     align-items: center;
     flex-wrap: wrap;
     z-index: 2;
-    padding: map-get($spacers, 5) 0 0 0;
+    padding: map-get($spacers, 5) 0 map-get($spacers, 5) 0;
     @media screen and (max-width: 1000px) {
         h1 {
             @include font-size($h3-font-size);
