@@ -68,7 +68,7 @@ class MenuIcons extends HTMLElement {
     infoButton.classList.add('m-2', 'rounded', 'p-2');
     const infoIcon = document.createElement('i');
     infoIcon.classList.add('fas', 'text-white', 'fa-info-circle');
-    const infoText = document.createElement('div');
+    const infoText = document.createElement('span');
     infoText.classList.add('d-none', 'd-md-inline-block', 'text-white', 'ms-2');
     infoText.textContent = 'Info';
 
@@ -91,7 +91,7 @@ class MenuIcons extends HTMLElement {
     settingsButton.classList.add('m-2', 'rounded', 'p-2');
     const settingsIcon = document.createElement('i');
     settingsIcon.classList.add('fas', 'text-white', 'fa-wrench');
-    const settingsText = document.createElement('div');
+    const settingsText = document.createElement('span');
     settingsText.classList.add('d-none', 'd-md-inline-block', 'text-white', 'ms-2');
     settingsText.textContent = 'Settings';
 
@@ -114,7 +114,7 @@ class MenuIcons extends HTMLElement {
     statsButton.classList.add('m-2', 'rounded', 'p-2');
     const statsIcon = document.createElement('i');
     statsIcon.classList.add('fas', 'fa-chart-bar', 'text-white');
-    const statsText = document.createElement('div');
+    const statsText = document.createElement('span');
     statsText.classList.add('d-none', 'd-md-inline-block', 'text-white', 'ms-2');
     statsText.textContent = 'Stats';
 
@@ -137,7 +137,7 @@ class MenuIcons extends HTMLElement {
     homeButton.classList.add('m-2', 'rounded', 'p-2');
     const homeIcon = document.createElement('i');
     homeIcon.classList.add('fas', 'fa-home', 'text-white');
-    const homeText = document.createElement('div');
+    const homeText = document.createElement('span');
     homeText.classList.add('d-none', 'd-md-inline-block', 'text-white', 'ms-2');
     homeText.textContent = 'Home';
 
