@@ -23,8 +23,8 @@ class SettingsModal extends HTMLElement {
         <div id="settings-content" class="modal-content">
           <h2 id="settings-text" class="modal-title">Settings</h2>
           <form id="settings-container">
-            <label class="settings-row" for="pomo-duration-select" style="word-wrap:break-word">
-              Pomodoro Duration
+            <label class="settings-row" for="pomo-duration-select">
+              <span class="settings-item" id="pomo-text">Pomodoro Duration</span>
               <select class="settings-select" name="pomo-duration-select" id="pomo-duration-select">
                 <option value="20">20 min</option>
                 <option value="25">25 min</option>
@@ -34,17 +34,17 @@ class SettingsModal extends HTMLElement {
                 <option value="45">45 min</option>
               </select>
             </label>
-            <label class="settings-row" for="short-duration-select" style="word-wrap:break-word">
-                Short Break Duration
-                <select class="settings-select" name="short-duration-select" id="short-duration-select">
-                  <option value="3">3 min</option>
-                  <option value="5">5 min</option>
-                  <option value="7">7 min</option>
-                  <option value="10">10 min</option>
-                </select>
+            <label class="settings-row" for="short-duration-select">
+              <span class="settings-item" id="short-break-text">Short Break Duration</span>
+              <select class="settings-select" name="short-duration-select" id="short-duration-select">
+                <option value="3">3 min</option>
+                <option value="5">5 min</option>
+                <option value="7">7 min</option>
+                <option value="10">10 min</option>
+              </select>
             </label>
-            <label class="settings-row" for="long-duration-select" style="word-wrap:break-word">
-              Long Break Duration
+            <label class="settings-row" for="long-duration-select">
+              <span class="settings-item" id="long-break-text">Long Break Duration</span>
               <select class="settings-select" name="long-duration-select" id="long-duration-select">
                 <option value="15">15 min</option>
                 <option value="20">20 min</option>
