@@ -47,7 +47,7 @@ class Timer {
       this.timer(end);
       const countdown = setInterval(() => {
         // End timer
-        if (this.seconds <= 0 && this.minutes <= 0) {
+        if (this.seconds === 0 && this.minutes === 0) {
           resolve(resolveMessage);
           clearInterval(countdown);
         }
@@ -67,7 +67,11 @@ class Timer {
     const now = Math.floor(Date.now() / 1000);
 
     // Difference in seconds
-    const diff = end - now;
+    let diff = end - now;
+
+    if (diff <= 0) {
+      diff = 0;
+    }
 
     this.minutes = Math.floor(diff / 60);
     this.seconds = diff % 60;
