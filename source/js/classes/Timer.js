@@ -47,7 +47,7 @@ class Timer {
       this.timer(end);
       const countdown = setInterval(() => {
         // End timer
-        if (this.seconds === 0 && this.minutes === 0) {
+        if (this.seconds <= 0 && this.minutes <= 0) {
           resolve(resolveMessage);
           clearInterval(countdown);
         }
