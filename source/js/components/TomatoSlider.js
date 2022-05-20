@@ -127,15 +127,7 @@ class TomatoSlider extends HTMLElement {
       this.colorTomatos(this.input.value, 'red');
     }
     if (this.keysPressed.Control && this.keysPressed.ArrowRight && !e.repeat) {
-      if (this.input.value === '1') {
-        this.input.value = 2;
-      } else if (this.input.value === '2') {
-        this.input.value = 3;
-      } else if (this.input.value === '3') {
-        this.input.value = 4;
-      } else if (this.input.value === '4') {
-        this.input.value = 5;
-      }
+      this.input.value = Math.min((Number(this.input.value) + 1), 5);
       this.colorTomatos(this.input.value, 'red');
     }
   }
