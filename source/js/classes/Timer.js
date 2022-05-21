@@ -14,8 +14,8 @@
 class Timer {
   /**
    * Constructs the timer object.
-   * @param {number} minutes - Numerical value of maximum minutes.
-   * @param {number} seconds - Numerical value of maximum seconds.
+   * @param {number} minutes - The number of minutes the timer counts down (max is 99)
+   * @param {number} seconds - The number of seconds the timer counts down (max is 59)
    * @param {callback} callbackEverySecond - callback called every second.
    */
   constructor(minutes, seconds, callbackEverySecond) {
@@ -34,35 +34,50 @@ class Timer {
    */
   startTimer() {
     return new Promise((resolve) => {
-      // Count down immediately
-      // This is where the timer callbacks a function every second
       const resolveMessage = 'Timer Finished';
-      if (this.callbackEverySecond !== null) {
-        this.callbackEverySecond(this.minutes, this.seconds);
-      }
-      if (this.seconds === 0 && this.minutes !== 0) {
-        this.minutes -= 1;
-        this.seconds = 60;
-      } else if (this.seconds === 0 && this.minutes === 0) {
+      if (this.seconds === 0 && this.minutes === 0) {
         resolve(resolveMessage);
       }
-      this.seconds -= 1;
+
       // Keep counting down until it reaches 0 mins 0 seconds (inclusive)
+      // Start at this.seconds - 1 to start counting down right away
+      const end = Math.floor(Date.now() / 1000) + (this.minutes * 60) + (this.seconds - 1);
+
+      // Start counter once because setInterval runs code only after timeout
+      this.timer(end);
       const countdown = setInterval(() => {
-        // This is where the timer callbacks a function every second
-        if (this.callbackEverySecond !== null) {
-          this.callbackEverySecond(this.minutes, this.seconds);
-        }
-        if (this.seconds === 0 && this.minutes !== 0) {
-          this.minutes -= 1;
-          this.seconds = 60;
-        } else if (this.seconds === 0 && this.minutes === 0) {
+        // End timer
+        if (this.seconds === 0 && this.minutes === 0) {
           resolve(resolveMessage);
           clearInterval(countdown);
         }
-        this.seconds -= 1;
+        this.timer(end);
       }, 1000);
     });
+  }
+
+  /**
+   * Calculates the minutes and seconds between the moment the function is called
+   * to the end parameter that is passed in.
+   * @param {number} end The number of seconds since Jan 1 1970 00:00:00 UTC (Date.now()) plus
+   * how long the Timer object should run for (this.minutes + this.seconds)
+   */
+  timer(end) {
+    // Get start and end time in seconds
+    const now = Math.floor(Date.now() / 1000);
+
+    // Difference in seconds
+    let diff = end - now;
+
+    if (diff <= 0) {
+      diff = 0;
+    }
+
+    this.minutes = Math.floor(diff / 60);
+    this.seconds = diff % 60;
+    if (this.callbackEverySecond !== null) {
+      this.callbackEverySecond(this.minutes, this.seconds);
+    }
   }
 }
 
