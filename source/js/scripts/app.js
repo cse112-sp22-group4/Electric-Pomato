@@ -280,7 +280,7 @@ function handleOnLoad() {
   if (!backend.get('Username')) {
     window.location.href = 'index.html';
   } else if (backend.get('Started')) {
-    // On resuming session, reset timer state and current pomos 
+    // On resuming session, reset timer state and current pomos
     backend.set('Timer', true);
     backend.set('CurrentPomos', 0);
     showTimer();
