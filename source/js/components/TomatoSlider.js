@@ -18,7 +18,18 @@ class TomatoSlider extends HTMLElement {
 
     this.input = this.firstElementChild;
     this.container = this.lastElementChild;
-    this.tomatos = this.querySelectorAll('.slider-tomato > g');
+    // this.tomatos = this.querySelectorAll('.slider-tomato > g');
+    // this.querySelectorAll('.slider-tomato').forEach((icon) => {
+    //   console.log(icon + 2);
+    // });
+    this.tomatos = [];
+    this.querySelectorAll('.slider-tomato').forEach((icon) => {
+      icon.addEventListener('load', () => {
+        const svgDoc = icon.contentDocument;
+        this.tomatos.push(svgDoc.querySelectorAll('g'));
+      });
+    });
+    console.log(this.tomatos);
 
     this.input.style.display = 'none';
 
@@ -64,6 +75,7 @@ class TomatoSlider extends HTMLElement {
    * @param {string} color - string for the color to fill the number of selected tomatoes.
    */
   colorTomatos(n, color) {
+    console.log(this.tomatos);
     this.tomatos.forEach((tomato, i) => {
       if (i < n) {
         tomato.classList.value = `${color}-tomato`;
