@@ -180,26 +180,39 @@ function initTimer(timer) {
  */
 function showTimerNotification() {
   const timerState = backend.get('Timer');
+  const pomoAlert = {
+    icon: pomoIcon,
+    body: 'Good Work! Time to recharge.',
+    tag: 'pomo-alert',
+  };
 
+  const breakAlert = {
+    icon: breakIcon,
+    body: "Break time is over. It's time to plug in!",
+    tag: 'pomo-alert',
+  };
+
+  // Choose notification based on timer state
+  let alert = null;
   if (timerState === 'true') {
     console.log('Show green notification');
-    navigator.serviceWorker.getRegistration().then((reg) => {
-      const pomoAlert = {
-        icon: pomoIcon,
-        body: 'Good Work! Time to recharge.',
-      };
-      reg.showNotification('Electric Pomato', pomoAlert);
-    });
+    alert = pomoAlert;
   } else {
     console.log('Show notification 2');
-    navigator.serviceWorker.getRegistration().then((reg) => {
-      const breakAlert = {
-        icon: breakIcon,
-        body: "Break time is over. It's time to plug in!",
-      };
-      reg.showNotification('Electric Pomato', breakAlert);
-    });
+    alert = breakAlert;
   }
+
+  // Show the notification
+  let register = null;
+  navigator.serviceWorker.getRegistration()
+    .then((reg) => {
+      register = reg;
+      reg.showNotification('Electric Pomato', alert)
+        .then(() => register.getNotifications()
+          .then((notifications) => {
+            setTimeout(() => notifications.forEach((notification) => notification.close()), 5000);
+          }));
+    });
 }
 
 /**
