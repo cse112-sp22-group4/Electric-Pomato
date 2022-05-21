@@ -55,9 +55,9 @@ let votl = null;
  * @return {boolean} true if next break is a long break, false otherwise
  */
 function isLongBreak() {
-  const totalPomos = Number(backend.get('TotalPomos'));
+  const currentPomos = Number(backend.get('CurrentPomos'));
   // If there has been 4 pomos then it is a long break
-  return totalPomos > 0 && totalPomos % 4 === 0;
+  return currentPomos > 0 && currentPomos % 4 === 0;
 }
 
 /**
@@ -233,6 +233,7 @@ function handleClick(timer, taskList) {
           // Increment pomos if we were in a Pomo session
           if (timerState === 'true') {
             backend.set('TotalPomos', Number(backend.get('TotalPomos')) + 1);
+            backend.set('CurrentPomos', Number(backend.get('CurrentPomos')) + 1);
             taskList.addPomo();
           }
 
@@ -261,7 +262,6 @@ function showTimer() {
   votl = new ViewOnlyTaskList();
 
   // Call any helper functions to handle user events.
-  updateAppTitle(false);
   handleClick(timerUI, votl);
   initTimer(timerUI);
 
@@ -280,6 +280,9 @@ function handleOnLoad() {
   if (!backend.get('Username')) {
     window.location.href = 'index.html';
   } else if (backend.get('Started')) {
+    // On resuming session, reset timer state and current pomos 
+    backend.set('Timer', true);
+    backend.set('CurrentPomos', 0);
     showTimer();
   } else {
     appContainer.appendChild(new EditableTaskList());
@@ -289,6 +292,7 @@ function handleOnLoad() {
         backend.set('Started', true);
         backend.set('Timer', true);
         backend.set('TotalPomos', 0);
+        backend.set('CurrentPomos', 0);
         appContainer.lastElementChild.remove();
         showTimer();
       });
