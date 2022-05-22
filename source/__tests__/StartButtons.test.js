@@ -33,6 +33,7 @@ describe('StartButtons tests', () => {
     taskList.createTask('first task', 1);
     taskList.save();
  
+    localStorage.setItem('Timer', false);
     localStorage.setItem('CurrentPomos', 2); 
     localStorage.setItem('Started', true);
 
