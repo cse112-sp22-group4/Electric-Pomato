@@ -277,14 +277,13 @@ function showTimer() {
  */
 function handleOnLoad() {
   // Redirect to index.html if no name is in localStorage.
-  if (!backend.get('Username')) {
+  if (backend.get('Username') == null) {
     window.location.href = 'index.html';
-  } else if (backend.get('Started')) {
-    // On resuming session, reset timer state and current pomos
-    backend.set('Timer', true);
-    backend.set('CurrentPomos', 0);
+  } else if (backend.get('Started') === 'true') {
+    // if started session, go to timer
     showTimer();
   } else {
+    // otherwise, go to task list page
     appContainer.appendChild(new EditableTaskList());
     document.querySelector('.app-title').textContent = `${backend.get('Username')}'s Day`;
     appContainer.querySelectorAll('.start-day-button').forEach((button) => {

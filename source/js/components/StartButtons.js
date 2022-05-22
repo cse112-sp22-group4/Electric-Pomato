@@ -92,6 +92,15 @@ class StartButtons extends HTMLElement {
     a.href = 'app.html';
     a.classList.add('btn', 'btn-secondary', 'btn-lg', 'btn-block');
     a.appendChild(text);
+
+    a.addEventListener('click', () => {
+      // Reset Timer state and current Pomos if session already started
+      if (backend.get('Started') === 'true') {
+        backend.set('Timer', true);
+        backend.set('CurrentPomos', 0);
+      }
+    });
+
     return a;
   }
 }
