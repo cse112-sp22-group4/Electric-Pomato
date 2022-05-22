@@ -587,6 +587,10 @@ pomo-timer {
     }
 }
 
+object { 
+    pointer-events: none;
+}
+
 .timer-text {
     @include font-size($h1-font-size * 3);
 }

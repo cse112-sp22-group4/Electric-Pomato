@@ -18,19 +18,18 @@ class TomatoSlider extends HTMLElement {
 
     this.input = this.firstElementChild;
     this.container = this.lastElementChild;
+    console.log(this.lastElementChild);
 
-    /** Debugging stuff
     // this.tomatos = this.querySelectorAll('.slider-tomato > g');
-    this.querySelectorAll('.slider-tomato').forEach((icon) => {
-      console.log(icon);
-    });
-    */
+    // this.querySelectorAll('.slider-tomato').forEach((icon) => {
+    //   console.log(icon);
+    // });
 
     this.tomatos = [];
     this.querySelectorAll('.slider-tomato').forEach((icon) => {
       icon.addEventListener('load', () => {
         const svgDoc = icon.contentDocument;
-        this.tomatos.push(svgDoc.querySelector('.slider-tomato > g'));
+        this.tomatos[icon.getAttribute('id')] = svgDoc.querySelector('.slider-tomato > g');
       });
     });
 
@@ -105,6 +104,7 @@ class TomatoSlider extends HTMLElement {
   handleClick(e) {
     const { left, right } = this.querySelector('.slider-tomato-container').getBoundingClientRect();
     this.input.value = Math.min(Math.ceil((e.clientX - left + 1) / ((right - left) / 5)), 5);
+    console.log(this.input.value);
   }
 
   /**
