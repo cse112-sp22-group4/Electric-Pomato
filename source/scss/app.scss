@@ -123,13 +123,18 @@ view-only-task-list {
         overflow-y: scroll;
 
         h3 {
-            color: #fff;
+            @include themify($themes) {
+                color: themed('input-text-color');
+            }
         }
 
         span {
             width: 100%;
             padding: map-get($spacers, 2) map-get($spacers, 0);
-            color: #fff;
+
+            @include themify($themes) {
+                color: themed('input-text-color');
+            }
         }
 
         &::-webkit-scrollbar-track {
