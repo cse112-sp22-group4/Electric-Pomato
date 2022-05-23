@@ -184,12 +184,14 @@ function showTimerNotification() {
     icon: pomoIcon,
     body: 'Good Work! Time to recharge.',
     tag: 'pomo-alert',
+    silent: true,
   };
 
   const breakAlert = {
     icon: breakIcon,
     body: "Break time is over. It's time to plug in!",
     tag: 'pomo-alert',
+    silent: true,
   };
 
   // Choose notification based on timer state
@@ -198,7 +200,7 @@ function showTimerNotification() {
     console.log('Show green notification');
     alert = pomoAlert;
   } else {
-    console.log('Show notification 2');
+    console.log('Show red notification');
     alert = breakAlert;
   }
 
@@ -229,14 +231,14 @@ function handleClick(timer, taskList) {
       if (backend.get('Timer') === 'true') {
         // Hide all icons except home when a work session starts.
         menuIcons.focusMode();
-        // const workSessionDuration = backend.get('WorkSessionDuration');
-        timer.createTimer(0, 5);
+        const workSessionDuration = backend.get('WorkSessionDuration');
+        timer.createTimer(workSessionDuration, 0);
       } else if (isLongBreak()) {
-        // const longBreakDuration = backend.get('LongBreakDuration');
-        timer.createTimer(0, 5);
+        const longBreakDuration = backend.get('LongBreakDuration');
+        timer.createTimer(longBreakDuration, 0);
       } else {
-        // const shortBreakDuration = backend.get('ShortBreakDuration');
-        timer.createTimer(0, 5);
+        const shortBreakDuration = backend.get('ShortBreakDuration');
+        timer.createTimer(shortBreakDuration, 0);
       }
 
       // Create finish task button for this sessio
