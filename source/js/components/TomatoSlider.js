@@ -1,8 +1,19 @@
+/* eslint-disable global-require */
+
 /**
  * @file Creates a custom element for the tomato slider to estimate the number of pomodoros.
  * @author Andy Young
  * @author Arman Mansourian
  */
+
+// Need the imports because of parcel
+import tomatoIcon from '../../img/whiteTomato.svg';
+import * as backend from '../backend.js';
+
+// Theme object setter
+const svgURL = {
+  default: tomatoIcon,
+};
 
 /**
  * Constructs the HTML for the slider.
@@ -14,22 +25,30 @@ class TomatoSlider extends HTMLElement {
    */
   constructor() {
     super();
-    this.appendChild(document.querySelector('#tomato-slider-template').content.cloneNode(true));
+    const template = document.createElement('template');
+    template.innerHTML = `
+      <div class="d-flex h-100 justify-content-between align-items-center slider-tomato-container">
+        <object id=0 class="slider-tomato" type="image/svg+xml" data="${svgURL[backend.get('Theme')]}"></object>
+        <object id=1 class="slider-tomato" type="image/svg+xml" data="${svgURL[backend.get('Theme')]}"></object>
+        <object id=2 class="slider-tomato" type="image/svg+xml" data="${svgURL[backend.get('Theme')]}"></object>
+        <object id=3 class="slider-tomato" type="image/svg+xml" data="${svgURL[backend.get('Theme')]}"></object>
+        <object id=4 class="slider-tomato" type="image/svg+xml" data="${svgURL[backend.get('Theme')]}"></object>
+      </div>
+    `;
+    this.appendChild(template.content.cloneNode(true));
 
     this.input = this.firstElementChild;
     this.container = this.lastElementChild;
-    console.log(this.lastElementChild);
-
-    // this.tomatos = this.querySelectorAll('.slider-tomato > g');
-    // this.querySelectorAll('.slider-tomato').forEach((icon) => {
-    //   console.log(icon);
-    // });
 
     this.tomatos = [];
     this.querySelectorAll('.slider-tomato').forEach((icon) => {
       icon.addEventListener('load', () => {
         const svgDoc = icon.contentDocument;
         this.tomatos[icon.getAttribute('id')] = svgDoc.querySelector('.slider-tomato > g');
+        // Color one tomato by default
+        if (icon.getAttribute('id') === '0') {
+          svgDoc.querySelector('.slider-tomato > g').classList.value = 'red-tomato';
+        }
       });
     });
 
@@ -90,7 +109,9 @@ class TomatoSlider extends HTMLElement {
    * Fill the slider with the tomatoes selected.
    */
   render() {
+    console.log(this.input.value);
     if (this.input.disabled) {
+      console.log('is this called');
       this.colorTomatos(Number(this.input.value), 'green');
     } else {
       this.colorTomatos(Number(this.input.value), 'red');
