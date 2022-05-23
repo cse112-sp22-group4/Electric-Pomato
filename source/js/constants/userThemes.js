@@ -1,6 +1,6 @@
 const userThemes = {
   DEFAULT: 'default',
-  LIGHT: 'light',
+  DARK: 'dark',
 };
 
 export default userThemes;
