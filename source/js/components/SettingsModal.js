@@ -57,7 +57,7 @@ class SettingsModal extends HTMLElement {
               </select>
             </label>
             <label class="settings-row" for="themes-select">
-              <span class="settings-item" id="themes-text">Themes</span>
+              <span class="settings-item" id="themes-text">Theme</span>
               <select class="settings-select" name="themes-select" id="themes-select">
                 <option value="default">Default</option>
                 <option value="dark">Dark</option>
