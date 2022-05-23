@@ -36,25 +36,25 @@ $themes: (
 );
 
 /** 	
-	*		Iterates over all themes and outputs whatever was wrapped inside it with a
-  * 	.theme-#{themeName} class selector prefix
+  *    Iterates over all themes and outputs whatever was wrapped inside it with a
+  *    .theme-#{themeName} class selector prefix
   *
-	*		body {
-	*		  	@include themify($themes) {
-	*						color: themed('body-background-color')
-	*				}
-	*		}
-	*
-	*		transforms into:
-	*
-	*		.theme-default body {
-	*				background-color: #203647;
-	*		}
-	*	
-	*		.theme-dark body {
-	*				background-color: #313130;
-	*		}
-	*
+  *    body {
+  *        @include themify($themes) {
+  *            color: themed('body-background-color')
+  *        }
+  *    }
+  *
+  *    transforms into:
+  *
+  *    .theme-default body {
+  *        background-color: #203647;
+  *    }
+  *	
+  *    .theme-dark body {
+  *        background-color: #313130;
+  *    }
+  *
   */
 @mixin themify($themes: $themes) {
 
