@@ -117,8 +117,8 @@ class SettingsModal extends HTMLElement {
     this.pomDurationDrop.value = timerConstants.DEFAULT_WORK_SESSION_DURATION;
     this.shortBreakDrop.value = timerConstants.DEFAULT_SHORT_BREAK_DURATION;
     this.longBreakDrop.value = timerConstants.DEFAULT_LONG_BREAK_DURATION;
-    this.themesDrop.value = 'default';
-    document.documentElement.classList.value = `theme-${this.themesDrop.value}`;
+    this.themesDrop.value = userThemes.DEFAULT;
+    document.documentElement.classList.value = `theme-${userThemes.DEFAULT}`;
   }
 
   /**
