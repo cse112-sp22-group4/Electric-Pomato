@@ -79,22 +79,10 @@ settings-modal {
 
     .settings-row {
         display: flex;
-        justify-content: space-around;
+        justify-content: space-between;
         margin-bottom: 50px;
         padding-left: 20px;
         padding-right: 20px;
-    }
-
-    #pomo-text {
-        margin-right: 27px;
-    }
-
-    #short-break-text {
-        margin-right: 10px;
-    }
-
-    #long-break-text {
-        margin-right: 15px;
     }
 
     .settings-item {
