@@ -149,7 +149,6 @@ class SettingsModal extends HTMLElement {
     backend.set('ShortBreakDuration', this.shortBreakDrop.value);
     backend.set('LongBreakDuration', this.longBreakDrop.value);
     backend.set('UserTheme', this.themesDrop.value);
-    document.documentElement.classList.value = `theme-${this.themesDrop.value}`;
     this.close();
   }
 
@@ -166,6 +165,7 @@ class SettingsModal extends HTMLElement {
    */
   close() {
     this.wrapper.style.display = 'none';
+    document.documentElement.classList.value = `theme-${backend.get('UserTheme')}`;
   }
 }
 
