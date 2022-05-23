@@ -1,15 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="theme-default" lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="./scss/main.scss">
-    <link rel="stylesheet" href="./fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="scss/main.scss">
+    <link rel="stylesheet" href="fontawesome/css/all.min.css">
     <link rel="icon" href="img/green-tomato.ico">
     <link rel="manifest" href="manifest.json">
     <title>Electric Pomato</title>
+    <script>
+        const currentTheme = localStorage.getItem('UserTheme') || 'default';
+        document.documentElement.classList.value = `theme-${currentTheme}`;
+    </script>
 </head>
 
 <body class="d-flex">
