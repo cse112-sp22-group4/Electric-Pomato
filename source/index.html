@@ -10,10 +10,7 @@
     <link rel="icon" href="img/green-tomato.ico">
     <link rel="manifest" href="manifest.json">
     <title>Electric Pomato</title>
-    <script>
-        const currentTheme = localStorage.getItem('UserTheme') || 'default';
-        document.documentElement.classList.value = `theme-${currentTheme}`;
-    </script>
+    <script src="js/scripts/loadUserTheme.js" type="module"></script>
 </head>
 
 <body class="pb-6">
