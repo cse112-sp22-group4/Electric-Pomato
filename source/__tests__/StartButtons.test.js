@@ -2,13 +2,12 @@ import StartButtons from '../js/components/StartButtons.js';
 import TaskList from '../js/classes/TaskList.js';
 
 describe('StartButtons tests', () => {
-  test('Simple Constructor', () => {
+  test('Constructor When TaskList is empty', () => {
     const startButtons = new StartButtons();
-
-    // start buttons generate two child start containers
-    expect(startButtons.childElementCount).toBe(2);
-    expect(startButtons.lastChild.nodeName).toBe('DIV');
+    // start buttons generate one child start container
+    expect(startButtons.childElementCount).toBe(1);
     expect(startButtons.firstChild.nodeName).toBe('DIV');
+    expect(startButtons.firstChild.childElementCount).toBe(1);
   });
 
   test('Constructor When TaskList is not empty', () => {

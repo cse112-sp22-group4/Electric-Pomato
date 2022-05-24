@@ -21,24 +21,24 @@ class StartButtons extends HTMLElement {
     this.classList.add('row');
     const taskList = new TaskList();
     if (taskList.todo.length > 0 || taskList.completed.length > 0) {
-      const rightContainer = StartButtons.createButtonContainer();
-      this.appendChild(rightContainer);
       const leftContainer = StartButtons.createButtonContainer();
       leftContainer.classList.add('mb-3', 'mb-xxl-0');
+      const rightContainer = StartButtons.createButtonContainer();
       this.appendChild(leftContainer);
+      this.appendChild(rightContainer);
       leftContainer.appendChild(StartButtons.createButton());
       rightContainer.appendChild(StartButtons.createAnchor());
     } else {
-      // change create new session button style, add a new class?
+      // create new button container and centers the create new session button
       const centerContainer = StartButtons.createCenterContainer();
       this.appendChild(centerContainer);
       centerContainer.appendChild(StartButtons.createButton());
     }
   }
 
-  /* <div class="col-12 col-xxl-11"></div> */
+  /* <div class="col-12 col-xxl-12"></div> */
   /**
-   * Creates and returns a styled button container
+   * Creates and returns a centered-styled button container
    * @returns a button container
    */
   static createCenterContainer() {
