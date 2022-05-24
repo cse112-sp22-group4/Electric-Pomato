@@ -18,6 +18,10 @@ import TimerUI from '../components/TimerUI.js';
 import FinishTaskButton from '../components/FinishTaskButton.js';
 import * as backend from '../backend.js';
 
+// Icon assets
+import pomoIcon from '../../img/green-tomato.png';
+import breakIcon from '../../img/red-tomato.png';
+
 /**
  * STATE:
  * {
@@ -35,10 +39,6 @@ import * as backend from '../backend.js';
  *      else: short break
  * }
  */
-
-// Icon assets
-const pomoIcon = require('url:../../img/green-tomato.png');
-const breakIcon = require('url:../../img/red-tomato.png');
 
 // DOM elements
 const appContainer = document.querySelector('.app-container');
@@ -181,27 +181,19 @@ function initTimer(timer) {
 function showTimerNotification() {
   const timerState = backend.get('Timer');
   const pomoAlert = {
-    icon: pomoIcon,
-    body: 'Good Work! Time to recharge.',
+    icon: null,
+    body: null,
     tag: 'pomo-alert',
     silent: true,
   };
 
-  const breakAlert = {
-    icon: breakIcon,
-    body: "Break time is over. It's time to plug in!",
-    tag: 'pomo-alert',
-    silent: true,
-  };
-
-  // Choose notification based on timer state
-  let alert = null;
+  // Set notification icon/text based on timer state
   if (timerState === 'true') {
-    console.log('Show green notification');
-    alert = pomoAlert;
+    pomoAlert.icon = pomoIcon;
+    pomoAlert.body = 'Good Work! Time to recharge.';
   } else {
-    console.log('Show red notification');
-    alert = breakAlert;
+    pomoAlert.icon = breakIcon;
+    pomoAlert.body = "Break time is over. It's time to plug in!";
   }
 
   // Show the notification
@@ -209,7 +201,7 @@ function showTimerNotification() {
   navigator.serviceWorker.getRegistration()
     .then((reg) => {
       register = reg;
-      reg.showNotification('Electric Pomato', alert)
+      reg.showNotification('Electric Pomato', pomoAlert)
         .then(() => register.getNotifications()
           .then((notifications) => {
             setTimeout(() => notifications.forEach((notification) => notification.close()), 5000);
@@ -317,20 +309,20 @@ function handleOnLoad() {
 
   // Request notification permission on page load
   if (!('Notification' in window)) {
-    console.log('Browser does not support notifications');
+    console.log('Error: Browser does not support notifications');
   } else if (Notification.permission === 'granted') {
-    console.log(Notification.permission);
+    console.log(`Notifications permission ${Notification.permission}`);
   } else if (Notification.permission !== 'denied') {
     Notification.requestPermission((permission) => {
       if (!('permission' in Notification)) {
         Notification.permission = permission;
       }
       if (permission === 'granted') {
-        console.log('permission granted');
+        console.log('Notifications permission granted');
       }
     });
   } else {
-    console.log(`Permission is ${Notification.permission}`);
+    console.log(`Notifications permission ${Notification.permission}`);
   }
 }
 
