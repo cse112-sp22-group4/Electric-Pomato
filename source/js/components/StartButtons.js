@@ -18,20 +18,33 @@ class StartButtons extends HTMLElement {
   */
   constructor() {
     super();
-
     this.classList.add('row');
-
-    const leftContainer = StartButtons.createButtonContainer();
-    leftContainer.classList.add('mb-3', 'mb-xxl-0');
-    const rightContainer = StartButtons.createButtonContainer();
-    this.appendChild(leftContainer);
-    this.appendChild(rightContainer);
-
-    leftContainer.appendChild(StartButtons.createButton());
     const taskList = new TaskList();
     if (taskList.todo.length > 0 || taskList.completed.length > 0) {
+      const rightContainer = StartButtons.createButtonContainer();
+      this.appendChild(rightContainer);
+      const leftContainer = StartButtons.createButtonContainer();
+      leftContainer.classList.add('mb-3', 'mb-xxl-0');
+      this.appendChild(leftContainer);
+      leftContainer.appendChild(StartButtons.createButton());
       rightContainer.appendChild(StartButtons.createAnchor());
+    } else {
+      // change create new session button style, add a new class?
+      const centerContainer = StartButtons.createCenterContainer();
+      this.appendChild(centerContainer);
+      centerContainer.appendChild(StartButtons.createButton());
     }
+  }
+
+  /* <div class="col-12 col-xxl-11"></div> */
+  /**
+   * Creates and returns a styled button container
+   * @returns a button container
+   */
+  static createCenterContainer() {
+    const div = document.createElement('div');
+    div.classList.add('col-12', 'col-xxl-12');
+    return div;
   }
 
   /* <div class="col-12 col-lg-6"></div> */
