@@ -1,5 +1,3 @@
-/* eslint-disable global-require */
-
 /**
  * @file Creates a custom element for the tomato slider to estimate the number of pomodoros.
  * @author Andy Young
@@ -7,14 +5,8 @@
  */
 
 // Need the imports because of parcel
-import tomatoIcon1 from '../../img/whiteTomato.svg';
-import tomatoIcon2 from '../../img/greenTomato.svg';
+import svgURL from '../constants/themeIcons.js';
 import * as backend from '../backend.js';
-
-// Theme object setter
-const svgURL = {
-  default: [tomatoIcon1, tomatoIcon2],
-};
 
 /**
  * Constructs the HTML for the slider.
