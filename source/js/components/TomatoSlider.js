@@ -7,12 +7,13 @@
  */
 
 // Need the imports because of parcel
-import tomatoIcon from '../../img/whiteTomato.svg';
+import tomatoIcon1 from '../../img/whiteTomato.svg';
+import tomatoIcon2 from '../../img/greenTomato.svg';
 import * as backend from '../backend.js';
 
 // Theme object setter
 const svgURL = {
-  default: tomatoIcon,
+  default: [tomatoIcon1, tomatoIcon2],
 };
 
 /**
@@ -25,32 +26,22 @@ class TomatoSlider extends HTMLElement {
    */
   constructor() {
     super();
+
+    // Create template and append to tomato-slider (need to maintain input child)
     const template = document.createElement('template');
     template.innerHTML = `
       <div class="d-flex h-100 justify-content-between align-items-center slider-tomato-container">
-        <object id=0 class="slider-tomato" type="image/svg+xml" data="${svgURL[backend.get('Theme')]}"></object>
-        <object id=1 class="slider-tomato" type="image/svg+xml" data="${svgURL[backend.get('Theme')]}"></object>
-        <object id=2 class="slider-tomato" type="image/svg+xml" data="${svgURL[backend.get('Theme')]}"></object>
-        <object id=3 class="slider-tomato" type="image/svg+xml" data="${svgURL[backend.get('Theme')]}"></object>
-        <object id=4 class="slider-tomato" type="image/svg+xml" data="${svgURL[backend.get('Theme')]}"></object>
+        <object id=0 class="slider-tomato" type="image/svg+xml" data=""></object>
+        <object id=1 class="slider-tomato" type="image/svg+xml" data=""></object>
+        <object id=2 class="slider-tomato" type="image/svg+xml" data=""></object>
+        <object id=3 class="slider-tomato" type="image/svg+xml" data=""></object>
+        <object id=4 class="slider-tomato" type="image/svg+xml" data=""></object>
       </div>
     `;
     this.appendChild(template.content.cloneNode(true));
 
     this.input = this.firstElementChild;
     this.container = this.lastElementChild;
-
-    this.tomatos = [];
-    this.querySelectorAll('.slider-tomato').forEach((icon) => {
-      icon.addEventListener('load', () => {
-        const svgDoc = icon.contentDocument;
-        this.tomatos[icon.getAttribute('id')] = svgDoc.querySelector('.slider-tomato > g');
-        // Color one tomato by default
-        if (icon.getAttribute('id') === '0') {
-          svgDoc.querySelector('.slider-tomato > g').classList.value = 'red-tomato';
-        }
-      });
-    });
 
     this.input.style.display = 'none';
 
@@ -59,6 +50,7 @@ class TomatoSlider extends HTMLElement {
     this.handleMouseLeave = this.handleMouseLeave.bind(this);
 
     const observer = new MutationObserver((mutations) => {
+      console.log(mutations);
       mutations.forEach((mutation) => {
         if (mutation.attributeName === 'disabled') {
           console.log('disabled mutation');
@@ -109,13 +101,36 @@ class TomatoSlider extends HTMLElement {
    * Fill the slider with the tomatoes selected.
    */
   render() {
-    console.log(this.input.value);
+    // NOTE FOR ME: TRY TO RENDER WITH ALL WHITE AND THEN CHANGE THE CLASS
+    // IT MAY WORK BETTER NOW THAT YOU'VE REFACTORED THE CODE
+    // Color green if input is disabled
     if (this.input.disabled) {
-      console.log('is this called');
-      this.colorTomatos(Number(this.input.value), 'green');
-    } else {
-      this.colorTomatos(Number(this.input.value), 'red');
+      this.querySelectorAll('.slider-tomato').forEach((object, i) => {
+        if (i < this.input.value) {
+          object.setAttribute('data', svgURL[backend.get('Theme')][1]);
+        } else {
+          object.setAttribute('data', svgURL[backend.get('Theme')][0]);
+        }
+      });
+      return;
     }
+
+    // Input not disabled then all blank tomatos
+    this.querySelectorAll('.slider-tomato').forEach((object) => {
+      object.setAttribute('data', svgURL[backend.get('Theme')][0]);
+    });
+    // Wait for all svg's to load and then populate this.tomatos
+    this.tomatos = [];
+    this.querySelectorAll('.slider-tomato').forEach((icon) => {
+      icon.addEventListener('load', () => {
+        const svgDoc = icon.contentDocument;
+        this.tomatos[icon.getAttribute('id')] = svgDoc.querySelector('.slider-tomato > g');
+        // Color one tomato by default
+        if (icon.getAttribute('id') === '0') {
+          svgDoc.querySelector('.slider-tomato > g').classList.value = 'red-tomato';
+        }
+      });
+    });
   }
 
   /**
@@ -125,7 +140,6 @@ class TomatoSlider extends HTMLElement {
   handleClick(e) {
     const { left, right } = this.querySelector('.slider-tomato-container').getBoundingClientRect();
     this.input.value = Math.min(Math.ceil((e.clientX - left + 1) / ((right - left) / 5)), 5);
-    console.log(this.input.value);
   }
 
   /**

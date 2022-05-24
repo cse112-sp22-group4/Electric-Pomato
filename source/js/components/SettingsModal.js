@@ -113,6 +113,8 @@ class SettingsModal extends HTMLElement {
     backend.set('WorkSessionDuration', timerConstants.DEFAULT_WORK_SESSION_DURATION);
     backend.set('ShortBreakDuration', timerConstants.DEFAULT_SHORT_BREAK_DURATION);
     backend.set('LongBreakDuration', timerConstants.DEFAULT_LONG_BREAK_DURATION);
+    // UI THEME TEMP LINE
+    backend.set('Theme', 'default');
   }
 
   /**
