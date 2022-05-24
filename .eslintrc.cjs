@@ -19,7 +19,6 @@ module.exports = {
     'no-console': 'off',
     // To allow modification of DOM objects
     'no-param-reassign': 0,
-    // To allow require() for parcel file path resolving
   },
   parserOptions: {
     ecmaVersion: 2020,
