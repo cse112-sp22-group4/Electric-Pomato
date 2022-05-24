@@ -36,6 +36,7 @@ export function clearSessionData() {
   localStorage.removeItem('TaskList');
   localStorage.removeItem('Started');
   localStorage.removeItem('TotalPomos');
+  localStorage.removeItem('CurrentPomos');
   localStorage.removeItem('Timer');
 }
 
@@ -46,6 +47,7 @@ export function removeAll() {
   localStorage.removeItem('TaskList');
   localStorage.removeItem('Started');
   localStorage.removeItem('TotalPomos');
+  localStorage.removeItem('CurrentPomos');
   localStorage.removeItem('Timer');
   localStorage.removeItem('WorkSessionDuration');
   localStorage.removeItem('ShortBreakDuration');

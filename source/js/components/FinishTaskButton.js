@@ -25,7 +25,7 @@ class FinishTaskButton extends HTMLElement {
       // Display end session instead of finish task warning if only 1 task left
       if (this.length > 1) {
         warning = {
-          title: 'Are you sure you want to finish this task early?',
+          title: 'Move on to next task?',
           subtitle: ' ',
           leftButton: 'Yes',
           rightButton: 'No',

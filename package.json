@@ -9,7 +9,6 @@
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "source": [
     "source/app.html",
-    "source/done.html",
     "source/index.html"
   ],
   "homepage": "https://github.com/cse112-sp22-group4/Electric-Pomato#readme",

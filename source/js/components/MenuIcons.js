@@ -64,12 +64,21 @@ class MenuIcons extends HTMLElement {
   */
   createInfoButton() {
     // Set up button
-    const infoButton = document.createElement('i');
-    infoButton.classList.add('fas', 'fa-info-circle', 'text-white', 'm-4');
+    const infoButton = document.createElement('button');
+    infoButton.classList.add('m-2', 'rounded', 'p-2');
+    const infoIcon = document.createElement('i');
+    infoIcon.classList.add('fas', 'text-white', 'fa-info-circle');
+    const infoText = document.createElement('span');
+    infoText.classList.add('d-none', 'd-md-inline-block', 'text-white', 'ms-2');
+    infoText.textContent = 'Info';
+
     infoButton.addEventListener('click', () => {
       this.infoModal.open();
     });
+
     this.infoButton = infoButton;
+    infoButton.appendChild(infoIcon);
+    infoButton.appendChild(infoText);
     this.appendChild(infoButton);
   }
 
@@ -78,12 +87,21 @@ class MenuIcons extends HTMLElement {
   */
   createSettingsButton() {
     // Set up button
-    const settingsButton = document.createElement('i');
-    settingsButton.classList.add('fas', 'fa-wrench', 'text-white', 'm-4');
+    const settingsButton = document.createElement('button');
+    settingsButton.classList.add('m-2', 'rounded', 'p-2');
+    const settingsIcon = document.createElement('i');
+    settingsIcon.classList.add('fas', 'text-white', 'fa-wrench');
+    const settingsText = document.createElement('span');
+    settingsText.classList.add('d-none', 'd-md-inline-block', 'text-white', 'ms-2');
+    settingsText.textContent = 'Settings';
+
     settingsButton.addEventListener('click', () => {
       this.settingsModal.open();
     });
+
     this.settingsButton = settingsButton;
+    settingsButton.appendChild(settingsIcon);
+    settingsButton.appendChild(settingsText);
     this.appendChild(settingsButton);
   }
 
@@ -92,12 +110,21 @@ class MenuIcons extends HTMLElement {
   */
   createStatsButton() {
     // Set up button
-    const statsButton = document.createElement('i');
-    statsButton.classList.add('fas', 'fa-chart-bar', 'text-white', 'm-4');
+    const statsButton = document.createElement('button');
+    statsButton.classList.add('m-2', 'rounded', 'p-2');
+    const statsIcon = document.createElement('i');
+    statsIcon.classList.add('fas', 'fa-chart-bar', 'text-white');
+    const statsText = document.createElement('span');
+    statsText.classList.add('d-none', 'd-md-inline-block', 'text-white', 'ms-2');
+    statsText.textContent = 'Stats';
+
     statsButton.addEventListener('click', () => {
       this.statsModal.open();
     });
+
     this.statsButton = statsButton;
+    statsButton.appendChild(statsIcon);
+    statsButton.appendChild(statsText);
     this.appendChild(statsButton);
   }
 
@@ -105,7 +132,14 @@ class MenuIcons extends HTMLElement {
   * Creates the home button to redirect the user to the home page
   */
   createHomeButton() {
-    const homeButton = document.createElement('i');
+    // Set up button
+    const homeButton = document.createElement('button');
+    homeButton.classList.add('m-2', 'rounded', 'p-2');
+    const homeIcon = document.createElement('i');
+    homeIcon.classList.add('fas', 'fa-home', 'text-white');
+    const homeText = document.createElement('span');
+    homeText.classList.add('d-none', 'd-md-inline-block', 'text-white', 'ms-2');
+    homeText.textContent = 'Home';
 
     // Pop up prompt
     const endMessage = {
@@ -114,8 +148,6 @@ class MenuIcons extends HTMLElement {
       rightButton: 'No',
     };
 
-    // Set up button
-    homeButton.classList.add('fas', 'fa-home', 'text-white', 'm-4');
     homeButton.addEventListener('click', () => {
       // Only display the popup on the app page
       if (document.URL.includes('app.html')) {
@@ -129,6 +161,8 @@ class MenuIcons extends HTMLElement {
       }
     });
     this.homeButton = homeButton;
+    homeButton.appendChild(homeIcon);
+    homeButton.appendChild(homeText);
     this.appendChild(homeButton);
   }
 }

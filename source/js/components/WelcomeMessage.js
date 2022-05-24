@@ -20,7 +20,7 @@ class WelcomeMessage extends HTMLElement {
   constructor(username) {
     super();
     this.container = document.createElement('div');
-    this.container.classList.add('d-flex', 'align-items-center', 'justify-content-between', 'mb-3', 'flex-wrap');
+    this.container.classList.add('d-flex', 'align-items-center', 'justify-content-between', 'mb-3', 'flex');
     this.appendChild(this.container);
     this.enterDefaultMode(username);
   }

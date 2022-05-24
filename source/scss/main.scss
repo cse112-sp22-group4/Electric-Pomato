@@ -41,11 +41,19 @@ $spacers: (
 
 menu-icons {
     i {
-        cursor: pointer;
-        @include font-size($h2-font-size);
+        background-color: #3b586c;
+        @include font-size($h5-font-size);
     }
-    i:hover {
+    button {
+        cursor: pointer;
+        background-color: #3b586c;
+        border: none;
+    }
+    button:hover {
         opacity: 0.5;
+    }
+    span {
+        @include font-size($h5-font-size);
     }
 }
 
@@ -77,16 +85,7 @@ settings-modal {
     #settings-container {
         display: flex;
         flex-direction: column;
-        justify-content: space-evenly;
         text-align: left;
-    }
-    
-    #settings-container select {
-        float: right;
-    }
-    
-    #settings-buttons {
-        margin-top: 30px;
     }
     
     #settings-close {
@@ -94,27 +93,34 @@ settings-modal {
     }
     
     .settings-row {
-        flex: 50%;
+        display: flex;
+        justify-content: space-around;
         margin-bottom: 50px;
-        width: 80%;
         padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    #pomo-text {
+        margin-right: 27px;
+    }
+
+    #short-break-text {
+        margin-right: 10px;
+    }
+
+    #long-break-text {
+        margin-right: 15px;
+    }
+
+    .settings-item {
+        overflow-wrap: break-word;
         @include font-size($h3-font-size);
-        word-wrap: break-word;
     }
     
     .settings-select {
-        flex: 50%;
         padding: 5px;
-        width: 100px;
         @include font-size($h4-font-size);
     }
-
-/*
-    #settings-text {
-        padding-bottom: 50px;
-        @include font-size($h1-font-size);
-    }
-*/
 }
 
 stats-modal {
@@ -282,7 +288,15 @@ footer > .container {
     align-items: center;
     flex-wrap: wrap;
     z-index: 2;
-    padding: map-get($spacers, 5) 0 0 0;
+    padding: map-get($spacers, 5) 0 map-get($spacers, 5) 0;
+    @media screen and (max-width: 1000px) {
+        h1 {
+            @include font-size($h3-font-size);
+        }
+        h4 {
+            @include font-size($h6-font-size);
+        }
+    }
 }
 
 .app-title, .app-subtitle {
@@ -315,7 +329,7 @@ editable-task-list, view-only-task-list {
             background-color: white;
         }
 
-        .header input {
+        .header input, .header span {
             font-weight: 600;
         }
 
@@ -386,8 +400,17 @@ view-only-task-list {
     bottom: 0;
     width: 100%;
 
+    @media screen and (max-width: 500px) {
+        padding: map-get($spacers, 0) map-get($spacers, 3) map-get($spacers, 5) map-get($spacers, 3);
+    }
+
     .task-list-container {
         overflow-y: scroll;
+
+        span {
+            width: 100%;
+            padding: map-get($spacers, 2) map-get($spacers, 0);
+        }
 
         &::-webkit-scrollbar-track {
             border-radius: 10px;
