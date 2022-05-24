@@ -1,3 +1,4 @@
+/* eslint-disable prefer-destructuring */
 /**
  * @file TimerUI acts as the middle man between javascript and the html.
  * It creates a pomo timer that will update the html elements.
@@ -10,7 +11,8 @@
  */
 
 import Timer from '../classes/Timer.js';
-
+import svgIcons from '../constants/themeIcons.js';
+import * as backend from '../backend.js';
 /**
  * Creates the Custom HTMLElement for the Timer class.
  * @extends HTMLElement
@@ -21,20 +23,29 @@ class TimerUI extends HTMLElement {
    */
   constructor() {
     super();
-
+    this.theme = backend.get('Theme');
     this.classList.add('w-100', 'h-100', 'd-flex', 'flex-column', 'align-items-center');
-    this.appendChild(document.querySelector('#timer-template').content.cloneNode(true));
+    this.innerHTML = `
+      <div class="timer-container position-relative mh-100 mw-100">
+        <object id="timerIcon"class="w-100 h-100 position-absolute top-50 start-50 translate-middle" data=${svgIcons[this.theme].urls[0]}></object>
+      </div>
+    `;
 
-    this.text = this.querySelector('.timer-text');
+    // Store the string to be displayed on top of the timer icon
+    this.text = '';
   }
 
   reset() {
-    this.text.textContent = 'START';
-    this.classList.remove('timer-active');
-  }
+    this.text = 'START';
 
-  clear() {
-    this.text.textContent = 'All Done!';
+    // If icon-text is null, means it's first load (so svg isn't loaded yet so return)
+    if (!this.getAttribute('icon-text')) {
+      return;
+    }
+
+    this.setAttribute('icon-text', 'START');
+    // this.render();
+    this.classList.remove('timer-active');
   }
 
   /**
@@ -47,7 +58,8 @@ class TimerUI extends HTMLElement {
   createTimer(minutes, seconds) {
     this.timer = new Timer(minutes, seconds, (newMinute, newSecond) => {
       // update html
-      this.text.textContent = `${TimerUI.parseMinutes(newMinute)} : ${TimerUI.parseSeconds(newSecond)}`;
+      this.text = `${TimerUI.parseMinutes(newMinute)} : ${TimerUI.parseSeconds(newSecond)}`;
+      this.setAttribute('icon-text', 'timerChanged');
     });
   }
 
@@ -59,7 +71,7 @@ class TimerUI extends HTMLElement {
    */
   startTimer() {
     // immediately update html
-    this.text.textContent = `${TimerUI.parseMinutes(this.timer.minutes)} : ${TimerUI.parseSeconds(this.timer.seconds)}`;
+    this.text = `${TimerUI.parseMinutes(this.timer.minutes)} : ${TimerUI.parseSeconds(this.timer.seconds)}`;
     this.classList.add('timer-active');
     return this.timer.startTimer();
   }
@@ -91,16 +103,31 @@ class TimerUI extends HTMLElement {
    * Sets the Tomato image to a Green Tomato.
    */
   setColorGreen() {
-    this.querySelector('.timer-image').classList.remove('red-tomato');
-    this.querySelector('.timer-image').classList.add('green-tomato');
+    // If svg has not been loaded onto the page (load onto app.html for the first time or reload)
+    if (!this.icon) {
+      this.color = svgIcons[this.theme].classes[0];
+      return;
+    }
+
+    // Else svg has already been loaded onto the page (done multiple sessions with no reload)
+    this.icon.classList.remove(svgIcons[this.theme].classes[1]);
+    this.icon.classList.add(svgIcons[this.theme].classes[0]);
   }
 
   /**
    * Sets the Tomato image to a Red Tomato.
    */
   setColorRed() {
-    this.querySelector('.timer-image').classList.remove('green-tomato');
-    this.querySelector('.timer-image').classList.add('red-tomato');
+    // If svg has not been loaded onto the page (load onto app.html for the first time or reload)
+    if (!this.icon) {
+      this.color = svgIcons[this.theme].classes[1];
+      return;
+    }
+
+    // Else svg has already been loaded onto the page (done multiple sessions with no reload)
+    this.icon.classList.remove(svgIcons[this.theme].classes[0]);
+    this.icon.classList.add(svgIcons[this.theme].classes[1]);
+    console.log(this.icon);
   }
 
   /**
@@ -108,6 +135,41 @@ class TimerUI extends HTMLElement {
    */
   setColorGold() {
     this.querySelector('.timer-image').classList.add('gold-tomato');
+  }
+
+  // The functions changing the text are called in app.js. You're going to have to change the logic
+  render() {
+    console.log('render');
+    const timerSVG = this.querySelector('#timerIcon');
+    timerSVG.addEventListener('load', () => {
+      const svgDoc = timerSVG.contentDocument;
+
+      // Set svg classes to style as timer icon
+      svgDoc.querySelector('svg').classList.value = 'w-100 h-100 position-absolute top-50 start-50 translate-middle';
+      this.icon = svgDoc.querySelector('svg > g');
+
+      // Set the color of initial icon (this.color is set by setColor functions above)
+      this.icon.classList.value = `timer-image ${this.color}`;
+
+      // Grab the svg text tag to use in attributeChangedCallback lifestyle method
+      this.svgText = svgDoc.querySelector('.timer-text');
+
+      // Set the svg text tag to one set in reset() this line should only be called on initial load
+      this.svgText.textContent = this.text;
+    });
+  }
+
+  connectedCallback() {
+    this.render();
+  }
+
+  attributeChangedCallback() {
+    console.log('attribute changed');
+    this.svgText.textContent = this.text;
+  }
+
+  static get observedAttributes() {
+    return ['icon-text'];
   }
 }
 

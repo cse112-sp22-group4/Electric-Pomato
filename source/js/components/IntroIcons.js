@@ -5,7 +5,7 @@
  */
 
 import * as backend from '../backend.js';
-import svgURL from '../constants/themeIcons.js';
+import svgIcons from '../constants/themeIcons.js';
 
 /**
  * Defines the IntroIcons displayed on index.html accordingly to the theme
@@ -15,14 +15,14 @@ class IntroIcons extends HTMLElement {
     super();
 
     // Get the theme
-    const theme = backend.get('Theme');
+    const iconURL = svgIcons[backend.get('Theme')].urls;
     this.innerHTML = `
             <div class="d-flex align-items-center">
-                <object id="icon1" class="legend-icon" type="image/svg+xml" data=${svgURL[theme][1]}></object>
+                <object id="icon1" class="legend-icon" type="image/svg+xml" data=${iconURL[1]}></object>
                 <h3 class="text-white mb-0">25 Minutes of Productivity</h3>
             </div>
             <div class="d-flex align-items-center">
-                <object id="icon1" class="legend-icon" type="image/svg+xml" data=${svgURL[theme][2]}></object>
+                <object id="icon1" class="legend-icon" type="image/svg+xml" data=${iconURL[2]}></object>
                 <h3 class="text-white mb-0"><span class="invisible">2</span>5 Minutes of Relaxing</h3>
             </div>
     `;
