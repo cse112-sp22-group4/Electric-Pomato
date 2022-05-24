@@ -201,6 +201,7 @@ function showTimerNotification() {
   navigator.serviceWorker.getRegistration()
     .then((reg) => {
       register = reg;
+      console.log(reg);
       reg.showNotification('Electric Pomato', alert)
         .then(() => register.getNotifications()
           .then((notifications) => {
