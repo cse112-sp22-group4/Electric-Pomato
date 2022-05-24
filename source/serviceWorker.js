@@ -24,15 +24,15 @@ self.addEventListener('fetch', (event) => {
   );
 });
 
-self.addEventListener('notificationclick', (event) => {
-  console.log('On notification click');
-  event.notification.close();
+// self.addEventListener('notificationclick', (event) => {
+//   console.log('On notification click');
+//   event.notification.close();
 
-  event.waitUntil(clients.matchAll({
-    type: 'window'
-  }).then((clientList) => {
-    for (let i = 0; i < clientList.length; i += 1) {
-      return clientList[i].focus();
-    }
-  }));
-});
+//   event.waitUntil(clients.matchAll({
+//     type: 'window'
+//   }).then((clientList) => {
+//     for (let i = 0; i < clientList.length; i += 1) {
+//       return clientList[i].focus();
+//     }
+//   }));
+// });
