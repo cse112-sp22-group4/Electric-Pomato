@@ -180,7 +180,7 @@ function initTimer(timer) {
  */
 function showTimerNotification() {
   const timerState = backend.get('Timer');
-  const pomoAlert = {
+  const alert = {
     icon: null,
     body: null,
     tag: 'pomo-alert',
@@ -189,11 +189,11 @@ function showTimerNotification() {
 
   // Set notification icon/text based on timer state
   if (timerState === 'true') {
-    pomoAlert.icon = pomoIcon;
-    pomoAlert.body = 'Good Work! Time to recharge.';
+    alert.icon = pomoIcon;
+    alert.body = 'Good Work! Time to recharge.';
   } else {
-    pomoAlert.icon = breakIcon;
-    pomoAlert.body = "Break time is over. It's time to plug in!";
+    alert.icon = breakIcon;
+    alert.body = "Break time is over. It's time to plug in!";
   }
 
   // Show the notification
@@ -201,7 +201,7 @@ function showTimerNotification() {
   navigator.serviceWorker.getRegistration()
     .then((reg) => {
       register = reg;
-      reg.showNotification('Electric Pomato', pomoAlert)
+      reg.showNotification('Electric Pomato', alert)
         .then(() => register.getNotifications()
           .then((notifications) => {
             setTimeout(() => notifications.forEach((notification) => notification.close()), 5000);
