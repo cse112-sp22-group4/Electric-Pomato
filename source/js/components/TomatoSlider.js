@@ -107,13 +107,11 @@ class TomatoSlider extends HTMLElement {
       return;
     }
 
-    // Input not disabled then all blank tomatos
-    this.querySelectorAll('.slider-tomato').forEach((object) => {
-      object.setAttribute('data', this.svgUrls[0]);
-    });
     // Wait for all svg's to load and then populate this.tomatos
     this.tomatos = [];
     this.querySelectorAll('.slider-tomato').forEach((icon) => {
+      // Set to blank icon
+      icon.setAttribute('data', this.svgUrls[0]);
       icon.addEventListener('load', () => {
         const svgDoc = icon.contentDocument;
         this.tomatos[icon.getAttribute('id')] = svgDoc.querySelector('.slider-tomato > g');
