@@ -204,52 +204,48 @@ function showTimerNotification() {
  * @ignore
  */
 function handleClick(timer, taskList) {
-  let active = false;
+  const active = false;
 
   timer.firstElementChild.addEventListener('click', () => {
-    if (!active) {
-      if (backend.get('Timer') === 'true') {
-        // Hide all icons except home when a work session starts.
-        menuIcons.focusMode();
-        const workSessionDuration = backend.get('WorkSessionDuration');
-        timer.createTimer(workSessionDuration, 0);
-      } else if (isLongBreak()) {
-        const longBreakDuration = backend.get('LongBreakDuration');
-        timer.createTimer(longBreakDuration, 0);
-      } else {
-        const shortBreakDuration = backend.get('ShortBreakDuration');
-        timer.createTimer(shortBreakDuration, 0);
-      }
-
-      // Create finish task button for this sessio
-      const finishTaskButton = new FinishTaskButton(nextTask);
-      timer.appendChild(finishTaskButton);
-
-      active = true;
-      timer.startTimer().then(() => {
-        if (!finished) {
-          const timerState = backend.get('Timer');
-
-          // Increment pomos if we were in a Pomo session
-          if (timerState === 'true') {
-            backend.set('TotalPomos', Number(backend.get('TotalPomos')) + 1);
-            backend.set('CurrentPomos', Number(backend.get('CurrentPomos')) + 1);
-            taskList.addPomo();
-          }
-
-          // Remove the finish task button
-          timer.lastElementChild.remove();
-
-          if (('Notification' in window) && Notification.permission === 'granted') {
-            showTimerNotification();
-          }
-
-          backend.set('Timer', timerState === 'false');
-          initTimer(timer);
-          active = false;
-        }
-      });
+    if (backend.get('Timer') === 'true') {
+      // Hide all icons except home when a work session starts.
+      menuIcons.focusMode();
+      const workSessionDuration = backend.get('WorkSessionDuration');
+      timer.createTimer(workSessionDuration, 0);
+    } else if (isLongBreak()) {
+      const longBreakDuration = backend.get('LongBreakDuration');
+      timer.createTimer(longBreakDuration, 0);
+    } else {
+      const shortBreakDuration = backend.get('ShortBreakDuration');
+      timer.createTimer(shortBreakDuration, 0);
     }
+
+    // Create finish task button for this sessio
+    const finishTaskButton = new FinishTaskButton(nextTask);
+    timer.appendChild(finishTaskButton);
+
+    timer.startTimer().then(() => {
+      if (!finished) {
+        const timerState = backend.get('Timer');
+
+        // Increment pomos if we were in a Pomo session
+        if (timerState === 'true') {
+          backend.set('TotalPomos', Number(backend.get('TotalPomos')) + 1);
+          backend.set('CurrentPomos', Number(backend.get('CurrentPomos')) + 1);
+          taskList.addPomo();
+        }
+
+        // Remove the finish task button
+        timer.lastElementChild.remove();
+
+        if (('Notification' in window) && Notification.permission === 'granted') {
+          showTimerNotification();
+        }
+
+        backend.set('Timer', timerState === 'false');
+        initTimer(timer);
+      }
+    });
   });
 }
 
