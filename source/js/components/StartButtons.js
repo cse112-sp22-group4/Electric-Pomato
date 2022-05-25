@@ -21,30 +21,20 @@ class StartButtons extends HTMLElement {
     this.classList.add('row');
     const taskList = new TaskList();
     if (taskList.todo.length > 0 || taskList.completed.length > 0) {
-      const leftContainer = StartButtons.createButtonContainer();
-      leftContainer.classList.add('mb-3', 'mb-xxl-0');
-      const rightContainer = StartButtons.createButtonContainer();
-      this.appendChild(leftContainer);
-      this.appendChild(rightContainer);
-      leftContainer.appendChild(StartButtons.createButton());
-      rightContainer.appendChild(StartButtons.createAnchor());
+      const topContainer = StartButtons.createButtonContainer();
+      topContainer.classList.add('mt-12', 'mt-xxl-12');
+      topContainer.style.marginBottom = '10px';
+      const bottomContainer = StartButtons.createButtonContainer();
+      this.appendChild(topContainer);
+      this.appendChild(bottomContainer);
+      topContainer.appendChild(StartButtons.createButton());
+      bottomContainer.appendChild(StartButtons.createAnchor());
     } else {
       // create new button container and centers the create new session button
-      const centerContainer = StartButtons.createCenterContainer();
+      const centerContainer = StartButtons.createButtonContainer();
       this.appendChild(centerContainer);
       centerContainer.appendChild(StartButtons.createButton());
     }
-  }
-
-  /* <div class="col-12 col-xxl-12"></div> */
-  /**
-   * Creates and returns a centered-styled button container
-   * @returns a button container
-   */
-  static createCenterContainer() {
-    const div = document.createElement('div');
-    div.classList.add('col-12', 'col-xxl-12');
-    return div;
   }
 
   /* <div class="col-12 col-lg-6"></div> */
@@ -54,7 +44,7 @@ class StartButtons extends HTMLElement {
    */
   static createButtonContainer() {
     const div = document.createElement('div');
-    div.classList.add('col-12', 'col-xxl-6');
+    div.classList.add('col-12', 'col-xxl-12');
     return div;
   }
 
