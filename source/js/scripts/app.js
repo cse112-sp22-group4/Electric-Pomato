@@ -198,7 +198,13 @@ function showTimerNotification() {
 
   // Show the notification
   let register = null;
-  navigator.serviceWorker.getRegistration()
+  // Check if this is the right URL the service worker is registered to
+  navigator.serviceWorker.getRegistration('../../serviceWorker.js').then((registration) => {
+    if (registration) {
+      console.log('ServiceWorkerRegistration found.');
+    }
+  });
+  navigator.serviceWorker.getRegistration('../../serviceWorker.js')
     .then((reg) => {
       register = reg;
       reg.showNotification('Electric Pomato', pomoAlert)
@@ -223,8 +229,8 @@ function handleClick(timer, taskList) {
       if (backend.get('Timer') === 'true') {
         // Hide all icons except home when a work session starts.
         menuIcons.focusMode();
-        const workSessionDuration = backend.get('WorkSessionDuration');
-        timer.createTimer(workSessionDuration, 0);
+        // const workSessionDuration = backend.get('WorkSessionDuration');
+        timer.createTimer(0, 5);
       } else if (isLongBreak()) {
         const longBreakDuration = backend.get('LongBreakDuration');
         timer.createTimer(longBreakDuration, 0);
