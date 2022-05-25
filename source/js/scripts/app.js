@@ -204,9 +204,9 @@ function showTimerNotification() {
  * @ignore
  */
 function handleClick(timer, taskList) {
-  const active = false;
-
-  timer.firstElementChild.addEventListener('click', () => {
+  timer.addEventListener('iconclick', () => {
+    // Make the timer non-hoverable
+    timer.querySelector('object').style.pointerEvents = 'none';
     if (backend.get('Timer') === 'true') {
       // Hide all icons except home when a work session starts.
       menuIcons.focusMode();
@@ -243,6 +243,8 @@ function handleClick(timer, taskList) {
         }
 
         backend.set('Timer', timerState === 'false');
+        // Make timer clickable again
+        timer.querySelector('object').style.pointerEvents = 'auto';
         initTimer(timer);
       }
     });

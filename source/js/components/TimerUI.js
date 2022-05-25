@@ -127,7 +127,6 @@ class TimerUI extends HTMLElement {
     // Else svg has already been loaded onto the page (done multiple sessions with no reload)
     this.icon.classList.remove(svgIcons[this.theme].classes[0]);
     this.icon.classList.add(svgIcons[this.theme].classes[1]);
-    console.log(this.icon);
   }
 
   /**
@@ -139,7 +138,6 @@ class TimerUI extends HTMLElement {
 
   // The functions changing the text are called in app.js. You're going to have to change the logic
   render() {
-    console.log('render');
     const timerSVG = this.querySelector('#timerIcon');
     timerSVG.addEventListener('load', () => {
       const svgDoc = timerSVG.contentDocument;
@@ -150,6 +148,12 @@ class TimerUI extends HTMLElement {
 
       // Set the color of initial icon (this.color is set by setColor functions above)
       this.icon.classList.value = `timer-image ${this.color}`;
+      this.icon.addEventListener('click', () => {
+        // Bubble up the click event to set up / start timer in app.js
+        this.dispatchEvent(new CustomEvent('iconclick'), {
+          bubbles: true,
+        });
+      });
 
       // Grab the svg text tag to use in attributeChangedCallback lifestyle method
       this.svgText = svgDoc.querySelector('.timer-text');
@@ -164,7 +168,6 @@ class TimerUI extends HTMLElement {
   }
 
   attributeChangedCallback() {
-    console.log('attribute changed');
     this.svgText.textContent = this.text;
   }
 
