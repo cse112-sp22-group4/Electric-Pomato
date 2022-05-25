@@ -128,6 +128,7 @@ class TomatoSlider extends HTMLElement {
       os = 'Mac';
     }
     this.keysPressed[e.key] = true;
+    console.log(this.keysPressed);
     if (os === 'Windows') {
       if (this.keysPressed.Control && this.keysPressed.ArrowLeft && !e.repeat) {
         this.input.value = Math.max(this.input.value - 1, 1);
@@ -138,6 +139,7 @@ class TomatoSlider extends HTMLElement {
         this.colorTomatos(this.input.value, 'red');
       }
     } else if (os === 'Mac') {
+      console.log('Mac check');
       if (this.keysPressed.Alt && this.keysPressed.ArrowLeft && !e.repeat) {
         this.input.value = Math.max(this.input.value - 1, 1);
         this.colorTomatos(this.input.value, 'red');
