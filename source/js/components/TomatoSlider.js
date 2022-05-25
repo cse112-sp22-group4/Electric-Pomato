@@ -121,15 +121,40 @@ class TomatoSlider extends HTMLElement {
    * @param {KeyboardEvent} e
    */
   handleKeyDown(e) {
+    let os = 'default';
+    if (navigator.userAgent.indexOf('Win') !== -1) {
+      os = 'Windows';
+    } else if (navigator.userAgent.indexOf('Mac') !== -1) {
+      os = 'Mac';
+    }
     this.keysPressed[e.key] = true;
-    if (this.keysPressed.Control && this.keysPressed.ArrowLeft && !e.repeat) {
-      this.input.value = Math.max(this.input.value - 1, 1);
-      this.colorTomatos(this.input.value, 'red');
+    if (os === 'Windows') {
+      if (this.keysPressed.Control && this.keysPressed.ArrowLeft && !e.repeat) {
+        this.input.value = Math.max(this.input.value - 1, 1);
+        this.colorTomatos(this.input.value, 'red');
+      }
+      if (this.keysPressed.Control && this.keysPressed.ArrowRight && !e.repeat) {
+        this.input.value = Math.min((Number(this.input.value) + 1), 5);
+        this.colorTomatos(this.input.value, 'red');
+      }
+    } else if (os === 'Mac') {
+      if (this.keysPressed.metaKey && this.keysPressed.ArrowLeft && !e.repeat) {
+        this.input.value = Math.max(this.input.value - 1, 1);
+        this.colorTomatos(this.input.value, 'red');
+      }
+      if (this.keysPressed.metaKey && this.keysPressed.ArrowRight && !e.repeat) {
+        this.input.value = Math.min((Number(this.input.value) + 1), 5);
+        this.colorTomatos(this.input.value, 'red');
+      }
     }
-    if (this.keysPressed.Control && this.keysPressed.ArrowRight && !e.repeat) {
-      this.input.value = Math.min((Number(this.input.value) + 1), 5);
-      this.colorTomatos(this.input.value, 'red');
-    }
+    // if (this.keysPressed.Control && this.keysPressed.ArrowLeft && !e.repeat) {
+    //   this.input.value = Math.max(this.input.value - 1, 1);
+    //   this.colorTomatos(this.input.value, 'red');
+    // }
+    // if (this.keysPressed.Control && this.keysPressed.ArrowRight && !e.repeat) {
+    //   this.input.value = Math.min((Number(this.input.value) + 1), 5);
+    //   this.colorTomatos(this.input.value, 'red');
+    // }
   }
 
   /**
