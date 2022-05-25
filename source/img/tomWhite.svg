@@ -1,6 +1,9 @@
 <?xml-stylesheet type="text/css" href="../scss/main.scss"?>
 <svg class="slider-tomato" viewBox="0 0 700 656" xmlns="http://www.w3.org/2000/svg">
     <style>
+     text { 
+         font-family: Neucha,sans-serif;
+     }
     </style>
     <g class="white-tomato">
         <g id="#110e0cff">
