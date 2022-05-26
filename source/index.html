@@ -34,18 +34,41 @@
                 </div>
             </div>
         </div>
-        <div class="app-header">
-            <div class="mg-sm-0">
-                <div class="text-white">
-                    <h1 class="mb-0">Electric Pomato</h1>
-                    <h4 class="mb-0">Plan. Track. Record.</h4>
+        <div class="app-header-container">
+            <div class="d-flex col">
+                <object type="image/svg+xml" data="img/app-header-logo.svg"></object>
+                <div class="ms-3 mg-sm-0">
+                    <div class="mt-2 text-white">
+                        <h2 class="mb-0">Electric Pomato</h2>
+                        <h5 class="mb-0">Plan. Track. Record.</h5>
+                    </div>
                 </div>
             </div>
-            <menu-icons></menu-icons>
+            <div class="menu-icons-wrapper">
+                <menu-icons></menu-icons>
+            </div>
         </div>
-        <div class="row pt-6 pb-6">
-            <div class="col-12 col-lg-6 mb-4 mb-lg-0 d-flex flex-column justify-content-center">
-                <div class="d-flex align-items-center">
+        <div class="justify-content-center align-items-center mt-6">
+            <div class="m-auto col-md-10 col-lg-6">
+                <start-container></start-container>
+                <template id="username-input-template">
+                    <div class="d-flex justify-content-start align-items-center">
+                        <h2 class="subtitle">Are you ready to plug in?</h2>
+                        <img class="start-question-icon" src="img/plug.svg" alt="plug">
+                    </div>
+                    <div class="start-input-container mb-2">
+                        <input class="start-input" type="text" autofocus required>
+                        <div class="start-input-button">
+                            <img src="img/bolt.png" alt="bolt">
+                        </div>
+                    </div>
+                    <h5>Enter your name to start.</h5>
+                </template>
+            </div>
+        </div>
+        <div class="row start-icons">
+            <div class="start-icons-items">
+                <div class="d-flex align-items-center me-4">
                     <svg class="legend-icon" viewBox="0 0 700 656" xmlns="http://www.w3.org/2000/svg">
                         <g class="green-tomato">
                             <g id="#110e0cff">
@@ -175,30 +198,15 @@
                             <text class="timer-text" x="50%" y="75%" text-anchor="middle"></text>
                         </g>
                     </svg>
-                    <h3 class="text-white mb-0"><span class="invisible">2</span>5 Minutes of Relaxing</h3>
+                    <h3 class="text-white mb-0">5 Minutes of Relaxing</h3>
                 </div>
             </div>
-            <div class="col-12 col-lg-6">
-                <start-container></start-container>
-                <template id="username-input-template">
-                    <div class="d-flex justify-content-start align-items-center">
-                        <h2 class="subtitle">Are you ready to plug in?</h2>
-                        <img class="start-question-icon" src="img/plug.svg" alt="plug">
-                    </div>
-                    <div class="start-input-container mb-2">
-                        <input class="start-input" type="text" autofocus required>
-                        <div class="start-input-button">
-                            <img src="img/bolt.png" alt="bolt">
-                        </div>
-                    </div>
-                    <h5>Enter your name to start.</h5>
-                </template>
-            </div>
         </div>
+    </div>
 
-        <settings-modal></settings-modal>
-        <info-modal></info-modal>
-        <stats-modal></stats-modal>
+    <settings-modal></settings-modal>
+    <info-modal></info-modal>
+    <stats-modal></stats-modal>
     </div>
     <footer>
         <div class="container">
