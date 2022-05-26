@@ -4,7 +4,7 @@
  * @author Meshach Adoe
  * Date: 05/11/2022
  */
-import { Chart } from 'chart.js/auto';
+import Chart from 'chart.js/auto';
 import * as backend from '../backend.js';
 
 /**
