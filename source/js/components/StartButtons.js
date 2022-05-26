@@ -21,18 +21,9 @@ class StartButtons extends HTMLElement {
     this.classList.add('col');
     const taskList = new TaskList();
     if (taskList.todo.length > 0 || taskList.completed.length > 0) {
-      // const topContainer = StartButtons.createButtonContainer();
-      // topContainer.classList.add('mt-12', 'mt-xxl-12');
-      // topContainer.style.marginBottom = '10px';
-      // const bottomContainer = StartButtons.createButtonContainer();
-      // this.appendChild(topContainer);
-      // this.appendChild(bottomContainer);
       this.appendChild(StartButtons.createButton());
       this.appendChild(StartButtons.createAnchor());
     } else {
-      // create new button container and centers the create new session button
-      // const centerContainer = StartButtons.createButtonContainer();
-      // this.appendChild(centerContainer);
       this.appendChild(StartButtons.createButton());
     }
   }

@@ -4,10 +4,9 @@ import TaskList from '../js/classes/TaskList.js';
 describe('StartButtons tests', () => {
   test('Constructor When TaskList is empty', () => {
     const startButtons = new StartButtons();
-    // start buttons generate one child start container
+    // start buttons generate one child button
     expect(startButtons.childElementCount).toBe(1);
     expect(startButtons.firstChild.nodeName).toBe('BUTTON');
-    // expect(startButtons.firstChild.childElementCount).toBe(1);
   });
 
   test('Constructor When TaskList is not empty', () => {
@@ -19,11 +18,8 @@ describe('StartButtons tests', () => {
     // create buttons
     const startButtons = new StartButtons();
 
-    // start buttons generate two child buttons
+    // start button generate two child buttons
     expect(startButtons.childElementCount).toBe(2);
-
-    // right child button has another child element
-    // expect(startButtons.lastChild.childElementCount).toBe(1);
   });
 
   test('Clicking Resume Session when session started', () => {
