@@ -35,6 +35,12 @@ class TimerUI extends HTMLElement {
     this.text = '';
   }
 
+  /**
+   * Resets the timer object when there are no more tasks in tasklist (app.js). Sets internal
+   * text variable to 'START' so that svg text attribute can contain it when it renders
+   * @returns With null when icon-text attribute is null as this means the svg hasn't loaded yet,
+   * thus the text attribute cannot be set yet.
+   */
   reset() {
     this.text = 'START';
 
@@ -139,7 +145,6 @@ class TimerUI extends HTMLElement {
     this.querySelector('.timer-image').classList.add('gold-tomato');
   }
 
-  // The functions changing the text are called in app.js. You're going to have to change the logic
   render() {
     const timerSVG = this.querySelector('#timerIcon');
     timerSVG.addEventListener('load', () => {
@@ -149,8 +154,6 @@ class TimerUI extends HTMLElement {
       svgDoc.querySelector('svg').classList.value = 'w-100 h-100 position-absolute top-50 start-50 translate-middle';
       this.icon = svgDoc.querySelector('svg > g');
 
-      // Set the color of initial icon (this.color is set by setColor functions above)
-      // this.icon.classList.value = `timer-image ${this.color}`;
       this.icon.classList.value = 'timer-image';
       this.icon.addEventListener('click', () => {
         // Bubble up the click event to set up / start timer in app.js
@@ -167,14 +170,26 @@ class TimerUI extends HTMLElement {
     });
   }
 
+  /**
+   * Callback to render the timer
+   */
   connectedCallback() {
     this.render();
   }
 
+  /**
+   * Callback to set the text of the text tag within the svgs when the icon-text attribute is
+   * changed. The icon-text attribute is changed when the icon is loaded (check render)It is
+   * set with this.text string.
+   */
   attributeChangedCallback() {
     this.svgText.textContent = this.text;
   }
 
+  /**
+   * Tells attributeChangedCallback() which attributes to watch for changes on
+   * @returns {array} String array of attributes to watch
+   */
   static get observedAttributes() {
     return ['icon-text'];
   }
