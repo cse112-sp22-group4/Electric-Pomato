@@ -86,9 +86,6 @@ class TomatoSlider extends HTMLElement {
       if (i < n) {
         tomato.classList.value = color;
       }
-      // else {
-      //   tomato.classList.value = 'white-tomato';
-      // }
     });
   }
 

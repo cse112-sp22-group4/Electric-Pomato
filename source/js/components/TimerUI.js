@@ -102,7 +102,7 @@ class TimerUI extends HTMLElement {
   /**
    * Sets the Tomato image to a Green Tomato.
    */
-  setColorGreen() {
+  setPomoIcon() {
     // If svg has not been loaded onto the page (load onto app.html for the first time or reload)
     // if (!this.icon) {
     //   this.color = svgIcons[this.theme].classes[0];
@@ -118,7 +118,7 @@ class TimerUI extends HTMLElement {
   /**
    * Sets the Tomato image to a Red Tomato.
    */
-  setColorRed() {
+  setBreakIcon() {
     // If svg has not been loaded onto the page (load onto app.html for the first time or reload)
     // if (!this.icon) {
     //   this.color = svgIcons[this.theme].classes[1];

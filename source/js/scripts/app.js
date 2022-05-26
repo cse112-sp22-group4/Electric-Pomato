@@ -160,12 +160,12 @@ function initTimer(timer) {
     if (timerState === 'true') {
       // Update the HTML
       updateAppTitle(false);
-      timer.setColorGreen();
+      timer.setPomoIcon();
     } else {
       // Update the HTML
       menuIcons.defaultMode();
       updateAppTitle(false);
-      timer.setColorRed();
+      timer.setBreakIcon();
     }
   }
 }
