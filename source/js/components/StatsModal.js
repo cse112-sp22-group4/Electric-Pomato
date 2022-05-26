@@ -4,11 +4,9 @@
  * @author Meshach Adoe
  * Date: 05/11/2022
  */
-import { Chart, registerables } from 'chart.js';
+import { Chart } from 'chart.js/auto';
 import * as backend from '../backend.js';
 
-// register Chart to avoid minification issues
-Chart.register(...registerables);
 /**
  * Constructs the HTML for the StatsModal
  * @extends HTMLElement
