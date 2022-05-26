@@ -23,11 +23,11 @@ class TimerUI extends HTMLElement {
    */
   constructor() {
     super();
-    this.theme = backend.get('Theme');
+    this.theme = backend.get('Icon');
     this.classList.add('w-100', 'h-100', 'd-flex', 'flex-column', 'align-items-center');
     this.innerHTML = `
       <div class="timer-container position-relative mh-100 mw-100">
-        <object id="timerIcon"class="w-100 h-100 position-absolute top-50 start-50 translate-middle" data=${svgIcons[this.theme].urls[0]}></object>
+        <object id="timerIcon"class="w-100 h-100 position-absolute top-50 start-50 translate-middle" data=${svgIcons[this.theme].urls[1]}></object>
       </div>
     `;
 
@@ -104,14 +104,15 @@ class TimerUI extends HTMLElement {
    */
   setColorGreen() {
     // If svg has not been loaded onto the page (load onto app.html for the first time or reload)
-    if (!this.icon) {
-      this.color = svgIcons[this.theme].classes[0];
-      return;
-    }
+    // if (!this.icon) {
+    //   this.color = svgIcons[this.theme].classes[0];
+    //   return;
+    // }
 
-    // Else svg has already been loaded onto the page (done multiple sessions with no reload)
-    this.icon.classList.remove(svgIcons[this.theme].classes[1]);
-    this.icon.classList.add(svgIcons[this.theme].classes[0]);
+    // // Else svg has already been loaded onto the page (done multiple sessions with no reload)
+    // this.icon.classList.remove(svgIcons[this.theme].classes[1]);
+    // this.icon.classList.add(svgIcons[this.theme].classes[0]);
+    this.querySelector('#timerIcon').setAttribute('data', svgIcons[this.theme].urls[1]);
   }
 
   /**
@@ -119,14 +120,16 @@ class TimerUI extends HTMLElement {
    */
   setColorRed() {
     // If svg has not been loaded onto the page (load onto app.html for the first time or reload)
-    if (!this.icon) {
-      this.color = svgIcons[this.theme].classes[1];
-      return;
-    }
+    // if (!this.icon) {
+    //   this.color = svgIcons[this.theme].classes[1];
+    //   return;
+    // }
 
-    // Else svg has already been loaded onto the page (done multiple sessions with no reload)
-    this.icon.classList.remove(svgIcons[this.theme].classes[0]);
-    this.icon.classList.add(svgIcons[this.theme].classes[1]);
+    // // Else svg has already been loaded onto the page (done multiple sessions with no reload)
+    // this.icon.classList.remove(svgIcons[this.theme].classes[0]);
+    // this.icon.classList.add(svgIcons[this.theme].classes[1]);
+
+    this.querySelector('#timerIcon').setAttribute('data', svgIcons[this.theme].urls[2]);
   }
 
   /**
@@ -147,7 +150,8 @@ class TimerUI extends HTMLElement {
       this.icon = svgDoc.querySelector('svg > g');
 
       // Set the color of initial icon (this.color is set by setColor functions above)
-      this.icon.classList.value = `timer-image ${this.color}`;
+      // this.icon.classList.value = `timer-image ${this.color}`;
+      this.icon.classList.value = 'timer-image';
       this.icon.addEventListener('click', () => {
         // Bubble up the click event to set up / start timer in app.js
         this.dispatchEvent(new CustomEvent('iconclick'), {
