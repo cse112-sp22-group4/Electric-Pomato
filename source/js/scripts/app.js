@@ -68,10 +68,18 @@ function handleEndOfSession() {
   // Move completed task list to history
   let history = JSON.parse(backend.get('History'));
   const { completed } = JSON.parse(backend.get('TaskList'));
+  const currDate = new Date();
+
+  // Store tasklist as session with date of completion
+  const session = {
+    date: `${currDate.getMonth() + 1}/${currDate.getDate()}/${currDate.getFullYear()}`,
+    tasklist: completed,
+  };
+
   if (history) {
-    history.tasklists.push(completed);
+    history.sessions.push(session);
   } else {
-    history = { tasklists: [completed] };
+    history = { sessions: [session] };
   }
   backend.set('History', JSON.stringify(history));
 

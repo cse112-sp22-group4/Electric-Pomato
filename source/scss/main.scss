@@ -4,6 +4,7 @@ $success: #7dc37d;
 $danger: #DB6666;
 $info: #B2E3FF;
 $modal: #66a5d0;
+$line-chart: #FFFFFF;
 
 @import "../../node_modules/bootstrap/scss/functions";
 @import "../../node_modules/bootstrap/scss/variables";
@@ -124,13 +125,16 @@ settings-modal {
 }
 
 stats-modal {
-    #line-chart {
+    #line-chart-container {
         display: flex;
         align-items: center;
-        background-color: $secondary;
+        justify-content: center;
+        background-color: $line-chart;
         border-radius: 2.5rem;
-        min-height: 50vh;
+        height: 50vh;
         flex-grow: 1;
+        position: relative;
+        padding: 2%
     }
 
     #line-chart-alt {
@@ -140,6 +144,19 @@ stats-modal {
     #stats-close {
         margin-left: 10vw;
         margin-right: 10vw;
+    }
+
+    #line-chart-colors {
+        display: none;
+        border-color: rgba($body-color, 0.1)
+    }
+
+    #line-chart-expected-color {
+        background-color: $secondary;
+    }
+
+    #line-chart-actual-color {
+        background-color: $primary; 
     }
 }
 
