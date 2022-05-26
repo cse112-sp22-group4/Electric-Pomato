@@ -18,34 +18,14 @@ class StartButtons extends HTMLElement {
   */
   constructor() {
     super();
-    this.classList.add('row');
+    this.classList.add('col');
     const taskList = new TaskList();
     if (taskList.todo.length > 0 || taskList.completed.length > 0) {
-      const topContainer = StartButtons.createButtonContainer();
-      topContainer.classList.add('mt-12', 'mt-xxl-12');
-      topContainer.style.marginBottom = '10px';
-      const bottomContainer = StartButtons.createButtonContainer();
-      this.appendChild(topContainer);
-      this.appendChild(bottomContainer);
-      topContainer.appendChild(StartButtons.createButton());
-      bottomContainer.appendChild(StartButtons.createAnchor());
+      this.appendChild(StartButtons.createButton());
+      this.appendChild(StartButtons.createAnchor());
     } else {
-      // create new button container and centers the create new session button
-      const centerContainer = StartButtons.createButtonContainer();
-      this.appendChild(centerContainer);
-      centerContainer.appendChild(StartButtons.createButton());
+      this.appendChild(StartButtons.createButton());
     }
-  }
-
-  /* <div class="col-12 col-lg-6"></div> */
-  /**
-   * Creates and returns a styled button container
-   * @returns a button container
-   */
-  static createButtonContainer() {
-    const div = document.createElement('div');
-    div.classList.add('col-12', 'col-xxl-12');
-    return div;
   }
 
   /**
@@ -57,6 +37,7 @@ class StartButtons extends HTMLElement {
     const button = document.createElement('button');
     const text = document.createTextNode('Create New Session');
     button.classList.add('btn', 'btn-success', 'btn-lg', 'btn-block');
+    button.style.marginBottom = '10px';
     button.appendChild(text);
 
     button.addEventListener('click', () => {
