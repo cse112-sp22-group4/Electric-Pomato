@@ -19,8 +19,8 @@ class TomatoSlider extends HTMLElement {
   constructor() {
     super();
 
-    this.svgUrls = svgIcons[backend.get('Theme')].urls;
-    this.svgClasses = svgIcons[backend.get('Theme')].classes;
+    this.svgUrls = svgIcons[backend.get('Icon')].urls;
+    this.svgClasses = svgIcons[backend.get('Icon')].classes;
     // Create template and append to tomato-slider (need to maintain input child)
     const template = document.createElement('template');
     template.innerHTML = `
@@ -79,15 +79,16 @@ class TomatoSlider extends HTMLElement {
   /**
    *
    * @param {number} n - the number of tomatoes (pomodoro sessions) selected.
-   * @param {string} color - string for the color to fill the number of selected tomatoes.
+   * @param {string} color - the class name to determine the fill of the selected tomatoes.
    */
   colorTomatos(n, color) {
     this.tomatos.forEach((tomato, i) => {
       if (i < n) {
-        tomato.classList.value = `${color}-tomato`;
-      } else {
-        tomato.classList.value = 'white-tomato';
+        tomato.classList.value = color;
       }
+      // else {
+      //   tomato.classList.value = 'white-tomato';
+      // }
     });
   }
 
@@ -118,7 +119,7 @@ class TomatoSlider extends HTMLElement {
         // Color one tomato by default
         if (icon.getAttribute('id') === '0') {
           // eslint-disable-next-line prefer-destructuring
-          svgDoc.querySelector('.slider-tomato > g').classList.value = this.svgClasses[1];
+          svgDoc.querySelector('.slider-tomato > g').classList.value = this.svgClasses[0];
         }
       });
     });
@@ -137,7 +138,7 @@ class TomatoSlider extends HTMLElement {
    * Color the slider with the value set when the mouse leaves.
    */
   handleMouseLeave() {
-    this.colorTomatos(Number(this.input.value), 'red');
+    this.colorTomatos(Number(this.input.value), this.svgClasses[0]);
   }
 
   /**
@@ -147,7 +148,7 @@ class TomatoSlider extends HTMLElement {
   handleMouseMove(e) {
     const { left, right } = this.querySelector('.slider-tomato-container').getBoundingClientRect();
     const n = Math.min(Math.max(Math.ceil((e.clientX - left) / ((right - left) / 5)), 1), 5);
-    this.colorTomatos(n, 'red');
+    this.colorTomatos(n, this.svgClasses[0]);
   }
 
   /**

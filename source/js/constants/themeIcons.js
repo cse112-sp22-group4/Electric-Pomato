@@ -1,12 +1,20 @@
-import tomatoIcon1 from '../../img/tomWhite.svg';
-import tomatoIcon2 from '../../img/tomGreen.svg';
-import tomatoIcon3 from '../../img/tomRed.svg';
+import tomatoWhite from '../../img/tomWhite.svg';
+import tomatoPomo from '../../img/tomGreen.svg';
+import tomatoBreak from '../../img/tomRed.svg';
+
+import bombWhite from '../../img/bombWhite.svg';
+import bombPomo from '../../img/bombPomo.svg';
+import bombBreak from '../../img/bombBreak.svg';
 
 // Theme object setter
 const svgIcons = {
   default: {
-    urls: [tomatoIcon1, tomatoIcon2, tomatoIcon3],
+    urls: [tomatoWhite, tomatoPomo, tomatoBreak],
     classes: ['green-tomato', 'red-tomato'],
+  },
+  bomb: {
+    urls: [bombWhite, bombPomo, bombBreak],
+    classes: ['bomb-pomo'],
   },
 };
 

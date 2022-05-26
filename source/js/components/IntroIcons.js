@@ -15,7 +15,7 @@ class IntroIcons extends HTMLElement {
     super();
 
     // Get the theme
-    const iconURL = svgIcons[backend.get('Theme')].urls;
+    const iconURL = svgIcons[backend.get('Icon')].urls;
     this.innerHTML = `
             <div class="d-flex align-items-center">
                 <object id="icon1" class="legend-icon" type="image/svg+xml" data=${iconURL[1]}></object>

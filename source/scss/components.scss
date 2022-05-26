@@ -358,6 +358,24 @@ footer>.container {
     }
 }
 
+.bomb-pomo { 
+    #bombP1, #bombP7 {
+        fill: #666B6B;
+    }
+
+    #bombP2, #bombP6{
+        fill: #244142;
+    }
+
+    #bombP3, #bombP4 {
+        fill: #142E2F;
+    }
+
+    #bombP5 {
+        fill: #2D4F51;
+    }
+}
+
 
 .notification,
 .modal-wrapper {
