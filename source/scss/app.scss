@@ -137,14 +137,19 @@ view-only-task-list {
             }
         }
 
+        &::-webkit-scrollbar-track,
+        &::-webkit-scrollbar {
+            @include themify($themes) {
+                background-color: themed('scrollbar-background-color');
+            }
+        }
+
         &::-webkit-scrollbar-track {
             border-radius: 10px;
-            background-color: #FFFFFF;
         }
 
         &::-webkit-scrollbar {
             width: 8px;
-            background-color: #F5F5F5;
         }
 
         &::-webkit-scrollbar-thumb {

@@ -74,7 +74,9 @@ settings-modal {
     }
 
     #settings-close {
-        background-color: #e65656ef;
+        @include themify($themes) {
+            background-color: themed('danger');
+        }
     }
 
     .settings-row {
@@ -88,11 +90,20 @@ settings-modal {
     .settings-item {
         overflow-wrap: break-word;
         font-size: $h3-font-size;
+
+        @include themify($themes) {
+            color: themed('settings-item-color');
+        }
     }
 
     .settings-select {
         padding: 5px;
         font-size: $h4-font-size;
+
+        @include themify($themes) {
+            background-color: themed('settings-select-background-color');
+            color: themed('settings-select-color')
+        }
     }
 }
 
@@ -111,6 +122,10 @@ stats-modal {
 
     #line-chart-alt {
         margin: auto;
+
+        @include themify($themes) {
+            color: themed('modal-text-color');
+        }
     }
 
     #stats-close {
@@ -187,13 +202,18 @@ input {
     border-width: 2px;
 
     @include themify($themes) {
-        border-color: themed('body-color');
+        border-color: themed('input-border-color');
+        background-color: themed('input-background-color');
+        color: themed('input-text-color');
     }
 }
 
 input:focus {
-    border-color: #0071de;
     outline: 0;
+
+    @include themify($themes) {
+        border-color: themed('input-focus-border-color');
+    }
 }
 
 .legend-icon {
@@ -382,6 +402,12 @@ footer>.container {
     background-color: rgba(0, 0, 0, 0.4);
 }
 
+.modal-title {
+    @include themify($themes) {
+        color: themed('modal-text-color');
+    }
+}
+
 #notif-content,
 .modal-content {
     padding: map-get($spacers, 4);
@@ -393,7 +419,13 @@ footer>.container {
 
     @include themify($themes) {
         background-color: themed('modal');
-        border: 5px solid themed('primary')
+        border: 5px solid themed('primary');
+    }
+}
+
+#notif-content {
+    @include themify($themes) {
+        color: themed('modal-text-color');
     }
 }
 
