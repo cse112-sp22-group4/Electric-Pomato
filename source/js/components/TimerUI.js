@@ -27,12 +27,12 @@ class TimerUI extends HTMLElement {
     this.classList.add('w-100', 'h-100', 'd-flex', 'flex-column', 'align-items-center');
     this.innerHTML = `
       <div class="timer-container position-relative mh-100 mw-100">
-        <object id="timerIcon"class="w-100 h-100 position-absolute top-50 start-50 translate-middle" data=${svgIcons[this.theme].urls[1]}></object>
+        <object id="timerIcon" class="w-100 h-100 position-absolute top-50 start-50 translate-middle" data=${svgIcons[this.theme].urls[1]}></object>
       </div>
     `;
 
     // Store the string to be displayed on top of the timer icon
-    this.text = '';
+    this.text = 'START';
   }
 
   /**
@@ -148,7 +148,12 @@ class TimerUI extends HTMLElement {
   render() {
     const timerSVG = this.querySelector('#timerIcon');
     timerSVG.addEventListener('load', () => {
-      const svgDoc = timerSVG.contentDocument;
+      let svgDoc = timerSVG.contentDocument;
+
+      // Fuck you jest
+      if (process.env.NODE_ENV === 'test') {
+        svgDoc = timerSVG;
+      }
 
       // Set svg classes to style as timer icon
       svgDoc.querySelector('svg').classList.value = 'w-100 h-100 position-absolute top-50 start-50 translate-middle';
