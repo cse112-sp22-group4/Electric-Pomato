@@ -27,16 +27,3 @@ self.addEventListener('fetch', (event) => {
     caches.match(event.request).then((response) => response || fetch(event.request)),
   );
 });
-
-self.addEventListener('notificationclick', (event) => {
-  console.log('On notification click');
-  event.notification.close();
-
-  event.waitUntil(clients.matchAll({
-    type: 'window',
-  }).then((clientList) => {
-    for (let i = 0; i < clientList.length; i += 1) {
-      return clientList[i].focus();
-    }
-  }));
-});
