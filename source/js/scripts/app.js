@@ -249,7 +249,7 @@ function handleClick(timer, taskList) {
           if (timerState === 'true') {
             backend.set('TotalPomos', Number(backend.get('TotalPomos')) + 1);
             backend.set('CurrentPomos', Number(backend.get('CurrentPomos')) + 1);
-            taskList.updateTime(true);
+            taskList.updateTime();
 
             // Alert the user if they have reached their expected number of pomos
             const endMessage = {
