@@ -112,12 +112,12 @@ describe('Task Time and Actual Pomo Tests', () => {
 
     // Go through the break session
     cy.get('.timer-container')
-      .click();
+      .click({ timeout: 9000 });
     cy.tick(MS_IN_SHORT_BREAK);
 
     // Start the second pomo session
     cy.get('.timer-container')
-      .click();
+      .click({ timeout: 9000 });
 
     // Advance another third of a session
     cy.tick(MS_IN_WORK_SESSION / 3);
