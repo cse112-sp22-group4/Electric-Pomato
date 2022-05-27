@@ -1,6 +1,5 @@
 describe('Task Time and Actual Pomo Tests', () => {
   const MS_IN_WORK_SESSION = 25 * 60 * 1000;
-  const MS_IN_SHORT_BREAK = 5 * 60 * 1000;
 
   beforeEach(() => {
     cy.clock();
@@ -72,37 +71,6 @@ describe('Task Time and Actual Pomo Tests', () => {
       const workTime = taskList.todo[0].time;
       expect(acatualPomos).to.eq(1);
       expect(workTime).to.eq(2 * 60 * 25 / 3);
-    });
-  });
-
-  it('Check that a notification asks to finish the task when expectedPomos === actualPomos', () => {
-    // Start the timer
-    cy.get('.timer-container')
-      .click();
-
-    // Advance the timer to half of the work session
-    cy.tick(MS_IN_WORK_SESSION / 2);
-
-    // Finish a task
-    cy.get('finish-task-button').first()
-      .click();
-    cy.get('#notif-left')
-      .click();
-
-    // Finish the pomo session
-    cy.tick(MS_IN_WORK_SESSION / 2);
-
-    // Check that the session is over
-    cy.get('.timer-text').should('have.text', 'START');
-    
-    // When popup asks if we want to finish the task, finish it
-    cy.get('#notif-left').click().should(() => {
-      // Expect that a pomo was recorded
-      const taskList = JSON.parse(localStorage.getItem('TaskList'));
-      const currentPomos = taskList.completed[1].actual;
-      const workTime = taskList.completed[1].time;
-      expect(currentPomos).to.eq(1);
-      expect(workTime).to.eq(60 * 25 / 2);
     });
   });
 });
