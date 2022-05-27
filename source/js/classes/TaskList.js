@@ -57,6 +57,7 @@ class TaskList {
       name,
       expected,
       actual: 0,
+      time: 0,
     };
 
     // Push task into todo list.
@@ -98,13 +99,38 @@ class TaskList {
   }
 
   /**
-   * Update todo/completed after finishing a task.
+   * Update task time and todo/completed after finishing a task.
+   * @param {boolean} doUpdateTime - True to update the time for the current task.
    */
-  finishTask() {
+  finishTask(doUpdateTime) {
+    if (doUpdateTime) {
+      this.updateTime();
+    }
     const current = this.todo[0];
 
     this.completed.push(current);
     this.deleteTask(0);
+  }
+
+  /**
+   * Keep track of when a task it started.
+   */
+  startTask() {
+    this.startTime = Date.now();
+  }
+
+  /**
+   * Add the elapsed time to the current task and increment pomos if it's at least half a session.
+   */
+  updateTime() {
+    const endTime = Date.now();
+    const workTime = (endTime - this.startTime) / 1000;
+    const workSessionDuration = backend.get('WorkSessionDuration') * 60;
+    this.todo[0].time += workTime;
+    const secondsOnTask = this.todo[0].time;
+    const pomosOnTask = Math.round(secondsOnTask / workSessionDuration);
+    this.todo[0].actual = pomosOnTask;
+    this.save();
   }
 }
 
