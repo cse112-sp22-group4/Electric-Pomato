@@ -31,6 +31,7 @@ class WelcomeMessage extends HTMLElement {
   createEditNameButton() {
     const editIcon = document.createElement('i');
     editIcon.classList.add('fas', 'fa-pencil-alt', 'text-warning', 'edit-icon');
+    editIcon.title = 'Edit Name';
     editIcon.addEventListener('click', () => {
       this.enterEditMode();
     });
