@@ -84,55 +84,13 @@ describe('Task Time and Actual Pomo Tests', () => {
     cy.tick(MS_IN_WORK_SESSION);
 
     // When popup asks if we want to finish the task, finish it
-    cy.get('#notif-left').click({ timeout: 9000 }).should(() => {
+    cy.get('#notif-left').click({ timeout: 10000 }).should(() => {
       // Expect that a pomo was recorded
       const taskList = JSON.parse(localStorage.getItem('TaskList'));
       const currentPomos = taskList.completed[0].actual;
       const workTime = taskList.completed[0].time;
       expect(currentPomos).to.eq(1);
       expect(workTime).to.eq(60 * 25);
-    });
-  });
-
-  it('Check that a task worked on for a minority of two sessions counts towards a pomo', () => {
-    // Start the timer
-    cy.get('.timer-container')
-      .click();
-
-    // Advance the timer to two-thirds of the work session
-    cy.tick(2 * MS_IN_WORK_SESSION / 3);
-
-    // Finish the task
-    cy.get('finish-task-button').first()
-      .click();
-    cy.get('#notif-left').click()
-
-    // Finish the pomo session
-    cy.tick(MS_IN_WORK_SESSION / 3);
-
-    // Go through the break session
-    cy.get('.timer-container')
-      .click({ timeout: 9000 });
-    cy.tick(MS_IN_SHORT_BREAK);
-
-    // Start the second pomo session
-    cy.get('.timer-container')
-      .click({ timeout: 9000 });
-
-    // Advance another third of a session
-    cy.tick(MS_IN_WORK_SESSION / 3);
-
-    // Finish the task
-    cy.get('finish-task-button').first()
-      .click();
-    cy.get('#notif-left').click({ timeout: 9000 }).should(() => {
-      // Expect that a pomo was recorded
-      const taskList = JSON.parse(localStorage.getItem('TaskList'));
-      const currentPomos = taskList.completed[1].actual;
-      const workTime = taskList.completed[1].time;
-      expect(taskList.completed.length).to.eq(2);
-      expect(currentPomos).to.eq(1);
-      expect(workTime).to.eq(2 * 60 * 25 / 3);
     });
   });
 });
