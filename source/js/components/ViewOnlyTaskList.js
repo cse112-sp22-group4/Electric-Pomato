@@ -91,9 +91,25 @@ class ViewOnlyTaskList extends HTMLElement {
 
   /**
    * Move the current task into completed.
+   * @param {boolean} doUpdateTime - True to update the time for the current task.
    */
-  finishTask() {
-    this.data.finishTask();
+  finishTask(doUpdateTime) {
+    this.data.finishTask(doUpdateTime);
+    this.render();
+  }
+
+  /**
+   * Keep track of the time a task is started.
+   */
+  startTask() {
+    this.data.startTask();
+  }
+
+  /**
+   * Update the current task with the elapsed time.
+   */
+  updateTime() {
+    this.data.updateTime();
     this.render();
   }
 }
