@@ -10,11 +10,11 @@ import bombBreak from '../../img/bombBreak.svg';
 const svgIcons = {
   default: {
     urls: [tomatoWhite, tomatoPomo, tomatoBreak],
-    classes: ['green-tomato', 'red-tomato'],
+    classes: ['white-tomato', 'green-tomato', 'red-tomato'],
   },
   bomb: {
     urls: [bombWhite, bombPomo, bombBreak],
-    classes: ['bomb-pomo'],
+    classes: ['bomb-white', 'bomb-pomo'],
   },
 };
 

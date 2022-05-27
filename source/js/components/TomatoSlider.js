@@ -83,8 +83,11 @@ class TomatoSlider extends HTMLElement {
    */
   colorTomatos(n, color) {
     this.tomatos.forEach((tomato, i) => {
-      if (i < n) {
+      if (i !== 0 && i < n) {
         tomato.classList.value = color;
+      } else {
+        // eslint-disable-next-line prefer-destructuring
+        tomato.classList.value = this.svgClasses[0];
       }
     });
   }
@@ -109,15 +112,19 @@ class TomatoSlider extends HTMLElement {
     this.tomatos = [];
     this.querySelectorAll('.slider-tomato').forEach((icon) => {
       // Set to blank icon
-      icon.setAttribute('data', this.svgUrls[0]);
+      if (icon.getAttribute('id') === '0') {
+        icon.setAttribute('data', this.svgUrls[1]);
+      } else {
+        icon.setAttribute('data', this.svgUrls[0]);
+      }
       icon.addEventListener('load', () => {
         const svgDoc = icon.contentDocument;
         this.tomatos[icon.getAttribute('id')] = svgDoc.querySelector('.slider-tomato > g');
         // Color one tomato by default
-        if (icon.getAttribute('id') === '0') {
-          // eslint-disable-next-line prefer-destructuring
-          svgDoc.querySelector('.slider-tomato > g').classList.value = this.svgClasses[0];
-        }
+        // if (icon.getAttribute('id') === '0') {
+        //   // eslint-disable-next-line prefer-destructuring
+        //   svgDoc.querySelector('.slider-tomato > g').classList.value = this.svgClasses[1];
+        // }
       });
     });
   }
@@ -135,7 +142,7 @@ class TomatoSlider extends HTMLElement {
    * Color the slider with the value set when the mouse leaves.
    */
   handleMouseLeave() {
-    this.colorTomatos(Number(this.input.value), this.svgClasses[0]);
+    this.colorTomatos(Number(this.input.value), this.svgClasses[1]);
   }
 
   /**
@@ -145,7 +152,7 @@ class TomatoSlider extends HTMLElement {
   handleMouseMove(e) {
     const { left, right } = this.querySelector('.slider-tomato-container').getBoundingClientRect();
     const n = Math.min(Math.max(Math.ceil((e.clientX - left) / ((right - left) / 5)), 1), 5);
-    this.colorTomatos(n, this.svgClasses[0]);
+    this.colorTomatos(n, this.svgClasses[1]);
   }
 
   /**

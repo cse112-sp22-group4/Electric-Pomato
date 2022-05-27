@@ -376,6 +376,24 @@ footer>.container {
     }
 }
 
+.bomb-white {
+    #bombP1, #bombP7 {
+        fill: #F9F9F9;
+    }
+
+    #bombP2, #bombP6{
+        fill: #EEEEEE;
+    }
+
+    #bombP3, #bombP4 {
+        fill: #E2E2E2;
+    }
+
+    #bombP5 {
+        fill: #F9F9F9;
+    }
+}
+
 
 .notification,
 .modal-wrapper {
