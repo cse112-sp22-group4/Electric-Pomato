@@ -10,6 +10,7 @@
  * @author Meshach Adoe
  * @author Xingyu Zhu
  * @author Alan Wang
+ * @author Steven Harris
  */
 
 import EditableTaskList from '../components/EditableTaskList.js';
@@ -96,7 +97,7 @@ function updateAppTitle(taskFinished) {
   let subtitle = '';
 
   // Set title based on timer state
-  if (backend.get('Timer') === 'true') {
+  if (backend.get('Timer') === 'true' && !taskFinished) {
     appTitle.textContent = 'Pomodoro';
   } else if (isLongBreak()) {
     appTitle.textContent = 'Long Break';
@@ -109,12 +110,14 @@ function updateAppTitle(taskFinished) {
     subtitle = 'End of Session';
     finished = true;
     handleEndOfSession();
-  } else if (taskFinished && length > 1) {
-    if (backend.get('Timer') === 'true') {
-      subtitle = `Current Task: ${taskList.todo[0].name}`;
+  } else if (backend.get('Timer') === 'true') {
+    if (taskFinished) {
+      appTitle.textContent = `Focus: ${taskList.todo[0].name}`;
     } else {
-      subtitle = `Next Task: ${taskList.todo[0].name}`;
+      subtitle = `Focus: ${taskList.todo[0].name}`;
     }
+  } else if (taskFinished && length > 1) {
+    subtitle = `Next Task: ${taskList.todo[0].name}`;
   } else if (length === 1) {
     subtitle = `Final Task: ${taskList.todo[0].name}`;
   } else {
@@ -164,6 +167,7 @@ function initTimer(timer) {
     } else {
       // Update the HTML
       menuIcons.defaultMode();
+      document.querySelector('.app-subtitle').style.display = 'block';
       updateAppTitle(false);
       timer.setBreakIcon();
     }
@@ -210,6 +214,11 @@ function handleClick(timer, taskList) {
     if (backend.get('Timer') === 'true') {
       // Hide all icons except home when a work session starts.
       menuIcons.focusMode();
+      // Replace the title with the subtitle and hide the subtitle
+      const appTitle = document.querySelector('.app-title');
+      const appSubtitle = document.querySelector('.app-subtitle');
+      appTitle.textContent = appSubtitle.textContent;
+      appSubtitle.style.display = 'none';
       const workSessionDuration = backend.get('WorkSessionDuration');
       timer.createTimer(workSessionDuration, 0);
     } else if (isLongBreak()) {
@@ -220,7 +229,7 @@ function handleClick(timer, taskList) {
       timer.createTimer(shortBreakDuration, 0);
     }
 
-    // Create finish task button for this sessio
+    // Create finish task button for this session
     const finishTaskButton = new FinishTaskButton(nextTask);
     timer.appendChild(finishTaskButton);
 
