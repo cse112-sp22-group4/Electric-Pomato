@@ -3,6 +3,7 @@
  * @author Andy Young
  * @author Annika Hatcher
  * @author Arman Mansourian
+ * @author Steven Harris
  * Date: 03/07/2021
  */
 
@@ -113,7 +114,7 @@ class TaskList {
   }
 
   /**
-   * Keep track of when a task it started.
+   * Keep track of when a task is started.
    */
   startTask() {
     this.startTime = Date.now();
