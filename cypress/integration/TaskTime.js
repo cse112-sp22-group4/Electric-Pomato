@@ -82,7 +82,7 @@ describe('Task Time and Actual Pomo Tests', () => {
 
     // Advance the timer to the end of the work session
     cy.tick(MS_IN_WORK_SESSION);
-
+    cy.get('.timer-text').should("have.text", "START");
     // When popup asks if we want to finish the task, finish it
     cy.get('#notif-left').click({ timeout: 10000 }).should(() => {
       // Expect that a pomo was recorded
