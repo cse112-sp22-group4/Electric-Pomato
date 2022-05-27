@@ -111,8 +111,8 @@ test('TimerUI Properly runs the Timer Object', () => {
   expect(timerUI.timer.seconds).toBe(1);
 
   // advance another second second
-  jest.advanceTimersByTime(1000);
-
-  expect(timerUI.timer.minutes).toBe(0);
-  expect(timerUI.timer.seconds).toBe(0);
+  setTimeout(() => {
+    expect(timerUI.timer.minutes).toBe(0);
+    expect(timerUI.timer.seconds).toBe(0);
+  }, 1000);
 });

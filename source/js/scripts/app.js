@@ -10,6 +10,7 @@
  * @author Meshach Adoe
  * @author Xingyu Zhu
  * @author Alan Wang
+ * @author Steven Harris
  */
 
 import EditableTaskList from '../components/EditableTaskList.js';
@@ -55,9 +56,9 @@ let votl = null;
  * @return {boolean} true if next break is a long break, false otherwise
  */
 function isLongBreak() {
-  const totalPomos = Number(backend.get('TotalPomos'));
+  const currentPomos = Number(backend.get('CurrentPomos'));
   // If there has been 4 pomos then it is a long break
-  return totalPomos > 0 && totalPomos % 4 === 0;
+  return currentPomos > 0 && currentPomos % 4 === 0;
 }
 
 /**
@@ -96,7 +97,7 @@ function updateAppTitle(taskFinished) {
   let subtitle = '';
 
   // Set title based on timer state
-  if (backend.get('Timer') === 'true') {
+  if (backend.get('Timer') === 'true' && !taskFinished) {
     appTitle.textContent = 'Pomodoro';
   } else if (isLongBreak()) {
     appTitle.textContent = 'Long Break';
@@ -109,12 +110,14 @@ function updateAppTitle(taskFinished) {
     subtitle = 'End of Session';
     finished = true;
     handleEndOfSession();
-  } else if (taskFinished && length > 1) {
-    if (backend.get('Timer') === 'true') {
-      subtitle = `Current Task: ${taskList.todo[0].name}`;
+  } else if (backend.get('Timer') === 'true') {
+    if (taskFinished) {
+      appTitle.textContent = `Focus: ${taskList.todo[0].name}`;
     } else {
-      subtitle = `Next Task: ${taskList.todo[0].name}`;
+      subtitle = `Focus: ${taskList.todo[0].name}`;
     }
+  } else if (taskFinished && length > 1) {
+    subtitle = `Next Task: ${taskList.todo[0].name}`;
   } else if (length === 1) {
     subtitle = `Final Task: ${taskList.todo[0].name}`;
   } else {
@@ -164,6 +167,7 @@ function initTimer(timer) {
     } else {
       // Update the HTML
       menuIcons.defaultMode();
+      document.querySelector('.app-subtitle').style.display = 'block';
       updateAppTitle(false);
       timer.setColorRed();
     }
@@ -211,6 +215,11 @@ function handleClick(timer, taskList) {
       if (backend.get('Timer') === 'true') {
         // Hide all icons except home when a work session starts.
         menuIcons.focusMode();
+        // Replace the title with the subtitle and hide the subtitle
+        const appTitle = document.querySelector('.app-title');
+        const appSubtitle = document.querySelector('.app-subtitle');
+        appTitle.textContent = appSubtitle.textContent;
+        appSubtitle.style.display = 'none';
         const workSessionDuration = backend.get('WorkSessionDuration');
         timer.createTimer(workSessionDuration, 0);
       } else if (isLongBreak()) {
@@ -233,6 +242,7 @@ function handleClick(timer, taskList) {
           // Increment pomos if we were in a Pomo session
           if (timerState === 'true') {
             backend.set('TotalPomos', Number(backend.get('TotalPomos')) + 1);
+            backend.set('CurrentPomos', Number(backend.get('CurrentPomos')) + 1);
             taskList.addPomo();
           }
 
@@ -261,7 +271,6 @@ function showTimer() {
   votl = new ViewOnlyTaskList();
 
   // Call any helper functions to handle user events.
-  updateAppTitle(false);
   handleClick(timerUI, votl);
   initTimer(timerUI);
 
@@ -277,11 +286,13 @@ function showTimer() {
  */
 function handleOnLoad() {
   // Redirect to index.html if no name is in localStorage.
-  if (!backend.get('Username')) {
+  if (backend.get('Username') == null) {
     window.location.href = 'index.html';
-  } else if (backend.get('Started')) {
+  } else if (backend.get('Started') === 'true') {
+    // if started session, go to timer
     showTimer();
   } else {
+    // otherwise, go to task list page
     appContainer.appendChild(new EditableTaskList());
     document.querySelector('.app-title').textContent = `${backend.get('Username')}'s Day`;
     appContainer.querySelectorAll('.start-day-button').forEach((button) => {
@@ -289,6 +300,7 @@ function handleOnLoad() {
         backend.set('Started', true);
         backend.set('Timer', true);
         backend.set('TotalPomos', 0);
+        backend.set('CurrentPomos', 0);
         appContainer.lastElementChild.remove();
         showTimer();
       });
