@@ -2,10 +2,14 @@
 import { manifest, version } from '@parcel/service-worker';
 
 // Cache necessary files when service worker is installed
-self.addEventListener('install', (e) => {
-  self.skipWaiting();
-  e.waitUntil(caches.open(version).then((cache) => cache.addAll(manifest)));
-});
+async function install() {
+  const cache = await caches.open(version);
+  // Filter out any possible duplicate files from manifest
+  const filteredManifest = manifest.filter((item, index) => manifest.indexOf(item) === index);
+  await cache.addAll(filteredManifest);
+}
+
+self.addEventListener('install', (e) => e.waitUntil(install()));
 
 // Clean up old service workers when activated
 async function activate() {
