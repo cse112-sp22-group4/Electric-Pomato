@@ -302,7 +302,7 @@ function handleOnLoad() {
   } else {
     // otherwise, go to task list page
     appContainer.appendChild(new EditableTaskList());
-    document.querySelector('.app-title').textContent = `${backend.get('Username')}'s Day`;
+    document.querySelector('.app-title').textContent = `${backend.get('Username')}'s Session`;
     appContainer.querySelectorAll('.start-day-button').forEach((button) => {
       button.addEventListener('click', () => {
         backend.set('Started', true);

@@ -1,0 +1,80 @@
+@import "variables";
+@import "themes";
+
+/* Styling for components ONLY used within index.html */
+
+start-container {
+    border-radius: 2.5rem;
+    padding: $spacer * 2;
+    display: block;
+
+    @include themify($themes) {
+        background-color: themed('start-container-background-color');
+    }
+
+    .start-question-icon {
+        width: 40px;
+    }
+
+    .start-input-container {
+        position: relative;
+    }
+
+    .start-input {
+        width: 100%;
+        font-size: $h3-font-size;
+        padding: map-get($spacers, 3);
+    }
+
+    .start-input-button {
+        position: absolute;
+        border-bottom-right-radius: 225px 15px;
+        border-top-right-radius: 15px 225px;
+        height: 100%;
+        top: 0;
+        right: 0;
+        cursor: pointer;
+
+        @include themify($themes) {
+            background-color: themed('primary');
+        }
+    }
+
+    .start-input-button img {
+        height: 100%;
+        display: block;
+    }
+}
+
+welcome-message {
+    .edit-name {
+        width: 80%;
+        font-size: $h3-font-size;
+    }
+
+    .save-btn {
+        margin-left: 1rem;
+        border: none;
+        background-color: inherit;
+    }
+
+    .save-btn:disabled {
+        opacity: 0.4;
+    }
+
+    .save-btn i {
+        margin-left: 0;
+    }
+
+    &>div {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    i {
+        cursor: pointer;
+        margin-left: 1rem;
+        font-size: $h5-font-size;
+    }
+}
