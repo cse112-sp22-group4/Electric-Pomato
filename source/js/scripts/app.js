@@ -138,7 +138,7 @@ function nextTask(object) {
   // Check that the timer is running for the edge case where a task
   // is finished during break, but timer has updated to pomo.
   votl.finishTask(backend.get('Timer') === 'true' && document.querySelector('.timer-text').textContent !== 'START');
- 
+
   // Update app title
   updateAppTitle(object.getChecked());
 
