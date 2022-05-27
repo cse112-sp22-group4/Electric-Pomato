@@ -75,7 +75,7 @@ describe('Task Time and Actual Pomo Tests', () => {
     });
   });
 
-  it('Check that  a notification asks to finish the task when expectedPomos === actualPomos', () => {
+  it('Check that a notification asks to finish the task when expectedPomos === actualPomos', () => {
     // Start the timer
     cy.get('.timer-container')
       .click();
@@ -84,7 +84,7 @@ describe('Task Time and Actual Pomo Tests', () => {
     cy.tick(MS_IN_WORK_SESSION);
 
     // When popup asks if we want to finish the task, finish it
-    cy.get('#notif-left').click().should(() => {
+    cy.get('#notif-left').click({ timeout: 9000 }).should(() => {
       // Expect that a pomo was recorded
       const taskList = JSON.parse(localStorage.getItem('TaskList'));
       const currentPomos = taskList.completed[0].actual;
@@ -125,7 +125,7 @@ describe('Task Time and Actual Pomo Tests', () => {
     // Finish the task
     cy.get('finish-task-button').first()
       .click();
-    cy.get('#notif-left').click().should(() => {
+    cy.get('#notif-left').click({ timeout: 9000 }).should(() => {
       // Expect that a pomo was recorded
       const taskList = JSON.parse(localStorage.getItem('TaskList'));
       const currentPomos = taskList.completed[1].actual;
