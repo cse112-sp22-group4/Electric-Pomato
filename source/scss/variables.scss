@@ -1,0 +1,23 @@
+$font-family-base: "Neucha", sans-serif;
+
+$enable-negative-margins: true;
+
+$font-size-base: 1rem;
+$spacer: 1rem;
+
+$h1-font-size: $font-size-base * 4;
+$h2-font-size: $font-size-base * 2;
+$h3-font-size: $font-size-base * 1.75;
+$h4-font-size: $font-size-base * 1.5;
+$h5-font-size: $font-size-base * 1.25;
+$h6-font-size: $font-size-base;
+
+$spacers: (
+    0: 0,
+    1: calc($spacer / 4),
+    2: calc($spacer / 2),
+    3: $spacer,
+    4: calc($spacer * 1.5),
+    5: calc($spacer * 3),
+    6: calc($spacer * 4),
+);
