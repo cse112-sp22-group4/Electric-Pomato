@@ -202,13 +202,7 @@ function showTimerNotification() {
 
   // Show the notification
   let register = null;
-  // Check if this is the right URL the service worker is registered to
-  navigator.serviceWorker.getRegistration('../../serviceWorker.js').then((registration) => {
-    if (registration) {
-      console.log('ServiceWorkerRegistration found.');
-    }
-  });
-  navigator.serviceWorker.getRegistration('../../serviceWorker.js')
+  navigator.serviceWorker.getRegistration()
     .then((reg) => {
       register = reg;
       reg.showNotification('Electric Pomato', pomoAlert)

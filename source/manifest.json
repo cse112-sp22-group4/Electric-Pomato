@@ -31,6 +31,6 @@
     "display":"minimal-ui",
     "start_url": "./index.html", 
     "background_color": "#203647",
-    "scope":"/",
+    "scope":"./",
     "description": "Tomato-themed pomadoro timer"
 }

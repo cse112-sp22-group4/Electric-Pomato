@@ -4,8 +4,8 @@
 if ('serviceWorker' in navigator && process.env.NODE_ENV !== 'development') {
   navigator.serviceWorker.register(new URL('../../serviceWorker.js', import.meta.url), { type: 'module' })
     .then((registration) => {
-      console.log('Service Worker Registration succeeded', registration);
+      console.log('Service Worker Registration succeeded');
     }, (error) => {
-      console.log('Service Worker Registration failed', error);
+      console.log('Service Worker Registration failed');
     });
 }
