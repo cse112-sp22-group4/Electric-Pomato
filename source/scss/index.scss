@@ -5,7 +5,7 @@
 
 start-container {
     border-radius: 2.5rem;
-    padding: $spacer * 2;
+    padding: $spacer * 2 $spacer * 2 $spacer * 2.5;
     display: block;
 
     @include themify($themes) {
@@ -43,6 +43,19 @@ start-container {
     .start-input-button img {
         height: 100%;
         display: block;
+    }
+}
+
+.start-icons {
+    margin-top: 4rem;
+
+    .start-icons-items {
+        display: flex;
+        justify-content: center;
+
+        @media screen and (max-width: 500px) {
+            flex-direction: column;
+        }
     }
 }
 

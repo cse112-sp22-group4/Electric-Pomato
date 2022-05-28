@@ -16,7 +16,11 @@ body {
 
 menu-icons {
     i {
-        font-size: $h5-font-size;
+        @include font-size($h5-font-size);
+
+        @media screen and (max-width: 500px) {
+            @include font-size($h6-font-size)
+        }
 
         @include themify($themes) {
             background-color: themed('menu-button-background-color');
@@ -25,6 +29,7 @@ menu-icons {
 
     button {
         cursor: pointer;
+        background-color: #3b586c;
         border: none;
 
         @include themify($themes) {
@@ -37,7 +42,11 @@ menu-icons {
     }
 
     span {
-        font-size: $h5-font-size
+        @include font-size($h5-font-size);
+
+        @media screen and (max-width: 500px) {
+            @include font-size($h6-font-size)
+        }
     }
 }
 
@@ -259,7 +268,12 @@ footer>.container {
     align-items: center;
 }
 
-.app-header {
+.app-header-logo {
+    height: 55px;
+    width: 55px;
+}
+
+.app-header-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -275,6 +289,10 @@ footer>.container {
         h4 {
             font-size: $h6-font-size;
         }
+    }
+
+    @media screen and (max-width: 525px) {
+        padding: map-get($spacers, 3) 0 map-get($spacers, 3) 0;
     }
 }
 
