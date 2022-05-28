@@ -134,12 +134,12 @@ class StatsModal extends HTMLElement {
         },
       ],
     };
-    
-    // Make a copy of lineConfig for this chart 
-    const config = JSON.parse(JSON.stringify(lineConfig)); 
+
+    // Make a copy of lineConfig for this chart
+    const config = JSON.parse(JSON.stringify(lineConfig));
 
     // Plot the line chart
-    config.data = chartData; 
+    config.data = chartData;
     Chart.defaults.color = lineChartStyle.getPropertyValue('color');
     Chart.defaults.borderColor = lineChartStyle.getPropertyValue('border-color');
     Chart.defaults.font.family = lineChartStyle.getPropertyValue('font-family');
