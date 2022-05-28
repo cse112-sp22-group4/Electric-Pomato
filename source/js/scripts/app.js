@@ -17,6 +17,7 @@ import EditableTaskList from '../components/EditableTaskList.js';
 import ViewOnlyTaskList from '../components/ViewOnlyTaskList.js';
 import TimerUI from '../components/TimerUI.js';
 import FinishTaskButton from '../components/FinishTaskButton.js';
+import StatsModal from '../components/StatsModal.js';
 import * as backend from '../backend.js';
 
 /**
@@ -87,8 +88,13 @@ function handleEndOfSession() {
   // Wipe data from previous task list
   backend.clearSessionData();
 
-  // Open modified stats modal
-  document.querySelector('stats-modal').open('./index.html');
+  // if user does not have enough sessions, go to homepage, otherwise open stats modal
+  const statsModal = document.querySelector('stats-modal');
+  if (!StatsModal.hasEnoughSessions()) {
+    window.location.href = './index.html';
+  } else {
+    statsModal.open('./index.html');
+  }
 }
 
 /**

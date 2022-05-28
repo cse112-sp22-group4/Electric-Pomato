@@ -66,7 +66,7 @@ class StatsModal extends HTMLElement {
       this.redirectToOnClose = redirectURL;
     }
     // Only show chart if user has enough recorded sessions
-    if (backend.get('History') == null || JSON.parse(backend.get('History')).sessions.length < 3) {
+    if (!StatsModal.hasEnoughSessions()) {
       this.lineChartCanvas.style.display = 'none';
       this.lineChartAlt.style.display = 'flex';
     } else {
@@ -145,6 +145,15 @@ class StatsModal extends HTMLElement {
     Chart.defaults.font.family = lineChartStyle.getPropertyValue('font-family');
     Chart.defaults.font.size = window.innerWidth > 1000 ? 16 : 8;
     this.lineChart = new Chart(this.lineChartCanvas, config);
+  }
+
+  /*
+   * Checks whether user has enough sessions recorded to display stats modal
+   * @returns {boolean} true if the user has enough sessions recorded in backend, false otherwise
+   */
+  static hasEnoughSessions() {
+    const history = backend.get('History');
+    return history != null && JSON.parse(backend.get('History')).sessions.length >= 3;
   }
 }
 
