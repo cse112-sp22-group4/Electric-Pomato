@@ -5,6 +5,7 @@
  * Date: 05/11/2022
  */
 import Chart from 'chart.js/auto';
+import lineConfig from '../constants/lineConfig.js';
 import * as backend from '../backend.js';
 
 /**
@@ -116,7 +117,6 @@ class StatsModal extends HTMLElement {
       actual.push(actualTotal);
     });
 
-    // Plot the line chart
     const chartData = {
       labels: chartLabels,
       datasets: [
@@ -134,43 +134,12 @@ class StatsModal extends HTMLElement {
         },
       ],
     };
+    
+    // Make a copy of lineConfig for this chart 
+    const config = JSON.parse(JSON.stringify(lineConfig)); 
 
-    const config = {
-      type: 'line',
-      data: chartData,
-      options: {
-        interaction: {
-          mode: 'index',
-          intersect: false,
-        },
-        responsive: true,
-        maintainAspectRatio: false,
-        scales: {
-          x: {
-            title: {
-              text: 'Sessions',
-              display: true,
-              font: {
-                weight: 'bold',
-              },
-            },
-            ticks: {
-              display: false,
-            },
-          },
-          y: {
-            title: {
-              text: 'Pomos',
-              display: true,
-              font: {
-                weight: 'bold',
-              },
-            },
-          },
-        },
-      },
-    };
-
+    // Plot the line chart
+    config.data = chartData; 
     Chart.defaults.color = lineChartStyle.getPropertyValue('color');
     Chart.defaults.borderColor = lineChartStyle.getPropertyValue('border-color');
     Chart.defaults.font.family = lineChartStyle.getPropertyValue('font-family');
