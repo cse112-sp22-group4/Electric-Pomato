@@ -17,6 +17,7 @@ import EditableTaskList from '../components/EditableTaskList.js';
 import ViewOnlyTaskList from '../components/ViewOnlyTaskList.js';
 import TimerUI from '../components/TimerUI.js';
 import FinishTaskButton from '../components/FinishTaskButton.js';
+import StatsModal from '../components/StatsModal.js';
 import * as backend from '../backend.js';
 
 // Icon assets
@@ -73,18 +74,31 @@ function handleEndOfSession() {
   // Move completed task list to history
   let history = JSON.parse(backend.get('History'));
   const { completed } = JSON.parse(backend.get('TaskList'));
+  const currDate = new Date();
+
+  // Store tasklist as session with date of completion
+  const session = {
+    date: `${currDate.getMonth() + 1}/${currDate.getDate()}/${currDate.getFullYear()}`,
+    tasklist: completed,
+  };
+
   if (history) {
-    history.tasklists.push(completed);
+    history.sessions.push(session);
   } else {
-    history = { tasklists: [completed] };
+    history = { sessions: [session] };
   }
   backend.set('History', JSON.stringify(history));
 
   // Wipe data from previous task list
   backend.clearSessionData();
 
-  // Open modified stats modal
-  document.querySelector('stats-modal').open('./index.html');
+  // if user does not have enough sessions, go to homepage, otherwise open stats modal
+  const statsModal = document.querySelector('stats-modal');
+  if (!StatsModal.hasEnoughSessions()) {
+    window.location.href = './index.html';
+  } else {
+    statsModal.open('./index.html');
+  }
 }
 
 /**

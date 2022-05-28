@@ -10,10 +10,10 @@ module.exports = {
     node: true,
   },
   rules: {
-    // Because browser doesn't automatically add the file extensions.
+    // Because browser doesn't automatically add the file extensions. (ignore for package imports)
     'import/extensions': [
       'error',
-      'always',
+      'ignorePackages',
     ],
     // To allow console.log().
     'no-console': 'off',
