@@ -19,6 +19,10 @@ import TimerUI from '../components/TimerUI.js';
 import FinishTaskButton from '../components/FinishTaskButton.js';
 import * as backend from '../backend.js';
 
+// Icon assets
+import pomoIcon from '../../img/green-tomato.png';
+import breakIcon from '../../img/red-tomato.png';
+
 /**
  * STATE:
  * {
@@ -180,25 +184,33 @@ function initTimer(timer) {
  */
 function showTimerNotification() {
   const timerState = backend.get('Timer');
+  const pomoAlert = {
+    icon: null,
+    body: null,
+    tag: 'pomo-alert',
+    silent: true,
+  };
+
+  // Set notification icon/text based on timer state
   if (timerState === 'true') {
-    const pomoAlert = new Notification('Electric Pomato', {
-      icon: 'img/green-tomato.ico',
-      body: 'Good Work! Time to recharge.',
-    });
-    setTimeout(pomoAlert.close.bind(pomoAlert), 5000);
-    pomoAlert.addEventListener('click', () => {
-      window.focus();
-    });
+    pomoAlert.icon = pomoIcon;
+    pomoAlert.body = 'Good Work! Time to recharge.';
   } else {
-    const breakAlert = new Notification('Electric Pomato', {
-      icon: 'img/red-tomato.ico',
-      body: "Break time is over. It's time to plug in!",
-    });
-    setTimeout(breakAlert.close.bind(breakAlert), 5000);
-    breakAlert.addEventListener('click', () => {
-      window.focus();
-    });
+    pomoAlert.icon = breakIcon;
+    pomoAlert.body = "Break time is over. It's time to plug in!";
   }
+
+  // Show the notification
+  let register = null;
+  navigator.serviceWorker.getRegistration()
+    .then((reg) => {
+      register = reg;
+      reg.showNotification('Electric Pomato', pomoAlert)
+        .then(() => register.getNotifications()
+          .then((notifications) => {
+            setTimeout(() => notifications.forEach((notification) => notification.close()), 5000);
+          }));
+    });
 }
 
 /**
@@ -249,7 +261,7 @@ function handleClick(timer, taskList) {
           // Remove the finish task button
           timer.lastElementChild.remove();
 
-          if (('Notification' in window) && Notification.permission === 'granted') {
+          if (('Notification' in window) && navigator.serviceWorker) {
             showTimerNotification();
           }
 
@@ -294,7 +306,7 @@ function handleOnLoad() {
   } else {
     // otherwise, go to task list page
     appContainer.appendChild(new EditableTaskList());
-    document.querySelector('.app-title').textContent = `${backend.get('Username')}'s Day`;
+    document.querySelector('.app-title').textContent = `${backend.get('Username')}'s Session`;
     appContainer.querySelectorAll('.start-day-button').forEach((button) => {
       button.addEventListener('click', () => {
         backend.set('Started', true);
@@ -309,12 +321,20 @@ function handleOnLoad() {
 
   // Request notification permission on page load
   if (!('Notification' in window)) {
-    console.log('This browser does not support notifications.');
+    console.log('Error: Browser does not support notifications');
+  } else if (Notification.permission === 'granted') {
+    console.log(`Notifications permission ${Notification.permission}`);
+  } else if (Notification.permission !== 'denied') {
+    Notification.requestPermission((permission) => {
+      if (!('permission' in Notification)) {
+        Notification.permission = permission;
+      }
+      if (permission === 'granted') {
+        console.log('Notifications permission granted');
+      }
+    });
   } else {
-    console.log(Notification.permission);
-    if (Notification.permission !== 'denied') {
-      Notification.requestPermission();
-    }
+    console.log(`Notifications permission ${Notification.permission}`);
   }
 }
 
