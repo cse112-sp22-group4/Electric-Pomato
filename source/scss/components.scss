@@ -117,15 +117,18 @@ settings-modal {
 }
 
 stats-modal {
-    #line-chart {
+    #line-chart-container {
         display: flex;
         align-items: center;
+        justify-content: center;
         border-radius: 2.5rem;
-        min-height: 50vh;
+        height: 50vh;
         flex-grow: 1;
+        position: relative;
+        padding: 2%;
 
         @include themify($themes) {
-            background-color: themed('secondary');
+            background-color: themed('stats-background-color');
         }
     }
 
@@ -140,6 +143,27 @@ stats-modal {
     #stats-close {
         margin-left: 10vw;
         margin-right: 10vw;
+    }
+
+    #line-chart-colors {
+        display: none;
+
+        @include themify($themes) {
+            color: themed('modal-text-color');
+            border-color: rgba(themed('modal-text-color'), 0.1)
+        }
+    }
+
+    #line-chart-expected-color {
+        @include themify($themes) {
+            background-color: themed('stats-expected-line-color');
+        }
+    }
+
+    #line-chart-actual-color {
+        @include themify($themes) {
+            background-color: themed('stats-actual-line-color');
+        }
     }
 }
 
