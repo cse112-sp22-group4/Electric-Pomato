@@ -4,7 +4,8 @@
         "name": "preset-default",
         "params": {
           "overrides": {
-            "removeEmptyText": false
+            "removeEmptyText": false,
+            "cleanupIDs": false 
           }
         }
       }
