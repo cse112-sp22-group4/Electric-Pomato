@@ -37,6 +37,6 @@
         <path d="M107.41 97.7075L130.533 173.965L88.2255 119.272L107.41 97.7075Z" fill="#2D4F51"/>
         <path d="M652.113 498.631C632.529 489.438 590.961 470.333 581.368 467.455L674.896 483.043L652.113 498.631Z" fill="#2D4F51"/>
         <path d="M42.058 208.538C56.9356 214.412 88.294 227.086 94.7068 230.787L38.8904 188.376L42.058 208.538Z" fill="#2D4F51"/>
-        <text class="timer-text" x="50%" y="62%" style="fill: #AAD9DC;" text-anchor="middle"></text>
+        <text class="timer-text" x="50%" y="62%" style="fill: #AAD9DC;" text-anchor="middle">Start</text>
     </g>
 </svg>
