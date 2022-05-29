@@ -113,6 +113,12 @@ function updateAppTitle(taskFinished) {
   const appSubtitle = document.querySelector('.app-subtitle');
 
   let subtitle = '';
+  let taskName = taskList.todo[0].name;
+
+  // Edit task length if too long
+  if (taskName.length > 20) {
+    taskName = `${taskName.substring(0, 20)}...`;
+  }
 
   // Set title based on timer state
   if (backend.get('Timer') === 'true' && !taskFinished) {
@@ -130,16 +136,16 @@ function updateAppTitle(taskFinished) {
     handleEndOfSession();
   } else if (backend.get('Timer') === 'true') {
     if (taskFinished) {
-      appTitle.textContent = `Focus: ${taskList.todo[0].name}`;
+      appTitle.textContent = `Focus: ${taskName}`;
     } else {
-      subtitle = `Focus: ${taskList.todo[0].name}`;
+      subtitle = `Focus: ${taskName}`;
     }
   } else if (taskFinished && length > 1) {
-    subtitle = `Next Task: ${taskList.todo[0].name}`;
+    subtitle = `Next Task: ${taskName}`;
   } else if (length === 1) {
-    subtitle = `Final Task: ${taskList.todo[0].name}`;
+    subtitle = `Final Task: ${taskName}`;
   } else {
-    subtitle = `Current Task: ${taskList.todo[0].name}`;
+    subtitle = `Current Task: ${taskName}`;
   }
   appSubtitle.textContent = subtitle;
 }
