@@ -3,6 +3,21 @@
 
 /* Styling for components ONLY used within index.html */
 
+.start-container-wrapper {
+    justify-content: center;
+    align-items: center;
+    margin-top: 96px;
+
+    @media screen and (max-height: 800px),
+    (max-width: 500px) {
+        margin-top: 64px;
+    }
+
+    @media screen and (max-width: 500px) and (max-height: 650px) {
+        margin-top: 32px;
+    }
+}
+
 start-container {
     border-radius: 2.5rem;
     padding: $spacer * 2 $spacer * 2 $spacer * 2.5;
@@ -10,6 +25,12 @@ start-container {
 
     @include themify($themes) {
         background-color: themed('start-container-background-color');
+    }
+
+    .subtitle {
+        @media screen and (max-width: 500px) {
+            font-size: 32px;
+        }
     }
 
     .start-question-icon {
@@ -47,14 +68,39 @@ start-container {
 }
 
 .start-icons {
-    margin-top: 4rem;
+    margin-top: 5rem;
+
+    @media screen and (max-height: 750px) {
+        margin-top: 3rem;
+    }
+
+    @media screen and (max-width: 500px) {
+        margin-top: 3rem;
+    }
 
     .start-icons-items {
         display: flex;
         justify-content: center;
 
+        .start-icons-item {
+            display: inherit;
+            align-items: center;
+        }
+
         @media screen and (max-width: 500px) {
             flex-direction: column;
+
+            .legend-icon {
+                width: 60px;
+            }
+
+            .start-icons-item {
+                margin-bottom: 15px;
+            }
+
+            .start-icons-item.me-4 {
+                margin-right: 0 !important;
+            }
         }
     }
 }

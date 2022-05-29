@@ -18,13 +18,15 @@ menu-icons {
     i {
         @include font-size($h5-font-size);
 
-        @media screen and (max-width: 500px) {
-            @include font-size($h6-font-size)
+        @media screen and (max-width: 1000px) {
+            @include font-size($h6-font-size);
         }
 
         @include themify($themes) {
             background-color: themed('menu-button-background-color');
         }
+
+
     }
 
     button {
@@ -43,10 +45,6 @@ menu-icons {
 
     span {
         @include font-size($h5-font-size);
-
-        @media screen and (max-width: 500px) {
-            @include font-size($h6-font-size)
-        }
     }
 }
 
@@ -98,7 +96,11 @@ settings-modal {
 
     .settings-item {
         overflow-wrap: break-word;
-        font-size: $h3-font-size;
+        @include font-size($h3-font-size);
+
+        @media screen and (max-width: 525px) {
+            @include font-size($h4-font-size);
+        }
 
         @include themify($themes) {
             color: themed('settings-item-color');
@@ -107,7 +109,11 @@ settings-modal {
 
     .settings-select {
         padding: 5px;
-        font-size: $h4-font-size;
+        @include font-size($h4-font-size);
+
+        @media screen and (max-width: 525px) {
+            @include font-size($h5-font-size);
+        }
 
         @include themify($themes) {
             background-color: themed('settings-select-background-color');
@@ -222,6 +228,12 @@ stats-modal {
     height: 100%;
 }
 
+.btn-lg {
+    @media screen and (max-width: 525px) {
+        @include font-size($h5-font-size);
+    }
+}
+
 a {
     text-decoration: none;
 }
@@ -290,11 +302,19 @@ footer>.container {
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    p {
+        margin: 0;
+
+        @media screen and (max-width: 525px) {
+            font-size: 18px;
+        }
+    }
 }
 
 .app-header-logo {
-    height: 55px;
-    width: 55px;
+    height: 45px;
+    width: 45px;
 }
 
 .app-header-container {
@@ -306,11 +326,11 @@ footer>.container {
     padding: map-get($spacers, 5) 0 map-get($spacers, 5) 0;
 
     @media screen and (max-width: 1000px) {
-        h1 {
-            font-size: $h3-font-size;
+        h3 {
+            font-size: $h4-font-size;
         }
 
-        h4 {
+        h5 {
             font-size: $h6-font-size;
         }
     }
