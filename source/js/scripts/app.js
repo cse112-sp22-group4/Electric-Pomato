@@ -19,10 +19,12 @@ import TimerUI from '../components/TimerUI.js';
 import FinishTaskButton from '../components/FinishTaskButton.js';
 import * as backend from '../backend.js';
 
-// Icon and audio  assets
+// Icon assets
 import pomoIcon from '../../img/green-tomato.png';
 import breakIcon from '../../img/red-tomato.png';
-// import notiSound from '../../audio/notification-ping.mp3';
+
+// Import audio from local file
+const notiSound = new URL('../../audio/notification-ping.mp3', import.meta.url);
 
 /**
  * STATE:
@@ -184,10 +186,10 @@ function initTimer(timer) {
  * @param {String} link - Link to mp3 file to play
  * @ignore
  */
-// function playSound(link) {
-//   const sound = new Audio(link);
-//   sound.play();
-// }
+function playSound(link) {
+  const sound = new Audio(link);
+  sound.play();
+}
 
 /**
  * Displays notification and plays sound when timer ends
@@ -221,7 +223,7 @@ function showTimerNotification() {
           .then((notifications) => {
             setTimeout(() => notifications.forEach((notification) => notification.close()), 5000);
           }));
-      // playSound(notiSound);
+      playSound(notiSound);
     });
 }
 
@@ -244,14 +246,14 @@ function handleClick(timer, taskList) {
         const appSubtitle = document.querySelector('.app-subtitle');
         appTitle.textContent = appSubtitle.textContent;
         appSubtitle.style.display = 'none';
-        // const workSessionDuration = backend.get('WorkSessionDuration');
-        timer.createTimer(0, 2);
+        const workSessionDuration = backend.get('WorkSessionDuration');
+        timer.createTimer(workSessionDuration, 0);
       } else if (isLongBreak()) {
-        // const longBreakDuration = backend.get('LongBreakDuration');
-        timer.createTimer(0, 2);
+        const longBreakDuration = backend.get('LongBreakDuration');
+        timer.createTimer(longBreakDuration, 0);
       } else {
-        // const shortBreakDuration = backend.get('ShortBreakDuration');
-        timer.createTimer(0, 2);
+        const shortBreakDuration = backend.get('ShortBreakDuration');
+        timer.createTimer(shortBreakDuration, 0);
       }
 
       // Create finish task button for this sessio
