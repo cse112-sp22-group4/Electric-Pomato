@@ -1,9 +1,9 @@
 $themes: (
     default: (primary: #203647,
-        secondary: #BEC8ED,
+        secondary: #bec8ed,
         success: #7dc37d,
-        danger: #DB6666,
-        info: #B2E3FF,
+        danger: #db6666,
+        info: #b2e3ff,
         modal: #b2e3ff,
         body-background-color: #203647,
         body-color: #333333,
@@ -15,13 +15,24 @@ $themes: (
         task-list-background-color: #fff,
         input-background-color: #fff,
         input-text-color: #333,
-        subtitle-text-color: #203647),
+        input-border-color: #333,
+        input-focus-border-color: #0071de,
+        subtitle-text-color: #203647,
+        settings-select-background-color: #efefef,
+        settings-select-color: #000,
+        settings-item-color: #212529,
+        stats-background-color: #FFFFFF,
+        stats-expected-line-color: #FFA33F,
+        stats-actual-line-color: #6aa66a,
+        modal-text-color: #212529,
+        scrollbar-background-color: #fff,
+    ),
     dark: (primary: #222,
-        secondary: #A2AAC9,
-        success: #6AA66A,
-        danger: #C55C5C,
-        info: #B2E3FF,
-        modal: #727272,
+        secondary: #a2aac9,
+        success: #6aa66a,
+        danger: #b15353,
+        info: #b2e3ff,
+        modal: #454544,
         body-background-color: #313130,
         body-color: #333333,
         primary-button-text-color: #fff,
@@ -30,9 +41,20 @@ $themes: (
         start-container-background-color: #242423,
         menu-button-background-color: #242423,
         task-list-background-color: #242423,
-        input-background-color: #222221,
+        input-background-color: #50504f,
         input-text-color: #fff,
-        subtitle-text-color: #fff)
+        input-border-color: #333,
+        input-focus-border-color: #000,
+        subtitle-text-color: #fff,
+        settings-select-background-color: #2f2f2e,
+        settings-select-color: #fff,
+        settings-item-color: #fff,
+        stats-background-color: #222,
+        stats-expected-line-color: #FFA33F,
+        stats-actual-line-color: #6aa66a,
+        modal-text-color: #fff,
+        scrollbar-background-color: #242423,
+    )
 );
 
 /** 	
@@ -73,7 +95,6 @@ $themes: (
             @content;
             $theme-map: null !global;
         }
-
     }
 }
 

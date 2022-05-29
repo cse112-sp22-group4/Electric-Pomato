@@ -4,9 +4,8 @@
  * @author Meshach Adoe
  * Date: 05/11/2022
  */
-import zingchart from '../../dependencies/zingchart-es6.min.js';
+import Chart from 'chart.js/auto';
 import lineConfig from '../constants/lineConfig.js';
-import { hex } from '../constants/lineColors.js';
 import * as backend from '../backend.js';
 
 /**
@@ -25,10 +24,15 @@ class StatsModal extends HTMLElement {
       <div class="container">
             <div class="modal-content">
               <h2 class="modal-title">Expected vs. Actual Pomos Per Session</h2>
-              <div id="line-chart">
-                <h3 id="line-chart-alt">You haven't completed any sessions yet. <br> Finish a session to start tracking your stats!</h3>
+              <div id="line-chart-container">
+                <canvas id="line-chart-canvas"></canvas>
+                <h3 id="line-chart-alt">You haven't completed enough sessions yet. <br> Finish sessions to start tracking your stats!</h3>
               </div>
               <button id="stats-close" class="btn btn-primary">Close</button>
+              <div id=line-chart-colors>
+                <span id=line-chart-expected-color></span>
+                <span id=line-chart-actual-color></span>
+              </div>
         </div>
       </div>
     </div>`;
@@ -36,6 +40,10 @@ class StatsModal extends HTMLElement {
     // Get references to elements of modal
     this.wrapper = document.getElementById('stats-wrapper');
     this.closeButton = document.getElementById('stats-close');
+    this.lineChartContainer = document.getElementById('line-chart-container');
+    this.lineChartCanvas = document.getElementById('line-chart-canvas');
+    this.lineChart = null;
+    this.lineChartColors = document.getElementById('line-chart-colors');
     this.lineChartAlt = document.getElementById('line-chart-alt');
     this.redirectToOnClose = null;
 
@@ -57,11 +65,14 @@ class StatsModal extends HTMLElement {
       }
       this.redirectToOnClose = redirectURL;
     }
-    if (backend.get('History') == null) {
+    // Only show chart if user has enough recorded sessions
+    if (!StatsModal.hasEnoughSessions()) {
+      this.lineChartCanvas.style.display = 'none';
       this.lineChartAlt.style.display = 'flex';
     } else {
+      this.lineChartCanvas.style.display = 'flex';
       this.lineChartAlt.style.display = 'none';
-      StatsModal.loadLineChart();
+      this.loadLineChart();
     }
   }
 
@@ -69,6 +80,11 @@ class StatsModal extends HTMLElement {
    * Closes the stats modal
    */
   close() {
+    // Clean up line chart if created
+    if (this.lineChart != null) {
+      this.lineChart.destroy();
+      this.lineChart = null;
+    }
     this.wrapper.style.display = 'none';
     if (this.redirectToOnClose) {
       window.location.href = this.redirectToOnClose;
@@ -76,78 +92,68 @@ class StatsModal extends HTMLElement {
   }
 
   /**
-   * Formats the data into an object that describes one line in the graph.
-   * @param {string} name - Name of the line
-   * @param {Array.<number>} data - Contains number of sessions (y-coordinate)
-   * @param {string} color - Hexadecimal string of the line color
-   * @returns {Object} Formatted line data
-   */
-  static line(name, data, color) {
-    return {
-      text: name.charAt(0).toUpperCase() + name.slice(1),
-      values: data,
-      lineColor: color,
-      lineWidth: '2px',
-      marker: {
-        type: 'square',
-        backgroundColor: color,
-        borderColor: color,
-        shadow: false,
-        size: 3,
-      },
-      highlightMarker: {
-        backgroundColor: color,
-        borderColor: color,
-        size: 5,
-      },
-      palette: 0,
-      shadow: false,
-      visible: true,
-    };
-  }
-
-  /**
    * Assembles the data from the history of sessions and renders the line graph.
    */
-  static loadLineChart() {
-    // Remove old chart
-    lineConfig.series = [];
+  loadLineChart() {
+    const lineChartStyle = window.getComputedStyle(this.lineChartColors);
+    const expectedColor = window.getComputedStyle(document.getElementById('line-chart-expected-color')).getPropertyValue('background-color');
+    const actualColor = window.getComputedStyle(document.getElementById('line-chart-actual-color')).getPropertyValue('background-color');
+    const { sessions } = JSON.parse(backend.get('History'));
 
-    // Generate new chart
-    const { tasklists } = JSON.parse(backend.get('History'));
+    // Collect data for line chart
+    const chartLabels = [];
+    const expected = [];
+    const actual = [];
 
-    const lines = ['expected', 'actual'];
-
-    // Create line data for plotting expected and actual Pomos per session
-    let count = 0;
-    lines.forEach((name) => {
-      const data = [];
-      tasklists.forEach((session) => {
-        let total = 0;
-        session.forEach((task) => {
-          total += task[name];
-        });
-        data.push(total);
+    sessions.forEach((session) => {
+      let expectedTotal = 0;
+      let actualTotal = 0;
+      session.tasklist.forEach((task) => {
+        expectedTotal += task.expected;
+        actualTotal += task.actual;
       });
-      lineConfig.series.push(this.line(name, data, hex[count]));
-      count += 1;
+      chartLabels.push(session.date);
+      expected.push(expectedTotal);
+      actual.push(actualTotal);
     });
 
-    /* functional version
-    lineConfig.series = lines.map((name) =>
-      line(name, tasklists.map((tasklist) =>
-        tasklist.reduce((total, task) => total + task[name], 0)
-      ), rgba.pop())
-    );
-    */
+    const chartData = {
+      labels: chartLabels,
+      datasets: [
+        {
+          label: 'Expected Pomos',
+          backgroundColor: expectedColor,
+          borderColor: expectedColor,
+          data: expected,
+        },
+        {
+          label: 'Actual Pomos',
+          backgroundColor: actualColor,
+          borderColor: actualColor,
+          data: actual,
+        },
+      ],
+    };
 
-    // Generate chart using line data
-    zingchart.render({
-      id: 'line-chart',
-      data: lineConfig,
-      height: 500,
-      width: '100%',
-    });
+    // Make a copy of lineConfig for this chart
+    const config = JSON.parse(JSON.stringify(lineConfig));
+
+    // Plot the line chart
+    config.data = chartData;
+    Chart.defaults.color = lineChartStyle.getPropertyValue('color');
+    Chart.defaults.borderColor = lineChartStyle.getPropertyValue('border-color');
+    Chart.defaults.font.family = lineChartStyle.getPropertyValue('font-family');
+    Chart.defaults.font.size = window.innerWidth > 1000 ? 16 : 8;
+    this.lineChart = new Chart(this.lineChartCanvas, config);
+  }
+
+  /*
+   * Checks whether user has enough sessions recorded to display stats modal
+   * @returns {boolean} true if the user has enough sessions recorded in backend, false otherwise
+   */
+  static hasEnoughSessions() {
+    const history = backend.get('History');
+    return history != null && JSON.parse(backend.get('History')).sessions.length >= 3;
   }
 }
 

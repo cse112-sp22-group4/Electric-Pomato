@@ -3,5 +3,9 @@
 // Simply remove the development check if wanting to test service worker updates locally
 if ('serviceWorker' in navigator && process.env.NODE_ENV !== 'development') {
   navigator.serviceWorker.register(new URL('../../serviceWorker.js', import.meta.url), { type: 'module' })
-    .then(() => { console.log('Service Worker Register'); });
+    .then((registration) => {
+      console.log('Service Worker Registration succeeded', registration);
+    }, (error) => {
+      console.log('Service Worker Registration failed', error);
+    });
 }

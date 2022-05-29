@@ -74,7 +74,9 @@ settings-modal {
     }
 
     #settings-close {
-        background-color: #e65656ef;
+        @include themify($themes) {
+            background-color: themed('danger');
+        }
     }
 
     .settings-row {
@@ -88,34 +90,71 @@ settings-modal {
     .settings-item {
         overflow-wrap: break-word;
         font-size: $h3-font-size;
+
+        @include themify($themes) {
+            color: themed('settings-item-color');
+        }
     }
 
     .settings-select {
         padding: 5px;
         font-size: $h4-font-size;
+
+        @include themify($themes) {
+            background-color: themed('settings-select-background-color');
+            color: themed('settings-select-color')
+        }
     }
 }
 
 stats-modal {
-    #line-chart {
+    #line-chart-container {
         display: flex;
         align-items: center;
+        justify-content: center;
         border-radius: 2.5rem;
-        min-height: 50vh;
+        height: 50vh;
         flex-grow: 1;
+        position: relative;
+        padding: 2%;
 
         @include themify($themes) {
-            background-color: themed('secondary');
+            background-color: themed('stats-background-color');
         }
     }
 
     #line-chart-alt {
         margin: auto;
+
+        @include themify($themes) {
+            color: themed('modal-text-color');
+        }
     }
 
     #stats-close {
         margin-left: 10vw;
         margin-right: 10vw;
+    }
+
+    #line-chart-colors {
+        display: none;
+
+        @include themify($themes) {
+            color: themed('modal-text-color');
+            border-color: rgba(themed('modal-text-color'), 0.1)
+        }
+    }
+
+    #line-chart-expected-color {
+        @include themify($themes) {
+            background-color: themed('stats-expected-line-color');
+        }
+    }
+
+    #line-chart-actual-color {
+        @include themify($themes) {
+            background-color: themed('stats-actual-line-color');
+        }
     }
 }
 
@@ -187,13 +226,18 @@ input {
     border-width: 2px;
 
     @include themify($themes) {
-        border-color: themed('body-color');
+        border-color: themed('input-border-color');
+        background-color: themed('input-background-color');
+        color: themed('input-text-color');
     }
 }
 
 input:focus {
-    border-color: #0071de;
     outline: 0;
+
+    @include themify($themes) {
+        border-color: themed('input-focus-border-color');
+    }
 }
 
 .legend-icon {
@@ -418,6 +462,12 @@ footer>.container {
     background-color: rgba(0, 0, 0, 0.4);
 }
 
+.modal-title {
+    @include themify($themes) {
+        color: themed('modal-text-color');
+    }
+}
+
 #notif-content,
 .modal-content {
     padding: map-get($spacers, 4);
@@ -429,7 +479,13 @@ footer>.container {
 
     @include themify($themes) {
         background-color: themed('modal');
-        border: 5px solid themed('primary')
+        border: 5px solid themed('primary');
+    }
+}
+
+#notif-content {
+    @include themify($themes) {
+        color: themed('modal-text-color');
     }
 }
 

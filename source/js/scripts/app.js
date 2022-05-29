@@ -17,7 +17,12 @@ import EditableTaskList from '../components/EditableTaskList.js';
 import ViewOnlyTaskList from '../components/ViewOnlyTaskList.js';
 import TimerUI from '../components/TimerUI.js';
 import FinishTaskButton from '../components/FinishTaskButton.js';
+import StatsModal from '../components/StatsModal.js';
 import * as backend from '../backend.js';
+
+// Icon assets
+import pomoIcon from '../../img/green-tomato.png';
+import breakIcon from '../../img/red-tomato.png';
 
 /**
  * STATE:
@@ -69,18 +74,31 @@ function handleEndOfSession() {
   // Move completed task list to history
   let history = JSON.parse(backend.get('History'));
   const { completed } = JSON.parse(backend.get('TaskList'));
+  const currDate = new Date();
+
+  // Store tasklist as session with date of completion
+  const session = {
+    date: `${currDate.getMonth() + 1}/${currDate.getDate()}/${currDate.getFullYear()}`,
+    tasklist: completed,
+  };
+
   if (history) {
-    history.tasklists.push(completed);
+    history.sessions.push(session);
   } else {
-    history = { tasklists: [completed] };
+    history = { sessions: [session] };
   }
   backend.set('History', JSON.stringify(history));
 
   // Wipe data from previous task list
   backend.clearSessionData();
 
-  // Open modified stats modal
-  document.querySelector('stats-modal').open('./index.html');
+  // if user does not have enough sessions, go to homepage, otherwise open stats modal
+  const statsModal = document.querySelector('stats-modal');
+  if (!StatsModal.hasEnoughSessions()) {
+    window.location.href = './index.html';
+  } else {
+    statsModal.open('./index.html');
+  }
 }
 
 /**
@@ -180,25 +198,33 @@ function initTimer(timer) {
  */
 function showTimerNotification() {
   const timerState = backend.get('Timer');
+  const pomoAlert = {
+    icon: null,
+    body: null,
+    tag: 'pomo-alert',
+    silent: true,
+  };
+
+  // Set notification icon/text based on timer state
   if (timerState === 'true') {
-    const pomoAlert = new Notification('Electric Pomato', {
-      icon: 'img/green-tomato.ico',
-      body: 'Good Work! Time to recharge.',
-    });
-    setTimeout(pomoAlert.close.bind(pomoAlert), 5000);
-    pomoAlert.addEventListener('click', () => {
-      window.focus();
-    });
+    pomoAlert.icon = pomoIcon;
+    pomoAlert.body = 'Good Work! Time to recharge.';
   } else {
-    const breakAlert = new Notification('Electric Pomato', {
-      icon: 'img/red-tomato.ico',
-      body: "Break time is over. It's time to plug in!",
-    });
-    setTimeout(breakAlert.close.bind(breakAlert), 5000);
-    breakAlert.addEventListener('click', () => {
-      window.focus();
-    });
+    pomoAlert.icon = breakIcon;
+    pomoAlert.body = "Break time is over. It's time to plug in!";
   }
+
+  // Show the notification
+  let register = null;
+  navigator.serviceWorker.getRegistration()
+    .then((reg) => {
+      register = reg;
+      reg.showNotification('Electric Pomato', pomoAlert)
+        .then(() => register.getNotifications()
+          .then((notifications) => {
+            setTimeout(() => notifications.forEach((notification) => notification.close()), 5000);
+          }));
+    });
 }
 
 /**
@@ -246,6 +272,10 @@ function handleClick(timer, taskList) {
 
         // Remove the finish task button
         timer.lastElementChild.remove();
+        
+        if (('Notification' in window) && navigator.serviceWorker) {
+          showTimerNotification();
+        }
 
         if (('Notification' in window) && Notification.permission === 'granted') {
           showTimerNotification();
@@ -292,7 +322,7 @@ function handleOnLoad() {
   } else {
     // otherwise, go to task list page
     appContainer.appendChild(new EditableTaskList());
-    document.querySelector('.app-title').textContent = `${backend.get('Username')}'s Day`;
+    document.querySelector('.app-title').textContent = `${backend.get('Username')}'s Session`;
     appContainer.querySelectorAll('.start-day-button').forEach((button) => {
       button.addEventListener('click', () => {
         backend.set('Started', true);
@@ -307,12 +337,20 @@ function handleOnLoad() {
 
   // Request notification permission on page load
   if (!('Notification' in window)) {
-    console.log('This browser does not support notifications.');
+    console.log('Error: Browser does not support notifications');
+  } else if (Notification.permission === 'granted') {
+    console.log(`Notifications permission ${Notification.permission}`);
+  } else if (Notification.permission !== 'denied') {
+    Notification.requestPermission((permission) => {
+      if (!('permission' in Notification)) {
+        Notification.permission = permission;
+      }
+      if (permission === 'granted') {
+        console.log('Notifications permission granted');
+      }
+    });
   } else {
-    console.log(Notification.permission);
-    if (Notification.permission !== 'denied') {
-      Notification.requestPermission();
-    }
+    console.log(`Notifications permission ${Notification.permission}`);
   }
 }
 
