@@ -19,9 +19,10 @@ import TimerUI from '../components/TimerUI.js';
 import FinishTaskButton from '../components/FinishTaskButton.js';
 import * as backend from '../backend.js';
 
-// Icon assets
+// Icon and audio  assets
 import pomoIcon from '../../img/green-tomato.png';
 import breakIcon from '../../img/red-tomato.png';
+// import notiSound from '../../audio/notification-ping.mp3';
 
 /**
  * STATE:
@@ -179,6 +180,16 @@ function initTimer(timer) {
 }
 
 /**
+ * Plays the sound from the given link
+ * @param {String} link - Link to mp3 file to play
+ * @ignore
+ */
+// function playSound(link) {
+//   const sound = new Audio(link);
+//   sound.play();
+// }
+
+/**
  * Displays notification and plays sound when timer ends
  * @ignore
  */
@@ -210,6 +221,7 @@ function showTimerNotification() {
           .then((notifications) => {
             setTimeout(() => notifications.forEach((notification) => notification.close()), 5000);
           }));
+      // playSound(notiSound);
     });
 }
 
@@ -232,14 +244,14 @@ function handleClick(timer, taskList) {
         const appSubtitle = document.querySelector('.app-subtitle');
         appTitle.textContent = appSubtitle.textContent;
         appSubtitle.style.display = 'none';
-        const workSessionDuration = backend.get('WorkSessionDuration');
-        timer.createTimer(workSessionDuration, 0);
+        // const workSessionDuration = backend.get('WorkSessionDuration');
+        timer.createTimer(0, 2);
       } else if (isLongBreak()) {
-        const longBreakDuration = backend.get('LongBreakDuration');
-        timer.createTimer(longBreakDuration, 0);
+        // const longBreakDuration = backend.get('LongBreakDuration');
+        timer.createTimer(0, 2);
       } else {
-        const shortBreakDuration = backend.get('ShortBreakDuration');
-        timer.createTimer(shortBreakDuration, 0);
+        // const shortBreakDuration = backend.get('ShortBreakDuration');
+        timer.createTimer(0, 2);
       }
 
       // Create finish task button for this sessio
