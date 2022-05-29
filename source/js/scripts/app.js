@@ -24,6 +24,9 @@ import * as backend from '../backend.js';
 import pomoIcon from '../../img/green-tomato.png';
 import breakIcon from '../../img/red-tomato.png';
 
+// Import audio from local file
+const notiSound = new URL('../../audio/notification-ping.mp3', import.meta.url);
+
 /**
  * STATE:
  * {
@@ -193,6 +196,16 @@ function initTimer(timer) {
 }
 
 /**
+ * Plays the sound from the given link
+ * @param {String} link - Link to mp3 file to play
+ * @ignore
+ */
+function playSound(link) {
+  const sound = new Audio(link);
+  sound.play();
+}
+
+/**
  * Displays notification and plays sound when timer ends
  * @ignore
  */
@@ -224,6 +237,7 @@ function showTimerNotification() {
           .then((notifications) => {
             setTimeout(() => notifications.forEach((notification) => notification.close()), 5000);
           }));
+      playSound(notiSound);
     });
 }
 
