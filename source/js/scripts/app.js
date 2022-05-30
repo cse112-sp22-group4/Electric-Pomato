@@ -17,6 +17,7 @@ import PopUp from '../classes/PopUp.js';
 import EditableTaskList from '../components/EditableTaskList.js';
 import ViewOnlyTaskList from '../components/ViewOnlyTaskList.js';
 import TimerUI from '../components/TimerUI.js';
+import RemainingPomos from '../components/RemainingPomos.js';
 import FinishTaskButton from '../components/FinishTaskButton.js';
 import StatsModal from '../components/StatsModal.js';
 import * as backend from '../backend.js';
@@ -60,6 +61,9 @@ let finished = false;
 
 // Timer UI
 let timerUI = null;
+
+// Remaining Pomos
+let remainingPomos = null;
 
 // View only task list
 let votl = null;
@@ -176,7 +180,7 @@ function nextTask(object) {
   const svgDoc = document.querySelector('#timerIcon').contentDocument;
   votl.finishTask(backend.get('Timer') === 'true' && svgDoc.querySelector('.timer-text').textContent !== 'START');
 
-  timerUI.remainingPomos.setPomos(votl.data);
+  if (votl.data.todo.length > 0) remainingPomos.setPomos(votl.data);
 
   // Update app title
   updateAppTitle(object.getChecked());
@@ -301,6 +305,8 @@ function handleClick(timer, taskList) {
         }
       }
 
+      remainingPomos.hiddenMode();
+
       // Create finish task button for this session
       const finishTaskButton = new FinishTaskButton(nextTask);
       timer.remainingPomos.insertAdjacentElement('beforebegin', finishTaskButton);
@@ -368,6 +374,9 @@ function handleClick(timer, taskList) {
 function showTimer() {
   timerUI = new TimerUI();
   votl = new ViewOnlyTaskList();
+  remainingPomos = new RemainingPomos();
+
+  timerUI.appendChild(remainingPomos);
 
   // Call any helper functions to handle user events.
   handleClick(timerUI, votl);

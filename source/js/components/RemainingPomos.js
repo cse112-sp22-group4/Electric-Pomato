@@ -22,14 +22,17 @@ class RemainingPomos extends HTMLElement {
     this.taskList = new TaskList();
     this.currentTask = null;
 
+    if (this.taskList.todo.length === 0) return;
+
     // console.log(this.taskList);
     this.svgUrls = svgIcons[backend.get('Icon')].urls;
     this.svgClasses = svgIcons[backend.get('Icon')].classes;
 
     const template = document.createElement('template');
     template.innerHTML = `
-      <div class="d-flex justify-content-between align-items-center remaining-pomos-container">
+      <div class="remaining-pomos-container">
         <h3>Remaining Planned Pomos</h3>
+        <div class="d-flex justify-content-center align-items-center icon-container"></div>
       </div>
     `;
     this.appendChild(template.content.cloneNode(true));
@@ -39,12 +42,8 @@ class RemainingPomos extends HTMLElement {
   }
 
   resetPomos() {
-    const pomoContainer = this.querySelector('.remaining-pomos-container');
-    pomoContainer.innerHTML = `
-      <div class="d-flex justify-content-between align-items-center remaining-pomos-container">
-        <h3>Remaining Planned Pomos</h3>
-      </div>
-    `;
+    const pomoContainer = this.querySelector('.icon-container');
+    pomoContainer.innerHTML = '';
   }
 
   /**
@@ -60,7 +59,7 @@ class RemainingPomos extends HTMLElement {
     const expectedPomos = taskList.todo[0].expected;
     // eslint-disable-next-line no-plusplus
     for (let i = 0; i < expectedPomos; i++) {
-      this.querySelector('.remaining-pomos-container').appendChild(pomoTemplate.content.cloneNode(true));
+      this.querySelector('.icon-container').appendChild(pomoTemplate.content.cloneNode(true));
     }
 
     this.querySelectorAll('.remaining-pomos-icon').forEach((object) => {
