@@ -1,6 +1,7 @@
 /**
  * @file Creates a custom element for the tomato slider to estimate the number of pomodoros.
  * @author Andy Young
+ * @author Luke Menezes
  */
 
 /**
