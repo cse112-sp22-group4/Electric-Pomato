@@ -11,6 +11,8 @@ import CreateTaskListMobileImage from '../../img/create-task-list-mobile.png';
 import ViewableTaskListImage from '../../img/viewable-task-list.png';
 import ViewableTaskListMobileImage from '../../img/viewable-task-list-mobile.png';
 import StatsModalImage from '../../img/stats-modal.png';
+import StatsMobileImage from '../../img/stats-modal-mobile.png';
+import SettingsModal from '../../img/settings-modal.png';
 import GreenTomato from '../../img/green.svg';
 import RedTomato from '../../img/red.svg';
 
@@ -83,9 +85,23 @@ class InfoModal extends HTMLElement {
                   <p class="card-text">Compare the Expected to Actual Pomodoros at the end of your session!</p>
                 </div>
                 <div class="card-description">
-                  <img src=${StatsModalImage} alt="Stats Modal"/>
+                  <img class="desktop-image" src=${StatsModalImage} alt="Stats Modal View"/>
+                  <img class="mobile-image" src=${StatsMobileImage} alt="Stats Modal Mobile View"/>
                   <p>This page will help you see how long your tasks took compared to how long you expected.
                   With this information, you can better time yourself and productivity next session!</p>
+                </div>
+              </div>
+              <p class="card-endnote">Don't know what a Pomodoro is? A Pomodoro is an aspect of the Pomodoro Technique. The technique pushes the user to work on tasks in 25 minute chunks (Pomodoro) with breaks between, and long breaks after 4 Pomodoros.</p>
+            </div>
+            <div class="card">
+              <div class="card-body">
+                <div>
+                  <h2 class="card-title">Settings</h2>
+                  <p class="card-text">Customize the behavior of the Pomodoro Timer as you want!</p>
+                </div>
+                <div class="card-description card-settings">
+                  <img src=${SettingsModal} alt="Stats Modal View"/>
+                  <p>In settings, you can edit the theme, icon, or durations for the Pomodoro Timer.</p>
                 </div>
               </div>
               <p class="card-endnote">Don't know what a Pomodoro is? A Pomodoro is an aspect of the Pomodoro Technique. The technique pushes the user to work on tasks in 25 minute chunks (Pomodoro) with breaks between, and long breaks after 4 Pomodoros.</p>
