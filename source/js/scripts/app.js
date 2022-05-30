@@ -13,6 +13,7 @@
  * @author Steven Harris
  */
 
+import PopUp from '../classes/PopUp.js';
 import EditableTaskList from '../components/EditableTaskList.js';
 import ViewOnlyTaskList from '../components/ViewOnlyTaskList.js';
 import TimerUI from '../components/TimerUI.js';
@@ -23,6 +24,9 @@ import * as backend from '../backend.js';
 // Icon assets
 import pomoIcon from '../../img/green-tomato.png';
 import breakIcon from '../../img/red-tomato.png';
+
+// Import audio from local file
+const notiSound = new URL('../../audio/notification-ping.mp3', import.meta.url);
 
 /**
  * STATE:
@@ -151,15 +155,19 @@ function updateAppTitle(taskFinished) {
  * @ignore
  */
 function nextTask(object) {
-  // Finish task in task list
-  votl.finishTask();
-  votl.render();
+  // Add any partial time from a pomo session to the task time.
+  // Check that the timer is running for the edge case where a task
+  // is finished during break, but timer has updated to pomo.
+  votl.finishTask(backend.get('Timer') === 'true' && document.querySelector('.timer-text').textContent !== 'START');
 
   // Update app title
   updateAppTitle(object.getChecked());
 
   // Update Finish task button according to task list
   object.updateButton();
+
+  // Start tracking time for the next task
+  votl.startTask();
 }
 
 /**
@@ -190,6 +198,16 @@ function initTimer(timer) {
       timer.setColorRed();
     }
   }
+}
+
+/**
+ * Plays the sound from the given link
+ * @param {String} link - Link to mp3 file to play
+ * @ignore
+ */
+function playSound(link) {
+  const sound = new Audio(link);
+  sound.play();
 }
 
 /**
@@ -224,6 +242,7 @@ function showTimerNotification() {
           .then((notifications) => {
             setTimeout(() => notifications.forEach((notification) => notification.close()), 5000);
           }));
+      playSound(notiSound);
     });
 }
 
@@ -241,6 +260,7 @@ function handleClick(timer, taskList) {
       if (backend.get('Timer') === 'true') {
         // Hide all icons except home when a work session starts.
         menuIcons.focusMode();
+        taskList.startTask();
         // Replace the title with the subtitle and hide the subtitle
         const appTitle = document.querySelector('.app-title');
         const appSubtitle = document.querySelector('.app-subtitle');
@@ -269,7 +289,26 @@ function handleClick(timer, taskList) {
           if (timerState === 'true') {
             backend.set('TotalPomos', Number(backend.get('TotalPomos')) + 1);
             backend.set('CurrentPomos', Number(backend.get('CurrentPomos')) + 1);
-            taskList.addPomo();
+            taskList.updateTime();
+
+            // Alert the user if they have reached their expected number of pomos
+            const endMessage = {
+              title: 'You have reached the expected Pomodoros for this task. Finish task or continue working?',
+              leftButton: 'Finish Task',
+              rightButton: 'Continue Working',
+            };
+            if (taskList.data.todo[0].actual === taskList.data.todo[0].expected) {
+              PopUp.prompt(endMessage, false).then((result) => {
+                if (result === 'left') {
+                  // Simulate clicking the finish task button
+                  finishTaskButton.checked = true;
+                  nextTask(finishTaskButton);
+                  PopUp.hide();
+                } else {
+                  PopUp.hide();
+                }
+              });
+            }
           }
 
           // Remove the finish task button
