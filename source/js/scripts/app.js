@@ -58,6 +58,9 @@ const menuIcons = document.querySelector('menu-icons');
 // Finished state
 let finished = false;
 
+// Timer UI
+let timerUI = null;
+
 // View only task list
 let votl = null;
 
@@ -172,6 +175,8 @@ function nextTask(object) {
   // is finished during break, but timer has updated to pomo.
   const svgDoc = document.querySelector('#timerIcon').contentDocument;
   votl.finishTask(backend.get('Timer') === 'true' && svgDoc.querySelector('.timer-text').textContent !== 'START');
+
+  timerUI.remainingPomos.setPomos(votl.data);
 
   // Update app title
   updateAppTitle(object.getChecked());
@@ -298,7 +303,7 @@ function handleClick(timer, taskList) {
 
       // Create finish task button for this session
       const finishTaskButton = new FinishTaskButton(nextTask);
-      timer.appendChild(finishTaskButton);
+      timer.remainingPomos.insertAdjacentElement('beforebegin', finishTaskButton);
 
       active = true;
       timer.startTimer().then(() => {
@@ -316,6 +321,7 @@ function handleClick(timer, taskList) {
             backend.set('TotalPomos', Number(backend.get('TotalPomos')) + 1);
             backend.set('CurrentPomos', Number(backend.get('CurrentPomos')) + 1);
             taskList.updateTime();
+            timerUI.remainingPomos.updateCompletedPomos(taskList.data);
 
             // Alert the user if they have reached their expected number of pomos
             const endMessage = {
@@ -338,13 +344,15 @@ function handleClick(timer, taskList) {
           }
 
           // Remove the finish task button
-          timer.lastElementChild.remove();
+          timer.querySelector('finish-task-button').remove();
 
           if (('Notification' in window) && navigator.serviceWorker) {
             showTimerNotification();
           }
 
           backend.set('Timer', timerState === 'false');
+          timer.remainingPomos.visibleMode();
+
           initTimer(timer);
           active = false;
         }
@@ -358,7 +366,7 @@ function handleClick(timer, taskList) {
  * @ignore
  */
 function showTimer() {
-  const timerUI = new TimerUI();
+  timerUI = new TimerUI();
   votl = new ViewOnlyTaskList();
 
   // Call any helper functions to handle user events.

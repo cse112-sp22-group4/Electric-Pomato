@@ -557,3 +557,21 @@ footer>.container {
         opacity: 1
     }
 }
+
+.remaining-pomos-container {
+    margin-top: 12px;
+    h3 {
+        color: white;
+        width: 150px;
+        text-align: right;
+        margin-right: 12px;
+        margin-bottom: 0;
+    }
+    .remaining-pomos-icon {
+        height: 60px;
+        padding: 0 2px;
+    }
+    .completed {
+        opacity: 30%;
+    }
+}

@@ -11,6 +11,7 @@
  */
 
 import Timer from '../classes/Timer.js';
+import RemainingPomos from './RemainingPomos.js';
 import svgIcons from '../constants/themeIcons.js';
 import * as backend from '../backend.js';
 /**
@@ -30,6 +31,9 @@ class TimerUI extends HTMLElement {
         <object id="timerIcon" class="w-100 h-100 position-absolute top-50 start-50 translate-middle" data=${svgIcons[this.theme].urls[1]}></object>
       </div>
     `;
+    this.remainingPomos = new RemainingPomos();
+
+    this.appendChild(this.remainingPomos);
 
     // Store the string to be displayed on top of the timer icon
     this.text = 'START';
@@ -142,6 +146,7 @@ class TimerUI extends HTMLElement {
         this.dispatchEvent(new CustomEvent('iconclick'), {
           bubbles: true,
         });
+        this.remainingPomos.hiddenMode();
       });
 
       // Grab the svg text tag to use in attributeChangedCallback lifestyle method
