@@ -276,7 +276,7 @@ function handleClick(timer, taskList) {
         timer.createTimer(shortBreakDuration, 0);
       }
 
-      // Create finish task button for this sessio
+      // Create finish task button for this session
       const finishTaskButton = new FinishTaskButton(nextTask);
       timer.appendChild(finishTaskButton);
 
@@ -358,6 +358,10 @@ function handleOnLoad() {
     showTimer();
   } else {
     // otherwise, go to task list page
+    if (backend.get('HasSeenInfo') === null) {
+      menuIcons.infoModal.open();
+      backend.set('HasSeenInfo', 'true');
+    }
     appContainer.appendChild(new EditableTaskList());
     document.querySelector('.app-title').textContent = `${backend.get('Username')}'s Session`;
     appContainer.querySelectorAll('.start-day-button').forEach((button) => {
