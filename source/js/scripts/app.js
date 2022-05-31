@@ -285,7 +285,7 @@ function handleClick(timer, taskList) {
         timer.createTimer(workSessionDuration, 0);
       } else {
         favicon.href = breakIcon;
-        windowTitle = 'Recharging';
+        windowTitle = 'Recharging...';
         if (isLongBreak()) {
           const longBreakDuration = backend.get('LongBreakDuration');
           timer.createTimer(longBreakDuration, 0);
