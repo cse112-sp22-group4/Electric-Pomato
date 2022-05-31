@@ -25,6 +25,8 @@ import * as backend from '../backend.js';
 import pomoIcon from '../../img/green-tomato.png';
 import breakIcon from '../../img/red-tomato.png';
 
+const appIcon = new URL('../../img/favicon.ico', import.meta.url);
+
 // Import audio from local file
 const notiSound = new URL('../../audio/notification-ping.mp3', import.meta.url);
 
@@ -48,6 +50,7 @@ const notiSound = new URL('../../audio/notification-ping.mp3', import.meta.url);
 
 // DOM elements
 const appContainer = document.querySelector('.app-container');
+const favicon = document.querySelector("link[rel*='icon']");
 
 // Menu icons
 const menuIcons = document.querySelector('menu-icons');
@@ -57,6 +60,9 @@ let finished = false;
 
 // View only task list
 let votl = null;
+
+// Website title
+let windowTitle = 'Electric Pomato';
 
 /* **************************** Helper Functions **************************** */
 
@@ -70,6 +76,12 @@ function isLongBreak() {
   return currentPomos > 0 && currentPomos % 4 === 0;
 }
 
+/**
+ * Handles all things that need to be done on timer tick, like updating website title
+ */
+function handleTick(event) {
+  document.title = `${event.text} - ${windowTitle}`;
+}
 /**
  * Handles all things that need to be done at the end of the session, called by initTimer
  * @ignore
@@ -257,7 +269,10 @@ function handleClick(timer, taskList) {
 
   timer.firstElementChild.addEventListener('click', () => {
     if (!active) {
+      document.addEventListener('timerTick', handleTick);
       if (backend.get('Timer') === 'true') {
+        favicon.href = pomoIcon;
+        windowTitle = 'Plugged in!';
         // Hide all icons except home when a work session starts.
         menuIcons.focusMode();
         taskList.startTask();
@@ -268,12 +283,16 @@ function handleClick(timer, taskList) {
         appSubtitle.style.display = 'none';
         const workSessionDuration = backend.get('WorkSessionDuration');
         timer.createTimer(workSessionDuration, 0);
-      } else if (isLongBreak()) {
-        const longBreakDuration = backend.get('LongBreakDuration');
-        timer.createTimer(longBreakDuration, 0);
       } else {
-        const shortBreakDuration = backend.get('ShortBreakDuration');
-        timer.createTimer(shortBreakDuration, 0);
+        favicon.href = breakIcon;
+        windowTitle = 'Recharging...';
+        if (isLongBreak()) {
+          const longBreakDuration = backend.get('LongBreakDuration');
+          timer.createTimer(longBreakDuration, 0);
+        } else {
+          const shortBreakDuration = backend.get('ShortBreakDuration');
+          timer.createTimer(shortBreakDuration, 0);
+        }
       }
 
       // Create finish task button for this session
@@ -283,6 +302,12 @@ function handleClick(timer, taskList) {
       active = true;
       timer.startTimer().then(() => {
         if (!finished) {
+          // Reset to default icon/title
+          document.removeEventListener('timerTick', handleTick);
+          favicon.href = appIcon;
+          windowTitle = 'Electric Pomato';
+          document.title = windowTitle;
+
           const timerState = backend.get('Timer');
 
           // Increment pomos if we were in a Pomo session
