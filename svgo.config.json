@@ -5,7 +5,8 @@
         "params": {
           "overrides": {
             "removeEmptyText": false,
-            "cleanupIDs": false 
+            "cleanupIDs": false,
+            "collapseGroups": false
           }
         }
       }

@@ -109,15 +109,6 @@ class TimerUI extends HTMLElement {
    * Sets the Tomato image to a Green Tomato.
    */
   setPomoIcon() {
-    // If svg has not been loaded onto the page (load onto app.html for the first time or reload)
-    // if (!this.icon) {
-    //   this.color = svgIcons[this.theme].classes[0];
-    //   return;
-    // }
-
-    // // Else svg has already been loaded onto the page (done multiple sessions with no reload)
-    // this.icon.classList.remove(svgIcons[this.theme].classes[1]);
-    // this.icon.classList.add(svgIcons[this.theme].classes[0]);
     this.querySelector('#timerIcon').setAttribute('data', svgIcons[this.theme].urls[1]);
   }
 
@@ -125,24 +116,7 @@ class TimerUI extends HTMLElement {
    * Sets the Tomato image to a Red Tomato.
    */
   setBreakIcon() {
-    // If svg has not been loaded onto the page (load onto app.html for the first time or reload)
-    // if (!this.icon) {
-    //   this.color = svgIcons[this.theme].classes[1];
-    //   return;
-    // }
-
-    // // Else svg has already been loaded onto the page (done multiple sessions with no reload)
-    // this.icon.classList.remove(svgIcons[this.theme].classes[0]);
-    // this.icon.classList.add(svgIcons[this.theme].classes[1]);
-
     this.querySelector('#timerIcon').setAttribute('data', svgIcons[this.theme].urls[2]);
-  }
-
-  /**
-   * Sets the Tomato image to a Gold Tomato.
-   */
-  setColorGold() {
-    this.querySelector('.timer-image').classList.add('gold-tomato');
   }
 
   render() {
