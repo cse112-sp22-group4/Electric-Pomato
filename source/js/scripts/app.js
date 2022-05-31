@@ -51,6 +51,7 @@ const notiSound = new URL('../../audio/notification-ping.mp3', import.meta.url);
 // DOM elements
 const appContainer = document.querySelector('.app-container');
 const favicon = document.querySelector("link[rel*='icon']");
+
 // Menu icons
 const menuIcons = document.querySelector('menu-icons');
 
@@ -62,6 +63,7 @@ let votl = null;
 
 // Website title
 let windowTitle = 'Electric Pomato';
+
 /* **************************** Helper Functions **************************** */
 
 /**
