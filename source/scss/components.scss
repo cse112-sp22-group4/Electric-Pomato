@@ -1,0 +1,472 @@
+@import url('https://fonts.googleapis.com/css2?family=Neucha&display=swap');
+@import "variables";
+@import "themes";
+@import "../../node_modules/bootstrap/scss/bootstrap";
+
+/* Styling for components shared between app.html and index.html */
+
+body {
+    min-height: 100vh;
+    position: relative;
+
+    @include themify($themes) {
+        background-color: themed('body-background-color');
+    }
+}
+
+menu-icons {
+    i {
+        font-size: $h5-font-size;
+
+        @include themify($themes) {
+            background-color: themed('menu-button-background-color');
+        }
+    }
+
+    button {
+        cursor: pointer;
+        border: none;
+
+        @include themify($themes) {
+            background-color: themed('menu-button-background-color');
+        }
+    }
+
+    button:hover {
+        opacity: 0.5;
+    }
+
+    span {
+        font-size: $h5-font-size
+    }
+}
+
+info-modal {
+    .container {
+        width: 600px;
+    }
+
+    h2 {
+        text-decoration: underline;
+        text-align: center;
+    }
+
+    #info-cards {
+        overflow: auto;
+        height: 70vh;
+    }
+
+    #info-close {
+        margin-left: 10vw;
+        margin-right: 10vw;
+    }
+}
+
+settings-modal {
+    .container {
+        width: 600px;
+    }
+
+    #settings-container {
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+    }
+
+    #settings-close {
+        @include themify($themes) {
+            background-color: themed('danger');
+        }
+    }
+
+    .settings-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 50px;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .settings-item {
+        overflow-wrap: break-word;
+        font-size: $h3-font-size;
+
+        @include themify($themes) {
+            color: themed('settings-item-color');
+        }
+    }
+
+    .settings-select {
+        padding: 5px;
+        font-size: $h4-font-size;
+
+        @include themify($themes) {
+            background-color: themed('settings-select-background-color');
+            color: themed('settings-select-color')
+        }
+    }
+}
+
+stats-modal {
+    #line-chart-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 2.5rem;
+        height: 50vh;
+        flex-grow: 1;
+        position: relative;
+        padding: 2%;
+
+        @include themify($themes) {
+            background-color: themed('stats-background-color');
+        }
+    }
+
+    #line-chart-alt {
+        margin: auto;
+
+        @include themify($themes) {
+            color: themed('modal-text-color');
+        }
+    }
+
+    #stats-close {
+        margin-left: 10vw;
+        margin-right: 10vw;
+    }
+
+    #line-chart-colors {
+        display: none;
+
+        @include themify($themes) {
+            color: themed('modal-text-color');
+            border-color: rgba(themed('modal-text-color'), 0.1)
+        }
+    }
+
+    #line-chart-expected-color {
+        @include themify($themes) {
+            background-color: themed('stats-expected-line-color');
+        }
+    }
+
+    #line-chart-actual-color {
+        @include themify($themes) {
+            background-color: themed('stats-actual-line-color');
+        }
+    }
+}
+
+.btn-primary {
+    @include themify($themes) {
+        color: themed('primary-button-text-color');
+        border-color: themed('primary');
+        background-color: themed('primary');
+    }
+}
+
+.btn-secondary {
+    @include themify($themes) {
+        color: themed('secondary-button-text-color');
+        border-color: themed('secondary');
+        background-color: themed('secondary');
+    }
+}
+
+.btn-success {
+    @include themify($themes) {
+        color: themed('success-button-text-color');
+        border-color: themed('success');
+        background-color: themed('success');
+    }
+}
+
+.btn {
+    border-radius: 2.5rem;
+    font-size: $h5-font-size;
+    transform-origin: 50% 50%;
+    transition: none;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+}
+
+.btn:focus,
+.btn:active {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.btn:active {
+    transform: scale(1);
+}
+
+.btn-lg {
+    padding: map-get($spacers, 2) map-get($spacers, 5);
+    font-size: $h4-font-size;
+}
+
+.btn-block {
+    width: 100%;
+    height: 100%;
+}
+
+a {
+    text-decoration: none;
+}
+
+input {
+    border-bottom-left-radius: 15px 255px;
+    border-bottom-right-radius: 225px 15px;
+    border-top-left-radius: 255px 15px;
+    border-top-right-radius: 15px 225px;
+    border-style: solid;
+    border-width: 2px;
+
+    @include themify($themes) {
+        border-color: themed('input-border-color');
+        background-color: themed('input-background-color');
+        color: themed('input-text-color');
+    }
+}
+
+input:focus {
+    outline: 0;
+
+    @include themify($themes) {
+        border-color: themed('input-focus-border-color');
+    }
+}
+
+.legend-icon {
+    width: 80px;
+    margin-right: 1.5rem;
+}
+
+.invisible {
+    opacity: 0;
+}
+
+.subtitle {
+    font-size: $font-size-base * 2.5;
+    font-weight: 600;
+    text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+
+    @include themify($themes) {
+        color: themed('subtitle-text-color');
+    }
+}
+
+.card {
+    width: 100%;
+    border-radius: 2.5rem;
+    padding: map-get($spacers, 4);
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 1.5rem 0;
+    font-size: $h5-font-size;
+}
+
+footer * {
+    color: white;
+}
+
+footer>.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    z-index: 2;
+    padding: map-get($spacers, 5) 0 map-get($spacers, 5) 0;
+
+    @media screen and (max-width: 1000px) {
+        h1 {
+            font-size: $h3-font-size;
+        }
+
+        h4 {
+            font-size: $h6-font-size;
+        }
+    }
+}
+
+.app-title,
+.app-subtitle {
+    color: white;
+    text-align: center;
+    margin-bottom: 0;
+}
+
+.white-tomato {
+    #\#fe250cff path {
+        fill: white;
+    }
+
+    #\#fb1101ff path {
+        fill: white;
+    }
+
+    #\#fe5637ff path {
+        fill: white;
+    }
+}
+
+.red-tomato {
+    /*
+    & > path:nth-child(1) {
+        fill: #d7212d;
+    }
+
+    & > path:nth-child(2) {
+        fill: #b9182a;
+    }
+    */
+
+    #\#fe250cff path {
+        fill: #fe250cff;
+    }
+
+    #\#fb1101ff path {
+        fill: #fb1101ff;
+    }
+
+    #\#fe5637ff path {
+        fill: #fe5637ff;
+    }
+}
+
+
+.green-tomato {
+    /*
+    & > path:nth-child(1) {
+        fill: #2dd721;
+    }
+
+    & > path:nth-child(2) {
+        fill: #2AB918;
+    }
+    */
+
+    // body color
+    #\#fe250cff path {
+        fill: #62e462ff;
+    }
+
+    // shadow color
+    #\#fb1101ff path {
+        fill: #5fdd5fff;
+    }
+
+    // highlight color
+    #\#fe5637ff path {
+        fill: #66ec66ff;
+    }
+}
+
+.gold-tomato {
+    /*
+    & > path:nth-child(1) {
+        fill: #e6b800;
+    }
+
+    & > path:nth-child(2) {
+        fill: #c59e01;
+    }
+    */
+
+    // body color
+    #\#fe250cff path {
+        fill: #e6b800;
+    }
+
+    // shadow color
+    #\#fb1101ff path {
+        fill: #e6b800;
+    }
+
+    // highlight color
+    #\#fe5637ff path {
+        fill: #c59e01;
+    }
+}
+
+
+.notification,
+.modal-wrapper {
+    /* Hidden by default */
+    display: none;
+    align-items: center;
+    /* Stay in place */
+    position: fixed;
+    /* Sit on top */
+    z-index: 3;
+    left: 0;
+    top: 0;
+    /* Full width */
+    width: 100%;
+    /* Full height */
+    height: 100%;
+    /* Enable scroll if needed */
+    overflow: auto;
+    /* Fallback color */
+    background-color: rgb(0, 0, 0);
+    /* Black w/ opacity */
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-title {
+    @include themify($themes) {
+        color: themed('modal-text-color');
+    }
+}
+
+#notif-content,
+.modal-content {
+    padding: map-get($spacers, 4);
+    border-radius: 2.5rem;
+    animation-name: animatetop;
+    animation-duration: 0.5s;
+    text-align: center;
+    position: relative;
+
+    @include themify($themes) {
+        background-color: themed('modal');
+        border: 5px solid themed('primary');
+    }
+}
+
+#notif-content {
+    @include themify($themes) {
+        color: themed('modal-text-color');
+    }
+}
+
+#notif-content>*:not(:last-child),
+.modal-content>*:not(:last-child),
+#info-cards>*:not(:last-child) {
+    margin-bottom: map-get($spacers, 4);
+}
+
+@keyframes animatetop {
+    from {
+        top: -300px;
+        opacity: 0
+    }
+
+    to {
+        top: 0;
+        opacity: 1
+    }
+}
