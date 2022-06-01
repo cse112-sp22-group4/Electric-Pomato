@@ -1,74 +1,91 @@
+/* eslint-disable no-undef */
+/* eslint-disable no-unused-expressions */
+/* eslint-disable jest/valid-expect */
 // TODO Rewrite these tests for updated SVG icons logic
+const getSvgDoc = () => cy.get('#timerIcon')
+  .its('0.contentDocument').should('exist');
 
-// describe('Task Time and Actual Pomo Tests', () => {
-//   const MS_IN_WORK_SESSION = 25 * 60 * 1000;
+describe('Task Time and Actual Pomo Tests', () => {
+  const MS_IN_WORK_SESSION = 25 * 60 * 1000;
 
-//   beforeEach(() => {
-//     cy.visit('/');
-//     cy.clearLocalStorage();
+  beforeEach(() => {
+    cy.visit('/');
+    cy.clearLocalStorage();
 
-//     // Log in
-//     cy.get('.start-input').type('Thomas{enter}');
+    // Log in
+    cy.get('.start-input').type('Thomas{enter}');
 
-//     // Close the info popup
-//     cy.get('#info-close')
-//       .click();
+    // Close the info popup
+    cy.get('#info-close')
+      .click();
 
-//     // Add a few tasks
-//     cy.get('.task-list').last().type('Task 1{enter}');
-//     cy.get('.task-list').last().type('Task 2{enter}');
-//     cy.get('.task-list').last().type('Task 3{enter}');
+    // Add a few tasks
+    cy.get('.task-list').last().type('Task 1{enter}');
+    cy.get('.task-list').last().type('Task 2{enter}');
+    cy.get('.task-list').last().type('Task 3{enter}');
 
-//     // Start the day
-//     cy.get('#start-day')
-//       .click();
-//   });
+    // Start the day
+    cy.get('#start-day')
+      .click();
+  });
 
-//   it('Check that a task worked on for a majority of a pomo counts towards the actual pomos', () => {
-//     cy.clock();
-//     // Start the timer
-//     cy.get('.timer-container')
-//       .click();
+  it('Check that a task worked on for a majority of a pomo counts towards the actual pomos', () => {
+    cy.clock();
 
-//     // Advance the timer to half of the work session
-//     cy.tick(MS_IN_WORK_SESSION / 2);
+    // cy.get('#timerIcon').contains('text', 'START', {timeout: 10000});
+    getSvgDoc().then((body) => {
+      console.log(body.querySelector('svg'));
+    });
+    expect(true).to.eq(true);
+    // Start the timer
+    // await cy.document().then((doc) => {
+    //   doc.querySelector('#timerIcon').addEventListener('load', () => {
+    //     console.log(doc.querySelector('.timer-image'));
+    //     console.log('fuck');
+    //     expect(true).to.eq(true);
+    //   });
+    //   console.log(doc.querySelector('.timer-image'));
+    //   expect(true).to.eq(true);
+    // });
+    // // Advance the timer to half of the work session
+    // cy.tick(MS_IN_WORK_SESSION / 2);
 
-//     // Finish the task
-//     cy.get('finish-task-button').first()
-//       .click();
-//     cy.get('#notif-left').click().should(() => {
-//       // Expect that a pomo was recorded
-//       const taskList = JSON.parse(localStorage.getItem('TaskList'));
-//       const actualPomos = taskList.completed[0].actual;
-//       const workTime = taskList.completed[0].time;
-//       expect(actualPomos).to.eq(1);
-//       expect(workTime).to.eq(60 * 25 / 2);
-//     });
-//   });
+    // // Finish the task
+    // cy.get('finish-task-button').first()
+    //   .click();
+    // cy.get('#notif-left').click().should(() => {
+    //   // Expect that a pomo was recorded
+    //   const taskList = JSON.parse(localStorage.getItem('TaskList'));
+    //   const actualPomos = taskList.completed[0].actual;
+    //   const workTime = taskList.completed[0].time;
+    //   expect(actualPomos).to.eq(1);
+    //   expect(workTime).to.eq(60 * 25 / 2);
+    // });
+  });
 
-//   it('Check that a task worked on for a minority of a pomo does not count towards the actual pomos', () => {
-//     cy.clock();
-//     // Start the timer
-//     cy.get('.timer-container')
-//       .click();
+  //   it('Check that a task worked on for a minority of a pomo does not count towards the actual pomos', () => {
+  //     cy.clock();
+  //     // Start the timer
+  //     cy.get('.timer-container')
+  //       .click();
 
-//     // Advance the timer to a third of the work session
-//     cy.tick(MS_IN_WORK_SESSION / 3);
+  //     // Advance the timer to a third of the work session
+  //     cy.tick(MS_IN_WORK_SESSION / 3);
 
-//     // Finish the task
-//     cy.get('finish-task-button').first()
-//       .click();
-//     cy.get('#notif-left').click().should(() => {
-//       // Expect that a pomo wasn't recorded
-//       const taskList = JSON.parse(localStorage.getItem('TaskList'));
-//       const actualPomos = taskList.completed[0].actual;
-//       const workTime = taskList.completed[0].time;
-//       expect(actualPomos).to.eq(0);
-//       expect(workTime).to.eq(60 * 25 / 3);
-//     });
+  //     // Finish the task
+  //     cy.get('finish-task-button').first()
+  //       .click();
+  //     cy.get('#notif-left').click().should(() => {
+  //       // Expect that a pomo wasn't recorded
+  //       const taskList = JSON.parse(localStorage.getItem('TaskList'));
+  //       const actualPomos = taskList.completed[0].actual;
+  //       const workTime = taskList.completed[0].time;
+  //       expect(actualPomos).to.eq(0);
+  //       expect(workTime).to.eq(60 * 25 / 3);
+  //     });
 
-//     // Finish the pomo session
-//     cy.tick(2 * MS_IN_WORK_SESSION / 3);
+  //     // Finish the pomo session
+  //     cy.tick(2 * MS_IN_WORK_SESSION / 3);
 
 //     // When popup asks if we want to finish the task, don't finish it
 //     cy.get('#notif-right').click().should(() => {
@@ -80,4 +97,4 @@
 //       expect(workTime).to.eq(2 * 60 * 25 / 3);
 //     });
 //   });
-// });
+});
