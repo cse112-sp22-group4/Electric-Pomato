@@ -44,10 +44,8 @@ class TomatoSlider extends HTMLElement {
     this.handleMouseLeave = this.handleMouseLeave.bind(this);
 
     const observer = new MutationObserver((mutations) => {
-      console.log(mutations);
       mutations.forEach((mutation) => {
         if (mutation.attributeName === 'disabled') {
-          console.log('disabled mutation');
           this.updateState();
         }
       });
