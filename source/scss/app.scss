@@ -106,6 +106,12 @@ editable-task-list {
     padding: map-get($spacers, 5);
     height: 100%;
     margin-top: 2%;
+
+    h5 {
+        @include themify($themes) {
+            color: themed('editable-task-list-label-text-color');
+        }
+    }
 }
 
 view-only-task-list {

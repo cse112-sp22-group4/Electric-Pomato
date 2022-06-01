@@ -35,18 +35,20 @@
                 </div>
             </div>
         </div>
-        <div class="app-header">
-            <div class="mg-sm-0">
-                <div class="text-white">
-                    <h1 class="mb-0">Electric Pomato</h1>
-                    <h4 class="mb-0">Plan. Track. Record.</h4>
+        <div class="app-header-container">
+            <div class="d-flex col align-items-center">
+                <img class="app-header-logo" height="40px" width="40px" src="img/logo.png" alt="app-logo"></img>
+                <div class="ms-3 mg-sm-0">
+                    <div class="mt-2 text-white">
+                        <h3 class="mb-0">Electric Pomato</h3>
+                        <h5 class="mb-0">Plan. Track. Record.</h5>
+                    </div>
                 </div>
             </div>
             <menu-icons></menu-icons>
         </div>
-        <div class="row pt-6 pb-6">
-            <intro-icons class="col-12 col-lg-6 mb-4 mb-lg-0 d-flex flex-column justify-content-center"></intro-icons>
-            <div class="col-12 col-lg-6">
+        <div class="start-container-wrapper">
+            <div class="m-auto col-md-12 col-lg-7 col-xl-6">
                 <start-container></start-container>
                 <template id="username-input-template">
                     <div class="d-flex justify-content-start align-items-center">
@@ -63,10 +65,15 @@
                 </template>
             </div>
         </div>
-
-        <settings-modal></settings-modal>
-        <info-modal></info-modal>
-        <stats-modal></stats-modal>
+        <div class="intro-icons-container row">
+            <div class="intro-icons-items">
+                <intro-icons></intro-icons>
+            </div>
+        </div>
+    </div>
+    <settings-modal></settings-modal>
+    <info-modal></info-modal>
+    <stats-modal></stats-modal>
     </div>
     <footer>
         <div class="container">
