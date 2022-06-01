@@ -343,15 +343,15 @@ footer>.container {
 }
 
 .white-tomato {
-    #\#fe250cff path {
+    #\#fe250cff {
         fill: white;
     }
 
-    #\#fb1101ff path {
+    #\#fb1101ff {
         fill: white;
     }
 
-    #\#fe5637ff path {
+    #\#fe5637ff {
         fill: white;
     }
 }
@@ -367,15 +367,15 @@ footer>.container {
     }
     */
 
-    #\#fe250cff path {
+    #\#fe250cff {
         fill: #fe250cff;
     }
 
-    #\#fb1101ff path {
+    #\#fb1101ff {
         fill: #fb1101ff;
     }
 
-    #\#fe5637ff path {
+    #\#fe5637ff {
         fill: #fe5637ff;
     }
 }
@@ -393,17 +393,17 @@ footer>.container {
     */
 
     // body color
-    #\#fe250cff path {
+    #\#fe250cff {
         fill: #62e462ff;
     }
 
     // shadow color
-    #\#fb1101ff path {
+    #\#fb1101ff {
         fill: #5fdd5fff;
     }
 
     // highlight color
-    #\#fe5637ff path {
+    #\#fe5637ff {
         fill: #66ec66ff;
     }
 }
@@ -432,6 +432,42 @@ footer>.container {
     // highlight color
     #\#fe5637ff path {
         fill: #c59e01;
+    }
+}
+
+.bomb-pomo { 
+    #bombP1, #bombP7 {
+        fill: #666B6B;
+    }
+
+    #bombP2, #bombP6{
+        fill: #244142;
+    }
+
+    #bombP3, #bombP4 {
+        fill: #142E2F;
+    }
+
+    #bombP5 {
+        fill: #2D4F51;
+    }
+}
+
+.bomb-white {
+    #bombP1, #bombP7 {
+        fill: #F9F9F9;
+    }
+
+    #bombP2, #bombP6{
+        fill: #EEEEEE;
+    }
+
+    #bombP3, #bombP4 {
+        fill: #E2E2E2;
+    }
+
+    #bombP5 {
+        fill: #F9F9F9;
     }
 }
 

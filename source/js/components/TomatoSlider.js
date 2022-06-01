@@ -4,6 +4,10 @@
  * @author Arman Mansourian
  */
 
+// Need the imports because of parcel
+import svgIcons from '../constants/themeIcons.js';
+import * as backend from '../backend.js';
+
 /**
  * Constructs the HTML for the slider.
  * @extends HTMLElement
@@ -14,11 +18,24 @@ class TomatoSlider extends HTMLElement {
    */
   constructor() {
     super();
-    this.appendChild(document.querySelector('#tomato-slider-template').content.cloneNode(true));
+
+    this.svgUrls = svgIcons[backend.get('Icon')].urls;
+    this.svgClasses = svgIcons[backend.get('Icon')].classes;
+    // Create template and append to tomato-slider (need to maintain input child)
+    const template = document.createElement('template');
+    template.innerHTML = `
+      <div class="d-flex justify-content-between align-items-center slider-tomato-container">
+        <object id=0 class="slider-tomato" type="image/svg+xml" data=""></object>
+        <object id=1 class="slider-tomato" type="image/svg+xml" data=""></object>
+        <object id=2 class="slider-tomato" type="image/svg+xml" data=""></object>
+        <object id=3 class="slider-tomato" type="image/svg+xml" data=""></object>
+        <object id=4 class="slider-tomato" type="image/svg+xml" data=""></object>
+      </div>
+    `;
+    this.appendChild(template.content.cloneNode(true));
 
     this.input = this.firstElementChild;
     this.container = this.lastElementChild;
-    this.tomatos = this.querySelectorAll('.slider-tomato > g');
 
     this.input.style.display = 'none';
 
@@ -29,7 +46,6 @@ class TomatoSlider extends HTMLElement {
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
         if (mutation.attributeName === 'disabled') {
-          console.log('disabled mutation');
           this.updateState();
         }
       });
@@ -61,14 +77,15 @@ class TomatoSlider extends HTMLElement {
   /**
    *
    * @param {number} n - the number of tomatoes (pomodoro sessions) selected.
-   * @param {string} color - string for the color to fill the number of selected tomatoes.
+   * @param {string} color - the class name to determine the fill of the selected tomatoes.
    */
   colorTomatos(n, color) {
     this.tomatos.forEach((tomato, i) => {
-      if (i < n) {
-        tomato.classList.value = `${color}-tomato`;
+      if (i !== 0 && i < n) {
+        tomato.classList.value = color;
       } else {
-        tomato.classList.value = 'white-tomato';
+        // eslint-disable-next-line prefer-destructuring
+        tomato.classList.value = this.svgClasses[0];
       }
     });
   }
@@ -77,11 +94,37 @@ class TomatoSlider extends HTMLElement {
    * Fill the slider with the tomatoes selected.
    */
   render() {
+    // Color green if input is disabled
     if (this.input.disabled) {
-      this.colorTomatos(Number(this.input.value), 'green');
-    } else {
-      this.colorTomatos(Number(this.input.value), 'red');
+      this.querySelectorAll('.slider-tomato').forEach((object, i) => {
+        if (i < this.input.value) {
+          object.setAttribute('data', this.svgUrls[1]);
+        } else {
+          object.setAttribute('data', this.svgUrls[0]);
+        }
+      });
+      return;
     }
+
+    // Wait for all svg's to load and then populate this.tomatos
+    this.tomatos = [];
+    this.querySelectorAll('.slider-tomato').forEach((icon) => {
+      // Set to blank icon
+      if (icon.getAttribute('id') === '0') {
+        icon.setAttribute('data', this.svgUrls[1]);
+      } else {
+        icon.setAttribute('data', this.svgUrls[0]);
+      }
+      icon.addEventListener('load', () => {
+        const svgDoc = icon.contentDocument;
+        this.tomatos[icon.getAttribute('id')] = svgDoc.querySelector('.slider-tomato > g');
+        // Color one tomato by default
+        // if (icon.getAttribute('id') === '0') {
+        //   // eslint-disable-next-line prefer-destructuring
+        //   svgDoc.querySelector('.slider-tomato > g').classList.value = this.svgClasses[1];
+        // }
+      });
+    });
   }
 
   /**
@@ -97,7 +140,7 @@ class TomatoSlider extends HTMLElement {
    * Color the slider with the value set when the mouse leaves.
    */
   handleMouseLeave() {
-    this.colorTomatos(Number(this.input.value), 'red');
+    this.colorTomatos(Number(this.input.value), this.svgClasses[1]);
   }
 
   /**
@@ -107,7 +150,7 @@ class TomatoSlider extends HTMLElement {
   handleMouseMove(e) {
     const { left, right } = this.querySelector('.slider-tomato-container').getBoundingClientRect();
     const n = Math.min(Math.max(Math.ceil((e.clientX - left) / ((right - left) / 5)), 1), 5);
-    this.colorTomatos(n, 'red');
+    this.colorTomatos(n, this.svgClasses[1]);
   }
 
   /**

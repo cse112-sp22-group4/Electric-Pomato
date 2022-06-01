@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>components/StartButtons.js - Documentation</title>
+    <title>IntroIcons - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,112 +29,133 @@
 
 <div id="main">
     
-    <h1 class="page-title">components/StartButtons.js</h1>
+    <h1 class="page-title">IntroIcons</h1>
     
 
     
 
 
 
+
+<section>
+
+<header>
     
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/**
- * @file Creates a custom element for the buttons to start the timer session.
- * @author Andy Young
- * @author Justin Lee
- * @author Xingyu Zhu
- */
+        <h2>
+        IntroIcons
+        </h2>
+        
+            <div class="class-description"><p>Defines the IntroIcons displayed on index.html accordingly to the theme</p></div>
+        
+    
+</header>
 
-import TaskList from '../classes/TaskList.js';
-import PopUp from '../classes/PopUp.js';
-import * as backend from '../backend.js';
-/**
- * Constructs the HTML for the start buttons
- * @extends HTMLElement
- */
-class StartButtons extends HTMLElement {
-  /**
-  * constructor for StartButtons
-  */
-  constructor() {
-    super();
-    this.classList.add('col');
-    const taskList = new TaskList();
-    if (taskList.todo.length > 0 || taskList.completed.length > 0) {
-      this.appendChild(StartButtons.createButton());
-      this.appendChild(StartButtons.createAnchor());
-    } else {
-      this.appendChild(StartButtons.createButton());
-    }
-  }
+<article>
+    <div class="container-overview">
+    
+        
+<div class="section-method">
 
-  /**
-   * Create a HTML object for the 'Create Session' button.
-   * &lt;button type="button" class="btn btn-secondary btn-lg">Create New Session&lt;/button>
-   * @returns a styled button element that conditionally shows a popup
-   */
-  static createButton() {
-    const button = document.createElement('button');
-    const text = document.createTextNode('Create New Session');
-    button.classList.add('btn', 'btn-success', 'btn-lg', 'btn-block');
-    button.style.marginBottom = '10px';
-    button.appendChild(text);
+    
+    <h2>Constructor</h2>
+    
 
-    button.addEventListener('click', () => {
-      const tasklist = new TaskList();
-      if (tasklist.todo.length > 0) {
-        const warning = {
-          title: 'You already have an existing session, creating a new one will overwrite it!',
-          subtitle: 'Continue anyway?',
-          leftButton: 'Yes',
-          rightButton: 'No',
-        };
+    <h4 class="name" id="IntroIcons"><span class="type-signature"></span>new IntroIcons<span class="signature">()</span><span class="type-signature"></span></h4>
 
-        PopUp.prompt(warning, true).then((result) => {
-          if (result === 'left') {
-            backend.clearSessionData();
-            window.location.href = './app.html';
-          } else if (result === 'right') {
-            PopUp.hide();
-          }
-        });
-      } else {
-        window.location.href = './app.html';
-      }
-    });
+    
 
-    return button;
-  }
 
-  /**
-   * &lt;button type="button" class="btn btn-secondary btn-lg">Returning User&lt;/button>
-   * @returns an HTML object for the 'Returning User' button.
-   */
-  static createAnchor() {
-    const a = document.createElement('a');
-    const text = document.createTextNode('Resume My Session');
-    a.href = 'app.html';
-    a.classList.add('btn', 'btn-secondary', 'btn-lg', 'btn-block');
-    a.appendChild(text);
 
-    a.addEventListener('click', () => {
-      // Reset Timer state and current Pomos if session already started
-      if (backend.get('Started') === 'true') {
-        backend.set('Timer', true);
-        backend.set('CurrentPomos', 0);
-      }
-    });
 
-    return a;
-  }
-}
 
-customElements.define('start-buttons', StartButtons);
-export default StartButtons;
-</code></pre>
-        </article>
-    </section>
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="components_IntroIcons.js.html">components/IntroIcons.js</a>, <a href="components_IntroIcons.js.html#line13">line 13</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+    
+    </div>
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 

@@ -52,4 +52,5 @@ export function removeAll() {
   localStorage.removeItem('WorkSessionDuration');
   localStorage.removeItem('ShortBreakDuration');
   localStorage.removeItem('LongBreakDuration');
+  localStorage.removeItem('HasSeenInfo');
 }
