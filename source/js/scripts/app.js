@@ -201,13 +201,13 @@ function initTimer(timer) {
     if (timerState === 'true') {
       // Update the HTML
       updateAppTitle(false);
-      timer.setColorGreen();
+      timer.setPomoIcon();
     } else {
       // Update the HTML
       menuIcons.defaultMode();
       document.querySelector('.app-subtitle').style.display = 'block';
       updateAppTitle(false);
-      timer.setColorRed();
+      timer.setBreakIcon();
     }
   }
 }
@@ -267,7 +267,7 @@ function showTimerNotification() {
 function handleClick(timer, taskList) {
   let active = false;
 
-  timer.firstElementChild.addEventListener('click', () => {
+  timer.addEventListener('iconclick', () => {
     if (!active) {
       document.addEventListener('timerTick', handleTick);
       if (backend.get('Timer') === 'true') {

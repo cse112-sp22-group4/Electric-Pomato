@@ -208,12 +208,14 @@ pomo-timer {
 
 .slider-tomato-container {
     width: 100%;
+    height: 50px;
     cursor: pointer;
     user-select: none;
 }
 
 .slider-tomato {
     width: 18%;
+    pointer-events: none;
 }
 
 .task-list-container {
