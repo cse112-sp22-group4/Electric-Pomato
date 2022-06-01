@@ -36,8 +36,8 @@
             </div>
         </div>
         <div class="app-header-container">
-            <div class="d-flex col">
-                <object class="app-header-logo" type="image/svg+xml" data="img/app-header-logo.svg"></object>
+            <div class="d-flex col align-items-center">
+                <img class="app-header-logo" height="40px" width="40px" src="img/logo.png" alt="app-logo"></img>
                 <div class="ms-3 mg-sm-0">
                     <div class="mt-2 text-white">
                         <h3 class="mb-0">Electric Pomato</h3>
@@ -48,7 +48,7 @@
             <menu-icons></menu-icons>
         </div>
         <div class="start-container-wrapper">
-            <div class="m-auto col-md-10 col-lg-6">
+            <div class="m-auto col-md-12 col-lg-7 col-xl-6">
                 <start-container></start-container>
                 <template id="username-input-template">
                     <div class="d-flex justify-content-start align-items-center">
@@ -65,14 +65,12 @@
                 </template>
             </div>
         </div>
-        <div class="row start-icons">
-            <div class="start-icons-items">
-                <intro-icons class="col-12 col-lg-6 mb-4 mb-lg-0 d-flex flex-column justify-content-center">
-                </intro-icons>
+        <div class="intro-icons-container row">
+            <div class="intro-icons-items">
+                <intro-icons></intro-icons>
             </div>
         </div>
     </div>
-
     <settings-modal></settings-modal>
     <info-modal></info-modal>
     <stats-modal></stats-modal>
