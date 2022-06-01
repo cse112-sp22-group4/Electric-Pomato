@@ -17,14 +17,16 @@ class IntroIcons extends HTMLElement {
     // Get the theme
     const iconURL = svgIcons[backend.get('Icon')].urls;
     this.innerHTML = `
-            <div class="d-flex align-items-center">
+        <div class="intro-icons-wrapper">
+            <div class="intro-icons-item me-4">
                 <object id="icon1" class="legend-icon" type="image/svg+xml" data=${iconURL[1]}></object>
                 <h3 class="text-white mb-0">25 Minutes of Productivity</h3>
             </div>
-            <div class="d-flex align-items-center">
-                <object id="icon1" class="legend-icon" type="image/svg+xml" data=${iconURL[2]}></object>
-                <h3 class="text-white mb-0"><span class="invisible">2</span>5 Minutes of Relaxing</h3>
+            <div class="intro-icons-item">
+              <object id="icon1" class="legend-icon" type="image/svg+xml" data=${iconURL[2]}></object>
+              <h3 class="text-white mb-0"><span class="invisible">2</span>5 Minutes of Relaxing</h3>
             </div>
+        </div>
     `;
   }
 }

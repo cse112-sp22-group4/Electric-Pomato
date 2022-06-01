@@ -67,8 +67,9 @@ start-container {
     }
 }
 
-.start-icons {
+.intro-icons-container {
     margin-top: 5rem;
+
 
     @media screen and (max-height: 750px) {
         margin-top: 3rem;
@@ -78,32 +79,41 @@ start-container {
         margin-top: 3rem;
     }
 
-    .start-icons-items {
+    .intro-icons-items {
         display: flex;
         justify-content: center;
+    }
 
-        .start-icons-item {
-            display: inherit;
+    intro-icons {
+        .intro-icons-wrapper {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .intro-icons-item {
+            display: flex;
+            flex-direction: row;
             align-items: center;
         }
 
-        @media screen and (max-width: 500px) {
-            flex-direction: column;
+        @media screen and (max-width: 600px) {
+            .intro-icons-wrapper {
+                display: block;
+            }
 
             .legend-icon {
                 width: 60px;
             }
 
-            .start-icons-item {
-                margin-bottom: 15px;
-            }
-
-            .start-icons-item.me-4 {
+            .intro-icons-item.me-4 {
                 margin-right: 0 !important;
+                margin-bottom: 15px;
             }
         }
     }
 }
+
+
 
 welcome-message {
     .edit-name {
