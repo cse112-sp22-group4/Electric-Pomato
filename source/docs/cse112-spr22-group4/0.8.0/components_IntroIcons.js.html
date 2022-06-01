@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>components/StartButtons.js - Documentation</title>
+    <title>components/IntroIcons.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,7 +29,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">components/StartButtons.js</h1>
+    <h1 class="page-title">components/IntroIcons.js</h1>
     
 
     
@@ -40,98 +40,37 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @file Creates a custom element for the buttons to start the timer session.
- * @author Andy Young
- * @author Justin Lee
- * @author Xingyu Zhu
+ * @file Instantiates icons indicating pomo and breaks accordingly to theme
+ * @author Christopher Yoon
+ * Date: 05/23/2022
  */
 
-import TaskList from '../classes/TaskList.js';
-import PopUp from '../classes/PopUp.js';
 import * as backend from '../backend.js';
+import svgIcons from '../constants/themeIcons.js';
+
 /**
- * Constructs the HTML for the start buttons
- * @extends HTMLElement
+ * Defines the IntroIcons displayed on index.html accordingly to the theme
  */
-class StartButtons extends HTMLElement {
-  /**
-  * constructor for StartButtons
-  */
+class IntroIcons extends HTMLElement {
   constructor() {
     super();
-    this.classList.add('col');
-    const taskList = new TaskList();
-    if (taskList.todo.length > 0 || taskList.completed.length > 0) {
-      this.appendChild(StartButtons.createButton());
-      this.appendChild(StartButtons.createAnchor());
-    } else {
-      this.appendChild(StartButtons.createButton());
-    }
-  }
 
-  /**
-   * Create a HTML object for the 'Create Session' button.
-   * &lt;button type="button" class="btn btn-secondary btn-lg">Create New Session&lt;/button>
-   * @returns a styled button element that conditionally shows a popup
-   */
-  static createButton() {
-    const button = document.createElement('button');
-    const text = document.createTextNode('Create New Session');
-    button.classList.add('btn', 'btn-success', 'btn-lg', 'btn-block');
-    button.style.marginBottom = '10px';
-    button.appendChild(text);
-
-    button.addEventListener('click', () => {
-      const tasklist = new TaskList();
-      if (tasklist.todo.length > 0) {
-        const warning = {
-          title: 'You already have an existing session, creating a new one will overwrite it!',
-          subtitle: 'Continue anyway?',
-          leftButton: 'Yes',
-          rightButton: 'No',
-        };
-
-        PopUp.prompt(warning, true).then((result) => {
-          if (result === 'left') {
-            backend.clearSessionData();
-            window.location.href = './app.html';
-          } else if (result === 'right') {
-            PopUp.hide();
-          }
-        });
-      } else {
-        window.location.href = './app.html';
-      }
-    });
-
-    return button;
-  }
-
-  /**
-   * &lt;button type="button" class="btn btn-secondary btn-lg">Returning User&lt;/button>
-   * @returns an HTML object for the 'Returning User' button.
-   */
-  static createAnchor() {
-    const a = document.createElement('a');
-    const text = document.createTextNode('Resume My Session');
-    a.href = 'app.html';
-    a.classList.add('btn', 'btn-secondary', 'btn-lg', 'btn-block');
-    a.appendChild(text);
-
-    a.addEventListener('click', () => {
-      // Reset Timer state and current Pomos if session already started
-      if (backend.get('Started') === 'true') {
-        backend.set('Timer', true);
-        backend.set('CurrentPomos', 0);
-      }
-    });
-
-    return a;
+    // Get the theme
+    const iconURL = svgIcons[backend.get('Icon')].urls;
+    this.innerHTML = `
+            &lt;div class="d-flex align-items-center">
+                &lt;object id="icon1" class="legend-icon" type="image/svg+xml" data=${iconURL[1]}>&lt;/object>
+                &lt;h3 class="text-white mb-0">25 Minutes of Productivity&lt;/h3>
+            &lt;/div>
+            &lt;div class="d-flex align-items-center">
+                &lt;object id="icon1" class="legend-icon" type="image/svg+xml" data=${iconURL[2]}>&lt;/object>
+                &lt;h3 class="text-white mb-0">&lt;span class="invisible">2&lt;/span>5 Minutes of Relaxing&lt;/h3>
+            &lt;/div>
+    `;
   }
 }
 
-customElements.define('start-buttons', StartButtons);
-export default StartButtons;
+customElements.define('intro-icons', IntroIcons);
 </code></pre>
         </article>
     </section>
