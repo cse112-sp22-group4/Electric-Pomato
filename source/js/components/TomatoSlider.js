@@ -24,7 +24,7 @@ class TomatoSlider extends HTMLElement {
     // Create template and append to tomato-slider (need to maintain input child)
     const template = document.createElement('template');
     template.innerHTML = `
-      <div class="d-flex h-100 justify-content-between align-items-center slider-tomato-container">
+      <div class="d-flex justify-content-between align-items-center slider-tomato-container">
         <object id=0 class="slider-tomato" type="image/svg+xml" data=""></object>
         <object id=1 class="slider-tomato" type="image/svg+xml" data=""></object>
         <object id=2 class="slider-tomato" type="image/svg+xml" data=""></object>
