@@ -4,6 +4,7 @@
  * @author Arman Mansourian
  * @author Luke Menezes
  * @author Liam Stone
+ * @author Chris Yoon
  */
 
 // Need the imports because of parcel
@@ -174,20 +175,20 @@ class TomatoSlider extends HTMLElement {
     if (os === 'Windows') {
       if (this.keysPressed.Control && this.keysPressed.ArrowLeft && !e.repeat) {
         this.input.value = Math.max(this.input.value - 1, 1);
-        this.colorTomatos(this.input.value, 'red');
+        this.colorTomatos(this.input.value, this.svgClasses[1]);
       }
       if (this.keysPressed.Control && this.keysPressed.ArrowRight && !e.repeat) {
         this.input.value = Math.min((Number(this.input.value) + 1), 5);
-        this.colorTomatos(this.input.value, 'red');
+        this.colorTomatos(this.input.value, this.svgClasses[1]);
       }
     } else if (os === 'Mac') {
       if (this.keysPressed.Alt && this.keysPressed.ArrowLeft && !e.repeat) {
         this.input.value = Math.max(this.input.value - 1, 1);
-        this.colorTomatos(this.input.value, 'red');
+        this.colorTomatos(this.input.value, this.svgClasses[1]);
       }
       if (this.keysPressed.Alt && this.keysPressed.ArrowRight && !e.repeat) {
         this.input.value = Math.min((Number(this.input.value) + 1), 5);
-        this.colorTomatos(this.input.value, 'red');
+        this.colorTomatos(this.input.value, this.svgClasses[1]);
       }
     }
   }
