@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>components/ViewOnlyTaskListSection.js - Documentation</title>
+    <title>components/IntroIcons.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,7 +29,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">components/ViewOnlyTaskListSection.js</h1>
+    <h1 class="page-title">components/IntroIcons.js</h1>
     
 
     
@@ -40,70 +40,37 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @file Creates a custom element for the tomato slider to estimate the number of pomodoros.
- * @author Andy Young
+ * @file Instantiates icons indicating pomo and breaks accordingly to theme
+ * @author Christopher Yoon
+ * Date: 05/23/2022
  */
+
+import * as backend from '../backend.js';
+import svgIcons from '../constants/themeIcons.js';
 
 /**
- * Constructs the HTML for the view only task list section.
- * @extends HTMLElement
+ * Defines the IntroIcons displayed on index.html accordingly to the theme
  */
-class ViewOnlyTaskListSection extends HTMLElement {
-  /**
-   * Constructor for ViewOnlyTaskListSection
-   * @param {string} title - title of the task list.
-   * @param {Array.&lt;Object>} data - describes each task's name, expected and actual pomos.
-   */
-  constructor(title, data) {
+class IntroIcons extends HTMLElement {
+  constructor() {
     super();
 
-    this.headerRowTemplate = document.querySelector('#view-header-row-template').content;
-    this.rowTemplate = document.querySelector('#view-row-template').content;
-
-    this.insertTitle(title);
-    this.insertHeaderRow();
-    data.forEach(({ name, expected, actual }, i) => {
-      this.insertRow(i + 1, name, expected, actual);
-    });
-  }
-
-  /**
-   * Insert a title.
-   * @param {string} title - "Completed" or "To Do".
-   */
-  insertTitle(title) {
-    const h3 = document.createElement('h3');
-    h3.classList.add('fw-bold', 'mb-0', 'ms-2');
-    h3.textContent = title;
-    this.appendChild(h3);
-  }
-
-  /**
-   * Insert header row.
-   */
-  insertHeaderRow() {
-    this.appendChild(this.headerRowTemplate.cloneNode(true));
-  }
-
-  /**
-   * Insert a row.
-   * @param  {...any} arg - args data.
-   */
-  insertRow(...args) {
-    const clone = this.rowTemplate.cloneNode(true);
-    this.appendChild(clone);
-
-    const row = this.lastElementChild;
-    const spans = row.querySelectorAll('span');
-
-    spans.forEach((span, i) => {
-      span.textContent = args[i];
-    });
+    // Get the theme
+    const iconURL = svgIcons[backend.get('Icon')].urls;
+    this.innerHTML = `
+            &lt;div class="d-flex align-items-center">
+                &lt;object id="icon1" class="legend-icon" type="image/svg+xml" data=${iconURL[1]}>&lt;/object>
+                &lt;h3 class="text-white mb-0">25 Minutes of Productivity&lt;/h3>
+            &lt;/div>
+            &lt;div class="d-flex align-items-center">
+                &lt;object id="icon1" class="legend-icon" type="image/svg+xml" data=${iconURL[2]}>&lt;/object>
+                &lt;h3 class="text-white mb-0">&lt;span class="invisible">2&lt;/span>5 Minutes of Relaxing&lt;/h3>
+            &lt;/div>
+    `;
   }
 }
 
-customElements.define('view-only-task-list-section', ViewOnlyTaskListSection);
-export default ViewOnlyTaskListSection;
+customElements.define('intro-icons', IntroIcons);
 </code></pre>
         </article>
     </section>
