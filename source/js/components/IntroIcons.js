@@ -24,7 +24,7 @@ class IntroIcons extends HTMLElement {
             </div>
             <div class="intro-icons-item">
               <object id="icon1" class="legend-icon" type="image/svg+xml" data=${iconURL[2]}></object>
-              <h3 class="text-white mb-0"><span class="invisible">2</span>5 Minutes of Relaxing</h3>
+              <h3 class="text-white mb-0">5 Minutes of Relaxing</h3>
             </div>
         </div>
     `;
