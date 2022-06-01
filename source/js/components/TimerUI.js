@@ -62,10 +62,14 @@ class TimerUI extends HTMLElement {
    * @param {number} seconds - seconds that will be stored in object.
    */
   createTimer(minutes, seconds) {
+    const timerEvent = new Event('timerTick');
     this.timer = new Timer(minutes, seconds, (newMinute, newSecond) => {
-      // update html
-      this.text = `${TimerUI.parseMinutes(newMinute)} : ${TimerUI.parseSeconds(newSecond)}`;
-      this.setAttribute('icon-text', 'timerChanged');
+      // update html and fire event
+      const timerMinutes = TimerUI.parseMinutes(newMinute);
+      const timerSeconds = TimerUI.parseSeconds(newSecond);
+      this.text.textContent = `${timerMinutes} : ${timerSeconds}`;
+      timerEvent.text = `${timerMinutes}:${timerSeconds}`;
+      document.dispatchEvent(timerEvent);
     });
   }
 
