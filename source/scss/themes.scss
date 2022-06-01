@@ -1,0 +1,105 @@
+$themes: (
+    default: (primary: #203647,
+        secondary: #bec8ed,
+        success: #7dc37d,
+        danger: #db6666,
+        info: #b2e3ff,
+        modal: #b2e3ff,
+        body-background-color: #203647,
+        body-color: #333333,
+        primary-button-text-color: #fff,
+        secondary-button-text-color: #000,
+        success-button-text-color: #000,
+        start-container-background-color: #fff,
+        menu-button-background-color: #3b586c,
+        task-list-background-color: #fff,
+        input-background-color: #fff,
+        input-text-color: #333,
+        input-border-color: #333,
+        input-focus-border-color: #0071de,
+        subtitle-text-color: #203647,
+        settings-select-background-color: #efefef,
+        settings-select-color: #000,
+        settings-item-color: #212529,
+        stats-background-color: #FFFFFF,
+        stats-expected-line-color: #FFA33F,
+        stats-actual-line-color: #6aa66a,
+        modal-text-color: #212529,
+        scrollbar-background-color: #fff,
+    ),
+    dark: (primary: #222,
+        secondary: #a2aac9,
+        success: #6aa66a,
+        danger: #b15353,
+        info: #b2e3ff,
+        modal: #454544,
+        body-background-color: #313130,
+        body-color: #333333,
+        primary-button-text-color: #fff,
+        secondary-button-text-color: #000,
+        success-button-text-color: #000,
+        start-container-background-color: #242423,
+        menu-button-background-color: #242423,
+        task-list-background-color: #242423,
+        input-background-color: #50504f,
+        input-text-color: #fff,
+        input-border-color: #333,
+        input-focus-border-color: #000,
+        subtitle-text-color: #fff,
+        settings-select-background-color: #2f2f2e,
+        settings-select-color: #fff,
+        settings-item-color: #fff,
+        stats-background-color: #222,
+        stats-expected-line-color: #FFA33F,
+        stats-actual-line-color: #6aa66a,
+        modal-text-color: #fff,
+        scrollbar-background-color: #242423,
+    )
+);
+
+/** 	
+  *    Iterates over all themes and outputs whatever was wrapped inside it with a
+  *    .theme-#{themeName} class selector prefix
+  *
+  *    body {
+  *        @include themify($themes) {
+  *            color: themed('body-background-color')
+  *        }
+  *    }
+  *
+  *    transforms into:
+  *
+  *    .theme-default body {
+  *        background-color: #203647;
+  *    }
+  *	
+  *    .theme-dark body {
+  *        background-color: #313130;
+  *    }
+  *
+  */
+@mixin themify($themes: $themes) {
+
+    @each $theme,
+    $map in $themes {
+
+        .theme-#{$theme} & {
+            $theme-map: () !global;
+
+            @each $key,
+            $submap in $map {
+                $value: map-get(map-get($themes, $theme), '#{$key}');
+                $theme-map: map-merge($theme-map, ($key: $value)) !global;
+            }
+
+            @content;
+            $theme-map: null !global;
+        }
+    }
+}
+
+// Retrieves the matched value for current theme
+// Can only be used within themify mixin
+@function themed($key) {
+    @return map-get($theme-map, $key);
+}

@@ -10,13 +10,23 @@
  * @author Meshach Adoe
  * @author Xingyu Zhu
  * @author Alan Wang
+ * @author Steven Harris
  */
 
+import PopUp from '../classes/PopUp.js';
 import EditableTaskList from '../components/EditableTaskList.js';
 import ViewOnlyTaskList from '../components/ViewOnlyTaskList.js';
 import TimerUI from '../components/TimerUI.js';
 import FinishTaskButton from '../components/FinishTaskButton.js';
+import StatsModal from '../components/StatsModal.js';
 import * as backend from '../backend.js';
+
+// Icon assets
+import pomoIcon from '../../img/green-tomato.png';
+import breakIcon from '../../img/red-tomato.png';
+
+// Import audio from local file
+const notiSound = new URL('../../audio/notification-ping.mp3', import.meta.url);
 
 /**
  * STATE:
@@ -55,9 +65,9 @@ let votl = null;
  * @return {boolean} true if next break is a long break, false otherwise
  */
 function isLongBreak() {
-  const totalPomos = Number(backend.get('TotalPomos'));
+  const currentPomos = Number(backend.get('CurrentPomos'));
   // If there has been 4 pomos then it is a long break
-  return totalPomos > 0 && totalPomos % 4 === 0;
+  return currentPomos > 0 && currentPomos % 4 === 0;
 }
 
 /**
@@ -68,18 +78,31 @@ function handleEndOfSession() {
   // Move completed task list to history
   let history = JSON.parse(backend.get('History'));
   const { completed } = JSON.parse(backend.get('TaskList'));
+  const currDate = new Date();
+
+  // Store tasklist as session with date of completion
+  const session = {
+    date: `${currDate.getMonth() + 1}/${currDate.getDate()}/${currDate.getFullYear()}`,
+    tasklist: completed,
+  };
+
   if (history) {
-    history.tasklists.push(completed);
+    history.sessions.push(session);
   } else {
-    history = { tasklists: [completed] };
+    history = { sessions: [session] };
   }
   backend.set('History', JSON.stringify(history));
 
   // Wipe data from previous task list
   backend.clearSessionData();
 
-  // Open modified stats modal
-  document.querySelector('stats-modal').open('./index.html');
+  // if user does not have enough sessions, go to homepage, otherwise open stats modal
+  const statsModal = document.querySelector('stats-modal');
+  if (!StatsModal.hasEnoughSessions()) {
+    window.location.href = './index.html';
+  } else {
+    statsModal.open('./index.html');
+  }
 }
 
 /**
@@ -96,7 +119,7 @@ function updateAppTitle(taskFinished) {
   let subtitle = '';
 
   // Set title based on timer state
-  if (backend.get('Timer') === 'true') {
+  if (backend.get('Timer') === 'true' && !taskFinished) {
     appTitle.textContent = 'Pomodoro';
   } else if (isLongBreak()) {
     appTitle.textContent = 'Long Break';
@@ -109,12 +132,14 @@ function updateAppTitle(taskFinished) {
     subtitle = 'End of Session';
     finished = true;
     handleEndOfSession();
-  } else if (taskFinished && length > 1) {
-    if (backend.get('Timer') === 'true') {
-      subtitle = `Current Task: ${taskList.todo[0].name}`;
+  } else if (backend.get('Timer') === 'true') {
+    if (taskFinished) {
+      appTitle.textContent = `Focus: ${taskList.todo[0].name}`;
     } else {
-      subtitle = `Next Task: ${taskList.todo[0].name}`;
+      subtitle = `Focus: ${taskList.todo[0].name}`;
     }
+  } else if (taskFinished && length > 1) {
+    subtitle = `Next Task: ${taskList.todo[0].name}`;
   } else if (length === 1) {
     subtitle = `Final Task: ${taskList.todo[0].name}`;
   } else {
@@ -130,15 +155,19 @@ function updateAppTitle(taskFinished) {
  * @ignore
  */
 function nextTask(object) {
-  // Finish task in task list
-  votl.finishTask();
-  votl.render();
+  // Add any partial time from a pomo session to the task time.
+  // Check that the timer is running for the edge case where a task
+  // is finished during break, but timer has updated to pomo.
+  votl.finishTask(backend.get('Timer') === 'true' && document.querySelector('.timer-text').textContent !== 'START');
 
   // Update app title
   updateAppTitle(object.getChecked());
 
   // Update Finish task button according to task list
   object.updateButton();
+
+  // Start tracking time for the next task
+  votl.startTask();
 }
 
 /**
@@ -164,10 +193,21 @@ function initTimer(timer) {
     } else {
       // Update the HTML
       menuIcons.defaultMode();
+      document.querySelector('.app-subtitle').style.display = 'block';
       updateAppTitle(false);
       timer.setColorRed();
     }
   }
+}
+
+/**
+ * Plays the sound from the given link
+ * @param {String} link - Link to mp3 file to play
+ * @ignore
+ */
+function playSound(link) {
+  const sound = new Audio(link);
+  sound.play();
 }
 
 /**
@@ -176,25 +216,34 @@ function initTimer(timer) {
  */
 function showTimerNotification() {
   const timerState = backend.get('Timer');
+  const pomoAlert = {
+    icon: null,
+    body: null,
+    tag: 'pomo-alert',
+    silent: true,
+  };
+
+  // Set notification icon/text based on timer state
   if (timerState === 'true') {
-    const pomoAlert = new Notification('Electric Pomato', {
-      icon: 'img/green-tomato.ico',
-      body: 'Good Work! Time to recharge.',
-    });
-    setTimeout(pomoAlert.close.bind(pomoAlert), 5000);
-    pomoAlert.addEventListener('click', () => {
-      window.focus();
-    });
+    pomoAlert.icon = pomoIcon;
+    pomoAlert.body = 'Good Work! Time to recharge.';
   } else {
-    const breakAlert = new Notification('Electric Pomato', {
-      icon: 'img/red-tomato.ico',
-      body: "Break time is over. It's time to plug in!",
-    });
-    setTimeout(breakAlert.close.bind(breakAlert), 5000);
-    breakAlert.addEventListener('click', () => {
-      window.focus();
-    });
+    pomoAlert.icon = breakIcon;
+    pomoAlert.body = "Break time is over. It's time to plug in!";
   }
+
+  // Show the notification
+  let register = null;
+  navigator.serviceWorker.getRegistration()
+    .then((reg) => {
+      register = reg;
+      reg.showNotification('Electric Pomato', pomoAlert)
+        .then(() => register.getNotifications()
+          .then((notifications) => {
+            setTimeout(() => notifications.forEach((notification) => notification.close()), 5000);
+          }));
+      playSound(notiSound);
+    });
 }
 
 /**
@@ -211,6 +260,12 @@ function handleClick(timer, taskList) {
       if (backend.get('Timer') === 'true') {
         // Hide all icons except home when a work session starts.
         menuIcons.focusMode();
+        taskList.startTask();
+        // Replace the title with the subtitle and hide the subtitle
+        const appTitle = document.querySelector('.app-title');
+        const appSubtitle = document.querySelector('.app-subtitle');
+        appTitle.textContent = appSubtitle.textContent;
+        appSubtitle.style.display = 'none';
         const workSessionDuration = backend.get('WorkSessionDuration');
         timer.createTimer(workSessionDuration, 0);
       } else if (isLongBreak()) {
@@ -233,13 +288,33 @@ function handleClick(timer, taskList) {
           // Increment pomos if we were in a Pomo session
           if (timerState === 'true') {
             backend.set('TotalPomos', Number(backend.get('TotalPomos')) + 1);
-            taskList.addPomo();
+            backend.set('CurrentPomos', Number(backend.get('CurrentPomos')) + 1);
+            taskList.updateTime();
+
+            // Alert the user if they have reached their expected number of pomos
+            const endMessage = {
+              title: 'You have reached the expected Pomodoros for this task. Finish task or continue working?',
+              leftButton: 'Finish Task',
+              rightButton: 'Continue Working',
+            };
+            if (taskList.data.todo[0].actual === taskList.data.todo[0].expected) {
+              PopUp.prompt(endMessage, false).then((result) => {
+                if (result === 'left') {
+                  // Simulate clicking the finish task button
+                  finishTaskButton.checked = true;
+                  nextTask(finishTaskButton);
+                  PopUp.hide();
+                } else {
+                  PopUp.hide();
+                }
+              });
+            }
           }
 
           // Remove the finish task button
           timer.lastElementChild.remove();
 
-          if (('Notification' in window) && Notification.permission === 'granted') {
+          if (('Notification' in window) && navigator.serviceWorker) {
             showTimerNotification();
           }
 
@@ -261,7 +336,6 @@ function showTimer() {
   votl = new ViewOnlyTaskList();
 
   // Call any helper functions to handle user events.
-  updateAppTitle(false);
   handleClick(timerUI, votl);
   initTimer(timerUI);
 
@@ -277,18 +351,21 @@ function showTimer() {
  */
 function handleOnLoad() {
   // Redirect to index.html if no name is in localStorage.
-  if (!backend.get('Username')) {
+  if (backend.get('Username') == null) {
     window.location.href = 'index.html';
-  } else if (backend.get('Started')) {
+  } else if (backend.get('Started') === 'true') {
+    // if started session, go to timer
     showTimer();
   } else {
+    // otherwise, go to task list page
     appContainer.appendChild(new EditableTaskList());
-    document.querySelector('.app-title').textContent = `${backend.get('Username')}'s Day`;
+    document.querySelector('.app-title').textContent = `${backend.get('Username')}'s Session`;
     appContainer.querySelectorAll('.start-day-button').forEach((button) => {
       button.addEventListener('click', () => {
         backend.set('Started', true);
         backend.set('Timer', true);
         backend.set('TotalPomos', 0);
+        backend.set('CurrentPomos', 0);
         appContainer.lastElementChild.remove();
         showTimer();
       });
@@ -297,12 +374,20 @@ function handleOnLoad() {
 
   // Request notification permission on page load
   if (!('Notification' in window)) {
-    console.log('This browser does not support notifications.');
+    console.log('Error: Browser does not support notifications');
+  } else if (Notification.permission === 'granted') {
+    console.log(`Notifications permission ${Notification.permission}`);
+  } else if (Notification.permission !== 'denied') {
+    Notification.requestPermission((permission) => {
+      if (!('permission' in Notification)) {
+        Notification.permission = permission;
+      }
+      if (permission === 'granted') {
+        console.log('Notifications permission granted');
+      }
+    });
   } else {
-    console.log(Notification.permission);
-    if (Notification.permission !== 'denied') {
-      Notification.requestPermission();
-    }
+    console.log(`Notifications permission ${Notification.permission}`);
   }
 }
 
