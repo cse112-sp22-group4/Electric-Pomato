@@ -267,7 +267,7 @@ function showTimerNotification() {
 function handleClick(timer, taskList) {
   let active = false;
 
-  timer.firstElementChild.addEventListener('click', () => {
+  timer.addEventListener('iconclick', () => {
     if (!active) {
       document.addEventListener('timerTick', handleTick);
       if (backend.get('Timer') === 'true') {

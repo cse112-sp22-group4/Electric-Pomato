@@ -67,7 +67,7 @@ class TimerUI extends HTMLElement {
       // update html and fire event
       const timerMinutes = TimerUI.parseMinutes(newMinute);
       const timerSeconds = TimerUI.parseSeconds(newSecond);
-      this.text.textContent = `${timerMinutes} : ${timerSeconds}`;
+      this.svgText.textContent = `${timerMinutes} : ${timerSeconds}`;
       timerEvent.text = `${timerMinutes}:${timerSeconds}`;
       document.dispatchEvent(timerEvent);
     });
@@ -136,7 +136,6 @@ class TimerUI extends HTMLElement {
       // Set svg classes to style as timer icon
       svgDoc.querySelector('svg').classList.value = 'w-100 h-100 position-absolute top-50 start-50 translate-middle';
       this.icon = svgDoc.querySelector('svg > g');
-
       this.icon.classList.value = 'timer-image';
       this.icon.addEventListener('click', () => {
         // Bubble up the click event to set up / start timer in app.js
