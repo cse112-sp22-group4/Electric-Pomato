@@ -4,8 +4,7 @@
 Resources to get started:
 
 - [Current Design Idea](https://www.figma.com/file/0xkjAbdUK1WsQjAqwKRYTc/Electric-Pomato-Prototype?node-id=0%3A1)
-- [Previous ideas that have already been implemented](https://github.com/cse112-sp22-group4/Electric-Pomato/blob/liamstone1814-patch-1/specs/brainstorm/Brainstorm_%20Design_Ideas.pdf](https://github.com/cse112-sp22-group4/Electric-Pomato/blob/main/specs/adrs/051022-frontend-decisions.md)
-- [Design Team Meeting. Almost same as this ADR, but shows slightly more](https://github.com/cse112-sp22-group4/Electric-Pomato/blob/main/admin/meetings/Frontend%20Meeting.pdf](https://github.com/cse112-sp22-group4/Electric-Pomato/blob/main/admin/meetings/meeting%20notes%205_20_22.pdf)
+- [Previous ideas that have already been implemented](https://github.com/cse112-sp22-group4/Electric-Pomato/blob/main/specs/adrs/051022-frontend-decisions.md)
 - Ask anyone from design team about this.
 
 ## Status: accepted
@@ -14,14 +13,25 @@ Resources to get started:
 
 ## Context and Problem Statement
 
-How can we enhance the features and mechanics already in place and add in new features and mechanics to improve the website? These decisions are what has since been talked about/accepted since our last ADR edit
+How can we enhance the features and mechanics already in place and add in new features and mechanics to improve the website? These decisions are what has since been talked about/accepted since our last ADR
 
 ## Decision Drivers
 
-- Simplicity and intuitiveness.
-- Francesco Chirillo's Pomodoro Technique philosophy.
-- Task and time management.
+- Simplicity and intuitiveness
+- Francesco Chirillo's Pomodoro Technique philosophy
 - Userneeds
-- Requests from Professor and TA
+- Requests from TA
 
 ## Decision Outcome (bolded options indicate the features we decided to implement)
+
+ - __Mobile integration__
+    - Our mobile site is not nearly as nice as the website on windows or mac
+    - We decided to edit this as best as we could
+  - End to end testing/unit testing
+Finish Task Button - Xingyu Alan
+Onboarding Documentation Edits - Mesa Liam
+Timer’s Throttle bug - Chris Luke
+Background Notifications - Luke Alan
+100% HTML Valid/cleaning up code quality warnings - Liam Xingyu
+Medium priority
+Keyboard shortcuts - Liam Luke
