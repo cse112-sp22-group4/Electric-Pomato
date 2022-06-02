@@ -1,7 +1,13 @@
 // Function to get the timer element
 const getTimerImage = () => cy.get('#timerIcon')
   .its('0.contentDocument').should('exist')
-  .then((body) => { cy.wrap(body.querySelector('.timer-image')); });
+  .its('documentElement').should('not.be.null')
+  .then(cy.wrap)
+  .find('.timer-image')
+
+// const getTimerImage = () => cy.get('#timerIcon')
+//   .its('0.contentDocument').should('exist')
+//   .then((body) => { cy.wrap(body.querySelector('.timer-image')); });
 
 describe('End to end task tests', () => {
   beforeEach(() => {
