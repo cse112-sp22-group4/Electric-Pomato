@@ -5,11 +5,12 @@
 //   .its('0.contentDocument').should('exist')
 //   .then((body) => { cy.wrap(body.querySelector('.timer-image')); });
 
-const getTimerImage = () => cy.get('#timerIcon')
+const startTimer = () => cy.get('#timerIcon')
   .its('0.contentDocument').should('exist')
   .its('documentElement').should('not.be.null')
   .its('lastElementChild').should('not.be.null')
   .then(cy.wrap)
+  .click()
 
 describe('Task Time and Actual Pomo Tests', () => {
   const MS_IN_WORK_SESSION = 25 * 60 * 1000;
@@ -38,7 +39,8 @@ describe('Task Time and Actual Pomo Tests', () => {
   it('Check that a task worked on for a majority of a pomo counts towards the actual pomos', () => {
     cy.clock();
 
-    getTimerImage().click();
+    // getTimerImage().click();
+    startTimer();
     cy.tick(MS_IN_WORK_SESSION / 2);
 
     // Finish the task
@@ -60,7 +62,8 @@ describe('Task Time and Actual Pomo Tests', () => {
     cy.clock();
 
     // Start the timer
-    getTimerImage().click();
+    startTimer();
+    // getTimerImage().click();
 
     // Advance the timer to a third of the work session
     cy.tick(MS_IN_WORK_SESSION / 3);

@@ -1,9 +1,10 @@
 // Function to get the timer element
-const getTimerImage = () => cy.get('#timerIcon')
+const startTimer = () => cy.get('#timerIcon')
   .its('0.contentDocument').should('exist')
   .its('documentElement').should('not.be.null')
   .its('lastElementChild').should('not.be.null')
   .then(cy.wrap)
+  .click()
 
 // const getTimerImage = () => cy.get('#timerIcon')
 //   .its('0.contentDocument').should('exist')
@@ -36,7 +37,8 @@ describe('End to end task tests', () => {
       .click();
 
     // Start the timer
-    getTimerImage().click();
+    startTimer();
+    // getTimerImage().click();
 
     // Expect all the tasks to be in the view-only task list with the correct values
     for(let i = 1; i <= numTasks; i++) {
