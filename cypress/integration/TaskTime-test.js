@@ -8,8 +8,8 @@
 const getTimerImage = () => cy.get('#timerIcon')
   .its('0.contentDocument').should('exist')
   .its('documentElement').should('not.be.null')
+  .its('lastElementChild').should('not.be.null')
   .then(cy.wrap)
-  .find('.timer-image')
 
 describe('Task Time and Actual Pomo Tests', () => {
   const MS_IN_WORK_SESSION = 25 * 60 * 1000;
