@@ -4,7 +4,7 @@ const startTimer = () => cy.get('#timerIcon')
   .its('documentElement').should('not.be.null')
   .its('lastElementChild').should('not.be.null')
   .then(cy.wrap)
-  .click()
+  .click({force:true})
 
 // const getTimerImage = () => cy.get('#timerIcon')
 //   .its('0.contentDocument').should('exist')

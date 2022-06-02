@@ -10,7 +10,7 @@ const startTimer = () => cy.get('#timerIcon')
   .its('documentElement').should('not.be.null')
   .its('lastElementChild').should('not.be.null')
   .then(cy.wrap)
-  .click()
+  .click({force:true})
 
 describe('Task Time and Actual Pomo Tests', () => {
   const MS_IN_WORK_SESSION = 25 * 60 * 1000;
