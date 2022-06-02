@@ -14,17 +14,34 @@ body {
     }
 }
 
+.app-header-logo {
+    height: 40px;
+    width: 40px;
+
+    @media screen and (max-width: 1000px) {
+        height: 35px;
+        width: 35px;
+    }
+}
+
 menu-icons {
     i {
-        font-size: $h5-font-size;
+        @include font-size($h5-font-size);
+
+        @media screen and (max-width: 1000px) {
+            @include font-size($h6-font-size);
+        }
 
         @include themify($themes) {
             background-color: themed('menu-button-background-color');
         }
+
+
     }
 
     button {
         cursor: pointer;
+        background-color: #3b586c;
         border: none;
 
         @include themify($themes) {
@@ -37,7 +54,11 @@ menu-icons {
     }
 
     span {
-        font-size: $h5-font-size
+        @include font-size($h5-font-size);
+
+        @media screen and (max-width: 1000px) {
+            @include font-size($h6-font-size);
+        }
     }
 }
 
@@ -89,7 +110,11 @@ settings-modal {
 
     .settings-item {
         overflow-wrap: break-word;
-        font-size: $h3-font-size;
+        @include font-size($h3-font-size);
+
+        @media screen and (max-width: 525px) {
+            @include font-size($h4-font-size);
+        }
 
         @include themify($themes) {
             color: themed('settings-item-color');
@@ -98,7 +123,11 @@ settings-modal {
 
     .settings-select {
         padding: 5px;
-        font-size: $h4-font-size;
+        @include font-size($h4-font-size);
+
+        @media screen and (max-width: 525px) {
+            @include font-size($h5-font-size);
+        }
 
         @include themify($themes) {
             background-color: themed('settings-select-background-color');
@@ -213,6 +242,12 @@ stats-modal {
     height: 100%;
 }
 
+.btn-lg {
+    @media screen and (max-width: 525px) {
+        @include font-size($h5-font-size);
+    }
+}
+
 a {
     text-decoration: none;
 }
@@ -243,10 +278,6 @@ input:focus {
 .legend-icon {
     width: 80px;
     margin-right: 1.5rem;
-}
-
-.invisible {
-    opacity: 0;
 }
 
 .subtitle {
@@ -281,9 +312,17 @@ footer>.container {
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    p {
+        margin: 0;
+
+        @media screen and (max-width: 525px) {
+            font-size: 18px;
+        }
+    }
 }
 
-.app-header {
+.app-header-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -292,13 +331,17 @@ footer>.container {
     padding: map-get($spacers, 5) 0 map-get($spacers, 5) 0;
 
     @media screen and (max-width: 1000px) {
-        h1 {
-            font-size: $h3-font-size;
+        h3 {
+            font-size: $h4-font-size;
         }
 
-        h4 {
+        h5 {
             font-size: $h6-font-size;
         }
+    }
+
+    @media screen and (max-width: 525px) {
+        padding: map-get($spacers, 3) 0 map-get($spacers, 3) 0;
     }
 }
 
@@ -402,16 +445,20 @@ footer>.container {
     }
 }
 
-.bomb-pomo { 
-    #bombP1, #bombP7 {
+.bomb-pomo {
+
+    #bombP1,
+    #bombP7 {
         fill: #666B6B;
     }
 
-    #bombP2, #bombP6{
+    #bombP2,
+    #bombP6 {
         fill: #244142;
     }
 
-    #bombP3, #bombP4 {
+    #bombP3,
+    #bombP4 {
         fill: #142E2F;
     }
 
@@ -421,15 +468,19 @@ footer>.container {
 }
 
 .bomb-white {
-    #bombP1, #bombP7 {
+
+    #bombP1,
+    #bombP7 {
         fill: #F9F9F9;
     }
 
-    #bombP2, #bombP6{
+    #bombP2,
+    #bombP6 {
         fill: #EEEEEE;
     }
 
-    #bombP3, #bombP4 {
+    #bombP3,
+    #bombP4 {
         fill: #E2E2E2;
     }
 

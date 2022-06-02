@@ -170,7 +170,8 @@ function nextTask(object) {
   // Add any partial time from a pomo session to the task time.
   // Check that the timer is running for the edge case where a task
   // is finished during break, but timer has updated to pomo.
-  votl.finishTask(backend.get('Timer') === 'true' && document.querySelector('.timer-text').textContent !== 'START');
+  const svgDoc = document.querySelector('#timerIcon').contentDocument;
+  votl.finishTask(backend.get('Timer') === 'true' && svgDoc.querySelector('.timer-text').textContent !== 'START');
 
   // Update app title
   updateAppTitle(object.getChecked());

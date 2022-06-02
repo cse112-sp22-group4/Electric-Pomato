@@ -38,7 +38,7 @@ To start contributing, first look over our [onboarding](https://github.com/cse11
 
 ## Contributors
 
-A list of our group:
+A list of our current group:
 
 - @liamstone1814
 - @markbussard
@@ -48,6 +48,9 @@ A list of our group:
 - @46chris
 - @xingyuzzzhu
 - @meshachadoe
+
+A list of our previous group:
+
 - @AllenZou123
 - @amansourian
 - @anhatche

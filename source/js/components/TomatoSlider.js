@@ -2,6 +2,9 @@
  * @file Creates a custom element for the tomato slider to estimate the number of pomodoros.
  * @author Andy Young
  * @author Arman Mansourian
+ * @author Luke Menezes
+ * @author Liam Stone
+ * @author Chris Yoon
  */
 
 // Need the imports because of parcel
@@ -39,9 +42,13 @@ class TomatoSlider extends HTMLElement {
 
     this.input.style.display = 'none';
 
+    this.keysPressed = {};
+
     this.handleClick = this.handleClick.bind(this);
     this.handleMouseMove = this.handleMouseMove.bind(this);
     this.handleMouseLeave = this.handleMouseLeave.bind(this);
+    this.handleKeyDown = this.handleKeyDown.bind(this);
+    this.handleKeyUp = this.handleKeyUp.bind(this);
 
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
@@ -154,6 +161,47 @@ class TomatoSlider extends HTMLElement {
   }
 
   /**
+   * Change the number of tomatoes in the current slider with Ctr+LeftArrow and Ctr+RightArrow
+   * @param {KeyboardEvent} e
+   */
+  handleKeyDown(e) {
+    let os = 'default';
+    if (navigator.userAgent.indexOf('Win') !== -1) {
+      os = 'Windows';
+    } else if (navigator.userAgent.indexOf('Mac') !== -1) {
+      os = 'Mac';
+    }
+    this.keysPressed[e.key] = true;
+    if (os === 'Windows') {
+      if (this.keysPressed.Control && this.keysPressed.ArrowLeft && !e.repeat) {
+        this.input.value = Math.max(this.input.value - 1, 1);
+        this.colorTomatos(this.input.value, this.svgClasses[1]);
+      }
+      if (this.keysPressed.Control && this.keysPressed.ArrowRight && !e.repeat) {
+        this.input.value = Math.min((Number(this.input.value) + 1), 5);
+        this.colorTomatos(this.input.value, this.svgClasses[1]);
+      }
+    } else if (os === 'Mac') {
+      if (this.keysPressed.Alt && this.keysPressed.ArrowLeft && !e.repeat) {
+        this.input.value = Math.max(this.input.value - 1, 1);
+        this.colorTomatos(this.input.value, this.svgClasses[1]);
+      }
+      if (this.keysPressed.Alt && this.keysPressed.ArrowRight && !e.repeat) {
+        this.input.value = Math.min((Number(this.input.value) + 1), 5);
+        this.colorTomatos(this.input.value, this.svgClasses[1]);
+      }
+    }
+  }
+
+  /**
+   * Clear the keys pressed during handleKeyUp from the keys dictionary
+   * @param {KeyboardEvent} e
+   */
+  handleKeyUp(e) {
+    delete this.keysPressed[e.key];
+  }
+
+  /**
    * Add event listeners when currently editing a task.
    */
   editMode() {
@@ -164,10 +212,12 @@ class TomatoSlider extends HTMLElement {
     this.container.addEventListener('click', this.handleClick);
     this.container.addEventListener('mouseleave', this.handleMouseLeave);
     this.container.addEventListener('mousemove', this.handleMouseMove);
+    window.addEventListener('keydown', this.handleKeyDown);
+    window.addEventListener('keyup', this.handleKeyUp);
   }
 
   /**
-   * Remove event listeners once the task is entered.
+   * Remove event listeners once the task edit is finished.
    */
   defaultMode() {
     this.render();
@@ -177,6 +227,8 @@ class TomatoSlider extends HTMLElement {
     this.container.removeEventListener('click', this.handleClick);
     this.container.removeEventListener('mouseleave', this.handleMouseLeave);
     this.container.removeEventListener('mousemove', this.handleMouseMove);
+    window.removeEventListener('keydown', this.handleKeyDown);
+    window.removeEventListener('keyup', this.handleKeyUp);
   }
 }
 
