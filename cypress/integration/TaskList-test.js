@@ -1,10 +1,8 @@
 // Function to get the timer element
-const startTimer = () => cy.get('#timerIcon')
-  .its('0.contentDocument').should('exist')
-  .its('documentElement').should('not.be.null')
-  .its('lastElementChild').should('not.be.null')
-  .then(cy.wrap)
-  .click({force:true})
+const startTimer = () => {
+  cy.getContentDocument('.timer-image')
+  .find('.timer-image').click();
+}
 
 // const getTimerImage = () => cy.get('#timerIcon')
 //   .its('0.contentDocument').should('exist')

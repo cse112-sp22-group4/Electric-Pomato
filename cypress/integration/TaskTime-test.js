@@ -5,12 +5,14 @@
 //   .its('0.contentDocument').should('exist')
 //   .then((body) => { cy.wrap(body.querySelector('.timer-image')); });
 
-const startTimer = () => cy.get('#timerIcon')
-  .its('0.contentDocument').should('exist')
-  .its('documentElement').should('not.be.null')
-  .its('lastElementChild').should('not.be.null')
-  .then(cy.wrap)
-  .click({force:true})
+const startTimer = () => {
+  cy.getContentDocument('.timer-image')
+  .find('.timer-image').click();
+}
+
+// const startTimer = () => cy.get('#timerIcon')
+//   .its('0.contentDocument').should('exist')
+//   .then((body) => { cy.wrap(body.querySelector('.timer-image')).click(); });
 
 describe('Task Time and Actual Pomo Tests', () => {
   const MS_IN_WORK_SESSION = 25 * 60 * 1000;
