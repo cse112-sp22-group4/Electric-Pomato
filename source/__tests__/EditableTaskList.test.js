@@ -69,15 +69,32 @@ beforeEach(() => {
   </div>
 </template>
 <template id="add-row-template">
-  <div class="row g-0">
-      <div class="d-none d-lg-block col-lg-1"></div>
-      <div class="col-7 col-lg-6"><input type="text" value=""></div>
-      <div class="col-3"><input type="number" value="" min=1></div>
-      <div class="col-2">
-          <button class="btn btn-success btn-block">Add Task</button>
-      </div>
-  </div>
-</template>`;
+        <div class="row g-0">
+            <div class="d-none d-lg-block col-lg-1"></div>
+            <div class="col-12 col-sm-7 col-lg-6 d-sm-none">
+                <h5 class="fw-bold mb-0">
+                    Name:
+                </h5>
+            </div>
+            <div class="col-12 col-sm-7 col-lg-6 task-list"><input type="text" value=""></div>
+            <div class="col-12 col-sm-5 col-lg-3 d-sm-none">
+                <h5 class="fw-bold mb-0">
+                    Estimated Pomos:
+                </h5>
+            </div>
+            <div class="col-12 col-sm-5 col-lg-3">
+                <tomato-slider>
+                    <input type="number" value="1">
+                </tomato-slider> 
+            </div>
+            <div class="col-12 col-lg-2">
+                <button class="btn btn-success btn-block">Add Task</button>
+            </div>
+            <div class="col-12 d-lg-none">
+                <button class="btn btn-secondary btn-block start-day-button">Start My Session!</button>
+            </div>
+        </div>
+    </template>`;
 });
 
 test('Blank Test', () => {
@@ -151,6 +168,9 @@ test('Add Row From EditableTaskListBody', () => {
 test('Edit Row From EditableTaskListBody', () => {
   // Create new EditableTaskListInput
   const editableTaskListInput = new EditableTaskListInput();
+
+  // Need to append to make editabletasklistbody to work
+  document.body.appendChild(editableTaskListInput);
   const editableTaskListBody = new EditableTaskListBody(editableTaskListInput);
 
   // Reset data for testing purposes
