@@ -9,14 +9,14 @@ import TaskList from '../classes/TaskList.js';
 import svgIcons from '../constants/themeIcons.js';
 
 /**
- * Creates the HTML for the menu icons
+ * Creates the HTML for the remaining pomo indicator
  * @extends HTMLElement
  */
 
 class RemainingPomos extends HTMLElement {
-/**
-* Creates the icons, their functionality and inserts them into the DOM
-*/
+  /**
+   * constructor for Remaining Pomo Indicator
+  */
   constructor() {
     super();
     this.taskList = new TaskList();
@@ -24,7 +24,6 @@ class RemainingPomos extends HTMLElement {
 
     if (this.taskList.todo.length === 0) return;
 
-    // console.log(this.taskList);
     this.svgUrls = svgIcons[backend.get('Icon')].urls;
     this.svgClasses = svgIcons[backend.get('Icon')].classes;
 
@@ -47,7 +46,8 @@ class RemainingPomos extends HTMLElement {
   }
 
   /**
-  * Create all the icons
+  * Set the number of pomos for the current task
+  * @param {object} taskList - taskList object which contains expected pomos for current task
   */
   setPomos(taskList) {
     this.resetPomos();
@@ -67,13 +67,26 @@ class RemainingPomos extends HTMLElement {
     });
   }
 
+  /**
+  * Make the remaining pomo indicator visible
+  */
+
   visibleMode() {
     this.querySelector('.remaining-pomos-container').classList.remove('invisible');
   }
 
+  /**
+  * Hide the remaining pomo indicator
+  */
+
   hiddenMode() {
     this.querySelector('.remaining-pomos-container').classList.add('invisible');
   }
+
+  /**
+  * Update the number of completed pomos
+  * @param {object} currTaskList - taskList object which contains actual pomos for current task
+  */
 
   updateCompletedPomos(currTaskList) {
     const completedPomos = currTaskList.todo[0].actual;

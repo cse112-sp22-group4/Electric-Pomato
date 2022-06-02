@@ -309,7 +309,7 @@ function handleClick(timer, taskList) {
 
       // Create finish task button for this session
       const finishTaskButton = new FinishTaskButton(nextTask);
-      timer.remainingPomos.insertAdjacentElement('beforebegin', finishTaskButton);
+      remainingPomos.insertAdjacentElement('beforebegin', finishTaskButton);
 
       active = true;
       timer.startTimer().then(() => {
@@ -327,7 +327,7 @@ function handleClick(timer, taskList) {
             backend.set('TotalPomos', Number(backend.get('TotalPomos')) + 1);
             backend.set('CurrentPomos', Number(backend.get('CurrentPomos')) + 1);
             taskList.updateTime();
-            timerUI.remainingPomos.updateCompletedPomos(taskList.data);
+            remainingPomos.updateCompletedPomos(taskList.data);
 
             // Alert the user if they have reached their expected number of pomos
             const endMessage = {
@@ -357,7 +357,7 @@ function handleClick(timer, taskList) {
           }
 
           backend.set('Timer', timerState === 'false');
-          timer.remainingPomos.visibleMode();
+          remainingPomos.visibleMode();
 
           initTimer(timer);
           active = false;
