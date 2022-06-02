@@ -3,13 +3,34 @@
 
 /* Styling for components ONLY used within index.html */
 
+.start-container-wrapper {
+    justify-content: center;
+    align-items: center;
+    margin-top: 96px;
+
+    @media screen and (max-height: 800px),
+    (max-width: 500px) {
+        margin-top: 64px;
+    }
+
+    @media screen and (max-width: 500px) and (max-height: 650px) {
+        margin-top: 32px;
+    }
+}
+
 start-container {
     border-radius: 2.5rem;
-    padding: $spacer * 2;
+    padding: $spacer * 2 $spacer * 2 $spacer * 2.5;
     display: block;
 
     @include themify($themes) {
         background-color: themed('start-container-background-color');
+    }
+
+    .subtitle {
+        @media screen and (max-width: 500px) {
+            font-size: 24px;
+        }
     }
 
     .start-question-icon {
@@ -45,6 +66,54 @@ start-container {
         display: block;
     }
 }
+
+.intro-icons-container {
+    margin-top: 5rem;
+
+
+    @media screen and (max-height: 750px) {
+        margin-top: 3rem;
+    }
+
+    @media screen and (max-width: 500px) {
+        margin-top: 3rem;
+    }
+
+    .intro-icons-items {
+        display: flex;
+        justify-content: center;
+    }
+
+    intro-icons {
+        .intro-icons-wrapper {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .intro-icons-item {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+
+        @media screen and (max-width: 600px) {
+            .intro-icons-wrapper {
+                display: block;
+            }
+
+            .legend-icon {
+                width: 60px;
+            }
+
+            .intro-icons-item.me-4 {
+                margin-right: 0 !important;
+                margin-bottom: 15px;
+            }
+        }
+    }
+}
+
+
 
 welcome-message {
     .edit-name {

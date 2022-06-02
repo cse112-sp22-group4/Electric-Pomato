@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>UsernameInput - Documentation</title>
+    <title>components/IntroIcons.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,148 +29,53 @@
 
 <div id="main">
     
-    <h1 class="page-title">UsernameInput</h1>
+    <h1 class="page-title">components/IntroIcons.js</h1>
     
 
     
 
 
 
-
-<section>
-
-<header>
     
-        <h2>
-        UsernameInput
-        </h2>
-        
-            <div class="class-description"><p>Appends a custom text input element for users to put their name</p></div>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-<div class="section-method">
-
-    
-    <h2>Constructor</h2>
-    
-
-    <h4 class="name" id="UsernameInput"><span class="type-signature"></span>new UsernameInput<span class="signature">()</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>constructor for USernameInput</p>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_UsernameInput.js.html">components/UsernameInput.js</a>, <a href="components_UsernameInput.js.html#line17">line 17</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
-    
-    </div>
-
-    
-        <h3 class="subsection-title">Extends</h3>
-
-        
-
-
-    <ul>
-        <li>HTLMElement</li>
-    </ul>
-
-
-    
-
-    
-
-    
-
-     
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @file Instantiates icons indicating pomo and breaks accordingly to theme
+ * @author Christopher Yoon
+ * Date: 05/23/2022
+ */
+
+import * as backend from '../backend.js';
+import svgIcons from '../constants/themeIcons.js';
+
+/**
+ * Defines the IntroIcons displayed on index.html accordingly to the theme
+ */
+class IntroIcons extends HTMLElement {
+  constructor() {
+    super();
+
+    // Get the theme
+    const iconURL = svgIcons[backend.get('Icon')].urls;
+    this.innerHTML = `
+        &lt;div class="intro-icons-wrapper">
+            &lt;div class="intro-icons-item me-4">
+                &lt;object id="icon1" class="legend-icon" type="image/svg+xml" data=${iconURL[1]}>&lt;/object>
+                &lt;h3 class="text-white mb-0">25 Minutes of Productivity&lt;/h3>
+            &lt;/div>
+            &lt;div class="intro-icons-item">
+              &lt;object id="icon1" class="legend-icon" type="image/svg+xml" data=${iconURL[2]}>&lt;/object>
+              &lt;h3 class="text-white mb-0">5 Minutes of Relaxing&lt;/h3>
+            &lt;/div>
+        &lt;/div>
+    `;
+  }
+}
+
+customElements.define('intro-icons', IntroIcons);
+</code></pre>
+        </article>
+    </section>
 
 
 

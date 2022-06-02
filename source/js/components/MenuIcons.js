@@ -38,7 +38,9 @@ class MenuIcons extends HTMLElement {
     this.createInfoButton();
     this.createSettingsButton();
     this.createStatsButton();
-    this.createHomeButton();
+    if (document.URL.includes('app.html')) {
+      this.createHomeButton();
+    }
   }
 
   /**
