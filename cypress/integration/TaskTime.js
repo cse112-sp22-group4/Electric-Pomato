@@ -29,10 +29,10 @@ describe('Task Time and Actual Pomo Tests', () => {
       .click();
   });
 
-  it('Check that a task worked on for a majority of a pomo counts towards the actual pomos', () => {
+  it('Check that a task worked on for a majority of a pomo counts towards the actual pomos', async () => {
     cy.clock();
 
-    getTimerImage().click();
+    await getTimerImage().click();
     cy.tick(MS_IN_WORK_SESSION / 2);
 
     // Finish the task
@@ -69,11 +69,11 @@ describe('Task Time and Actual Pomo Tests', () => {
     // });
   });
 
-  it('Check that a task worked on for a minority of a pomo does not count towards the actual pomos', () => {
+  it('Check that a task worked on for a minority of a pomo does not count towards the actual pomos', async () => {
     cy.clock();
 
     // Start the timer
-    getTimerImage().click();
+    await getTimerImage().click();
 
     // Advance the timer to a third of the work session
     cy.tick(MS_IN_WORK_SESSION / 3);
