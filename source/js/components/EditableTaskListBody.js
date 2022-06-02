@@ -71,7 +71,6 @@ class EditableTaskListBody extends HTMLElement {
       this.cancelEdit();
     }
 
-    // Disable bottom tomato-slider
     document.querySelector('editable-task-list-input tomato-slider input[type=number]').disabled = true;
 
     this.editingRow = row;
@@ -129,7 +128,6 @@ class EditableTaskListBody extends HTMLElement {
       input.value = this.originalValues[i];
     });
 
-    // Enable bottom tomato slider
     document.querySelector('editable-task-list-input tomato-slider input[type=number]').disabled = false;
 
     this.resetEditingState();
