@@ -96,9 +96,14 @@ class EditableTaskListBody extends HTMLElement {
     this.data.deleteTask(Number(row.dataset.id));
     row.remove();
 
+    const inputTypes = ['task-num-', 'task-name-', 'task-pomos-'];
     Array.from(this.children).forEach((child, i) => {
       child.querySelector('input').value = i + 1;
       child.dataset.id = i;
+      const inputs = child.querySelectorAll('input');
+      inputs.forEach((input, j) => {
+        input.id = inputTypes[j] + (i + 1);
+      });
     });
 
     this.editableTaskList.updateButtonState();
@@ -146,7 +151,9 @@ class EditableTaskListBody extends HTMLElement {
 
     row.dataset.id = number - 1;
 
+    const inputTypes = ['task-num-', 'task-name-', 'task-pomos-'];
     inputs.forEach((input, i) => {
+      input.id = inputTypes[i] + args[0];
       input.value = args[i];
     });
 
