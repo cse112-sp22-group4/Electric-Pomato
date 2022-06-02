@@ -29,38 +29,29 @@ describe('Task Time and Actual Pomo Tests', () => {
       .click();
   });
 
-  it('Check that a task worked on for a majority of a pomo counts towards the actual pomos', () => {
+  it('Check that a task worked on for a majority of a pomo counts towards the actual pomos', async () => {
     cy.clock();
 
-    // cy.get('#timerIcon').contains('text', 'START', {timeout: 10000});
-    getSvgDoc().then((body) => {
-      console.log(body.querySelector('svg'));
-    });
-    expect(true).to.eq(true);
     // Start the timer
-    // await cy.document().then((doc) => {
-    //   doc.querySelector('#timerIcon').addEventListener('load', () => {
-    //     console.log(doc.querySelector('.timer-image'));
-    //     console.log('fuck');
-    //     expect(true).to.eq(true);
-    //   });
-    //   console.log(doc.querySelector('.timer-image'));
-    //   expect(true).to.eq(true);
-    // });
-    // // Advance the timer to half of the work session
-    // cy.tick(MS_IN_WORK_SESSION / 2);
+    await getSvgDoc().then((body) => {
+      cy.wrap(body.querySelector('.timer-image')).click();
+          cy.tick(MS_IN_WORK_SESSION / 2);
 
-    // // Finish the task
-    // cy.get('finish-task-button').first()
-    //   .click();
-    // cy.get('#notif-left').click().should(() => {
-    //   // Expect that a pomo was recorded
-    //   const taskList = JSON.parse(localStorage.getItem('TaskList'));
-    //   const actualPomos = taskList.completed[0].actual;
-    //   const workTime = taskList.completed[0].time;
-    //   expect(actualPomos).to.eq(1);
-    //   expect(workTime).to.eq(60 * 25 / 2);
-    // });
+    // Finish the task
+    cy.get('finish-task-button').first()
+      .click();
+    cy.get('#notif-left').click().should(() => {
+      // Expect that a pomo was recorded
+      const taskList = JSON.parse(localStorage.getItem('TaskList'));
+      const actualPomos = taskList.completed[0].actual;
+      const workTime = taskList.completed[0].time;
+      expect(actualPomos).to.eq(1);
+      expect(workTime).to.eq(60 * 25 / 2);
+    });
+    });
+
+    // Advance the timer to half of the work session
+
   });
 
   //   it('Check that a task worked on for a minority of a pomo does not count towards the actual pomos', () => {
