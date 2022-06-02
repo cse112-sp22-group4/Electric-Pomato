@@ -71,10 +71,6 @@ class EditableTaskListBody extends HTMLElement {
       this.cancelEdit();
     }
 
-    // if (process.env.NODE_ENV !== 'test') {
-    //   // Disable bottom tomato-slider
-    //   document.querySelector('editable-task-list-input tomato-slider input[type=number]').disabled = true;
-    // }
     document.querySelector('editable-task-list-input tomato-slider input[type=number]').disabled = true;
 
     this.editingRow = row;
@@ -132,10 +128,6 @@ class EditableTaskListBody extends HTMLElement {
       input.value = this.originalValues[i];
     });
 
-    // if (process.env.NODE_ENV !== 'test') {
-    //   // Enable bottom tomato slider
-    //   document.querySelector('editable-task-list-input tomato-slider input[type=number]').disabled = false;
-    // }
     document.querySelector('editable-task-list-input tomato-slider input[type=number]').disabled = false;
 
     this.resetEditingState();
