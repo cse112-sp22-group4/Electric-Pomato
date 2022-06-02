@@ -317,7 +317,7 @@ footer>.container {
         margin: 0;
 
         @media screen and (max-width: 525px) {
-            font-size: 18px;
+            font-size: 16px;
         }
     }
 }
@@ -330,13 +330,13 @@ footer>.container {
     z-index: 2;
     padding: map-get($spacers, 5) 0 map-get($spacers, 5) 0;
 
-    @media screen and (max-width: 1000px) {
+    @media screen and (max-width: 525px) {
         h3 {
-            font-size: $h4-font-size;
+            font-size: $h6-font-size;
         }
 
         h5 {
-            font-size: $h6-font-size;
+            font-size: $h6-font-size * 0.75;
         }
     }
 

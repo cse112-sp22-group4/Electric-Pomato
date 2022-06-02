@@ -67,7 +67,7 @@ class MenuIcons extends HTMLElement {
   createInfoButton() {
     // Set up button
     const infoButton = document.createElement('button');
-    infoButton.classList.add('m-2', 'rounded', 'p-2');
+    infoButton.classList.add('m-1', 'm-sm-2', 'rounded', 'p-2');
     const infoIcon = document.createElement('i');
     infoIcon.classList.add('fas', 'text-white', 'fa-info-circle');
     const infoText = document.createElement('span');
@@ -90,7 +90,7 @@ class MenuIcons extends HTMLElement {
   createSettingsButton() {
     // Set up button
     const settingsButton = document.createElement('button');
-    settingsButton.classList.add('m-2', 'rounded', 'p-2');
+    settingsButton.classList.add('m-1', 'm-sm-2', 'rounded', 'p-2');
     const settingsIcon = document.createElement('i');
     settingsIcon.classList.add('fas', 'text-white', 'fa-wrench');
     const settingsText = document.createElement('span');
@@ -113,7 +113,7 @@ class MenuIcons extends HTMLElement {
   createStatsButton() {
     // Set up button
     const statsButton = document.createElement('button');
-    statsButton.classList.add('m-2', 'rounded', 'p-2');
+    statsButton.classList.add('m-1', 'm-sm-2', 'rounded', 'p-2');
     const statsIcon = document.createElement('i');
     statsIcon.classList.add('fas', 'fa-chart-bar', 'text-white');
     const statsText = document.createElement('span');
@@ -136,7 +136,7 @@ class MenuIcons extends HTMLElement {
   createHomeButton() {
     // Set up button
     const homeButton = document.createElement('button');
-    homeButton.classList.add('m-2', 'rounded', 'p-2');
+    homeButton.classList.add('m-1', 'm-sm-2', 'rounded', 'p-2');
     const homeIcon = document.createElement('i');
     homeIcon.classList.add('fas', 'fa-home', 'text-white');
     const homeText = document.createElement('span');
