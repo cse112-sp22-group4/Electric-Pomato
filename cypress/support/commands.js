@@ -24,8 +24,17 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
-Cypress.Commands.add('getContentDocument', (waitForSelector) => {
+Cypress.Commands.add('getTimerContentDocument', (waitForSelector) => {
   return cy.get('#timerIcon')
+    .its('0.contentDocument.documentElement')
+    .should(body => {
+      expect(Cypress.$(body).has(waitForSelector).length).gt(0)
+    })
+    .then(cy.wrap)
+})
+
+Cypress.Commands.add('getIconContentDocument', (waitForSelector) => {
+  return cy.get('.legend-icon')
     .its('0.contentDocument.documentElement')
     .should(body => {
       expect(Cypress.$(body).has(waitForSelector).length).gt(0)
