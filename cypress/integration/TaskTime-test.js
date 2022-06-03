@@ -33,7 +33,6 @@ describe('Task Time and Actual Pomo Tests', () => {
   it('Check that a task worked on for a majority of a pomo counts towards the actual pomos', () => {
     cy.clock();
 
-    // getTimerImage().click();
     startTimer();
     cy.tick(MS_IN_WORK_SESSION / 2);
 
@@ -57,7 +56,6 @@ describe('Task Time and Actual Pomo Tests', () => {
 
     // Start the timer
     startTimer();
-    // getTimerImage().click();
 
     // Advance the timer to a third of the work session
     cy.tick(MS_IN_WORK_SESSION / 3);
