@@ -1,9 +1,10 @@
 /* eslint-disable no-undef */
 /* eslint-disable jest/valid-expect */
 
-const getTimerImage = () => cy.get('#timerIcon')
-  .its('0.contentDocument').should('exist')
-  .then((body) => { cy.wrap(body.querySelector('.timer-image')); });
+const startTimer = () => {
+  cy.getTimerContentDocument('.timer-image')
+  .find('.timer-image').click();
+}
 
 describe('Task Time and Actual Pomo Tests', () => {
   const MS_IN_WORK_SESSION = 25 * 60 * 1000;
@@ -29,10 +30,11 @@ describe('Task Time and Actual Pomo Tests', () => {
       .click();
   });
 
-  it('Check that a task worked on for a majority of a pomo counts towards the actual pomos', async () => {
+  it('Check that a task worked on for a majority of a pomo counts towards the actual pomos', () => {
     cy.clock();
 
-    await getTimerImage().click();
+    // getTimerImage().click();
+    startTimer();
     cy.tick(MS_IN_WORK_SESSION / 2);
 
     // Finish the task
@@ -50,11 +52,12 @@ describe('Task Time and Actual Pomo Tests', () => {
     });
   });
 
-  it('Check that a task worked on for a minority of a pomo does not count towards the actual pomos', async () => {
+  it('Check that a task worked on for a minority of a pomo does not count towards the actual pomos', () => {
     cy.clock();
 
     // Start the timer
-    await getTimerImage().click();
+    startTimer();
+    // getTimerImage().click();
 
     // Advance the timer to a third of the work session
     cy.tick(MS_IN_WORK_SESSION / 3);
@@ -74,7 +77,7 @@ describe('Task Time and Actual Pomo Tests', () => {
     // Finish the pomo session
     cy.tick((2 * MS_IN_WORK_SESSION) / 3);
 
-    // When popup asks if we want to finish the task, don't finish it
+    // When popup asks if we want to finish the task, finish it
     cy.get('#notif-right').click().should(() => {
       // Expect that a pomo was recorded for the second task
       const taskList = JSON.parse(localStorage.getItem('TaskList'));
