@@ -2,7 +2,7 @@
 /* eslint-disable jest/valid-expect */
 
 const startTimer = () => {
-  cy.getContentDocument('.timer-image')
+  cy.getTimerContentDocument('.timer-image')
   .find('.timer-image').click();
 }
 
@@ -77,7 +77,7 @@ describe('Task Time and Actual Pomo Tests', () => {
     // Finish the pomo session
     cy.tick((2 * MS_IN_WORK_SESSION) / 3);
 
-    // When popup asks if we want to finish the task, don't finish it
+    // When popup asks if we want to finish the task, finish it
     cy.get('#notif-right').click().should(() => {
       // Expect that a pomo was recorded for the second task
       const taskList = JSON.parse(localStorage.getItem('TaskList'));

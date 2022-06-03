@@ -1,6 +1,6 @@
-// Function to get the timer element
+// Function to start the timer
 const startTimer = () => {
-  cy.getContentDocument('.timer-image')
+  cy.getTimerContentDocument('.timer-image')
   .find('.timer-image').click();
 }
 
@@ -32,7 +32,6 @@ describe('End to end task tests', () => {
 
     // Start the timer
     startTimer();
-    // getTimerImage().click();
 
     // Expect all the tasks to be in the view-only task list with the correct values
     for(let i = 1; i <= numTasks; i++) {
