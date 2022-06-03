@@ -12,6 +12,8 @@ const getTimerText = () => {
 describe('End to end settings tests', () => {
   beforeEach(() => {
     cy.visit('/');
+    // Wait for serviceWorker
+    cy.wait(1000);
 
     // Log in
     cy.get('.start-input').type('Thomas{enter}');
