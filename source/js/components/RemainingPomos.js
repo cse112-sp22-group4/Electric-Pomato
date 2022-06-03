@@ -30,7 +30,7 @@ class RemainingPomos extends HTMLElement {
     const template = document.createElement('template');
     template.innerHTML = `
       <div class="remaining-pomos-container">
-        <h3>Remaining Planned Pomos</h3>
+        <h3>Planned Pomos</h3>
         <div class="d-flex justify-content-center align-items-center icon-container"></div>
       </div>
     `;
@@ -39,6 +39,10 @@ class RemainingPomos extends HTMLElement {
     this.setPomos(this.taskList);
     this.updateCompletedPomos(this.taskList);
   }
+
+  /**
+  * Reset remaining pomos icon container
+  */
 
   resetPomos() {
     const pomoContainer = this.querySelector('.icon-container');
