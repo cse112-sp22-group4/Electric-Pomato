@@ -1,18 +1,10 @@
 /* eslint-disable no-undef */
 /* eslint-disable jest/valid-expect */
 
-// const getTimerImage = () => cy.get('#timerIcon')
-//   .its('0.contentDocument').should('exist')
-//   .then((body) => { cy.wrap(body.querySelector('.timer-image')); });
-
 const startTimer = () => {
   cy.getContentDocument('.timer-image')
   .find('.timer-image').click();
 }
-
-// const startTimer = () => cy.get('#timerIcon')
-//   .its('0.contentDocument').should('exist')
-//   .then((body) => { cy.wrap(body.querySelector('.timer-image')).click(); });
 
 describe('Task Time and Actual Pomo Tests', () => {
   const MS_IN_WORK_SESSION = 25 * 60 * 1000;
