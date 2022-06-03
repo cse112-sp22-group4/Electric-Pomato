@@ -9,7 +9,7 @@
     margin-top: 96px;
 
     @media screen and (max-height: 800px),
-    (max-width: 500px) {
+    (max-width: 525px) {
         margin-top: 64px;
     }
 
@@ -60,7 +60,7 @@ start-container {
         display: block;
     }
 
-    @media screen and (max-width: 500px) {
+    @media screen and (max-width: 525px) {
         padding: $spacer * 1.5 $spacer * 1.5 $spacer * 1.5;  
         .subtitle {
             font-size: 24px;
@@ -86,7 +86,7 @@ start-container {
         margin-top: 3vh;
     }
 
-    @media screen and (max-width: 500px) {
+    @media screen and (max-width: 525px) {
         margin-top: 3vh;
     }
 
@@ -107,7 +107,7 @@ start-container {
             align-items: center;
         }
 
-        @media screen and (max-width: 500px) {
+        @media screen and (max-width: 525px) {
             .intro-icons-wrapper {
                 display: block;
             }
@@ -134,7 +134,7 @@ welcome-message {
     .edit-name {
         width: 80%;
         font-size: $h3-font-size;
-        @media screen and (max-width: 500px) {
+        @media screen and (max-width: 525px) {
             font-size: $h5-font-size;
         }
     }

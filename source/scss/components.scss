@@ -5,8 +5,11 @@
 
 /* Styling for components shared between app.html and index.html */
 
+html, body {
+    height: 100%; 
+}
+
 body {
-    min-height: 100vh;
     position: relative;
 
     @include themify($themes) {
@@ -86,6 +89,7 @@ info-modal {
 settings-modal {
     .container {
         width: 600px;
+        height: 80vh;
     }
 
     #settings-container {
@@ -103,9 +107,14 @@ settings-modal {
     .settings-row {
         display: flex;
         justify-content: space-between;
-        margin-bottom: 50px;
+        margin-bottom: map-get($spacers, 4);
         padding-left: 20px;
         padding-right: 20px;
+
+        @media screen and (max-width: 525px) {
+            margin-bottom: 15px;
+        }
+        
     }
 
     .settings-item {
@@ -345,6 +354,12 @@ footer>.container {
     }
 }
 
+.app-title {
+    @media screen and (max-width: 525px) {
+        padding-top: map-get($spacers, 3);
+    }
+}
+
 .app-title,
 .app-subtitle {
     color: white;
@@ -544,6 +559,10 @@ footer>.container {
 .modal-content>*:not(:last-child),
 #info-cards>*:not(:last-child) {
     margin-bottom: map-get($spacers, 4);
+
+    @media screen and (max-width: 525px) {
+        margin-bottom: map-get($spacers, 3);
+    }
 }
 
 @keyframes animatetop {

@@ -121,8 +121,11 @@ view-only-task-list {
     bottom: 0;
     width: 100%;
 
-    @media screen and (max-width: 500px) {
+    @media screen and (max-width: 525px) {
         padding: map-get($spacers, 0) map-get($spacers, 3) map-get($spacers, 5) map-get($spacers, 3);
+        .subtitle {
+            font-size: $h4-font-size;
+        }
     }
 
     .task-list-container {
@@ -185,12 +188,19 @@ pomo-timer {
     margin-bottom: 10%;
 }
 
+finish-task-button {
+    padding-top: map-get($spacers, 2);
+}
 .timer-container {
     // width: 400px;
     // height: 400px;
     width: 85%;
     height: 85%;
     display: inline-block;
+
+    @media screen and (max-width: 525px) {
+       height: 60%;  
+    }
 }
 
 .timer-image {
