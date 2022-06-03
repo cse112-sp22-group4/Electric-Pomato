@@ -13,8 +13,8 @@ import ViewableTaskListMobileImage from '../../img/viewable-task-list-mobile.png
 import StatsModalImage from '../../img/stats-modal.png';
 import StatsMobileImage from '../../img/stats-modal-mobile.png';
 import SettingsModal from '../../img/settings-modal.png';
-import GreenTomato from '../../img/green.svg';
-import RedTomato from '../../img/red.svg';
+import GreenTomato from '../../img/tomGreen.svg';
+import RedTomato from '../../img/tomRed.svg';
 
 /**
  * Defines the Info class which controls opening and closing the info modal.
