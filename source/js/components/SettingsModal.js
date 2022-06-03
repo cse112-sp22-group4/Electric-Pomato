@@ -63,6 +63,13 @@ class SettingsModal extends HTMLElement {
                 <option value="dark">Dark</option>
               </select>
             </label>
+            <label class="settings-row" for="icon-select">
+            <span class="settings-item" id="icon-text">Icon</span>
+            <select class="settings-select" name="icon-select" id="icon-select" changed="false">
+              <option value="default">Default</option>
+              <option value="bomb">Bomb</option>
+            </select>
+          </label>
           </form>
           <button id="settings-default" type="button" class="btn btn-primary btn-block">Revert to recommended settings</button>
           <div id="settings-buttons">
@@ -85,6 +92,7 @@ class SettingsModal extends HTMLElement {
     this.shortBreakDrop = document.getElementById('short-duration-select');
     this.longBreakDrop = document.getElementById('long-duration-select');
     this.themesDrop = document.getElementById('themes-select');
+    this.iconsDrop = document.getElementById('icon-select');
     this.closeButton = document.getElementById('settings-close');
     this.saveButton = document.getElementById('settings-save');
     this.defaultButton = document.getElementById('settings-default');
@@ -96,6 +104,10 @@ class SettingsModal extends HTMLElement {
 
     this.themesDrop.addEventListener('change', () => {
       document.documentElement.classList.value = `theme-${this.themesDrop.value}`;
+    });
+
+    this.iconsDrop.addEventListener('change', () => {
+      this.iconsDrop.setAttribute('changed', true);
     });
 
     // Set up buttons
@@ -118,6 +130,7 @@ class SettingsModal extends HTMLElement {
     this.shortBreakDrop.value = timerConstants.DEFAULT_SHORT_BREAK_DURATION;
     this.longBreakDrop.value = timerConstants.DEFAULT_LONG_BREAK_DURATION;
     this.themesDrop.value = userThemes.DEFAULT;
+    this.iconsDrop.value = 'default';
     document.documentElement.classList.value = `theme-${userThemes.DEFAULT}`;
   }
 
@@ -128,6 +141,8 @@ class SettingsModal extends HTMLElement {
     backend.set('WorkSessionDuration', timerConstants.DEFAULT_WORK_SESSION_DURATION);
     backend.set('ShortBreakDuration', timerConstants.DEFAULT_SHORT_BREAK_DURATION);
     backend.set('LongBreakDuration', timerConstants.DEFAULT_LONG_BREAK_DURATION);
+    // UI THEME TEMP LINE
+    backend.set('Icon', 'default');
     backend.set('UserTheme', userThemes.DEFAULT);
   }
 
@@ -139,6 +154,7 @@ class SettingsModal extends HTMLElement {
     this.shortBreakDrop.value = backend.get('ShortBreakDuration');
     this.longBreakDrop.value = backend.get('LongBreakDuration');
     this.themesDrop.value = backend.get('UserTheme');
+    this.iconsDrop.value = backend.get('Icon');
   }
 
   /**
@@ -149,6 +165,14 @@ class SettingsModal extends HTMLElement {
     backend.set('ShortBreakDuration', this.shortBreakDrop.value);
     backend.set('LongBreakDuration', this.longBreakDrop.value);
     backend.set('UserTheme', this.themesDrop.value);
+    backend.set('Icon', this.iconsDrop.value);
+
+    // Reload page to reload svg's
+    if (this.iconsDrop.getAttribute('changed') === 'true') {
+      // eslint-disable-next-line no-restricted-globals
+      location.reload();
+    }
+
     this.close();
   }
 

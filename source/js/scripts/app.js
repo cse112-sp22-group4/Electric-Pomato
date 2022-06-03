@@ -25,6 +25,8 @@ import * as backend from '../backend.js';
 import pomoIcon from '../../img/green-tomato.png';
 import breakIcon from '../../img/red-tomato.png';
 
+const appIcon = new URL('../../img/favicon.ico', import.meta.url);
+
 // Import audio from local file
 const notiSound = new URL('../../audio/notification-ping.mp3', import.meta.url);
 
@@ -48,6 +50,7 @@ const notiSound = new URL('../../audio/notification-ping.mp3', import.meta.url);
 
 // DOM elements
 const appContainer = document.querySelector('.app-container');
+const favicon = document.querySelector("link[rel*='icon']");
 
 // Menu icons
 const menuIcons = document.querySelector('menu-icons');
@@ -57,6 +60,9 @@ let finished = false;
 
 // View only task list
 let votl = null;
+
+// Website title
+let windowTitle = 'Electric Pomato';
 
 /* **************************** Helper Functions **************************** */
 
@@ -70,6 +76,12 @@ function isLongBreak() {
   return currentPomos > 0 && currentPomos % 4 === 0;
 }
 
+/**
+ * Handles all things that need to be done on timer tick, like updating website title
+ */
+function handleTick(event) {
+  document.title = `${event.text} - ${windowTitle}`;
+}
 /**
  * Handles all things that need to be done at the end of the session, called by initTimer
  * @ignore
@@ -158,7 +170,8 @@ function nextTask(object) {
   // Add any partial time from a pomo session to the task time.
   // Check that the timer is running for the edge case where a task
   // is finished during break, but timer has updated to pomo.
-  votl.finishTask(backend.get('Timer') === 'true' && document.querySelector('.timer-text').textContent !== 'START');
+  const svgDoc = document.querySelector('#timerIcon').contentDocument;
+  votl.finishTask(backend.get('Timer') === 'true' && svgDoc.querySelector('.timer-text').textContent !== 'START');
 
   // Update app title
   updateAppTitle(object.getChecked());
@@ -189,13 +202,13 @@ function initTimer(timer) {
     if (timerState === 'true') {
       // Update the HTML
       updateAppTitle(false);
-      timer.setColorGreen();
+      timer.setPomoIcon();
     } else {
       // Update the HTML
       menuIcons.defaultMode();
       document.querySelector('.app-subtitle').style.display = 'block';
       updateAppTitle(false);
-      timer.setColorRed();
+      timer.setBreakIcon();
     }
   }
 }
@@ -255,9 +268,12 @@ function showTimerNotification() {
 function handleClick(timer, taskList) {
   let active = false;
 
-  timer.firstElementChild.addEventListener('click', () => {
+  timer.addEventListener('iconclick', () => {
     if (!active) {
+      document.addEventListener('timerTick', handleTick);
       if (backend.get('Timer') === 'true') {
+        favicon.href = pomoIcon;
+        windowTitle = 'Plugged in!';
         // Hide all icons except home when a work session starts.
         menuIcons.focusMode();
         taskList.startTask();
@@ -268,21 +284,31 @@ function handleClick(timer, taskList) {
         appSubtitle.style.display = 'none';
         const workSessionDuration = backend.get('WorkSessionDuration');
         timer.createTimer(workSessionDuration, 0);
-      } else if (isLongBreak()) {
-        const longBreakDuration = backend.get('LongBreakDuration');
-        timer.createTimer(longBreakDuration, 0);
       } else {
-        const shortBreakDuration = backend.get('ShortBreakDuration');
-        timer.createTimer(shortBreakDuration, 0);
+        favicon.href = breakIcon;
+        windowTitle = 'Recharging...';
+        if (isLongBreak()) {
+          const longBreakDuration = backend.get('LongBreakDuration');
+          timer.createTimer(longBreakDuration, 0);
+        } else {
+          const shortBreakDuration = backend.get('ShortBreakDuration');
+          timer.createTimer(shortBreakDuration, 0);
+        }
       }
 
-      // Create finish task button for this sessio
+      // Create finish task button for this session
       const finishTaskButton = new FinishTaskButton(nextTask);
       timer.appendChild(finishTaskButton);
 
       active = true;
       timer.startTimer().then(() => {
         if (!finished) {
+          // Reset to default icon/title
+          document.removeEventListener('timerTick', handleTick);
+          favicon.href = appIcon;
+          windowTitle = 'Electric Pomato';
+          document.title = windowTitle;
+
           const timerState = backend.get('Timer');
 
           // Increment pomos if we were in a Pomo session
@@ -358,6 +384,10 @@ function handleOnLoad() {
     showTimer();
   } else {
     // otherwise, go to task list page
+    if (backend.get('HasSeenInfo') === null) {
+      menuIcons.infoModal.open();
+      backend.set('HasSeenInfo', 'true');
+    }
     appContainer.appendChild(new EditableTaskList());
     document.querySelector('.app-title').textContent = `${backend.get('Username')}'s Session`;
     appContainer.querySelectorAll('.start-day-button').forEach((button) => {

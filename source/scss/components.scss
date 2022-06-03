@@ -14,17 +14,34 @@ body {
     }
 }
 
+.app-header-logo {
+    height: 40px;
+    width: 40px;
+
+    @media screen and (max-width: 1000px) {
+        height: 35px;
+        width: 35px;
+    }
+}
+
 menu-icons {
     i {
-        font-size: $h5-font-size;
+        @include font-size($h5-font-size);
+
+        @media screen and (max-width: 1000px) {
+            @include font-size($h6-font-size);
+        }
 
         @include themify($themes) {
             background-color: themed('menu-button-background-color');
         }
+
+
     }
 
     button {
         cursor: pointer;
+        background-color: #3b586c;
         border: none;
 
         @include themify($themes) {
@@ -37,7 +54,11 @@ menu-icons {
     }
 
     span {
-        font-size: $h5-font-size
+        @include font-size($h5-font-size);
+
+        @media screen and (max-width: 1000px) {
+            @include font-size($h6-font-size);
+        }
     }
 }
 
@@ -169,7 +190,11 @@ settings-modal {
 
     .settings-item {
         overflow-wrap: break-word;
-        font-size: $h3-font-size;
+        @include font-size($h3-font-size);
+
+        @media screen and (max-width: 525px) {
+            @include font-size($h4-font-size);
+        }
 
         @include themify($themes) {
             color: themed('settings-item-color');
@@ -178,7 +203,11 @@ settings-modal {
 
     .settings-select {
         padding: 5px;
-        font-size: $h4-font-size;
+        @include font-size($h4-font-size);
+
+        @media screen and (max-width: 525px) {
+            @include font-size($h5-font-size);
+        }
 
         @include themify($themes) {
             background-color: themed('settings-select-background-color');
@@ -293,6 +322,12 @@ stats-modal {
     height: 100%;
 }
 
+.btn-lg {
+    @media screen and (max-width: 525px) {
+        @include font-size($h5-font-size);
+    }
+}
+
 a {
     text-decoration: none;
 }
@@ -323,10 +358,6 @@ input:focus {
 .legend-icon {
     width: 80px;
     margin-right: 1.5rem;
-}
-
-.invisible {
-    opacity: 0;
 }
 
 .subtitle {
@@ -361,9 +392,17 @@ footer>.container {
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    p {
+        margin: 0;
+
+        @media screen and (max-width: 525px) {
+            font-size: 18px;
+        }
+    }
 }
 
-.app-header {
+.app-header-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -372,13 +411,17 @@ footer>.container {
     padding: map-get($spacers, 5) 0 map-get($spacers, 5) 0;
 
     @media screen and (max-width: 1000px) {
-        h1 {
-            font-size: $h3-font-size;
+        h3 {
+            font-size: $h4-font-size;
         }
 
-        h4 {
+        h5 {
             font-size: $h6-font-size;
         }
+    }
+
+    @media screen and (max-width: 525px) {
+        padding: map-get($spacers, 3) 0 map-get($spacers, 3) 0;
     }
 }
 
@@ -390,15 +433,15 @@ footer>.container {
 }
 
 .white-tomato {
-    #\#fe250cff path {
+    #\#fe250cff {
         fill: white;
     }
 
-    #\#fb1101ff path {
+    #\#fb1101ff {
         fill: white;
     }
 
-    #\#fe5637ff path {
+    #\#fe5637ff {
         fill: white;
     }
 }
@@ -414,15 +457,15 @@ footer>.container {
     }
     */
 
-    #\#fe250cff path {
+    #\#fe250cff {
         fill: #fe250cff;
     }
 
-    #\#fb1101ff path {
+    #\#fb1101ff {
         fill: #fb1101ff;
     }
 
-    #\#fe5637ff path {
+    #\#fe5637ff {
         fill: #fe5637ff;
     }
 }
@@ -440,17 +483,17 @@ footer>.container {
     */
 
     // body color
-    #\#fe250cff path {
+    #\#fe250cff {
         fill: #62e462ff;
     }
 
     // shadow color
-    #\#fb1101ff path {
+    #\#fb1101ff {
         fill: #5fdd5fff;
     }
 
     // highlight color
-    #\#fe5637ff path {
+    #\#fe5637ff {
         fill: #66ec66ff;
     }
 }
@@ -479,6 +522,50 @@ footer>.container {
     // highlight color
     #\#fe5637ff path {
         fill: #c59e01;
+    }
+}
+
+.bomb-pomo {
+
+    #bombP1,
+    #bombP7 {
+        fill: #666B6B;
+    }
+
+    #bombP2,
+    #bombP6 {
+        fill: #244142;
+    }
+
+    #bombP3,
+    #bombP4 {
+        fill: #142E2F;
+    }
+
+    #bombP5 {
+        fill: #2D4F51;
+    }
+}
+
+.bomb-white {
+
+    #bombP1,
+    #bombP7 {
+        fill: #F9F9F9;
+    }
+
+    #bombP2,
+    #bombP6 {
+        fill: #EEEEEE;
+    }
+
+    #bombP3,
+    #bombP4 {
+        fill: #E2E2E2;
+    }
+
+    #bombP5 {
+        fill: #F9F9F9;
     }
 }
 
