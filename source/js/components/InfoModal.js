@@ -6,13 +6,13 @@
  * Date: 05/11/2022
  */
 
-import CreateTaskListImage from '../../assets/images/create-task-list.png';
-import CreateTaskListMobileImage from '../../assets/images/create-task-list-mobile.png';
-import ViewableTaskListImage from '../../assets/images/viewable-task-list.png';
-import ViewableTaskListMobileImage from '../../assets/images/viewable-task-list-mobile.png';
-import StatsModalImage from '../../assets/images/stats-modal.png';
-import StatsMobileImage from '../../assets/images/stats-modal-mobile.png';
-import SettingsModal from '../../assets/images/settings-modal.png';
+import CreateTaskListImage from '../../assets/images/create-task-list.webp';
+import CreateTaskListMobileImage from '../../assets/images/create-task-list-mobile.webp';
+import ViewableTaskListImage from '../../assets/images/viewable-task-list.webp';
+import ViewableTaskListMobileImage from '../../assets/images/viewable-task-list-mobile.webp';
+import StatsModalImage from '../../assets/images/stats-modal.webp';
+import StatsMobileImage from '../../assets/images/stats-modal-mobile.webp';
+import SettingsModal from '../../assets/images/settings-modal.webp';
 import GreenTomato from '../../assets/images/tomGreen.svg';
 import RedTomato from '../../assets/images/tomRed.svg';
 

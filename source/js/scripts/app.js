@@ -22,8 +22,8 @@ import StatsModal from '../components/StatsModal.js';
 import * as backend from '../backend.js';
 
 // Icon assets
-import pomoIcon from '../../assets/images/green-tomato.png';
-import breakIcon from '../../assets/images/red-tomato.png';
+import pomoIcon from '../../assets/images/green-tomato.webp';
+import breakIcon from '../../assets/images/red-tomato.webp';
 
 const appIcon = new URL('../../assets/images/favicon.ico', import.meta.url);
 
