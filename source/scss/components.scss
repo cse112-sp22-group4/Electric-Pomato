@@ -589,10 +589,7 @@ footer>.container {
 
 ::-webkit-scrollbar-track {
     border-radius: map-get($spacers, 2);
-
-    @include themify($themes) {
-        background: themed('scrollbar-background-color');
-    }
+    background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
