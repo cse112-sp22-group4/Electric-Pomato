@@ -176,7 +176,8 @@ function nextTask(object) {
   // Add any partial time from a pomo session to the task time.
   // Check that the timer is running for the edge case where a task
   // is finished during break, but timer has updated to pomo.
-  votl.finishTask(backend.get('Timer') === 'true' && document.querySelector('.timer-text').textContent !== 'START');
+  const svgDoc = document.querySelector('#timerIcon').contentDocument;
+  votl.finishTask(backend.get('Timer') === 'true' && svgDoc.querySelector('.timer-text').textContent !== 'START');
 
   // Update app title
   updateAppTitle(object.getChecked());
@@ -207,13 +208,13 @@ function initTimer(timer) {
     if (timerState === 'true') {
       // Update the HTML
       updateAppTitle(false);
-      timer.setColorGreen();
+      timer.setPomoIcon();
     } else {
       // Update the HTML
       menuIcons.defaultMode();
       document.querySelector('.app-subtitle').style.display = 'block';
       updateAppTitle(false);
-      timer.setColorRed();
+      timer.setBreakIcon();
     }
   }
 }
@@ -273,7 +274,7 @@ function showTimerNotification() {
 function handleClick(timer, taskList) {
   let active = false;
 
-  timer.firstElementChild.addEventListener('click', () => {
+  timer.addEventListener('iconclick', () => {
     if (!active) {
       document.addEventListener('timerTick', handleTick);
       if (backend.get('Timer') === 'true') {

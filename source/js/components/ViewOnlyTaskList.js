@@ -24,7 +24,7 @@ class ViewOnlyTaskList extends HTMLElement {
     this.data = new TaskList();
 
     this.appContainer = document.querySelector('.app-container');
-    this.appHeader = document.querySelector('.app-header');
+    this.appHeader = document.querySelector('.app-header-container');
     this.visible = false;
 
     this.taskListTitle = document.createElement('h2');
