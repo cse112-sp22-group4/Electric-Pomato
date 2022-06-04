@@ -6,15 +6,15 @@
  * Date: 05/11/2022
  */
 
-import CreateTaskListImage from '../../img/create-task-list.png';
-import CreateTaskListMobileImage from '../../img/create-task-list-mobile.png';
-import ViewableTaskListImage from '../../img/viewable-task-list.png';
-import ViewableTaskListMobileImage from '../../img/viewable-task-list-mobile.png';
-import StatsModalImage from '../../img/stats-modal.png';
-import StatsMobileImage from '../../img/stats-modal-mobile.png';
-import SettingsModal from '../../img/settings-modal.png';
-import GreenTomato from '../../img/tomGreen.svg';
-import RedTomato from '../../img/tomRed.svg';
+import CreateTaskListImage from '../../assets/images/create-task-list.png';
+import CreateTaskListMobileImage from '../../assets/images/create-task-list-mobile.png';
+import ViewableTaskListImage from '../../assets/images/viewable-task-list.png';
+import ViewableTaskListMobileImage from '../../assets/images/viewable-task-list-mobile.png';
+import StatsModalImage from '../../assets/images/stats-modal.png';
+import StatsMobileImage from '../../assets/images/stats-modal-mobile.png';
+import SettingsModal from '../../assets/images/settings-modal.png';
+import GreenTomato from '../../assets/images/tomGreen.svg';
+import RedTomato from '../../assets/images/tomRed.svg';
 
 /**
  * Defines the Info class which controls opening and closing the info modal.
