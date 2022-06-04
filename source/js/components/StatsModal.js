@@ -22,6 +22,10 @@ class StatsModal extends HTMLElement {
     this.innerHTML = `
     <div id="stats-wrapper" class="modal-wrapper">
       <div class="container">
+            <div id=line-chart-colors>
+              <span id=line-chart-expected-color></span>
+              <span id=line-chart-actual-color></span>
+            </div>
             <div class="modal-content">
               <h2 class="modal-title">Planned vs. Actual Pomos Per Session</h2>
               <div id="line-chart-container">
@@ -29,10 +33,7 @@ class StatsModal extends HTMLElement {
                 <h3 id="line-chart-alt">You haven't completed enough sessions yet. <br> Finish sessions to start tracking your stats!</h3>
               </div>
               <button id="stats-close" class="btn btn-primary">Close</button>
-              <div id=line-chart-colors>
-                <span id=line-chart-expected-color></span>
-                <span id=line-chart-actual-color></span>
-              </div>
+
         </div>
       </div>
     </div>`;
