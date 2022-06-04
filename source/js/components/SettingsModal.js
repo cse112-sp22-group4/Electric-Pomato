@@ -74,7 +74,7 @@ class SettingsModal extends HTMLElement {
           <label class="settings-row" for="audio-select">
             <span class="settings-item" id="audio-text">Audio Notifications</span>
             <select class="settings-select" name="audio-select" id="audio-select" changed="false">
-              <option value="default">On</option>
+              <option value="on">On</option>
               <option value="off">Off</option>
             </select>
           </label>
@@ -101,6 +101,7 @@ class SettingsModal extends HTMLElement {
     this.longBreakDrop = document.getElementById('long-duration-select');
     this.themesDrop = document.getElementById('themes-select');
     this.iconsDrop = document.getElementById('icon-select');
+    this.audioDrop = document.getElementById('audio-select');
     this.closeButton = document.getElementById('settings-close');
     this.saveButton = document.getElementById('settings-save');
     this.defaultButton = document.getElementById('settings-default');
@@ -139,6 +140,7 @@ class SettingsModal extends HTMLElement {
     this.longBreakDrop.value = timerConstants.DEFAULT_LONG_BREAK_DURATION;
     this.themesDrop.value = userThemes.DEFAULT;
     this.iconsDrop.value = 'default';
+    this.audioDrop.value = 'on';
     document.documentElement.classList.value = `theme-${userThemes.DEFAULT}`;
   }
 
@@ -152,6 +154,7 @@ class SettingsModal extends HTMLElement {
     // UI THEME TEMP LINE
     backend.set('Icon', 'default');
     backend.set('UserTheme', userThemes.DEFAULT);
+    backend.set('AudioToggle', 'on');
   }
 
   /**
@@ -163,6 +166,7 @@ class SettingsModal extends HTMLElement {
     this.longBreakDrop.value = backend.get('LongBreakDuration');
     this.themesDrop.value = backend.get('UserTheme');
     this.iconsDrop.value = backend.get('Icon');
+    this.audioDrop.value = backend.get('AudioToggle');
   }
 
   /**
@@ -174,6 +178,7 @@ class SettingsModal extends HTMLElement {
     backend.set('LongBreakDuration', this.longBreakDrop.value);
     backend.set('UserTheme', this.themesDrop.value);
     backend.set('Icon', this.iconsDrop.value);
+    backend.set('AudioToggle', this.audioDrop.value);
 
     // Reload page to reload svg's
     if (this.iconsDrop.getAttribute('changed') === 'true') {
