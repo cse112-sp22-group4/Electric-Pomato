@@ -22,7 +22,7 @@ class ViewOnlyTaskListSection extends HTMLElement {
     this.insertTitle(title);
     this.insertHeaderRow();
     data.forEach(({ name, expected, actual }, i) => {
-      this.insertRow(i + 1, name, expected, actual);
+      this.insertRow(i + 1, name, expected, actual, title);
     });
   }
 
@@ -55,7 +55,10 @@ class ViewOnlyTaskListSection extends HTMLElement {
     const row = this.lastElementChild;
     const spans = row.querySelectorAll('span');
 
+    const inputTypes = ['task-num-', 'task-name-', 'task-expected-', 'task-actual-'];
+    const prefix = args[4] === 'Completed' ? 'completed-' : 'todo-';
     spans.forEach((span, i) => {
+      span.id = prefix + inputTypes[i] + args[0];
       span.textContent = args[i];
     });
   }

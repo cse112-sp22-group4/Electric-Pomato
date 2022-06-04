@@ -3,6 +3,7 @@
  * @author Teresa Truong
  * @author Annika Hatcher
  * @author Arman Mansourian
+ * @author Chris Yoon
  * Date: 03/07/2021
  */
 
@@ -70,6 +71,8 @@ class EditableTaskListBody extends HTMLElement {
       this.cancelEdit();
     }
 
+    document.querySelector('editable-task-list-input tomato-slider input[type=number]').disabled = true;
+
     this.editingRow = row;
     this.editingInputs = inputs;
     this.originalValues = inputs.map((input) => input.value);
@@ -96,9 +99,14 @@ class EditableTaskListBody extends HTMLElement {
     this.data.deleteTask(Number(row.dataset.id));
     row.remove();
 
+    const inputTypes = ['task-num-', 'task-name-', 'task-pomos-'];
     Array.from(this.children).forEach((child, i) => {
       child.querySelector('input').value = i + 1;
       child.dataset.id = i;
+      const inputs = child.querySelectorAll('input');
+      inputs.forEach((input, j) => {
+        input.id = inputTypes[j] + (i + 1);
+      });
     });
 
     this.editableTaskList.updateButtonState();
@@ -125,6 +133,8 @@ class EditableTaskListBody extends HTMLElement {
       input.value = this.originalValues[i];
     });
 
+    document.querySelector('editable-task-list-input tomato-slider input[type=number]').disabled = false;
+
     this.resetEditingState();
   }
 
@@ -146,7 +156,9 @@ class EditableTaskListBody extends HTMLElement {
 
     row.dataset.id = number - 1;
 
+    const inputTypes = ['task-num-', 'task-name-', 'task-pomos-'];
     inputs.forEach((input, i) => {
+      input.id = inputTypes[i] + args[0];
       input.value = args[i];
     });
 

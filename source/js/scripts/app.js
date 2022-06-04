@@ -352,7 +352,7 @@ function handleClick(timer, taskList) {
           // Remove the finish task button
           timer.querySelector('finish-task-button').remove();
 
-          if (('Notification' in window) && navigator.serviceWorker) {
+          if (('Notification' in window) && navigator.serviceWorker && Notification.permission === 'granted') {
             showTimerNotification();
           }
 
