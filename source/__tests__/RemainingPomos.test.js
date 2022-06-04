@@ -3,18 +3,16 @@ import RemainingPomos from '../js/components/RemainingPomos.js';
 describe('RemainingPomos testing', () => {
   let remainingPomos;
   beforeEach(() => {
-    remainingPomos = new RemainingPomos();
-  });
-
-  test('Simple RemainingPomos construction', () => {
     const taskList = {
       todo: [{ name: 'a', expected: 1, actual: 0 }, { name: 'b', expected: 1, actual: 0 }],
       completed: [],
     };
     localStorage.setItem('TaskList', JSON.stringify(taskList));
     localStorage.setItem('Icon', 'bomb');
-
     remainingPomos = new RemainingPomos();
+  });
+
+  test('Simple RemainingPomos construction', () => {
     expect(remainingPomos.querySelector('.icon-container').childNodes).not.toBeNull();
   });
 

@@ -21,7 +21,7 @@ class RemainingPomos extends HTMLElement {
     this.taskList = JSON.parse(backend.get('TaskList'));
     this.currentTask = null;
 
-    if (this.taskList.todo.length === 0) return;
+    if (!this.taskList || this.taskList.todo.length === 0) return;
 
     this.svgUrls = svgIcons[backend.get('Icon')].urls;
 
