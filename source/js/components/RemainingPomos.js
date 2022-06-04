@@ -5,7 +5,6 @@
  */
 
 import * as backend from '../backend.js';
-import TaskList from '../classes/TaskList.js';
 import svgIcons from '../constants/themeIcons.js';
 
 /**
@@ -19,13 +18,12 @@ class RemainingPomos extends HTMLElement {
   */
   constructor() {
     super();
-    this.taskList = new TaskList();
+    this.taskList = JSON.parse(backend.get('TaskList'));
     this.currentTask = null;
 
     if (this.taskList.todo.length === 0) return;
 
     this.svgUrls = svgIcons[backend.get('Icon')].urls;
-    this.svgClasses = svgIcons[backend.get('Icon')].classes;
 
     const template = document.createElement('template');
     template.innerHTML = `
