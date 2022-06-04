@@ -8,6 +8,9 @@ Welcome! We are The TBDs, a group of 8 students enrolled in Spring 2022's CSE 11
 - [JSDocs Documentation](https://cse112-sp22-group4.github.io/Electric-Pomato/docs/cse112-spr22-group4/0.8.0/index.html)
 - [Onboarding Process](https://github.com/cse112-sp22-group4/Electric-Pomato/blob/main/specs/onboard.md) for new members.
 
+![image](https://user-images.githubusercontent.com/50246963/171939844-da0fb03e-c243-46ca-846e-b1e9505a75b0.png)
+
+
 ## Getting Started
 - Make sure `node` is installed
 - `cd` to root directory of local repository `cse112-w22-group4/`
@@ -31,6 +34,10 @@ Welcome! We are The TBDs, a group of 8 students enrolled in Spring 2022's CSE 11
 - To make sure your code is synced with the repo, and up-to-date, run `git fetch --all`.
 - To remove old/deleted branches from your local machine, run `git fetch --prune`.
 - To make a new branch and check it out, run `git checkout -b <branch_name>`.
+- Our formating for making branches is to have [folder]/[changes] where folder means what are you changing (Enhancements, Bugs, Documentaion, ect.) and the changes can be what ever task you were assigned to finish
+
+![image](https://user-images.githubusercontent.com/50246963/171940370-4958d164-8065-44e5-85b3-cd7754cf124c.png)
+
 
 ## Contributing
 
