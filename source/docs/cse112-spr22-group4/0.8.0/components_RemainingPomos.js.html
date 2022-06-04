@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>FinishTaskButton - Documentation</title>
+    <title>components/RemainingPomos.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,343 +29,124 @@
 
 <div id="main">
     
-    <h1 class="page-title">FinishTaskButton</h1>
-    
-
-    
-
-
-
-
-<section>
-
-<header>
-    
-        <h2>
-        FinishTaskButton
-        </h2>
-        
-            <div class="class-description"><p>Constructs the HTML for the finish task buttons</p></div>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-<div class="section-method">
-
-    
-    <h2>Constructor</h2>
-    
-
-    <h4 class="name" id="FinishTaskButton"><span class="type-signature"></span>new FinishTaskButton<span class="signature">()</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>constructor for FinishTaskButtons</p>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_FinishTaskButton.js.html">components/FinishTaskButton.js</a>, <a href="components_FinishTaskButton.js.html#line13">line 13</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
-    
-    </div>
-
-    
-        <h3 class="subsection-title">Extends</h3>
-
-        
-
-
-    <ul>
-        <li>HTMLElement</li>
-    </ul>
-
-
-    
-
-    
-
-    
-
-     
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="getChecked"><span class="type-signature"></span>getChecked<span class="signature">()</span><span class="type-signature"> &rarr; {boolean}</span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>Get whether checkbox is checked.</p>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_FinishTaskButton.js.html">components/FinishTaskButton.js</a>, <a href="components_FinishTaskButton.js.html#line58">line 58</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="section-returns">
-<h5>Returns:</h5>
-
-        
-
-<dl class="param-type">
-    <dt>
-        Type:
-    </dt>
-    <dd>
-        
-<span class="param-type"><code>boolean</code></span>
-
-
-    </dd>
-</dl>
-
-
-<div class="param-desc">
-    <p>Checked property</p>
-</div>
-
-    
-</div>
-
-
-
-</div>
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="updateButton"><span class="type-signature"></span>updateButton<span class="signature">()</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>Updates button text according to backend</p>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_FinishTaskButton.js.html">components/FinishTaskButton.js</a>, <a href="components_FinishTaskButton.js.html#line65">line 65</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
-        
-    
-
-    
-
-    
-</article>
-
-</section>
+    <h1 class="page-title">components/RemainingPomos.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @file Creates a custom element to display remaining planned pomos
+ * @author Meshach Adoe
+ * Date: 05/11/2022
+ */
+
+import * as backend from '../backend.js';
+import svgIcons from '../constants/themeIcons.js';
+
+/**
+ * Creates the HTML for the remaining pomo indicator
+ * @extends HTMLElement
+ */
+
+class RemainingPomos extends HTMLElement {
+  /**
+   * constructor for Remaining Pomo Indicator
+  */
+  constructor() {
+    super();
+    this.taskList = JSON.parse(backend.get('TaskList'));
+    this.currentTask = null;
+
+    if (!this.taskList || this.taskList.todo.length === 0) return;
+
+    this.svgUrls = svgIcons[backend.get('Icon')].urls;
+
+    const template = document.createElement('template');
+    template.innerHTML = `
+      &lt;div class="remaining-pomos-container">
+        &lt;h3>Planned Pomos&lt;/h3>
+        &lt;div class="d-flex justify-content-center align-items-center icon-container">&lt;/div>
+      &lt;/div>
+    `;
+    this.appendChild(template.content.cloneNode(true));
+
+    this.setPomos(this.taskList);
+    this.updateCompletedPomos(this.taskList);
+  }
+
+  /**
+  * Reset remaining pomos icon container
+  */
+
+  resetPomos() {
+    const pomoContainer = this.querySelector('.icon-container');
+    pomoContainer.innerHTML = '';
+  }
+
+  /**
+  * Set the number of pomos for the current task
+  * @param {object} taskList - taskList object which contains expected pomos for current task
+  */
+  setPomos(taskList) {
+    this.resetPomos();
+    const pomoTemplate = document.createElement('template');
+    pomoTemplate.innerHTML = `
+      &lt;object class="remaining-pomos-icon" type="image/svg+xml" data="">&lt;/object>
+    `;
+
+    const expectedPomos = taskList.todo[0].expected;
+    // eslint-disable-next-line no-plusplus
+    for (let i = 0; i &lt; expectedPomos; i++) {
+      this.querySelector('.icon-container').appendChild(pomoTemplate.content.cloneNode(true));
+    }
+
+    this.querySelectorAll('.remaining-pomos-icon').forEach((object) => {
+      object.setAttribute('data', this.svgUrls[1]);
+    });
+  }
+
+  /**
+  * Make the remaining pomo indicator visible
+  */
+
+  visibleMode() {
+    this.querySelector('.remaining-pomos-container').classList.remove('invisible');
+  }
+
+  /**
+  * Hide the remaining pomo indicator
+  */
+
+  hiddenMode() {
+    this.querySelector('.remaining-pomos-container').classList.add('invisible');
+  }
+
+  /**
+  * Update the number of completed pomos
+  * @param {object} currTaskList - taskList object which contains actual pomos for current task
+  */
+
+  updateCompletedPomos(currTaskList) {
+    const completedPomos = currTaskList.todo[0].actual;
+
+    this.querySelectorAll('.remaining-pomos-icon').forEach((object, idx) => {
+      if (idx &lt; completedPomos) {
+        object.classList.add('completed');
+      }
+    });
+  }
+}
+
+customElements.define('remaining-pomos', RemainingPomos);
+export default RemainingPomos;
+</code></pre>
+        </article>
+    </section>
 
 
 
