@@ -63,10 +63,6 @@ menu-icons {
 }
 
 info-modal {
-    .container {
-        width: 600px;
-    }
-
     h2 {
         text-decoration: underline;
         text-align: center;
@@ -75,6 +71,90 @@ info-modal {
     #info-cards {
         overflow: auto;
         height: 70vh;
+
+        .card-body {
+            display: flex;
+            div:first-child {
+                width: 25%;
+                padding-right: 14px;
+            }
+            .mobile-image {
+                display: none;
+            }
+            .card-description {
+                width: 75%;
+                > img {
+                    padding: 0 12px 20px 12px;
+                    width: 100%;
+                }
+            }
+            .card-track-2 {
+                display: flex;
+                div {
+                    padding: 0 20px;
+                    width: 50%;
+                    img {
+                        height: 160px;
+                        padding: 10px;
+                        margin-bottom: 10px;
+                        width: 100%;
+                    }
+                }
+            }
+            .card-settings{
+                img {
+                    max-width: 400px;
+                }
+            }
+        }
+
+        .card-title,
+        .card-text,
+        li {
+            text-align: left;
+        }
+
+        .card-endnote {
+            padding: 0 10%;
+            margin: 0;
+        }
+
+        @media screen and (max-width: 767px) {
+            .card-body {
+                padding: 0;
+                flex-direction: column;
+                > div:first-child,
+                .card-description {
+                    width: 100%;
+                    > img {
+                        padding: 20px 0px;
+                    }
+                    p {
+                        text-align: left;
+                    }
+                }
+                .mobile-image {
+                    display: block;
+                }
+                .desktop-image {
+                    display: none;
+                }
+                .card-track-2 {
+                    flex-direction: column;
+                    div {
+                        width: 100%;
+                        img {
+                            height: 120px;
+                        }
+                    }
+                }
+            }
+            
+            .card-endnote {
+                display: none;
+            }
+        }
+
     }
 
     #info-close {
