@@ -229,6 +229,7 @@ function playSound(link) {
  */
 function showTimerNotification() {
   const timerState = backend.get('Timer');
+  const audioToggle = backend.get('AudioToggle');
   const pomoAlert = {
     icon: null,
     body: null,
@@ -255,7 +256,9 @@ function showTimerNotification() {
           .then((notifications) => {
             setTimeout(() => notifications.forEach((notification) => notification.close()), 5000);
           }));
-      playSound(notiSound);
+      if (audioToggle === 'on') {
+        playSound(notiSound);
+      }
     });
 }
 
