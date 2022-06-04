@@ -3,11 +3,9 @@
   "transformers": {
     "*.scss": [
       "@parcel/transformer-sass"
-    ]
-  },
-  "compressors": {
-    "*.{html,css,js,svg,map}": [
-      "@parcel/compressor-gzip"
+    ],
+    "*.{js,cjs}": [
+      "@parcel/transformer-js"
     ]
   }
 }
