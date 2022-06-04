@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>components/TomatoSlider.js - Documentation</title>
+    <title>components/RemainingPomos.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,7 +29,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">components/TomatoSlider.js</h1>
+    <h1 class="page-title">components/RemainingPomos.js</h1>
     
 
     
@@ -40,240 +40,110 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @file Creates a custom element for the tomato slider to estimate the number of pomodoros.
- * @author Andy Young
- * @author Arman Mansourian
- * @author Luke Menezes
- * @author Liam Stone
- * @author Chris Yoon
+ * @file Creates a custom element to display remaining planned pomos
+ * @author Meshach Adoe
+ * Date: 05/11/2022
  */
 
-// Need the imports because of parcel
-import svgIcons from '../constants/themeIcons.js';
 import * as backend from '../backend.js';
+import svgIcons from '../constants/themeIcons.js';
 
 /**
- * Constructs the HTML for the slider.
+ * Creates the HTML for the remaining pomo indicator
  * @extends HTMLElement
  */
-class TomatoSlider extends HTMLElement {
+
+class RemainingPomos extends HTMLElement {
   /**
-   * Create the HTML text element and append.
-   */
+   * constructor for Remaining Pomo Indicator
+  */
   constructor() {
     super();
+    this.taskList = JSON.parse(backend.get('TaskList'));
+    this.currentTask = null;
+
+    if (!this.taskList || this.taskList.todo.length === 0) return;
 
     this.svgUrls = svgIcons[backend.get('Icon')].urls;
-    this.svgClasses = svgIcons[backend.get('Icon')].classes;
-    // Create template and append to tomato-slider (need to maintain input child)
+
     const template = document.createElement('template');
     template.innerHTML = `
-      &lt;div class="d-flex justify-content-between align-items-center slider-tomato-container">
-        &lt;object id=0 class="slider-tomato" type="image/svg+xml" data="">&lt;/object>
-        &lt;object id=1 class="slider-tomato" type="image/svg+xml" data="">&lt;/object>
-        &lt;object id=2 class="slider-tomato" type="image/svg+xml" data="">&lt;/object>
-        &lt;object id=3 class="slider-tomato" type="image/svg+xml" data="">&lt;/object>
-        &lt;object id=4 class="slider-tomato" type="image/svg+xml" data="">&lt;/object>
+      &lt;div class="remaining-pomos-container">
+        &lt;h3>Planned Pomos&lt;/h3>
+        &lt;div class="d-flex justify-content-center align-items-center icon-container">&lt;/div>
       &lt;/div>
     `;
     this.appendChild(template.content.cloneNode(true));
 
-    this.input = this.firstElementChild;
-    this.container = this.lastElementChild;
-
-    this.input.style.display = 'none';
-
-    this.keysPressed = {};
-
-    this.handleClick = this.handleClick.bind(this);
-    this.handleMouseMove = this.handleMouseMove.bind(this);
-    this.handleMouseLeave = this.handleMouseLeave.bind(this);
-    this.handleKeyDown = this.handleKeyDown.bind(this);
-    this.handleKeyUp = this.handleKeyUp.bind(this);
-
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (mutation.attributeName === 'disabled') {
-          this.updateState();
-        }
-      });
-    });
-
-    observer.observe(this.input, {
-      attributes: true,
-    });
+    this.setPomos(this.taskList);
+    this.updateCompletedPomos(this.taskList);
   }
 
   /**
-   * Callback to update state of slider.
-   */
-  connectedCallback() {
-    this.updateState();
+  * Reset remaining pomos icon container
+  */
+
+  resetPomos() {
+    const pomoContainer = this.querySelector('.icon-container');
+    pomoContainer.innerHTML = '';
   }
 
   /**
-   * Updates event listeners depending on if the task has been entered.
-   */
-  updateState() {
-    if (this.input.disabled) {
-      this.defaultMode();
-    } else {
-      this.editMode();
+  * Set the number of pomos for the current task
+  * @param {object} taskList - taskList object which contains expected pomos for current task
+  */
+  setPomos(taskList) {
+    this.resetPomos();
+    const pomoTemplate = document.createElement('template');
+    pomoTemplate.innerHTML = `
+      &lt;object class="remaining-pomos-icon" type="image/svg+xml" data="">&lt;/object>
+    `;
+
+    const expectedPomos = taskList.todo[0].expected;
+    // eslint-disable-next-line no-plusplus
+    for (let i = 0; i &lt; expectedPomos; i++) {
+      this.querySelector('.icon-container').appendChild(pomoTemplate.content.cloneNode(true));
     }
-  }
 
-  /**
-   *
-   * @param {number} n - the number of tomatoes (pomodoro sessions) selected.
-   * @param {string} color - the class name to determine the fill of the selected tomatoes.
-   */
-  colorTomatos(n, color) {
-    this.tomatos.forEach((tomato, i) => {
-      if (i !== 0 &amp;&amp; i &lt; n) {
-        tomato.classList.value = color;
-      } else {
-        // eslint-disable-next-line prefer-destructuring
-        tomato.classList.value = this.svgClasses[0];
-      }
+    this.querySelectorAll('.remaining-pomos-icon').forEach((object) => {
+      object.setAttribute('data', this.svgUrls[1]);
     });
   }
 
   /**
-   * Fill the slider with the tomatoes selected.
-   */
-  render() {
-    // Color green if input is disabled
-    if (this.input.disabled) {
-      this.querySelectorAll('.slider-tomato').forEach((object, i) => {
-        if (i &lt; this.input.value) {
-          object.setAttribute('data', this.svgUrls[1]);
-        } else {
-          object.setAttribute('data', this.svgUrls[0]);
-        }
-      });
-      return;
-    }
+  * Make the remaining pomo indicator visible
+  */
 
-    // Wait for all svg's to load and then populate this.tomatos
-    this.tomatos = [];
-    this.querySelectorAll('.slider-tomato').forEach((icon) => {
-      // Set to blank icon
-      if (icon.getAttribute('id') === '0') {
-        icon.setAttribute('data', this.svgUrls[1]);
-      } else {
-        icon.setAttribute('data', this.svgUrls[0]);
+  visibleMode() {
+    this.querySelector('.remaining-pomos-container').classList.remove('invisible');
+  }
+
+  /**
+  * Hide the remaining pomo indicator
+  */
+
+  hiddenMode() {
+    this.querySelector('.remaining-pomos-container').classList.add('invisible');
+  }
+
+  /**
+  * Update the number of completed pomos
+  * @param {object} currTaskList - taskList object which contains actual pomos for current task
+  */
+
+  updateCompletedPomos(currTaskList) {
+    const completedPomos = currTaskList.todo[0].actual;
+
+    this.querySelectorAll('.remaining-pomos-icon').forEach((object, idx) => {
+      if (idx &lt; completedPomos) {
+        object.classList.add('completed');
       }
-      icon.addEventListener('load', () => {
-        const svgDoc = icon.contentDocument;
-        this.tomatos[icon.getAttribute('id')] = svgDoc.querySelector('.slider-tomato > g');
-        // Color one tomato by default
-        // if (icon.getAttribute('id') === '0') {
-        //   // eslint-disable-next-line prefer-destructuring
-        //   svgDoc.querySelector('.slider-tomato > g').classList.value = this.svgClasses[1];
-        // }
-      });
     });
-  }
-
-  /**
-   * Sets the value for the number of tomatoes selected when the slider is clicked.
-   * @param {MouseEvent} e
-   */
-  handleClick(e) {
-    const { left, right } = this.querySelector('.slider-tomato-container').getBoundingClientRect();
-    this.input.value = Math.min(Math.ceil((e.clientX - left + 1) / ((right - left) / 5)), 5);
-  }
-
-  /**
-   * Color the slider with the value set when the mouse leaves.
-   */
-  handleMouseLeave() {
-    this.colorTomatos(Number(this.input.value), this.svgClasses[1]);
-  }
-
-  /**
-   * Fill in the tomatoes in the slider as the mouse hovers over them.
-   * @param {MouseEvent} e
-   */
-  handleMouseMove(e) {
-    const { left, right } = this.querySelector('.slider-tomato-container').getBoundingClientRect();
-    const n = Math.min(Math.max(Math.ceil((e.clientX - left) / ((right - left) / 5)), 1), 5);
-    this.colorTomatos(n, this.svgClasses[1]);
-  }
-
-  /**
-   * Change the number of tomatoes in the current slider with Ctr+LeftArrow and Ctr+RightArrow
-   * @param {KeyboardEvent} e
-   */
-  handleKeyDown(e) {
-    let os = 'default';
-    if (navigator.userAgent.indexOf('Win') !== -1) {
-      os = 'Windows';
-    } else if (navigator.userAgent.indexOf('Mac') !== -1) {
-      os = 'Mac';
-    }
-    this.keysPressed[e.key] = true;
-    if (os === 'Windows') {
-      if (this.keysPressed.Control &amp;&amp; this.keysPressed.ArrowLeft &amp;&amp; !e.repeat) {
-        this.input.value = Math.max(this.input.value - 1, 1);
-        this.colorTomatos(this.input.value, this.svgClasses[1]);
-      }
-      if (this.keysPressed.Control &amp;&amp; this.keysPressed.ArrowRight &amp;&amp; !e.repeat) {
-        this.input.value = Math.min((Number(this.input.value) + 1), 5);
-        this.colorTomatos(this.input.value, this.svgClasses[1]);
-      }
-    } else if (os === 'Mac') {
-      if (this.keysPressed.Alt &amp;&amp; this.keysPressed.ArrowLeft &amp;&amp; !e.repeat) {
-        this.input.value = Math.max(this.input.value - 1, 1);
-        this.colorTomatos(this.input.value, this.svgClasses[1]);
-      }
-      if (this.keysPressed.Alt &amp;&amp; this.keysPressed.ArrowRight &amp;&amp; !e.repeat) {
-        this.input.value = Math.min((Number(this.input.value) + 1), 5);
-        this.colorTomatos(this.input.value, this.svgClasses[1]);
-      }
-    }
-  }
-
-  /**
-   * Clear the keys pressed during handleKeyUp from the keys dictionary
-   * @param {KeyboardEvent} e
-   */
-  handleKeyUp(e) {
-    delete this.keysPressed[e.key];
-  }
-
-  /**
-   * Add event listeners when currently editing a task.
-   */
-  editMode() {
-    this.render();
-
-    this.container.style.cursor = 'pointer';
-
-    this.container.addEventListener('click', this.handleClick);
-    this.container.addEventListener('mouseleave', this.handleMouseLeave);
-    this.container.addEventListener('mousemove', this.handleMouseMove);
-    window.addEventListener('keydown', this.handleKeyDown);
-    window.addEventListener('keyup', this.handleKeyUp);
-  }
-
-  /**
-   * Remove event listeners once the task edit is finished.
-   */
-  defaultMode() {
-    this.render();
-
-    this.container.style.cursor = 'default';
-
-    this.container.removeEventListener('click', this.handleClick);
-    this.container.removeEventListener('mouseleave', this.handleMouseLeave);
-    this.container.removeEventListener('mousemove', this.handleMouseMove);
-    window.removeEventListener('keydown', this.handleKeyDown);
-    window.removeEventListener('keyup', this.handleKeyUp);
   }
 }
 
-customElements.define('tomato-slider', TomatoSlider);
+customElements.define('remaining-pomos', RemainingPomos);
+export default RemainingPomos;
 </code></pre>
         </article>
     </section>

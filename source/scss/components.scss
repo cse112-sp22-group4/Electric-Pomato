@@ -5,8 +5,11 @@
 
 /* Styling for components shared between app.html and index.html */
 
+html, body {
+    height: 100%;
+}
+
 body {
-    min-height: 100vh;
     position: relative;
 
     @include themify($themes) {
@@ -68,9 +71,14 @@ info-modal {
         text-align: center;
     }
 
+    .modal-content {
+        padding: map-get($spacers, 4) map-get($spacers, 3); 
+    }
+
     #info-cards {
         overflow: auto;
         height: 70vh;
+        padding: 0 map-get($spacers, 2); 
 
         .card-body {
             display: flex;
@@ -166,12 +174,15 @@ info-modal {
 settings-modal {
     .container {
         width: 600px;
+        height: 80vh;
     }
 
     #settings-container {
         display: flex;
         flex-direction: column;
         text-align: left;
+        height: 50vh; 
+        overflow: auto;
     }
 
     #settings-close {
@@ -183,9 +194,13 @@ settings-modal {
     .settings-row {
         display: flex;
         justify-content: space-between;
-        margin-bottom: 50px;
+        margin-bottom: $spacer * 2;
         padding-left: 20px;
         padding-right: 20px;
+        
+        @media screen and (max-width: 525px) {
+            margin-bottom: map-get($spacers, 3);
+        }
     }
 
     .settings-item {
@@ -397,7 +412,7 @@ footer>.container {
         margin: 0;
 
         @media screen and (max-width: 525px) {
-            font-size: 18px;
+            font-size: 16px;
         }
     }
 }
@@ -410,18 +425,24 @@ footer>.container {
     z-index: 2;
     padding: map-get($spacers, 5) 0 map-get($spacers, 5) 0;
 
-    @media screen and (max-width: 1000px) {
+    @media screen and (max-width: 525px) {
         h3 {
-            font-size: $h4-font-size;
+            font-size: $h6-font-size;
         }
 
         h5 {
-            font-size: $h6-font-size;
+            font-size: $h6-font-size * 0.75;
         }
     }
 
     @media screen and (max-width: 525px) {
         padding: map-get($spacers, 3) 0 map-get($spacers, 3) 0;
+    }
+}
+
+.app-title {
+    @media screen and (max-width: 525px) {
+        padding-top: map-get($spacers, 3);
     }
 }
 
@@ -624,6 +645,10 @@ footer>.container {
 .modal-content>*:not(:last-child),
 #info-cards>*:not(:last-child) {
     margin-bottom: map-get($spacers, 4);
+
+    @media screen and (max-width: 525px) {
+        margin-bottom: map-get($spacers, 3);
+    }
 }
 
 @keyframes animatetop {
@@ -635,5 +660,69 @@ footer>.container {
     to {
         top: 0;
         opacity: 1
+    }
+}
+
+.remaining-pomos-container {
+    display: flex;
+    align-items: center;
+    margin-top: 12px;
+    h3 {
+        color: white;
+        width: 90px;
+        text-align: right;
+        margin-right: 16px;
+        margin-bottom: 0;
+    }
+    .remaining-pomos-icon {
+        height: 60px;
+        padding: 0 2px;
+    }
+    .completed {
+        opacity: 30%;
+    }
+    @media screen and (max-width: 500px) {
+        flex-direction: column;
+        h3 {
+            font-size: $h4-font-size;
+            margin-right: 0;
+            margin-bottom: 8px;
+            text-align: center;
+            width: 100%;
+        }
+        .remaining-pomos-icon {
+            height: 40px;
+            padding: 0 2px;
+        }
+    }
+}
+
+::-webkit-scrollbar {
+    width: map-get($spacers, 2);
+
+    @media screen and (max-width: 525px) {
+        width: map-get($spacers, 1);
+    }
+}
+
+::-webkit-scrollbar-track {
+    border-radius: map-get($spacers, 2);
+    margin-top: map-get($spacers, 1);
+    margin-bottom: map-get($spacers, 1); 
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: map-get($spacers, 2);
+
+    @include themify($themes) {
+        background: themed('scrollbar-color');
+
+    }
+}
+  
+::-webkit-scrollbar-thumb:hover {
+    @include themify($themes) {
+        background: themed('scrollbar-hover-color');
     }
 }
