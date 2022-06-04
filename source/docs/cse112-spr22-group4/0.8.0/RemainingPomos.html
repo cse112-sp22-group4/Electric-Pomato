@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>FinishTaskButton - Documentation</title>
+    <title>RemainingPomos - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,7 +29,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">FinishTaskButton</h1>
+    <h1 class="page-title">RemainingPomos</h1>
     
 
     
@@ -42,10 +42,10 @@
 <header>
     
         <h2>
-        FinishTaskButton
+        RemainingPomos
         </h2>
         
-            <div class="class-description"><p>Constructs the HTML for the finish task buttons</p></div>
+            <div class="class-description"><p>Creates the HTML for the remaining pomo indicator</p></div>
         
     
 </header>
@@ -60,14 +60,14 @@
     <h2>Constructor</h2>
     
 
-    <h4 class="name" id="FinishTaskButton"><span class="type-signature"></span>new FinishTaskButton<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="RemainingPomos"><span class="type-signature"></span>new RemainingPomos<span class="signature">()</span><span class="type-signature"></span></h4>
 
     
 
 
 
 <div class="description">
-    <p>constructor for FinishTaskButtons</p>
+    <p>constructor for Remaining Pomo Indicator</p>
 </div>
 
 
@@ -103,7 +103,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_FinishTaskButton.js.html">components/FinishTaskButton.js</a>, <a href="components_FinishTaskButton.js.html#line13">line 13</a>
+        <a href="components_RemainingPomos.js.html">components/RemainingPomos.js</a>, <a href="components_RemainingPomos.js.html#line15">line 15</a>
     </li></ul></dd>
     
 
@@ -172,14 +172,14 @@
 
     
 
-    <h4 class="name" id="getChecked"><span class="type-signature"></span>getChecked<span class="signature">()</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+    <h4 class="name" id="hiddenMode"><span class="type-signature"></span>hiddenMode<span class="signature">()</span><span class="type-signature"></span></h4>
 
     
 
 
 
 <div class="description">
-    <p>Get whether checkbox is checked.</p>
+    <p>Hide the remaining pomo indicator</p>
 </div>
 
 
@@ -215,7 +215,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_FinishTaskButton.js.html">components/FinishTaskButton.js</a>, <a href="components_FinishTaskButton.js.html#line58">line 58</a>
+        <a href="components_RemainingPomos.js.html">components/RemainingPomos.js</a>, <a href="components_RemainingPomos.js.html#line84">line 84</a>
     </li></ul></dd>
     
 
@@ -246,31 +246,6 @@
 
 
 
-<div class="section-returns">
-<h5>Returns:</h5>
-
-        
-
-<dl class="param-type">
-    <dt>
-        Type:
-    </dt>
-    <dd>
-        
-<span class="param-type"><code>boolean</code></span>
-
-
-    </dd>
-</dl>
-
-
-<div class="param-desc">
-    <p>Checked property</p>
-</div>
-
-    
-</div>
-
 
 
 </div>
@@ -280,14 +255,14 @@
 
     
 
-    <h4 class="name" id="updateButton"><span class="type-signature"></span>updateButton<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="resetPomos"><span class="type-signature"></span>resetPomos<span class="signature">()</span><span class="type-signature"></span></h4>
 
     
 
 
 
 <div class="description">
-    <p>Updates button text according to backend</p>
+    <p>Reset remaining pomos icon container</p>
 </div>
 
 
@@ -323,7 +298,360 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_FinishTaskButton.js.html">components/FinishTaskButton.js</a>, <a href="components_FinishTaskButton.js.html#line65">line 65</a>
+        <a href="components_RemainingPomos.js.html">components/RemainingPomos.js</a>, <a href="components_RemainingPomos.js.html#line45">line 45</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="setPomos"><span class="type-signature"></span>setPomos<span class="signature">(taskList)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Set the number of pomos for the current task</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="components_RemainingPomos.js.html">components/RemainingPomos.js</a>, <a href="components_RemainingPomos.js.html#line54">line 54</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>taskList</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>object</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>taskList object which contains expected pomos for current task</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="updateCompletedPomos"><span class="type-signature"></span>updateCompletedPomos<span class="signature">(currTaskList)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Update the number of completed pomos</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="components_RemainingPomos.js.html">components/RemainingPomos.js</a>, <a href="components_RemainingPomos.js.html#line93">line 93</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>currTaskList</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>object</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>taskList object which contains actual pomos for current task</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="visibleMode"><span class="type-signature"></span>visibleMode<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Make the remaining pomo indicator visible</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="components_RemainingPomos.js.html">components/RemainingPomos.js</a>, <a href="components_RemainingPomos.js.html#line76">line 76</a>
     </li></ul></dd>
     
 
