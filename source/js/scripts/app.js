@@ -331,7 +331,7 @@ function handleClick(timer, taskList) {
 
             // Alert the user if they have reached their expected number of pomos
             const endMessage = {
-              title: 'You have reached the expected Pomodoros for this task. Finish task or continue working?',
+              title: 'You have completed the planned Pomodoros for this task. Finish task or continue working?',
               leftButton: 'Finish Task',
               rightButton: 'Continue Working',
             };
