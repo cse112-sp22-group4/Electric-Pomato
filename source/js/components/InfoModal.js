@@ -40,10 +40,10 @@ class InfoModal extends HTMLElement {
                 <div class="card-description">
                   <img class="desktop-image" src=${CreateTaskListImage} alt="Create Task List View"/>
                   <img class="mobile-image" src=${CreateTaskListMobileImage} alt="Create Task List View"/>
-                  <p>Each task asks for a name, and the estimated Pomodoros that will be needed (1-5). Once you've finished making your tasks, start your session!</p>
+                  <p>Each task asks for a name, and the planned Pomodoros that will be needed (1-5). Once you've finished making your tasks, start your session!</p>
                 </div>
               </div>
-              <p class="card-endnote">Don't know what a Pomodoro is? A Pomodoro is an aspect of the Pomodoro Technique. The technique pushes the user to work on tasks in 25 minute chunks (Pomodoro) with breaks between, and long breaks after 4 Pomodoros.</p>
+              <p class="card-endnote">Don't know what a Pomodoro is? A Pomodoro is an aspect of the Pomodoro Technique. The technique pushes the user to work on tasks in 25 minute chunks (Pomodoros) with breaks between, and long breaks after 4 Pomodoros.</p>
             </div>
             <div class="card">
               <div class="card-body">
@@ -57,7 +57,7 @@ class InfoModal extends HTMLElement {
                   <p>During breaks, you'll be able to checkoff the current task, and your next task will be displayed. At the bottom of the screen you'll be able to check your TODO List, and completed tasks.</p>
                 </div>
               </div>
-              <p class="card-endnote">Don't know what a Pomodoro is? A Pomodoro is an aspect of the Pomodoro Technique. The technique pushes the user to work on tasks in 25 minute chunks (Pomodoro) with breaks between, and long breaks after 4 Pomodoros.</p>
+              <p class="card-endnote">Don't know what a Pomodoro is? A Pomodoro is an aspect of the Pomodoro Technique. The technique pushes the user to work on tasks in 25 minute chunks (Pomodoros) with breaks between, and long breaks after 4 Pomodoros.</p>
             </div>
             <div class="card">
               <div class="card-body">
@@ -76,22 +76,22 @@ class InfoModal extends HTMLElement {
                   </div>
                 </div>
               </div>
-              <p class="card-endnote">Don't know what a Pomodoro is? A Pomodoro is an aspect of the Pomodoro Technique. The technique pushes the user to work on tasks in 25 minute chunks (Pomodoro) with breaks between, and long breaks after 4 Pomodoros.</p>
+              <p class="card-endnote">Don't know what a Pomodoro is? A Pomodoro is an aspect of the Pomodoro Technique. The technique pushes the user to work on tasks in 25 minute chunks (Pomodoros) with breaks between, and long breaks after 4 Pomodoros.</p>
             </div>
             <div class="card">
               <div class="card-body">
                 <div>
                   <h2 class="card-title">Record</h2>
-                  <p class="card-text">Compare the Expected to Actual Pomodoros at the end of your session!</p>
+                  <p class="card-text">Compare the Planned to Actual Pomodoros at the end of your session!</p>
                 </div>
                 <div class="card-description">
                   <img class="desktop-image" src=${StatsModalImage} alt="Stats Modal View"/>
                   <img class="mobile-image" src=${StatsMobileImage} alt="Stats Modal Mobile View"/>
-                  <p>This page will help you see how long your tasks took compared to how long you expected.
+                  <p>This page will help you see how long your tasks took compared to how long you planned.
                   With this information, you can better time yourself and productivity next session!</p>
                 </div>
               </div>
-              <p class="card-endnote">Don't know what a Pomodoro is? A Pomodoro is an aspect of the Pomodoro Technique. The technique pushes the user to work on tasks in 25 minute chunks (Pomodoro) with breaks between, and long breaks after 4 Pomodoros.</p>
+              <p class="card-endnote">Don't know what a Pomodoro is? A Pomodoro is an aspect of the Pomodoro Technique. The technique pushes the user to work on tasks in 25 minute chunks (Pomodoros) with breaks between, and long breaks after 4 Pomodoros.</p>
             </div>
             <div class="card">
               <div class="card-body">
@@ -104,7 +104,7 @@ class InfoModal extends HTMLElement {
                   <p>In settings, you can edit the theme, icon, or durations for the Pomodoro Timer.</p>
                 </div>
               </div>
-              <p class="card-endnote">Don't know what a Pomodoro is? A Pomodoro is an aspect of the Pomodoro Technique. The technique pushes the user to work on tasks in 25 minute chunks (Pomodoro) with breaks between, and long breaks after 4 Pomodoros.</p>
+              <p class="card-endnote">Don't know what a Pomodoro is? A Pomodoro is an aspect of the Pomodoro Technique. The technique pushes the user to work on tasks in 25 minute chunks (Pomodoros) with breaks between, and long breaks after 4 Pomodoros.</p>
             </div>
           </div>
           <button id="info-close" class="btn btn-primary">Close</button>

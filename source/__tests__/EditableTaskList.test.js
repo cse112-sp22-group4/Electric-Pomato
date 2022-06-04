@@ -23,7 +23,7 @@ beforeEach(() => {
   <div class="row g-0 header row-bordered">
       <div class="d-none d-lg-block col-1"><input type="text" value="#" disabled></div>
       <div class="col-7 col-lg-6"><input type="text" value="Name" disabled></div>
-      <div class="col-3"><input type="text" value="Estimated Pomos" disabled></div>
+      <div class="col-3"><input type="text" value="Planned Pomos" disabled></div>
       <div class="col-2"></div>
   </div>
 </template>
@@ -56,7 +56,7 @@ beforeEach(() => {
   <div class="row g-0 header row-bordered">
       <div class="d-none d-lg-block col-lg-1"><input type="text" value="#" disabled></div>
       <div class="col-6 col-lg-5"><input type="text" value="Name" disabled></div>
-      <div class="col-3"><input type="text" value="Estimated Pomos" disabled></div>
+      <div class="col-3"><input type="text" value="Planned Pomos" disabled></div>
       <div class="col-3"><input type="text" value="Actual Pomos" disabled></div>
   </div>
 </template>
@@ -79,7 +79,7 @@ beforeEach(() => {
             <div class="col-12 col-sm-7 col-lg-6 task-list"><input type="text" value=""></div>
             <div class="col-12 col-sm-5 col-lg-3 d-sm-none">
                 <h5 class="fw-bold mb-0">
-                    Estimated Pomos:
+                    Planned Pomos:
                 </h5>
             </div>
             <div class="col-12 col-sm-5 col-lg-3">

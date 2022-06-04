@@ -21,7 +21,7 @@ beforeEach(() => {
       <div class="row g-0 header row-bordered">
           <div class="d-none d-lg-block col-1"><input type="text" value="#" disabled></div>
           <div class="col-7 col-lg-6"><input type="text" value="Name" disabled></div>
-          <div class="col-3"><input type="text" value="Estimated Pomos" disabled></div>
+          <div class="col-3"><input type="text" value="Planned Pomos" disabled></div>
           <div class="col-2"></div>
       </div>
     </template>
@@ -46,7 +46,7 @@ beforeEach(() => {
       <div class="row g-0 header row-bordered align-items-center">
           <div class="d-none d-lg-block col-lg-1"><span>#</span></div>
           <div class="col-5 col-lg-5"><span>Name</span></div>
-          <div class="col-4 col-lg-3"><span>Estimated Pomos</span></div>
+          <div class="col-4 col-lg-3"><span>Planned Pomos</span></div>
           <div class="col-3 col-lg-3"><span>Actual Pomos</span></div>
       </div>
     </template>
