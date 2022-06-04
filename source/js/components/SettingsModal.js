@@ -70,6 +70,13 @@ class SettingsModal extends HTMLElement {
               <option value="bomb">Bomb</option>
             </select>
           </label>
+          <label class="settings-row" for="audio-select">
+            <span class="settings-item" id="audio-text">Audio Notifications</span>
+            <select class="settings-select" name="audio-select" id="audio-select" changed="false">
+              <option value="default">On</option>
+              <option value="off">Off</option>
+            </select>
+          </label>
           </form>
           <button id="settings-default" type="button" class="btn btn-primary btn-block">Revert to recommended settings</button>
           <div id="settings-buttons">
