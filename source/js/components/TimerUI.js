@@ -124,7 +124,6 @@ class TimerUI extends HTMLElement {
   }
 
   render() {
-    console.log(process.env.NODE_ENV);
     const timerSVG = this.querySelector('#timerIcon');
     timerSVG.addEventListener('load', () => {
       let svgDoc = timerSVG.contentDocument;
