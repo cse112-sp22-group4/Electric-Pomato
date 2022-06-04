@@ -71,9 +71,14 @@ info-modal {
         text-align: center;
     }
 
+    .modal-content {
+        padding: map-get($spacers, 4) map-get($spacers, 3); 
+    }
+
     #info-cards {
         overflow: auto;
         height: 70vh;
+        padding: 0 map-get($spacers, 2); 
 
         .card-body {
             display: flex;
@@ -669,12 +674,14 @@ footer>.container {
 
 ::-webkit-scrollbar-track {
     border-radius: map-get($spacers, 2);
+    margin-top: map-get($spacers, 1);
+    margin-bottom: map-get($spacers, 1); 
     background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
     border-radius: map-get($spacers, 2);
-    
+
     @include themify($themes) {
         background: themed('scrollbar-color');
 
