@@ -96,6 +96,7 @@ describe('Login start Pomo flow', () => {
   });
 
   it('Get halfway to new pomo and check localstorage', () => {
+    cy.wait(500);
     cy.clock();
     startTimer();
     cy.tick(MS_IN_WORK_SESSION / 2);
