@@ -38,7 +38,6 @@ export function clearSessionData() {
   localStorage.removeItem('TotalPomos');
   localStorage.removeItem('CurrentPomos');
   localStorage.removeItem('Timer');
-  localStorage.removeItem('AudioToggle');
 }
 
 /**
