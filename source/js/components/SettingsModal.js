@@ -130,6 +130,7 @@ class SettingsModal extends HTMLElement {
     this.shortBreakDrop.value = timerConstants.DEFAULT_SHORT_BREAK_DURATION;
     this.longBreakDrop.value = timerConstants.DEFAULT_LONG_BREAK_DURATION;
     this.themesDrop.value = userThemes.DEFAULT;
+    if (this.iconsDrop.value !== 'default') this.iconsDrop.setAttribute('changed', 'true');
     this.iconsDrop.value = 'default';
     document.documentElement.classList.value = `theme-${userThemes.DEFAULT}`;
   }
