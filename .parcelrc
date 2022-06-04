@@ -4,7 +4,7 @@
     "*.scss": [
       "@parcel/transformer-sass"
     ],
-    "*.{js,cjs}": [
+    "*.js": [
       "@parcel/transformer-js"
     ]
   }
