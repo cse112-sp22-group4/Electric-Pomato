@@ -26,7 +26,9 @@ $themes: (
         stats-expected-line-color: #FFA33F,
         stats-actual-line-color: #6aa66a,
         modal-text-color: #212529,
-        scrollbar-background-color: #fff,
+        scrollbar-color: #203647,
+        scrollbar-hover-color: rgba(#203647, 0.7),
+        scrollbar-background-color: #b2b2b2,
     ),
     dark: (primary: #222,
         secondary: #a2aac9,
@@ -55,7 +57,9 @@ $themes: (
         stats-actual-line-color: #6aa66a,
         modal-text-color: #fff,
         editable-task-list-label-text-color: #fff,
-        scrollbar-background-color: #242423,
+        scrollbar-color: #b2b2b2,
+        scrollbar-hover-color: #fff,
+        scrollbar-background-color: transparent,
     )
 );
 

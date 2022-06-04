@@ -577,3 +577,36 @@ footer>.container {
         opacity: 1
     }
 }
+
+
+::-webkit-scrollbar {
+    width: map-get($spacers, 2);
+
+    @media screen and (max-width: 525px) {
+        width: map-get($spacers, 1);
+    }
+}
+
+::-webkit-scrollbar-track {
+    border-radius: map-get($spacers, 2);
+
+    @include themify($themes) {
+        background: themed('scrollbar-background-color');
+    }
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: map-get($spacers, 2);
+    
+    @include themify($themes) {
+        background: themed('scrollbar-color');
+
+    }
+}
+  
+::-webkit-scrollbar-thumb:hover {
+    @include themify($themes) {
+        background: themed('scrollbar-hover-color');
+    }
+}
+

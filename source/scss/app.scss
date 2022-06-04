@@ -17,13 +17,21 @@ view-only-task-list {
     display: flex;
     flex-direction: column;
     font-size: $h5-font-size;
+    overflow: hidden;
 
     @include themify($themes) {
         background-color: themed('task-list-background-color');
     }
 
+    @media screen and (max-width: 525px) {
+        .subtitle {
+            font-size: $h4-font-size;
+        }
+    }
+
     .task-list-container {
         height: 100%;
+        overflow-y: auto;
 
         input {
             width: 100%;
@@ -103,13 +111,24 @@ view-only-task-list {
 }
 
 editable-task-list {
-    padding: map-get($spacers, 5);
+    padding: map-get($spacers, 4) map-get($spacers, 5);
     height: 100%;
     margin-top: 2%;
+
+    .task-list-container {
+        padding: 0 $spacer * 0.75 0 0; 
+    }
 
     h5 {
         @include themify($themes) {
             color: themed('editable-task-list-label-text-color');
+        }
+    }
+
+    @media screen and (max-width: 992px) {
+        padding: map-get($spacers, 4);
+        .task-list-container {
+            padding: 0 map-get($spacers, 3); 
         }
     }
 }
@@ -123,14 +142,9 @@ view-only-task-list {
 
     @media screen and (max-width: 525px) {
         padding: map-get($spacers, 0) map-get($spacers, 3) map-get($spacers, 5) map-get($spacers, 3);
-        .subtitle {
-            font-size: $h4-font-size;
-        }
     }
 
     .task-list-container {
-        overflow-y: scroll;
-
         h3 {
             @include themify($themes) {
                 color: themed('input-text-color');
@@ -144,34 +158,6 @@ view-only-task-list {
             @include themify($themes) {
                 color: themed('input-text-color');
             }
-        }
-
-        &::-webkit-scrollbar-track,
-        &::-webkit-scrollbar {
-            @include themify($themes) {
-                background-color: themed('scrollbar-background-color');
-            }
-        }
-
-        &::-webkit-scrollbar-track {
-            border-radius: 10px;
-        }
-
-        &::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        &::-webkit-scrollbar-thumb {
-            border-radius: 10px;
-            background-color: #E5E7EB;
-        }
-
-        &::-webkit-scrollbar-thumb:vertical:hover {
-            background-color: #D1D5DB;
-        }
-
-        &::-webkit-scrollbar-thumb:vertical:active {
-            background-color: #9CA3AF;
         }
     }
 
