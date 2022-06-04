@@ -31,6 +31,7 @@ class WelcomeMessage extends HTMLElement {
   createEditNameButton() {
     const editIcon = document.createElement('i');
     editIcon.classList.add('fas', 'fa-pencil-alt', 'text-warning', 'edit-icon');
+    editIcon.title = 'Edit Name';
     editIcon.addEventListener('click', () => {
       this.enterEditMode();
     });
@@ -43,6 +44,7 @@ class WelcomeMessage extends HTMLElement {
   createFinishEditButton() {
     const saveBtn = document.createElement('button');
     saveBtn.classList.add('save-btn');
+    saveBtn.title = 'Confirm';
     const icon = document.createElement('i');
     icon.classList.add('fas', 'fa-check', 'text-success', 'save-icon');
     saveBtn.appendChild(icon);
@@ -66,7 +68,7 @@ class WelcomeMessage extends HTMLElement {
   createCancelEditButton() {
     const cancelBtn = document.createElement('i');
     cancelBtn.classList.add('fas', 'fa-times', 'text-danger', 'cancel-icon');
-
+    cancelBtn.title = 'Cancel';
     cancelBtn.addEventListener('click', () => {
       const name = backend.get('Username');
       this.enterDefaultMode(name);
