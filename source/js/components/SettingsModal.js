@@ -2,6 +2,7 @@
  * @file Creates and defines the functionality of the settings modal.
  * @author Steven Harris
  * @author Alan Wang
+ * @author Luke Menezes
  * Date: 05/11/2022
  */
 
