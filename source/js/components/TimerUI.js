@@ -51,7 +51,7 @@ class TimerUI extends HTMLElement {
 
     this.setAttribute('icon-text', 'START');
     // this.render();
-    this.classList.remove('timer-active');
+    this.icon.classList.add('timer-inactive');
   }
 
   /**
@@ -82,7 +82,7 @@ class TimerUI extends HTMLElement {
   startTimer() {
     // immediately update html
     this.text = `${TimerUI.parseMinutes(this.timer.minutes)} : ${TimerUI.parseSeconds(this.timer.seconds)}`;
-    this.classList.add('timer-active');
+    this.icon.classList.remove('timer-inactive');
     return this.timer.startTimer();
   }
 
@@ -128,7 +128,7 @@ class TimerUI extends HTMLElement {
     timerSVG.addEventListener('load', () => {
       let svgDoc = timerSVG.contentDocument;
 
-      // Fuck you jest
+      // Set svgDoc for jest unit tests 
       if (process.env.NODE_ENV === 'test') {
         svgDoc = timerSVG;
       }
@@ -136,7 +136,7 @@ class TimerUI extends HTMLElement {
       // Set svg classes to style as timer icon
       svgDoc.querySelector('svg').classList.value = 'w-100 h-100 position-absolute top-50 start-50 translate-middle';
       this.icon = svgDoc.querySelector('svg > g');
-      this.icon.classList.value = 'timer-image';
+      this.icon.classList.value = 'timer-image timer-inactive';
       this.icon.addEventListener('click', () => {
         // Bubble up the click event to set up / start timer in app.js
         this.dispatchEvent(new CustomEvent('iconclick'), {
