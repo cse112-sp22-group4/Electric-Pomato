@@ -23,13 +23,13 @@ import StatsModal from '../components/StatsModal.js';
 import * as backend from '../backend.js';
 
 // Icon assets
-import pomoIcon from '../../img/green-tomato.png';
-import breakIcon from '../../img/red-tomato.png';
+import pomoIcon from '../../assets/images/green-tomato.webp';
+import breakIcon from '../../assets/images/red-tomato.webp';
 
-const appIcon = new URL('../../img/favicon.ico', import.meta.url);
+const appIcon = new URL('../../assets/images/favicon.ico', import.meta.url);
 
 // Import audio from local file
-const notiSound = new URL('../../audio/notification-ping.mp3', import.meta.url);
+const notiSound = new URL('../../assets/audio/notification-ping.mp3', import.meta.url);
 
 /**
  * STATE:

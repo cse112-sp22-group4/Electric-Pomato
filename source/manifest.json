@@ -1,36 +1,36 @@
 {
-    "name": "Electric Pomato", 
+    "name": "Electric Pomato",
     "icons": [
         {
-            "src":"img/icons/icon144.png",
-            "sizes":"144x144",
-            "type":"image/png"
+            "src": "assets/icons/icon144.webp",
+            "sizes": "144x144",
+            "type": "image/webp"
         },
         {
-            "src": "img/icons/icon180.png", 
-            "sizes":"180x180",
-            "type":"image/png"
+            "src": "assets/icons/icon180.webp",
+            "sizes": "180x180",
+            "type": "image/webp"
         },
         {
-            "src": "img/icons/icon196.png", 
-            "sizes":"196x196",
-            "type":"image/png"
+            "src": "assets/icons/icon196.webp",
+            "sizes": "196x196",
+            "type": "image/webp"
         },
         {
-            "src": "img/icons/icon270.png", 
-            "sizes":"270x270",
-            "type":"image/png"
+            "src": "assets/icons/icon270.webp",
+            "sizes": "270x270",
+            "type": "image/webp"
         },
         {
-            "src": "img/icons/icon512.png", 
-            "sizes":"512x512",
-            "type":"image/png"
+            "src": "assets/icons/icon512.webp",
+            "sizes": "512x512",
+            "type": "image/webp"
         }
-    ], 
-    "theme_color":"#203647",
-    "display":"minimal-ui",
-    "start_url": "./index.html", 
+    ],
+    "theme_color": "#203647",
+    "display": "minimal-ui",
+    "start_url": "./index.html",
     "background_color": "#203647",
-    "scope":"./",
+    "scope": "./",
     "description": "Tomato-themed pomadoro timer"
 }
