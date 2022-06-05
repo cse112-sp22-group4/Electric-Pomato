@@ -128,7 +128,7 @@ class TimerUI extends HTMLElement {
     timerSVG.addEventListener('load', () => {
       let svgDoc = timerSVG.contentDocument;
 
-      // Set svgDoc for jest unit tests 
+      // Set svgDoc for jest unit tests
       if (process.env.NODE_ENV === 'test') {
         svgDoc = timerSVG;
       }
