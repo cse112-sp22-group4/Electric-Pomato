@@ -17,18 +17,19 @@ import PopUp from '../classes/PopUp.js';
 import EditableTaskList from '../components/EditableTaskList.js';
 import ViewOnlyTaskList from '../components/ViewOnlyTaskList.js';
 import TimerUI from '../components/TimerUI.js';
+import RemainingPomos from '../components/RemainingPomos.js';
 import FinishTaskButton from '../components/FinishTaskButton.js';
 import StatsModal from '../components/StatsModal.js';
 import * as backend from '../backend.js';
 
 // Icon assets
-import pomoIcon from '../../img/green-tomato.png';
-import breakIcon from '../../img/red-tomato.png';
+import pomoIcon from '../../assets/images/green-tomato.webp';
+import breakIcon from '../../assets/images/red-tomato.webp';
 
-const appIcon = new URL('../../img/favicon.ico', import.meta.url);
+const appIcon = new URL('../../assets/images/favicon.ico', import.meta.url);
 
 // Import audio from local file
-const notiSound = new URL('../../audio/notification-ping.mp3', import.meta.url);
+const notiSound = new URL('../../assets/audio/notification-ping.mp3', import.meta.url);
 
 /**
  * STATE:
@@ -57,6 +58,12 @@ const menuIcons = document.querySelector('menu-icons');
 
 // Finished state
 let finished = false;
+
+// Timer UI
+let timerUI = null;
+
+// Remaining Pomos
+let remainingPomos = null;
 
 // View only task list
 let votl = null;
@@ -179,6 +186,8 @@ function nextTask(object) {
   const svgDoc = document.querySelector('#timerIcon').contentDocument;
   votl.finishTask(backend.get('Timer') === 'true' && svgDoc.querySelector('.timer-text').textContent !== 'START');
 
+  if (votl.data.todo.length > 0) remainingPomos.setPomos(votl.data);
+
   // Update app title
   updateAppTitle(object.getChecked());
 
@@ -235,6 +244,7 @@ function playSound(link) {
  */
 function showTimerNotification() {
   const timerState = backend.get('Timer');
+  const audioToggle = backend.get('AudioToggle');
   const pomoAlert = {
     icon: null,
     body: null,
@@ -261,7 +271,9 @@ function showTimerNotification() {
           .then((notifications) => {
             setTimeout(() => notifications.forEach((notification) => notification.close()), 5000);
           }));
-      playSound(notiSound);
+      if (audioToggle === 'on') {
+        playSound(notiSound);
+      }
     });
 }
 
@@ -302,9 +314,11 @@ function handleClick(timer, taskList) {
         }
       }
 
+      remainingPomos.hiddenMode();
+
       // Create finish task button for this session
       const finishTaskButton = new FinishTaskButton(nextTask);
-      timer.appendChild(finishTaskButton);
+      remainingPomos.insertAdjacentElement('beforebegin', finishTaskButton);
 
       active = true;
       timer.startTimer().then(() => {
@@ -322,10 +336,11 @@ function handleClick(timer, taskList) {
             backend.set('TotalPomos', Number(backend.get('TotalPomos')) + 1);
             backend.set('CurrentPomos', Number(backend.get('CurrentPomos')) + 1);
             taskList.updateTime();
+            remainingPomos.updateCompletedPomos(taskList.data);
 
             // Alert the user if they have reached their expected number of pomos
             const endMessage = {
-              title: 'You have reached the expected Pomodoros for this task. Finish task or continue working?',
+              title: 'You have completed the planned Pomodoros for this task. Finish task or continue working?',
               leftButton: 'Finish Task',
               rightButton: 'Continue Working',
             };
@@ -344,13 +359,15 @@ function handleClick(timer, taskList) {
           }
 
           // Remove the finish task button
-          timer.lastElementChild.remove();
+          timer.querySelector('finish-task-button').remove();
 
-          if (('Notification' in window) && navigator.serviceWorker) {
+          if (('Notification' in window) && navigator.serviceWorker && Notification.permission === 'granted') {
             showTimerNotification();
           }
 
           backend.set('Timer', timerState === 'false');
+          remainingPomos.visibleMode();
+
           initTimer(timer);
           active = false;
         }
@@ -364,8 +381,11 @@ function handleClick(timer, taskList) {
  * @ignore
  */
 function showTimer() {
-  const timerUI = new TimerUI();
+  timerUI = new TimerUI();
   votl = new ViewOnlyTaskList();
+  remainingPomos = new RemainingPomos();
+
+  timerUI.appendChild(remainingPomos);
 
   // Call any helper functions to handle user events.
   handleClick(timerUI, votl);
