@@ -25,7 +25,7 @@ class EditableTaskListInput extends HTMLElement {
     // Store references to inputs/button to instance variable.
     [this.nameInput, this.expectedInput] = this.querySelectorAll('input');
     this.button = this.querySelector('button');
-
+    
     // Add event listener to both inputs to update button state.
     [this.nameInput, this.expectedInput].forEach((input) => {
       input.addEventListener('input', () => {
@@ -35,9 +35,13 @@ class EditableTaskListInput extends HTMLElement {
 
     // Add event listener to both inputs to add row on enter if inputs are valid.
     [this.nameInput, this.expectedInput].forEach((input) => {
-      input.addEventListener('keyup', (e) => {
+      input.addEventListener('keyup', (e) => { 
+        // if desktop enter key pressed, add row 
         if (e.code === 'Enter' && !this.button.disabled) {
           this.addRow();
+        // otherwise, just exit the input 
+        } else if (e.key == 'Enter') {
+          input.blur(); 
         }
       });
     });
@@ -83,6 +87,7 @@ class EditableTaskListInput extends HTMLElement {
     this.nameInput.value = '';
     this.expectedInput.value = '1';
     this.nameInput.focus();
+    this.nameInput.scrollIntoView(); 
     this.updateButtonState();
     if (this.resetCount > 0) {
       this.querySelector('tomato-slider').render();
