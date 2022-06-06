@@ -5,31 +5,31 @@
             "src": "assets/icons/icon144.png",
             "sizes": "144x144",
             "type": "image/png",
-            "purpose": "any maskable"
+            "purpose": "any"
         },
         {
             "src": "assets/icons/icon180.png",
             "sizes": "180x180",
             "type": "image/png",
-            "purpose": "any maskable"
+            "purpose": "maskable"
         },
         {
             "src": "assets/icons/icon196.png",
             "sizes": "196x196",
             "type": "image/png",
-            "purpose": "any maskable"
+            "purpose": "maskable"
         },
         {
             "src": "assets/icons/icon270.png",
             "sizes": "270x270",
             "type": "image/png",
-            "purpose": "any maskable"
+            "purpose": "maskable"
         },
         {
             "src": "assets/icons/icon512.png",
             "sizes": "512x512",
             "type": "image/png",
-            "purpose": "any maskable"
+            "purpose": "maskable"
         }
     ],
     "theme_color": "#203647",
@@ -37,5 +37,5 @@
     "start_url": "./index.html",
     "background_color": "#203647",
     "scope": "./",
-    "description": "Tomato-themed pomadoro timer"
+    "description": "Tomato-themed pomodoro timer"
 }
