@@ -194,18 +194,15 @@ finish-task-button {
     transform: scale(0.9);
 }
 
-.timer-image:hover {
-    cursor: pointer;
-    transform: scale(1);
-}
+.timer-inactive {
+    &:hover {
+        cursor: pointer;
+        transform: scale(1);
+    }
 
-.timer-image:active {
-    transform: scale(0.9);
-}
-
-.timer-active .timer-image:hover {
-    cursor: default;
-    transform: scale(0.9);
+    &:active {
+        transform: scale(0.9);
+    }
 }
 
 .slider-tomato-container {
