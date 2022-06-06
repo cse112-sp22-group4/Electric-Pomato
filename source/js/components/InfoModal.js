@@ -40,7 +40,7 @@ class InfoModal extends HTMLElement {
                 <div class="card-description">
                   <img class="desktop-image" src=${CreateTaskListImage} alt="Create Task List View"/>
                   <img class="mobile-image" src=${CreateTaskListMobileImage} alt="Create Task List View"/>
-                  <p>Each task asks for a name, and the planned Pomodoros that will be needed (1-5). Once you've finished making your tasks, start your session!</p>
+                  <p>Each task asks for a name, and the planned Pomodoros that will be needed. Once you've finished making your tasks, start your session! (TIP: Use CTRL + Arrow keys to quickly change the number of planned pomos!)</p>
                 </div>
               </div>
               <p class="card-endnote">Don't know what a Pomodoro is? A Pomodoro is an aspect of the Pomodoro Technique. The technique pushes the user to work on tasks in 25 minute chunks (Pomodoros) with breaks between, and long breaks after 4 Pomodoros.</p>
