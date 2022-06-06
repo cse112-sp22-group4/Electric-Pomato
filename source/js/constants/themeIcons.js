@@ -1,10 +1,10 @@
-import tomatoWhite from '../../img/tomWhite.svg';
-import tomatoPomo from '../../img/tomGreen.svg';
-import tomatoBreak from '../../img/tomRed.svg';
+import tomatoWhite from '../../assets/images/tomWhite.svg';
+import tomatoPomo from '../../assets/images/tomGreen.svg';
+import tomatoBreak from '../../assets/images/tomRed.svg';
 
-import bombWhite from '../../img/bombWhite.svg';
-import bombPomo from '../../img/bombPomo.svg';
-import bombBreak from '../../img/bombBreak.svg';
+import bombWhite from '../../assets/images/bombWhite.svg';
+import bombPomo from '../../assets/images/bombPomo.svg';
+import bombBreak from '../../assets/images/bombBreak.svg';
 
 // Theme object setter
 const svgIcons = {
