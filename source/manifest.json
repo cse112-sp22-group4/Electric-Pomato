@@ -2,29 +2,34 @@
     "name": "Electric Pomato",
     "icons": [
         {
-            "src": "assets/icons/icon144.webp",
+            "src": "assets/icons/icon144.png",
             "sizes": "144x144",
-            "type": "image/webp"
+            "type": "image/png",
+            "purpose": "any"
         },
         {
-            "src": "assets/icons/icon180.webp",
+            "src": "assets/icons/icon180.png",
             "sizes": "180x180",
-            "type": "image/webp"
+            "type": "image/png",
+            "purpose": "maskable"
         },
         {
-            "src": "assets/icons/icon196.webp",
+            "src": "assets/icons/icon196.png",
             "sizes": "196x196",
-            "type": "image/webp"
+            "type": "image/png",
+            "purpose": "maskable"
         },
         {
-            "src": "assets/icons/icon270.webp",
+            "src": "assets/icons/icon270.png",
             "sizes": "270x270",
-            "type": "image/webp"
+            "type": "image/png",
+            "purpose": "maskable"
         },
         {
-            "src": "assets/icons/icon512.webp",
+            "src": "assets/icons/icon512.png",
             "sizes": "512x512",
-            "type": "image/webp"
+            "type": "image/png",
+            "purpose": "maskable"
         }
     ],
     "theme_color": "#203647",
@@ -32,5 +37,5 @@
     "start_url": "./index.html",
     "background_color": "#203647",
     "scope": "./",
-    "description": "Tomato-themed pomadoro timer"
+    "description": "Tomato-themed pomodoro timer"
 }
