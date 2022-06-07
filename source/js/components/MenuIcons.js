@@ -8,7 +8,7 @@
 import * as backend from '../backend.js';
 import PopUp from '../classes/PopUp.js';
 
-alert('This alert is really cool! But not as cool as you!');
+console.log('This change is really cool! But not as cool as you!');
 /**
 * Creates the HTML for the menu icons
 * @extends HTMLElement
