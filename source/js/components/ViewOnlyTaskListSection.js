@@ -23,9 +23,6 @@ class ViewOnlyTaskListSection extends HTMLElement {
     this.insertTitle(title);
     this.insertHeaderRow();
     data.forEach(({ name, expected, actual }, i) => {
-      if (name.length > 15) {
-        name = `${name.substring(0, 15)}...`;
-      }
       this.insertRow(i + 1, name, expected, actual, title);
     });
   }
