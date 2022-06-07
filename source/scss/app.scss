@@ -65,7 +65,7 @@ view-only-task-list {
 
         .row>div {
             padding: map-get($spacers, 2);
-            overflow: hidden;
+            overflow-wrap: break-word;
         }
 
         .actions {
