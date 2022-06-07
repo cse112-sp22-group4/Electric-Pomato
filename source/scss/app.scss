@@ -65,6 +65,7 @@ view-only-task-list {
 
         .row>div {
             padding: map-get($spacers, 2);
+            overflow: hidden;
         }
 
         .actions {
@@ -139,12 +140,14 @@ view-only-task-list {
     transition: top 0.5s;
     bottom: 0;
     width: 100%;
+    //overflow: hidden;
 
     @media screen and (max-width: 525px) {
         padding: map-get($spacers, 0) map-get($spacers, 3) map-get($spacers, 5) map-get($spacers, 3);
     }
 
     .task-list-container {
+        // overflow: hidden;
         h3 {
             @include themify($themes) {
                 color: themed('input-text-color');
