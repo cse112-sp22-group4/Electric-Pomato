@@ -95,6 +95,9 @@ beforeEach(() => {
             </div>
         </div>
     </template>`;
+
+    // mock scrollIntoView() for tests
+    window.HTMLElement.prototype.scrollIntoView = jest.fn();  
 });
 
 test('Blank Test', () => {
