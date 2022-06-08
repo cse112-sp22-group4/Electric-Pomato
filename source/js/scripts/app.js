@@ -84,6 +84,18 @@ function isLongBreak() {
 }
 
 /**
+ * Shortens longer task titles to 20 characters and ...
+ * @param {string} title - task title to shorten
+ * @return {string} shortened task title
+ */
+function shortenTaskTitle(title) {
+  if (title.length > 20) {
+    title = `${title.substring(0, 20)}...`;
+  }
+  return title;
+}
+
+/**
  * Handles all things that need to be done on timer tick, like updating website title
  */
 function handleTick(event) {
@@ -153,16 +165,16 @@ function updateAppTitle(taskFinished) {
     handleEndOfSession();
   } else if (backend.get('Timer') === 'true') {
     if (taskFinished) {
-      appTitle.textContent = `Focus: ${taskList.todo[0].name}`;
+      appTitle.textContent = `Focus: ${shortenTaskTitle(taskList.todo[0].name)}`;
     } else {
-      subtitle = `Focus: ${taskList.todo[0].name}`;
+      subtitle = `Focus: ${shortenTaskTitle(taskList.todo[0].name)}`;
     }
   } else if (taskFinished && length > 1) {
-    subtitle = `Next Task: ${taskList.todo[0].name}`;
+    subtitle = `Next Task: ${shortenTaskTitle(taskList.todo[0].name)}`;
   } else if (length === 1) {
-    subtitle = `Final Task: ${taskList.todo[0].name}`;
+    subtitle = `Final Task: ${shortenTaskTitle(taskList.todo[0].name)}`;
   } else {
-    subtitle = `Current Task: ${taskList.todo[0].name}`;
+    subtitle = `Current Task: ${shortenTaskTitle(taskList.todo[0].name)}`;
   }
   appSubtitle.textContent = subtitle;
 }
