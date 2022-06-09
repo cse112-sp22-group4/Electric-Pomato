@@ -49,7 +49,7 @@ Welcome! We are The TBDs, a group of 8 students enrolled in Spring 2022's CSE 11
 
 ## Contributing
 
-To start contributing, first look over our [onboarding](https://github.com/cse112-sp22-group4/Electric-Pomato/blob/main/specs/onboard.md) doc to familiarize yourself with our repo. Then make sure to check our wikis on [creating issues](https://github.com/cse112-sp22-group4/Electric-Pomato/wiki/How-to-Post-an-Issue-on-Github), and [working on issues](https://github.com/cse112-sp22-group4/Electric-Pomato/wiki/How-to-Work-on-an-Issue). Good place to start is with the [peer reviews](https://github.com/cse112-sp22-group4/Electric-Pomato/blob/main/admin/misc/Notes%20from%20Peer%20Reviews.pdf)
+To start contributing, first look over our [onboarding](https://github.com/cse112-sp22-group4/Electric-Pomato/blob/main/specs/onboard.md) doc to familiarize yourself with our repo. Then make sure to check our wikis on [creating issues](https://github.com/cse112-sp22-group4/Electric-Pomato/wiki/How-to-Post-an-Issue-on-Github), and [working on issues](https://github.com/cse112-sp22-group4/Electric-Pomato/wiki/How-to-Work-on-an-Issue). Good place to start is with the [peer reviews](https://github.com/cse112-sp22-group4/Electric-Pomato/blob/main/admin/misc/Notes%20from%20Peer%20Reviews.pdf).
 
 ## Contributors
 
