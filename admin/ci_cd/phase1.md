@@ -62,4 +62,4 @@ The final step in our pipeline is deploying the new feature to the production we
 This step is implemented using Github Actions and is the second job defined in the workflow at `.github/workflows/deploy.yml`. After running the build script on the source code, the job pushes the code and docs in the `dist/` folder to the `production` branch and deploys the branch to Github Pages. This step in our pipeline is currently functional and will continue to work as we add new features to the web app. 
 
 ## Demo video
-A video demo of our phase 1 pipeline can be found [here]() (add video later)
+A video demo of our phase 1 pipeline can be found [here](https://youtu.be/7XHOY6MUNAA)
