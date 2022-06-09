@@ -4,7 +4,7 @@
 Resources to get started:
 
 - [Current Design Idea](https://www.figma.com/file/0xkjAbdUK1WsQjAqwKRYTc/Electric-Pomato-Prototype?node-id=0%3A1)
-- [Previous ideas that have already been implemented](https://github.com/cse112-sp22-group4/Electric-Pomato/blob/main/specs/adrs/Sprint2-ADR.md)
+- [Previous ideas that have already been implemented](https://github.com/cse112-sp22-group4/Electric-Pomato/blob/main/specs/adrs/052022-sprint2-ADR.md)
 - Ask anyone from design team about this.
 
 ## Status: accepted
