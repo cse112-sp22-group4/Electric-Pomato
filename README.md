@@ -7,6 +7,8 @@ Welcome! We are The TBDs, a group of 8 students enrolled in Spring 2022's CSE 11
 - [Our website](https://cse112-sp22-group4.github.io/Electric-Pomato/)
 - [JSDocs Documentation](https://cse112-sp22-group4.github.io/Electric-Pomato/docs/cse112-spr22-group4/0.8.0/index.html)
 - [Onboarding Process](https://github.com/cse112-sp22-group4/Electric-Pomato/blob/main/specs/onboard.md) for new members.
+- [Final Public Video](https://youtu.be/S8_4U5j35cs)
+- [Final Private Video](https://youtu.be/6IFvMrvgtxw)
 
 ![image](https://user-images.githubusercontent.com/50246963/171939844-da0fb03e-c243-46ca-846e-b1e9505a75b0.png)
 
@@ -30,6 +32,12 @@ Welcome! We are The TBDs, a group of 8 students enrolled in Spring 2022's CSE 11
 - Run unit tests that are found in `source/__tests__/` by running jest, `npm run test`.
 - To get the code coverage report, please run: `npm run coverage`.
 
+## Running end-to-end tests with Cypress
+- Make sure repo is up-to-date, `npm ci`.
+- Start the dev server using `npm run dev`. 
+- Run cypress tests by running `npx cypress run`. 
+- Note: Some tests require an active service worker and can only be run through the pipeline 
+
 ## Branches
 - To make sure your code is synced with the repo, and up-to-date, run `git fetch --all`.
 - To remove old/deleted branches from your local machine, run `git fetch --prune`.
@@ -41,7 +49,7 @@ Welcome! We are The TBDs, a group of 8 students enrolled in Spring 2022's CSE 11
 
 ## Contributing
 
-To start contributing, first look over our [onboarding](https://github.com/cse112-sp22-group4/Electric-Pomato/blob/main/specs/onboard.md) doc to familiarize yourself with our repo. Then make sure to check our wikis on [creating issues](https://github.com/cse112-sp22-group4/Electric-Pomato/wiki/How-to-Post-an-Issue-on-Github), and [working on issues](https://github.com/cse112-sp22-group4/Electric-Pomato/wiki/How-to-Work-on-an-Issue). Good place to start is with the [peer reviews](https://github.com/cse112-sp22-group4/Electric-Pomato/blob/main/admin/misc/Notes%20from%20Peer%20Reviews.pdf)
+To start contributing, first look over our [onboarding](https://github.com/cse112-sp22-group4/Electric-Pomato/blob/main/specs/onboard.md) doc to familiarize yourself with our repo. Then make sure to check our wikis on [creating issues](https://github.com/cse112-sp22-group4/Electric-Pomato/wiki/How-to-Post-an-Issue-on-Github), and [working on issues](https://github.com/cse112-sp22-group4/Electric-Pomato/wiki/How-to-Work-on-an-Issue). Good place to start is with the [peer reviews](https://github.com/cse112-sp22-group4/Electric-Pomato/blob/main/admin/misc/Notes%20from%20Peer%20Reviews.pdf).
 
 ## Contributors
 
