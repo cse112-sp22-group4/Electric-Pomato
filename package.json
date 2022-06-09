@@ -1,11 +1,8 @@
 {
-  "name": "cse112-spr22-group4",
-  "version": "0.8.0",
-  "description": "Electric Pomato!",
+  "name": "electric-pomato",
+  "version": "1.0.0",
   "type": "module",
   "license": "ISC",
-  "author": "",
-  "keywords": [],
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "source": [
     "source/app.html",
